@@ -15,6 +15,10 @@ namespace Hadia.Data.Configs
             builder.HasMany(x => x.Districts)
                .WithOne(x => x.State)
                .HasForeignKey(x => x.StateId);
+
+
+
+            builder.Property(x => x.StateName).HasMaxLength(128);
         }
     }
 }
