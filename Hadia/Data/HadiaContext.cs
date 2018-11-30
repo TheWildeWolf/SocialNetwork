@@ -20,7 +20,9 @@ namespace Hadia.Data
         public DbSet<Mem_SpouseEducationMaster> Mem_SpouseEducationMasters { get; set; }
         public DbSet<Mem_StateMaster> Mem_StateMasters { get; set; }
         public DbSet<Mem_DistrictMaster> Mem_DistrictMasters { get; set; }
-
+        public DbSet<Mem_UniversityMaster> Mem_UniversityMasters { get; set; }
+        public DbSet<Mem_CountryCode> Mem_CountryCodes { get; set; }
+        public DbSet<Mem_UgColleges> Mem_UgColleges { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -29,6 +31,7 @@ namespace Hadia.Data
             modelBuilder.ApplyConfiguration(new Post_GroupMasterConfig());
             modelBuilder.ApplyConfiguration(new Post_GroupMembersConfig());
 
+            modelBuilder.ApplyConfiguration(new Mem_CountryCodeConfig());
         }
     }
 

@@ -49,6 +49,7 @@ namespace Hadia.Models.DomainModels
         public ICollection<Post_GroupMember> MembersModified { get; set; }
 
 
+        public ICollection<Mem_UgColleges> UgColleges { get; set; }
 
     }
 

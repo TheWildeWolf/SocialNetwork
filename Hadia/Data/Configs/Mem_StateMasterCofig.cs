@@ -16,6 +16,8 @@ namespace Hadia.Data.Configs
                .WithOne(x => x.State)
                .HasForeignKey(x => x.StateId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Property(x => x.StateName).HasMaxLength(128);
         }
     }
 }
