@@ -19,7 +19,8 @@ namespace Hadia.Data
         public DbSet<Mem_SpouseEducationMaster> Mem_SpouseEducationMasters { get; set; }
         public DbSet<Mem_StateMaster> Mem_StateMasters { get; set; }
         public DbSet<Mem_DistrictMaster> Mem_DistrictMasters { get; set; }
-
+        public DbSet<Mem_UniversityMaster> Mem_UniversityMasters { get; set; }
+        public DbSet<Mem_CountryCodes> Mem_CountryCodes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
