@@ -19,6 +19,8 @@ namespace Hadia.Models.DomainModels
         public int CLogin { get; set; }
 
         public Mem_Master CreatedBy { get; set; }
+
+        public ICollection<Post_GroupMember> GroupMembers { get; set; }
     }
 
     public enum GroupType : byte

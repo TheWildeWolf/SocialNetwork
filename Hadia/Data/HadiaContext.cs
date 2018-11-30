@@ -26,6 +26,9 @@ namespace Hadia.Data
         {
             modelBuilder.ApplyConfiguration(new Mem_MasterConfig());
             modelBuilder.ApplyConfiguration(new Mem_StateMasterCofig());
+            modelBuilder.ApplyConfiguration(new Post_GroupMasterConfig());
+            modelBuilder.ApplyConfiguration(new Post_GroupMembersConfig());
+
         }
     }
 

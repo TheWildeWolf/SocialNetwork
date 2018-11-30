@@ -12,7 +12,13 @@ namespace Hadia.Data.Configs
     {
         public void Configure(EntityTypeBuilder<Post_GroupMaster> builder)
         {
-            builder.Property(x=>x.)
+            builder.Property(x => x.GroupName).HasMaxLength(100);
+            builder.Property(x => x.PassoutYear).HasMaxLength(125);
+
+            builder.HasOne(x => x.CreatedBy)
+                .WithMany(x => x.CreatedGroups)
+                .HasForeignKey(x => x.CLogin);
+
         }
     }
 }

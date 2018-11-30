@@ -15,15 +15,15 @@ namespace Hadia.Models.DomainModels
         public bool IsActive { get; set; }
 
         public DateTime CDate { get; set; }
-        public int CreatedBy { get; set; }
+        public int AddedBy { get; set; }
 
         public DateTime MDate { get; set; }
         public int ModifiedBy { get; set; }
 
-        public Mem_Master CreatedMember { get; set; }
+        public Mem_Master AddedMember { get; set; }
         public Mem_Master ModifiedMember { get; set; }
 
-
+        public Post_GroupMaster GroupMaster { get; set; }
         
     }
 }

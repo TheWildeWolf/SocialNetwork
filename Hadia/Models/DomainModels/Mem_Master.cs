@@ -43,6 +43,12 @@ namespace Hadia.Models.DomainModels
         public ICollection<Mem_StateMaster> StateMasters { get; set; }
         public ICollection<Mem_DistrictMaster> DistrictMasters { get; set; }
         public ICollection<Mem_UniversityMaster> UniversityMasters { get; set; }
+        public ICollection<Post_GroupMaster> CreatedGroups { get; set; }
+
+        public ICollection<Post_GroupMember> MembersAdded { get; set; }
+        public ICollection<Post_GroupMember> MembersModified { get; set; }
+
+
 
     }
 
