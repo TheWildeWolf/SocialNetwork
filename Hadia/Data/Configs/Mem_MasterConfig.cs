@@ -36,6 +36,10 @@ namespace Hadia.Data.Configs
             builder.HasMany(x => x.UniversityMasters)
               .WithOne(x => x.CreatedBy)
               .HasForeignKey(x => x.CLogin);
+
+            builder.HasMany(x => x.UgColleges)
+              .WithOne(x => x.CreatedBy)
+              .HasForeignKey(x => x.CLogin);
         }
     }
 }

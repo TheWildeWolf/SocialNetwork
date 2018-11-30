@@ -5,13 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <Compile Remove="Models\DataTransferObjects\**" />
+    <Content Remove="Models\DataTransferObjects\**" />
+    <EmbeddedResource Remove="Models\DataTransferObjects\**" />
+    <None Remove="Models\DataTransferObjects\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\DataTransferObjects\" />
-    <Folder Include="Models\ViewModels\" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
   </ItemGroup>
 
 </Project>
