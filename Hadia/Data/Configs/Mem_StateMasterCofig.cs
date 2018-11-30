@@ -14,6 +14,8 @@ namespace Hadia.Data.Configs
         {
             builder.HasMany(x => x.Districts)
                .WithOne(x => x.State)
+               .HasForeignKey(x => x.StateId)
+                .OnDelete(DeleteBehavior.Restrict);
                .HasForeignKey(x => x.StateId);
 
 

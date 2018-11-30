@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Hadia.Data.Configs;
 using Hadia.Models.DomainModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 
 namespace Hadia.Data
 {
@@ -28,5 +29,7 @@ namespace Hadia.Data
             modelBuilder.ApplyConfiguration(new Mem_StateMasterCofig());
         }
     }
+
+
 
 }
