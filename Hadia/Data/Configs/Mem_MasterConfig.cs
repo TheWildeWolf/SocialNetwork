@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Hadia.Data.Configs
 {
-    public class Prof_MemberConfig : IEntityTypeConfiguration<Mem_Master>
+    public class Mem_MasterConfig : IEntityTypeConfiguration<Mem_Master>
     {
         public void Configure(EntityTypeBuilder<Mem_Master> builder)
         {

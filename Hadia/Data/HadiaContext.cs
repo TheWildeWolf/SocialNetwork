@@ -21,7 +21,7 @@ namespace Hadia.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new Prof_MemberConfig());
+            modelBuilder.ApplyConfiguration(new Mem_MasterConfig());
         }
     }
 
