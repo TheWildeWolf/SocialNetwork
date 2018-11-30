@@ -23,9 +23,7 @@ namespace Hadia.Models.DomainModels
         public DateTime? SpouseAge { get; set; }
 
         public int SpouseEducationId { get; set; }
-
-        public int BatchId { get; set; }
-        public int ChapterId { get; set; }
+        public int GroupId { get; set; }
         public bool IsBatchAdmin { get; set; }
         public string Email { get; set; }
 
