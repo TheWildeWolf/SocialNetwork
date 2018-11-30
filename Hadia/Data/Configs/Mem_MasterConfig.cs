@@ -17,10 +17,21 @@ namespace Hadia.Data.Configs
             builder.Property(x => x.AdNo).IsRequired();
             builder.Property(x => x.PresentAddress).IsRequired();
 
-            builder.HasMany(x => x.EducationalQualifications)
+            builder.HasMany(x => x.EducationalQualificationMasters)
                     .WithOne(x => x.CreatedBy)
                     .HasForeignKey(x => x.CLogin);
-                
+
+            builder.HasMany(x => x.SpouseEducationMasters)
+            .WithOne(x => x.CreatedBy)
+            .HasForeignKey(x => x.CLogin);
+
+            builder.HasMany(x => x.StateMasters)
+                .WithOne(x => x.CreatedBy)
+                .HasForeignKey(x => x.CLogin);
+
+            builder.HasMany(x => x.DistrictMasters)
+                .WithOne(x => x.CreatedBy)
+                .HasForeignKey(x => x.CLogin);
         }
     }
 }

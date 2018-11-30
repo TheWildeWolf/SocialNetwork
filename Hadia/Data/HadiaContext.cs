@@ -15,13 +15,16 @@ namespace Hadia.Data
         }
 
         public DbSet<Mem_Master> Mem_Masters { get; set; }
-        public DbSet<Mem_EducationalQualification> Mem_EducationalQualifications { get; set; }
-
+        public DbSet<Mem_EducationalQualificationMaster> Mem_EducationalQualifications { get; set; }
+        public DbSet<Mem_SpouseEducationMaster> Mem_SpouseEducationMasters { get; set; }
+        public DbSet<Mem_StateMaster> Mem_StateMasters { get; set; }
+        public DbSet<Mem_DistrictMaster> Mem_DistrictMasters { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new Mem_MasterConfig());
+            modelBuilder.ApplyConfiguration(new Mem_StateMasterCofig());
         }
     }
 

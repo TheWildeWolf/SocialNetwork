@@ -38,7 +38,11 @@ namespace Hadia.Models.DomainModels
 
         public int MyProperty { get; set; }
 
-        public  ICollection<Mem_EducationalQualification> EducationalQualifications { get; set; }
+        public ICollection<Mem_EducationalQualificationMaster> EducationalQualificationMasters { get; set; }
+        public ICollection<Mem_SpouseEducationMaster> SpouseEducationMasters { get; set; }
+        public ICollection<Mem_StateMaster> StateMasters { get; set; }
+        public ICollection<Mem_DistrictMaster> DistrictMasters { get; set; }
+        public ICollection<Mem_UniversityMaster> UniversityMasters { get; set; }
 
 
     }
