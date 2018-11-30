@@ -4,46 +4,22 @@ using Hadia.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Hadia.Migrations
 {
     [DbContext(typeof(HadiaContext))]
-    partial class HadiaContextModelSnapshot : ModelSnapshot
+    [Migration("20181130131802_CreateMemberContacts")]
+    partial class CreateMemberContacts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Hadia.Models.DomainModels.Mem_AdminPrivilage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("AdminAccess");
-
-                    b.Property<bool>("AluminiDataAccess");
-
-                    b.Property<bool>("BlockAccess");
-
-                    b.Property<bool>("HafAccess");
-
-                    b.Property<int>("MemberId");
-
-                    b.Property<bool>("MemberPosting");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MemberId")
-                        .IsUnique();
-
-                    b.ToTable("Mem_AdminPrivilage");
-                });
 
             modelBuilder.Entity("Hadia.Models.DomainModels.Mem_CountryCode", b =>
                 {
@@ -354,14 +330,6 @@ namespace Hadia.Migrations
                     b.HasIndex("ModifiedBy");
 
                     b.ToTable("Post_GroupMembers");
-                });
-
-            modelBuilder.Entity("Hadia.Models.DomainModels.Mem_AdminPrivilage", b =>
-                {
-                    b.HasOne("Hadia.Models.DomainModels.Mem_Master", "Member")
-                        .WithOne("Privilage")
-                        .HasForeignKey("Hadia.Models.DomainModels.Mem_AdminPrivilage", "MemberId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Hadia.Models.DomainModels.Mem_DistrictMaster", b =>

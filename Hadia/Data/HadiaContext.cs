@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Hadia.Data.Configs;
 using Hadia.Models.DomainModels;
@@ -23,15 +24,30 @@ namespace Hadia.Data
         public DbSet<Mem_UniversityMaster> Mem_UniversityMasters { get; set; }
         public DbSet<Mem_CountryCode> Mem_CountryCodes { get; set; }
         public DbSet<Mem_UgColleges> Mem_UgColleges { get; set; }
+        public DbSet<Mem_Photo> Mem_Photos { get; set; }
+        public DbSet<Mem_MemberContanct> Mem_MemberContancts { get; set; }
+
+        public DbSet<Post_GroupMember> Post_GroupMembers { get; set; }
+        public DbSet<Post_GroupMaster> Post_GroupMasters { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new Mem_MasterConfig());
-            modelBuilder.ApplyConfiguration(new Mem_StateMasterCofig());
-            modelBuilder.ApplyConfiguration(new Post_GroupMasterConfig());
-            modelBuilder.ApplyConfiguration(new Post_GroupMembersConfig());
+            //modelBuilder.ApplyConfiguration(new Mem_MasterConfig());
+            //modelBuilder.ApplyConfiguration(new Mem_StateMasterCofig());
+            //modelBuilder.ApplyConfiguration(new Post_GroupMasterConfig());
+            //modelBuilder.ApplyConfiguration(new Post_GroupMembersConfig());
+            //modelBuilder.ApplyConfiguration(new Mem_PhotosConfig());
+            //modelBuilder.ApplyConfiguration(new Mem_CountryCodeConfig());
 
-            modelBuilder.ApplyConfiguration(new Mem_CountryCodeConfig());
+            var typesToRegister = Assembly.GetExecutingAssembly().GetTypes()
+                .Where(t => t.GetInterfaces().Any(gi => gi.IsGenericType && gi.GetGenericTypeDefinition() == typeof(IEntityTypeConfiguration<>))).ToList();
+
+
+            foreach (var type in typesToRegister)
+            {
+                dynamic configurationInstance = Activator.CreateInstance(type);
+                modelBuilder.ApplyConfiguration(configurationInstance);
+            }
         }
     }
 

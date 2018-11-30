@@ -4,46 +4,22 @@ using Hadia.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Hadia.Migrations
 {
     [DbContext(typeof(HadiaContext))]
-    partial class HadiaContextModelSnapshot : ModelSnapshot
+    [Migration("20181130124726_CreateMemPhotoTable")]
+    partial class CreateMemPhotoTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Hadia.Models.DomainModels.Mem_AdminPrivilage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("AdminAccess");
-
-                    b.Property<bool>("AluminiDataAccess");
-
-                    b.Property<bool>("BlockAccess");
-
-                    b.Property<bool>("HafAccess");
-
-                    b.Property<int>("MemberId");
-
-                    b.Property<bool>("MemberPosting");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MemberId")
-                        .IsUnique();
-
-                    b.ToTable("Mem_AdminPrivilage");
-                });
 
             modelBuilder.Entity("Hadia.Models.DomainModels.Mem_CountryCode", b =>
                 {
@@ -161,31 +137,6 @@ namespace Hadia.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Mem_Masters");
-                });
-
-            modelBuilder.Entity("Hadia.Models.DomainModels.Mem_MemberContanct", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CDate");
-
-                    b.Property<int>("ConuntryCodeId");
-
-                    b.Property<bool>("IsVerified");
-
-                    b.Property<int>("MemberId");
-
-                    b.Property<byte>("Type");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ConuntryCodeId");
-
-                    b.HasIndex("MemberId");
-
-                    b.ToTable("Mem_MemberContancts");
                 });
 
             modelBuilder.Entity("Hadia.Models.DomainModels.Mem_Photo", b =>
@@ -356,14 +307,6 @@ namespace Hadia.Migrations
                     b.ToTable("Post_GroupMembers");
                 });
 
-            modelBuilder.Entity("Hadia.Models.DomainModels.Mem_AdminPrivilage", b =>
-                {
-                    b.HasOne("Hadia.Models.DomainModels.Mem_Master", "Member")
-                        .WithOne("Privilage")
-                        .HasForeignKey("Hadia.Models.DomainModels.Mem_AdminPrivilage", "MemberId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("Hadia.Models.DomainModels.Mem_DistrictMaster", b =>
                 {
                     b.HasOne("Hadia.Models.DomainModels.Mem_Master", "CreatedBy")
@@ -383,19 +326,6 @@ namespace Hadia.Migrations
                         .WithMany("EducationalQualificationMasters")
                         .HasForeignKey("CLogin")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Hadia.Models.DomainModels.Mem_MemberContanct", b =>
-                {
-                    b.HasOne("Hadia.Models.DomainModels.Mem_CountryCode", "CountryCode")
-                        .WithMany("Contancts")
-                        .HasForeignKey("ConuntryCodeId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Hadia.Models.DomainModels.Mem_Master", "Member")
-                        .WithMany("Contacts")
-                        .HasForeignKey("MemberId")
-                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Hadia.Models.DomainModels.Mem_Photo", b =>
