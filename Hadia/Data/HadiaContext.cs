@@ -15,7 +15,7 @@ namespace Hadia.Data
         }
 
         public DbSet<Mem_Master> Mem_Masters { get; set; }
-
+        public DbSet<Mem_EducationalQualification> Mem_EducationalQualifications { get; set; }
 
 
 

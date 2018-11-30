@@ -37,6 +37,12 @@ namespace Hadia.Models.DomainModels
         public int VarifiedBy { get; set; }
         public DateTime? VarifiedDate { get; set; }
 
+
+        public int MyProperty { get; set; }
+
+        public  ICollection<Mem_EducationalQualification> EducationalQualifications { get; set; }
+
+
     }
 
     public enum MaritalStatus :byte

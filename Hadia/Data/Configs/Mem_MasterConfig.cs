@@ -16,6 +16,11 @@ namespace Hadia.Data.Configs
             builder.Property(x => x.Name).HasMaxLength(128).IsRequired();
             builder.Property(x => x.AdNo).IsRequired();
             builder.Property(x => x.PresentAddress).IsRequired();
+
+            builder.HasMany(x => x.EducationalQualifications)
+                    .WithOne(x => x.CreatedBy)
+                    .HasForeignKey(x => x.CLogin);
+                
         }
     }
 }

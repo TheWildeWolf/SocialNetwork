@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Hadia.Models;
+using Hadia.Data;
 
 namespace Hadia.Controllers
 {
@@ -12,6 +13,7 @@ namespace Hadia.Controllers
     {
         public IActionResult Index()
         {
+          
             return View();
         }
 
