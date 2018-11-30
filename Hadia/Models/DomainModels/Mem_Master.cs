@@ -45,7 +45,6 @@ namespace Hadia.Models.DomainModels
         public ICollection<Mem_UniversityMaster> UniversityMasters { get; set; }
         public ICollection<Mem_UgColleges> UgColleges { get; set; }
 
-
     }
 
     public enum MaritalStatus :byte
