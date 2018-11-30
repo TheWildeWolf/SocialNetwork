@@ -5,13 +5,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <Compile Remove="Models\DataTransferObjects\**" />
+    <Content Remove="Models\DataTransferObjects\**" />
+    <EmbeddedResource Remove="Models\DataTransferObjects\**" />
+    <None Remove="Models\DataTransferObjects\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\DataTransferObjects\" />
-    <Folder Include="Models\ViewModels\" />
+    <Compile Remove="Migrations\20181130104011_CreateMemberMasterAndOtherMasters.cs" />
+    <Compile Remove="Migrations\20181130104011_CreateMemberMasterAndOtherMasters.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
   </ItemGroup>
 
 </Project>
