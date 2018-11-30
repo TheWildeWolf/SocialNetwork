@@ -14,5 +14,9 @@ namespace Hadia.Models.DomainModels
         public int CLogin { get; set; }
 
         public Mem_Master CreatedBy { get; set; }
+        public ICollection<Mem_EducationDetail> EducationDetails { get; set; }
+
+        
+
     }
 }

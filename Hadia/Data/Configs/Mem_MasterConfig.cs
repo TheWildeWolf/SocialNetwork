@@ -43,7 +43,34 @@ namespace Hadia.Data.Configs
 
             builder.HasOne(x=>x.Privilage)
                 .WithOne(x=>x.Member);
-                
+
+            builder.HasOne(x => x.UgCollege)
+                .WithMany(x => x.MembersInUg)
+                .HasForeignKey(x => x.UgCollageId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            builder.HasOne(x => x.District)
+                .WithMany(x => x.MembersInDistrict)
+                .HasForeignKey(x => x.DistrictId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            builder.HasOne(x => x.SpouseEducation)
+                .WithMany(x => x.MembersSpouses)
+                .HasForeignKey(x => x.SpouseEducationId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            builder.HasOne(x => x.MainGroup)
+                .WithMany(x => x.Members)
+                .HasForeignKey(x => x.GroupId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            builder.HasOne(x => x.VarifiedMember)
+                .WithMany(x => x.VarifiedMembers)
+                .HasForeignKey(x => x.VarifiedBy)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+
+
         }
     }
 }

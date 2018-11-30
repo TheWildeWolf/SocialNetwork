@@ -4,14 +4,16 @@ using Hadia.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Hadia.Migrations
 {
     [DbContext(typeof(HadiaContext))]
-    partial class HadiaContextModelSnapshot : ModelSnapshot
+    [Migration("20181130161127_CreateMembershipTable")]
+    partial class CreateMembershipTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -193,15 +195,17 @@ namespace Hadia.Migrations
 
                     b.Property<DateTime>("DateOfBirth");
 
-                    b.Property<int?>("DistrictId");
+                    b.Property<int>("DistrictId");
 
                     b.Property<string>("Email");
 
-                    b.Property<int?>("GroupId");
+                    b.Property<int>("GroupId");
 
-                    b.Property<bool>("IsGroupAdmin");
+                    b.Property<bool>("IsBatchAdmin");
 
                     b.Property<bool>("IsVarified");
+
+                    b.Property<int>("MyProperty");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -218,29 +222,19 @@ namespace Hadia.Migrations
 
                     b.Property<DateTime?>("SpouseAge");
 
-                    b.Property<int?>("SpouseEducationId");
+                    b.Property<int>("SpouseEducationId");
 
                     b.Property<string>("SpouseName");
 
                     b.Property<byte>("Type");
 
-                    b.Property<int?>("UgCollageId");
+                    b.Property<int>("UgCollageId");
 
-                    b.Property<int?>("VarifiedBy");
+                    b.Property<int>("VarifiedBy");
 
                     b.Property<DateTime?>("VarifiedDate");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DistrictId");
-
-                    b.HasIndex("GroupId");
-
-                    b.HasIndex("SpouseEducationId");
-
-                    b.HasIndex("UgCollageId");
-
-                    b.HasIndex("VarifiedBy");
 
                     b.ToTable("Mem_Masters");
                 });
@@ -589,29 +583,6 @@ namespace Hadia.Migrations
                         .WithMany("Kids")
                         .HasForeignKey("MemberId")
                         .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("Hadia.Models.DomainModels.Mem_Master", b =>
-                {
-                    b.HasOne("Hadia.Models.DomainModels.Mem_DistrictMaster", "District")
-                        .WithMany("MembersInDistrict")
-                        .HasForeignKey("DistrictId");
-
-                    b.HasOne("Hadia.Models.DomainModels.Post_GroupMaster", "MainGroup")
-                        .WithMany("Members")
-                        .HasForeignKey("GroupId");
-
-                    b.HasOne("Hadia.Models.DomainModels.Mem_SpouseEducationMaster", "SpouseEducation")
-                        .WithMany("MembersSpouses")
-                        .HasForeignKey("SpouseEducationId");
-
-                    b.HasOne("Hadia.Models.DomainModels.Mem_UgColleges", "UgCollege")
-                        .WithMany("MembersInUg")
-                        .HasForeignKey("UgCollageId");
-
-                    b.HasOne("Hadia.Models.DomainModels.Mem_Master", "VarifiedMember")
-                        .WithMany("VarifiedMembers")
-                        .HasForeignKey("VarifiedBy");
                 });
 
             modelBuilder.Entity("Hadia.Models.DomainModels.Mem_MemberContanct", b =>

@@ -15,5 +15,7 @@ namespace Hadia.Models.DomainModels
 
         public Mem_Master CreatedBy { get; set; }
         public Mem_StateMaster State { get; set; }
+
+        public ICollection<Mem_Master> MembersInDistrict { get; set; }
     }
 }

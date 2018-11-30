@@ -26,9 +26,17 @@ namespace Hadia.Data
         public DbSet<Mem_UgColleges> Mem_UgColleges { get; set; }
         public DbSet<Mem_Photo> Mem_Photos { get; set; }
         public DbSet<Mem_MemberContanct> Mem_MemberContancts { get; set; }
+        public DbSet<Mem_EducationDetail> Mem_EducationDetails { get; set; }
+        public DbSet<Mem_AdminPrivilage> Mem_AdminPrivilages { get; set; }
 
         public DbSet<Post_GroupMember> Post_GroupMembers { get; set; }
         public DbSet<Post_GroupMaster> Post_GroupMasters { get; set; }
+
+        public DbSet<Mem_Kid> Mem_Kids { get; set; }
+        public DbSet<Mem_WorkDetail> Mem_WorkDetails { get; set; }
+        public DbSet<Mem_InterestedArea> Mem_InterestedAreas { get; set; }
+        public DbSet<Mem_MyNetwork> Mem_MyNetworks { get; set; }
+        public DbSet<Mem_Membership> Mem_Memberships { get; set; }  
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
