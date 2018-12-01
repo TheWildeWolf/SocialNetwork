@@ -80,6 +80,8 @@ namespace Hadia.Models.DomainModels
         public ICollection<Post_Image> DeletedPostImages { get; set; }
         public ICollection<Post_Comment> DeletedComments { get; set; }
         public ICollection<Post_Like> LikedPosts { get; set; }
+
+        public ICollection<Post_CommentsLike> PostCommentsLikes { get; set; }
     }
 
     public enum MaritalStatus : byte

@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace Hadia.Data.Configs
 {
-    public class Config
+    public class dssd
     {
-        
+
     }
 
 }

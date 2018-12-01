@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Hadia.Models.DomainModels
 {
@@ -16,6 +17,8 @@ namespace Hadia.Models.DomainModels
 
         public Post_Master Master { get; set; }
         public Mem_Master DeletedBy { get; set; }
+
+        public ICollection<Post_CommentsLike> Likes { get; set; }
     }
     public enum CommentStatus : byte
     {
