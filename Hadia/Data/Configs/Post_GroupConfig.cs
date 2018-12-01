@@ -19,6 +19,8 @@ namespace Hadia.Data.Configs
                 .WithMany(x => x.CreatedGroups)
                 .HasForeignKey(x => x.CLogin);
 
+            
+
         }
     }
 }

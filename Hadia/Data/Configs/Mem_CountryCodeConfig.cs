@@ -16,7 +16,7 @@ namespace Hadia.Data.Configs
             builder.HasMany(x => x.UniversityMasters)
                 .WithOne(x => x.CountryCode)
                 .HasForeignKey(x => x.CountryId)
-             .OnDelete(DeleteBehavior.Restrict);
+             .OnDelete(DeleteBehavior.Restrict); 
         }
     }
 }

@@ -12,6 +12,7 @@ namespace Hadia.Data.Configs
                 .WithMany(x => x.Contacts)
                 .HasForeignKey(x => x.MemberId)
                 .OnDelete(DeleteBehavior.Restrict);
+
             builder.HasOne(x => x.CountryCode)
                 .WithMany(x => x.Contancts)
                 .HasForeignKey(x => x.ConuntryCodeId)

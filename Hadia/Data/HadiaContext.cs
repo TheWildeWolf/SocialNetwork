@@ -36,7 +36,12 @@ namespace Hadia.Data
         public DbSet<Mem_WorkDetail> Mem_WorkDetails { get; set; }
         public DbSet<Mem_InterestedArea> Mem_InterestedAreas { get; set; }
         public DbSet<Mem_MyNetwork> Mem_MyNetworks { get; set; }
-        public DbSet<Mem_Membership> Mem_Memberships { get; set; }  
+        public DbSet<Mem_Membership> Mem_Memberships { get; set; }
+
+        public DbSet<Post_ChapterLeader> Post_ChapterLeaders { get; set; }
+        public DbSet<Post_InterestedAreaMaster> Post_InterestedAreaMasters { get; set; }
+        public DbSet<Post_InterestedArea> Post_InterestedAreas { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

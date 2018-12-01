@@ -65,19 +65,22 @@ namespace Hadia.Models.DomainModels
         public ICollection<Post_GroupMaster> CreatedGroups { get; set; }
         public ICollection<Post_GroupMember> MembersAdded { get; set; }
         public ICollection<Post_GroupMember> MembersModified { get; set; }
-
-
+        public ICollection<Post_ChapterLeader> LeaderInChapters { get; set; }
+        public ICollection<Post_ChapterLeader> CreatedChapterLeaders { get; set; }
+        public ICollection<Post_InterestedAreaMaster> InterestedAreaMasterCreated { get; set; }
+        public ICollection<Post_InterestedArea> CreatedinterestAreas { get; set; }
 
 
     }
 
-    public enum MaritalStatus :byte
+    public enum MaritalStatus : byte
     {
         [DisplayName("Single")]
-        Single=1,
+        Single = 1,
         [DisplayName("Married")]
         Married = 2,
         [DisplayName("Divorced")]
         Divorced = 3
     }
+
 }
