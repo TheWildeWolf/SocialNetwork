@@ -70,6 +70,9 @@ namespace Hadia.Models.DomainModels
         public ICollection<Post_InterestedAreaMaster> InterestedAreaMasterCreated { get; set; }
         public ICollection<Post_InterestedArea> CreatedinterestAreas { get; set; }
 
+        public ICollection<Post_Master> CreatedPosts { get; set; }
+        public ICollection<Post_Master> DeletedPosts { get; set; }
+
 
     }
 

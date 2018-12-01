@@ -4,14 +4,16 @@ using Hadia.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Hadia.Migrations
 {
     [DbContext(typeof(HadiaContext))]
-    partial class HadiaContextModelSnapshot : ModelSnapshot
+    [Migration("20181201072848_PostChapterAreaMasterAreas")]
+    partial class PostChapterAreaMasterAreas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -601,45 +603,6 @@ namespace Hadia.Migrations
                     b.ToTable("Post_InterestedAreaMasters");
                 });
 
-            modelBuilder.Entity("Hadia.Models.DomainModels.Post_Master", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CDate");
-
-                    b.Property<byte>("Category");
-
-                    b.Property<DateTime?>("DDate");
-
-                    b.Property<int?>("DLogin");
-
-                    b.Property<int?>("DeletedById");
-
-                    b.Property<byte>("DonationType");
-
-                    b.Property<int>("GroupId");
-
-                    b.Property<int>("OpnedId");
-
-                    b.Property<byte>("Status");
-
-                    b.Property<string>("Topic");
-
-                    b.Property<string>("Voice");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DeletedById");
-
-                    b.HasIndex("GroupId");
-
-                    b.HasIndex("OpnedId");
-
-                    b.ToTable("Post_Masters");
-                });
-
             modelBuilder.Entity("Hadia.Models.DomainModels.Mem_AdminPrivilage", b =>
                 {
                     b.HasOne("Hadia.Models.DomainModels.Mem_Master", "Member")
@@ -896,24 +859,6 @@ namespace Hadia.Migrations
                         .WithMany("InterestedAreaMasterCreated")
                         .HasForeignKey("CLogin")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Hadia.Models.DomainModels.Post_Master", b =>
-                {
-                    b.HasOne("Hadia.Models.DomainModels.Mem_Master", "DeletedBy")
-                        .WithMany("DeletedPosts")
-                        .HasForeignKey("DeletedById")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Hadia.Models.DomainModels.Post_GroupMaster", "GroupMaster")
-                        .WithMany("Posts")
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Hadia.Models.DomainModels.Mem_Master", "OpnedBy")
-                        .WithMany("CreatedPosts")
-                        .HasForeignKey("OpnedId")
-                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }

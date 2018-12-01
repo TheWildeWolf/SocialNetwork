@@ -41,7 +41,7 @@ namespace Hadia.Data
         public DbSet<Post_ChapterLeader> Post_ChapterLeaders { get; set; }
         public DbSet<Post_InterestedAreaMaster> Post_InterestedAreaMasters { get; set; }
         public DbSet<Post_InterestedArea> Post_InterestedAreas { get; set; }
-
+        public DbSet<Post_Master> Post_Masters { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
