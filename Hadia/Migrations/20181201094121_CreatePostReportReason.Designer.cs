@@ -4,49 +4,22 @@ using Hadia.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Hadia.Migrations
 {
     [DbContext(typeof(HadiaContext))]
-    partial class HadiaContextModelSnapshot : ModelSnapshot
+    [Migration("20181201094121_CreatePostReportReason")]
+    partial class CreatePostReportReason
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Hadia.Models.DomainModels.HadiyaYearMaster", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CDate");
-
-                    b.Property<int>("CLogin");
-
-                    b.Property<DateTime>("DateFrom");
-
-                    b.Property<DateTime>("DateUpTo");
-
-                    b.Property<DateTime?>("MDate");
-
-                    b.Property<int?>("MLogin");
-
-                    b.Property<string>("YearName");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CLogin");
-
-                    b.HasIndex("MLogin");
-
-                    b.ToTable("HadiyaYearMasters");
-                });
 
             modelBuilder.Entity("Hadia.Models.DomainModels.Mem_AdminPrivilage", b =>
                 {
@@ -771,33 +744,6 @@ namespace Hadia.Migrations
                     b.ToTable("Post_Masters");
                 });
 
-            modelBuilder.Entity("Hadia.Models.DomainModels.Post_Report", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Narration");
-
-                    b.Property<int>("PostId");
-
-                    b.Property<int>("ReasonId");
-
-                    b.Property<int?>("ReportedById");
-
-                    b.Property<int>("ReportedId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PostId");
-
-                    b.HasIndex("ReasonId");
-
-                    b.HasIndex("ReportedById");
-
-                    b.ToTable("Post_Reports");
-                });
-
             modelBuilder.Entity("Hadia.Models.DomainModels.Post_ReportReason", b =>
                 {
                     b.Property<int>("Id")
@@ -875,18 +821,6 @@ namespace Hadia.Migrations
                     b.HasIndex("MemberId");
 
                     b.ToTable("Resources");
-                });
-
-            modelBuilder.Entity("Hadia.Models.DomainModels.HadiyaYearMaster", b =>
-                {
-                    b.HasOne("Hadia.Models.DomainModels.Mem_Master", "YearAddedBy")
-                        .WithMany("HadiyaYearAdded")
-                        .HasForeignKey("CLogin")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Hadia.Models.DomainModels.Mem_Master", "YearModifiedBy")
-                        .WithMany("HadiyaYearModified")
-                        .HasForeignKey("MLogin");
                 });
 
             modelBuilder.Entity("Hadia.Models.DomainModels.Mem_AdminPrivilage", b =>
@@ -1213,23 +1147,6 @@ namespace Hadia.Migrations
                         .WithMany("CreatedPosts")
                         .HasForeignKey("OpnedId")
                         .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("Hadia.Models.DomainModels.Post_Report", b =>
-                {
-                    b.HasOne("Hadia.Models.DomainModels.Post_Master", "PostMaster")
-                        .WithMany("Reports")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Hadia.Models.DomainModels.Post_ReportReason", "ReportReason")
-                        .WithMany("Reports")
-                        .HasForeignKey("ReasonId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Hadia.Models.DomainModels.Mem_Master", "ReportedBy")
-                        .WithMany("ReportedPosts")
-                        .HasForeignKey("ReportedById");
                 });
 
             modelBuilder.Entity("Hadia.Models.DomainModels.Post_ReportReason", b =>

@@ -12,7 +12,13 @@ namespace Hadia.Data.Configs
     {
         public void Configure(EntityTypeBuilder<HadiyaYearMaster> builder)
         {
-            
+            builder.HasOne(x => x.YearAddedBy)
+                .WithMany(x => x.HadiyaYearAdded)
+                .HasForeignKey(x => x.CLogin);
+
+            builder.HasOne(x => x.YearModifiedBy)
+                .WithMany(x => x.HadiyaYearModified)
+                .HasForeignKey(x => x.MLogin);
 
         }
     }

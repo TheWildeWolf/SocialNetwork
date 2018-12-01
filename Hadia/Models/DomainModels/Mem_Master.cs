@@ -83,6 +83,12 @@ namespace Hadia.Models.DomainModels
 
         public ICollection<Post_CommentsLike> PostCommentsLikes { get; set; }
 
+        public ICollection<Post_ReportReason> CreatedPostReportReasons { get; set; }
+        public ICollection<Post_ReportReason> ModifiedPostReportReasons { get; set; }
+        public ICollection<HadiyaYearMaster> HadiyaYearAdded { get; set; }
+        public ICollection<HadiyaYearMaster> HadiyaYearModified { get; set; }
+
+        public ICollection<Post_Report> ReportedPosts { get; set; }
     }
 
     public enum MaritalStatus : byte
