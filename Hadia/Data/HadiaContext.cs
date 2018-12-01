@@ -43,6 +43,9 @@ namespace Hadia.Data
         public DbSet<Post_InterestedArea> Post_InterestedAreas { get; set; }
         public DbSet<Post_Master> Post_Masters { get; set; }
 
+        public DbSet<Resource> Resources { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //modelBuilder.ApplyConfiguration(new Mem_MasterConfig());
