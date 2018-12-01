@@ -46,6 +46,8 @@ namespace Hadia.Data
         public DbSet<Resource> Resources { get; set; }
         public DbSet<Res_Views>Res_Views  { get; set; }
 
+     
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

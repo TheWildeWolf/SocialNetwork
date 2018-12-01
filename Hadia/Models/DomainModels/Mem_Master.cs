@@ -79,6 +79,8 @@ namespace Hadia.Models.DomainModels
 
         public ICollection<Post_Image> DeletedPostImages { get; set; }
 
+      
+    
     }
 
     public enum MaritalStatus : byte

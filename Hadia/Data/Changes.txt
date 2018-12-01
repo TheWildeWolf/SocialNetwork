@@ -1,11 +1,23 @@
 ﻿Resourse Master
 
+tablename : 
+mem_master
+          public ICollection<HadiyaYearMaster> HadiyaYearAdded { get; set; }
+          public ICollection<HadiyaYearMaster> HadiyaYearModified { get; set; }
+HadiyaYearMasterConfig
 
+           builder.HasOne(x => x.YearAddedBy)
+                .WithMany(x => x.HadiyaYearAdded)
+                .HasForeignKey(x => x.CLogin);
+
+            builder.HasOne(x => x.YearModifiedBy)
+                .WithMany(x => x.HadiyaYearModified)
+                .HasForeignKey(x => x.MLogin);
 
 
 DebSet
 
-
+          public DbSet<HadiyaYearMaster> HadiyaYearMaster { get; set; }
 
 
 
