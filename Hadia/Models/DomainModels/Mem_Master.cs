@@ -72,6 +72,7 @@ namespace Hadia.Models.DomainModels
 
         public ICollection<Resources> Resourceses { get; set; }
         public ICollection<Resources> ResourcesesDeleted{ get; set; }
+        public ICollection<Res_Views> ResourcesViews { get; set; }
 
 
     }
