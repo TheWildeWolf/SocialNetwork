@@ -28,6 +28,7 @@ namespace Hadia.Models.DomainModels
 
         public ICollection<Post_Report> Reports { get; set; }
         public ICollection<Post_Edit> EditedPosts { get; set; }
+        public ICollection<Post_View> PostViews { get; set; }
     }
     public enum PostStatus : byte
     {

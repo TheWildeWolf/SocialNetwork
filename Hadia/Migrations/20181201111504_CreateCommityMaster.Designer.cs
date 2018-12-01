@@ -4,14 +4,16 @@ using Hadia.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Hadia.Migrations
 {
     [DbContext(typeof(HadiaContext))]
-    partial class HadiaContextModelSnapshot : ModelSnapshot
+    [Migration("20181201111504_CreateCommityMaster")]
+    partial class CreateCommityMaster
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -930,27 +932,6 @@ namespace Hadia.Migrations
                     b.ToTable("Post_ReportReasons");
                 });
 
-            modelBuilder.Entity("Hadia.Models.DomainModels.Post_View", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CDate");
-
-                    b.Property<int>("MemberId");
-
-                    b.Property<int>("PostId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MemberId");
-
-                    b.HasIndex("PostId");
-
-                    b.ToTable("Post_Views");
-                });
-
             modelBuilder.Entity("Hadia.Models.DomainModels.Res_Views", b =>
                 {
                     b.Property<int>("Id")
@@ -1448,19 +1429,6 @@ namespace Hadia.Migrations
                         .WithMany("ModifiedPostReportReasons")
                         .HasForeignKey("MLogin")
                         .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("Hadia.Models.DomainModels.Post_View", b =>
-                {
-                    b.HasOne("Hadia.Models.DomainModels.Mem_Master", "Member")
-                        .WithMany("ViewedPosts")
-                        .HasForeignKey("MemberId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Hadia.Models.DomainModels.Post_Master", "Post")
-                        .WithMany("PostViews")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Hadia.Models.DomainModels.Res_Views", b =>

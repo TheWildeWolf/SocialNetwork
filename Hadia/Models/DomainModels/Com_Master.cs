@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Hadia.Models.DomainModels
 {
-    public class HadiaCommittee
+    public class Com_Master
     {
         public int Id { get; set; }
         public DateTime FormedOn { get; set; }
