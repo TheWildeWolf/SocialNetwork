@@ -4,14 +4,16 @@ using Hadia.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Hadia.Migrations
 {
     [DbContext(typeof(HadiaContext))]
-    partial class HadiaContextModelSnapshot : ModelSnapshot
+    [Migration("20181201090602_CreatePostComment")]
+    partial class CreatePostComment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -520,29 +522,6 @@ namespace Hadia.Migrations
                     b.ToTable("Post_Comments");
                 });
 
-            modelBuilder.Entity("Hadia.Models.DomainModels.Post_CommentsLike", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CDate");
-
-                    b.Property<int>("CommentId");
-
-                    b.Property<bool>("Like");
-
-                    b.Property<int>("MemberId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CommentId");
-
-                    b.HasIndex("MemberId");
-
-                    b.ToTable("Post_CommentsLikes");
-                });
-
             modelBuilder.Entity("Hadia.Models.DomainModels.Post_GroupMaster", b =>
                 {
                     b.Property<int>("Id")
@@ -678,29 +657,6 @@ namespace Hadia.Migrations
                     b.HasIndex("CLogin");
 
                     b.ToTable("Post_InterestedAreaMasters");
-                });
-
-            modelBuilder.Entity("Hadia.Models.DomainModels.Post_Like", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CDate");
-
-                    b.Property<bool>("Like");
-
-                    b.Property<int>("MemberId");
-
-                    b.Property<int>("PostId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MemberId");
-
-                    b.HasIndex("PostId");
-
-                    b.ToTable("Post_Likes");
                 });
 
             modelBuilder.Entity("Hadia.Models.DomainModels.Post_Master", b =>
@@ -1014,19 +970,6 @@ namespace Hadia.Migrations
                         .HasForeignKey("RemovedId");
                 });
 
-            modelBuilder.Entity("Hadia.Models.DomainModels.Post_CommentsLike", b =>
-                {
-                    b.HasOne("Hadia.Models.DomainModels.Post_Comment", "Comment")
-                        .WithMany("Likes")
-                        .HasForeignKey("CommentId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Hadia.Models.DomainModels.Mem_Master", "Member")
-                        .WithMany("PostCommentsLikes")
-                        .HasForeignKey("MemberId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("Hadia.Models.DomainModels.Post_GroupMaster", b =>
                 {
                     b.HasOne("Hadia.Models.DomainModels.Mem_Master", "CreatedBy")
@@ -1088,19 +1031,6 @@ namespace Hadia.Migrations
                     b.HasOne("Hadia.Models.DomainModels.Mem_Master", "CreatedBy")
                         .WithMany("InterestedAreaMasterCreated")
                         .HasForeignKey("CLogin")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Hadia.Models.DomainModels.Post_Like", b =>
-                {
-                    b.HasOne("Hadia.Models.DomainModels.Mem_Master", "Member")
-                        .WithMany("LikedPosts")
-                        .HasForeignKey("MemberId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Hadia.Models.DomainModels.Post_Master", "Post")
-                        .WithMany("Likes")
-                        .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

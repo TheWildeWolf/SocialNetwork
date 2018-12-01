@@ -4,11 +4,10 @@ using System.Threading.Tasks;
 
 namespace Hadia.Models.DomainModels
 {
-    public class DomainModelWork
-    {
-        
-    }
 
-  
+    public class sds
+    {
+        public int Id { get; set; }
+    }  
 }
 
