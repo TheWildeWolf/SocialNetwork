@@ -20,7 +20,7 @@ namespace Hadia.Models.DomainModels
         public Mem_Master OpnedBy { get; set; }
         public Post_GroupMaster GroupMaster { get; set; }
         public Mem_Master DeletedBy { get; set; }
-
+        public Post_Image PostImages { get; set; }
     }
     public enum PostStatus : byte
     {
