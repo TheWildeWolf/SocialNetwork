@@ -4,6 +4,14 @@ tablename :
 mem_master
           public ICollection<HadiyaYearMaster> HadiyaYearAdded { get; set; }
           public ICollection<HadiyaYearMaster> HadiyaYearModified { get; set; }
+
+
+		   public ICollection<HAF> HAFmember { get; set; }
+        public ICollection<HAF>  HAFCreatedBy{ get; set; }
+        public ICollection<HAF> HAFModifiedBy { get; set; }
+
+
+
 HadiyaYearMasterConfig
 
            builder.HasOne(x => x.YearAddedBy)
@@ -14,10 +22,25 @@ HadiyaYearMasterConfig
                 .WithMany(x => x.HadiyaYearModified)
                 .HasForeignKey(x => x.MLogin);
 
+HAF Config
+
+				builder.HasOne(x => x.HadiyaYearCreatedBy)
+                .WithMany(x => x.HAFmember)
+                .HasForeignKey(x => x.MemberId);
+
+            builder.HasOne(x => x.CreatedBy)
+               .WithMany(x => x.HAFCreatedBy)
+               .HasForeignKey(x => x.CLogin);
+
+            builder.HasOne(x => x.ModifiedBy)
+               .WithMany(x => x.HAFModifiedBy)
+               .HasForeignKey(x => x.MLogin);
 
 DebSet
 
           public DbSet<HadiyaYearMaster> HadiyaYearMaster { get; set; }
+
+		  public DbSet<HAF> HAFs { get; set; }
 
 
 
