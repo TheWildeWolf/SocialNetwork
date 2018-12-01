@@ -42,6 +42,8 @@ namespace Hadia.Data
         public DbSet<Post_InterestedAreaMaster> Post_InterestedAreaMasters { get; set; }
         public DbSet<Post_InterestedArea> Post_InterestedAreas { get; set; }
 
+        public DbSet<Resources> Resourceses { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
