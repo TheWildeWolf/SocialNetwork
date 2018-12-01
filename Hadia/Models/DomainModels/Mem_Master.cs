@@ -74,7 +74,7 @@ namespace Hadia.Models.DomainModels
         public ICollection<Post_Master> DeletedPosts { get; set; }
 
         public ICollection<Resource> Resources { get; set; }
-        public ICollection<Resource> ResourcesDeleted{ get; set; }
+        public ICollection<Resource> ResourcesDeleted { get; set; }
         public ICollection<Res_Views> ResourcesViews { get; set; }
 
         public ICollection<Post_Image> DeletedPostImages { get; set; }

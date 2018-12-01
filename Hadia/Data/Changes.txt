@@ -2,45 +2,64 @@
 
 tablename : 
 mem_master
-          public ICollection<HadiyaYearMaster> HadiyaYearAdded { get; set; }
-          public ICollection<HadiyaYearMaster> HadiyaYearModified { get; set; }
+         
 
 
-		   public ICollection<HAF> HAFmember { get; set; }
-        public ICollection<HAF>  HAFCreatedBy{ get; set; }
-        public ICollection<HAF> HAFModifiedBy { get; set; }
+		public ICollection<HadiaCommittee> MemPresident { get;set;}
+        public ICollection<HadiaCommittee> MemVice1 { get; set; }
+        public ICollection<HadiaCommittee> MemVice2 { get; set; }
+        public ICollection<HadiaCommittee> MemSecretery { get;set;}
+        public ICollection<HadiaCommittee> MemJointSecr1 { get;set;}
+        public ICollection<HadiaCommittee> MemJointSecr2 { get;set;}
+        public ICollection<HadiaCommittee> MemTreasurer { get;set;}
+        public ICollection<HadiaCommittee> MemCreatedBy { get;set;}
+        public ICollection<HadiaCommittee> MemModifiedBy { get; set; }
 
 
 
-HadiyaYearMasterConfig
+HadiyaCommitteeConfig
 
-           builder.HasOne(x => x.YearAddedBy)
-                .WithMany(x => x.HadiyaYearAdded)
-                .HasForeignKey(x => x.CLogin);
+            builder.HasOne(x => x.President)
+                .WithMany(x => x.MemPresident)
+                .HasForeignKey(x => x.President);
 
-            builder.HasOne(x => x.YearModifiedBy)
-                .WithMany(x => x.HadiyaYearModified)
-                .HasForeignKey(x => x.MLogin);
+            builder.HasOne(x => x.Vice1)
+               .WithMany(x => x.MemVice1)
+               .HasForeignKey(x => x.President);
 
-HAF Config
+            builder.HasOne(x => x.Vice2)
+               .WithMany(x => x.MemVice2)
+               .HasForeignKey(x => x.President);
 
-				builder.HasOne(x => x.HadiyaYearCreatedBy)
-                .WithMany(x => x.HAFmember)
-                .HasForeignKey(x => x.MemberId);
+            builder.HasOne(x => x.Secretery)
+               .WithMany(x => x.MemSecretery)
+               .HasForeignKey(x => x.President);
+
+            builder.HasOne(x => x.JointSecr1)
+               .WithMany(x => x.MemJointSecr1)
+               .HasForeignKey(x => x.President);
+
+            builder.HasOne(x => x.JointSecr2)
+               .WithMany(x => x.MemJointSecr2)
+               .HasForeignKey(x => x.President);
+
+            builder.HasOne(x => x.Treasurer)
+               .WithMany(x => x.MemTreasurer)
+               .HasForeignKey(x => x.President);
 
             builder.HasOne(x => x.CreatedBy)
-               .WithMany(x => x.HAFCreatedBy)
-               .HasForeignKey(x => x.CLogin);
+               .WithMany(x => x.MemCreatedBy)
+               .HasForeignKey(x => x.President);
 
-            builder.HasOne(x => x.ModifiedBy)
-               .WithMany(x => x.HAFModifiedBy)
-               .HasForeignKey(x => x.MLogin);
+            builder.HasOne(x => x.Modified)
+               .WithMany(x => x.MemModifiedBy)
+               .HasForeignKey(x => x.President);
+
+
 
 DebSet
 
-          public DbSet<HadiyaYearMaster> HadiyaYearMaster { get; set; }
-
-		  public DbSet<HAF> HAFs { get; set; }
+               public DbSet<HadiaCommittee> HadiaCommittees { get; set; }
 
 
 
