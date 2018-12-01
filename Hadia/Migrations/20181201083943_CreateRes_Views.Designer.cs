@@ -4,14 +4,16 @@ using Hadia.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Hadia.Migrations
 {
     [DbContext(typeof(HadiaContext))]
-    partial class HadiaContextModelSnapshot : ModelSnapshot
+    [Migration("20181201083943_CreateRes_Views")]
+    partial class CreateRes_Views
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -557,33 +559,6 @@ namespace Hadia.Migrations
                     b.ToTable("Post_GroupMembers");
                 });
 
-            modelBuilder.Entity("Hadia.Models.DomainModels.Post_Image", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CDate");
-
-                    b.Property<DateTime?>("DDate");
-
-                    b.Property<int?>("DLogin");
-
-                    b.Property<string>("Image");
-
-                    b.Property<int>("PostId");
-
-                    b.Property<bool>("isDeleted");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DLogin");
-
-                    b.HasIndex("PostId");
-
-                    b.ToTable("Post_Images");
-                });
-
             modelBuilder.Entity("Hadia.Models.DomainModels.Post_InterestedArea", b =>
                 {
                     b.Property<int>("Id")
@@ -951,18 +926,6 @@ namespace Hadia.Migrations
                         .WithMany("MembersModified")
                         .HasForeignKey("ModifiedBy")
                         .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("Hadia.Models.DomainModels.Post_Image", b =>
-                {
-                    b.HasOne("Hadia.Models.DomainModels.Mem_Master", "DeletedBy")
-                        .WithMany("DeletedPostImages")
-                        .HasForeignKey("DLogin");
-
-                    b.HasOne("Hadia.Models.DomainModels.Post_Master", "PostMaster")
-                        .WithMany("PostImages")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Hadia.Models.DomainModels.Post_InterestedArea", b =>

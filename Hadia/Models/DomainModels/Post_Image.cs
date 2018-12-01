@@ -18,6 +18,6 @@ namespace Hadia.Models.DomainModels
         public Post_Master PostMaster { get; set; }
     }
 
-  
+
 }
 
