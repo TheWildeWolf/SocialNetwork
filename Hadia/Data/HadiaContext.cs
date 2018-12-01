@@ -52,6 +52,7 @@ namespace Hadia.Data
         public DbSet<HadiyaYearMaster> HadiyaYearMasters { get; set; }
         public DbSet<Post_Report> Post_Reports { get; set; }
         public DbSet<Post_Edit> Post_Edits { get; set; }
+        public DbSet<HAF> HAFs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
