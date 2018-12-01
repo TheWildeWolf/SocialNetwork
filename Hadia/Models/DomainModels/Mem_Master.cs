@@ -77,6 +77,7 @@ namespace Hadia.Models.DomainModels
         public ICollection<Resource> ResourcesDeleted{ get; set; }
 
 
+
     }
 
     public enum MaritalStatus : byte
