@@ -30,6 +30,7 @@ namespace Hadia.Models.DomainModels
         public Mem_Master Treasurer { get; set; }
         public Mem_Master CreatedBy { get; set; }
         public Mem_Master Modified { get; set; }
+        public ICollection<Com_ExecutiveMember> ExecMembers { get; set; }
 
     }
 }
