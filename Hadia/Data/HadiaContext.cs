@@ -48,6 +48,9 @@ namespace Hadia.Data
         public DbSet<Post_Comment> Post_Comments { get; set; }
         public DbSet<Post_Like> Post_Likes { get; set; }
         public DbSet<Post_CommentsLike> Post_CommentsLikes { get; set; }
+        public DbSet<Post_ReportReason> Post_ReportReasons { get; set; }
+        public DbSet<HadiyaYearMaster> HadiyaYearMasters { get; set; }
+        public DbSet<Post_Report> Post_Reports { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
