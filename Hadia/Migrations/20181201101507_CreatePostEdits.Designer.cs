@@ -4,14 +4,16 @@ using Hadia.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Hadia.Migrations
 {
     [DbContext(typeof(HadiaContext))]
-    partial class HadiaContextModelSnapshot : ModelSnapshot
+    [Migration("20181201101507_CreatePostEdits")]
+    partial class CreatePostEdits
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,41 +48,6 @@ namespace Hadia.Migrations
                     b.HasIndex("MLogin");
 
                     b.ToTable("HadiyaYearMasters");
-                });
-
-            modelBuilder.Entity("Hadia.Models.DomainModels.HAF", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CDate");
-
-                    b.Property<int>("CLogin");
-
-                    b.Property<int?>("HadiyaYearId");
-
-                    b.Property<DateTime?>("MDate");
-
-                    b.Property<int?>("MLogin");
-
-                    b.Property<int>("MemberId");
-
-                    b.Property<bool>("Paid");
-
-                    b.Property<int>("YearId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CLogin");
-
-                    b.HasIndex("HadiyaYearId");
-
-                    b.HasIndex("MLogin");
-
-                    b.HasIndex("MemberId");
-
-                    b.ToTable("HAFs");
                 });
 
             modelBuilder.Entity("Hadia.Models.DomainModels.Mem_AdminPrivilage", b =>
@@ -941,27 +908,6 @@ namespace Hadia.Migrations
                     b.HasOne("Hadia.Models.DomainModels.Mem_Master", "YearModifiedBy")
                         .WithMany("HadiyaYearModified")
                         .HasForeignKey("MLogin");
-                });
-
-            modelBuilder.Entity("Hadia.Models.DomainModels.HAF", b =>
-                {
-                    b.HasOne("Hadia.Models.DomainModels.Mem_Master", "CreatedBy")
-                        .WithMany("HAFCreatedBy")
-                        .HasForeignKey("CLogin")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Hadia.Models.DomainModels.HadiyaYearMaster", "HadiyaYear")
-                        .WithMany("Hafs")
-                        .HasForeignKey("HadiyaYearId");
-
-                    b.HasOne("Hadia.Models.DomainModels.Mem_Master", "ModifiedBy")
-                        .WithMany("HAFModifiedBy")
-                        .HasForeignKey("MLogin");
-
-                    b.HasOne("Hadia.Models.DomainModels.Mem_Master", "Member")
-                        .WithMany("HAFmember")
-                        .HasForeignKey("MemberId")
-                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Hadia.Models.DomainModels.Mem_AdminPrivilage", b =>

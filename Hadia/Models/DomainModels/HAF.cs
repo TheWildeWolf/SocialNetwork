@@ -14,11 +14,11 @@ namespace Hadia.Models.DomainModels
             public bool Paid { get; set; }
             public DateTime CDate { get; set; }
             public int CLogin { get; set; }
-            public int MLogin { get; set; }
+            public int? MLogin { get; set; }
             public DateTime? MDate { get; set; }
 
         public HadiyaYearMaster HadiyaYear { get; set; }
-        public Mem_Master HadiyaYearCreatedBy { get; set; }
+        public Mem_Master Member { get; set; }
         public Mem_Master CreatedBy { get; set; }
         public Mem_Master ModifiedBy { get; set; }
 

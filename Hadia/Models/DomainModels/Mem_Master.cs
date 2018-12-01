@@ -89,9 +89,9 @@ namespace Hadia.Models.DomainModels
         public ICollection<HadiyaYearMaster> HadiyaYearModified { get; set; }
 
         public ICollection<Post_Report> ReportedPosts { get; set; }
-
-       
-        
+        public ICollection<HAF> HAFmember { get; set; }
+        public ICollection<HAF> HAFCreatedBy { get; set; }
+        public ICollection<HAF> HAFModifiedBy { get; set; }
     }
 
     public enum MaritalStatus : byte
