@@ -92,6 +92,7 @@ namespace Hadia.Models.DomainModels
         public ICollection<HAF> HAFmember { get; set; }
         public ICollection<HAF> HAFCreatedBy { get; set; }
         public ICollection<HAF> HAFModifiedBy { get; set; }
+
     }
 
     public enum MaritalStatus : byte
