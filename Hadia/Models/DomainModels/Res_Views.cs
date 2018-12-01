@@ -12,7 +12,7 @@ namespace Hadia.Models.DomainModels
         public int MemberId { get; set; }
         public DateTime CDate { get; set; }
 
-        public Resources Resourceses { get; set; }
+        public Resource Resource { get; set; }
         public Mem_Master Member { get; set; }
     }
 }

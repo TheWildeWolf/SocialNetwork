@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace Hadia.Data.Configs
 {
-    public class ResourcesConfig : IEntityTypeConfiguration<Resources>
+    public class ResourcesConfig : IEntityTypeConfiguration<Resource>
     {
-        public void Configure(EntityTypeBuilder<Resources> builder)
+        public void Configure(EntityTypeBuilder<Resource> builder)
         {
             builder.HasOne(X => X.Member)
-                  .WithMany(X => X.Resourceses)
+                  .WithMany(X => X.Resources)
                   .HasForeignKey(X => X.MemberId)
                   .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(X => X.DeletedBy)
-                .WithMany(X => X.ResourcesesDeleted)
+                .WithMany(X => X.ResourcesDeleted)
                 .HasForeignKey(x => x.DLogin)
                 .OnDelete(DeleteBehavior.Restrict);
         }

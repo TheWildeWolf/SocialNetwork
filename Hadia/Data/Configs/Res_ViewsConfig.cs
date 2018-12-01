@@ -12,7 +12,7 @@ namespace Hadia.Data.Configs
     {
         public void Configure(EntityTypeBuilder<Res_Views> builder)
         {
-            builder.HasOne(x => x.Resourceses)
+            builder.HasOne(x => x.Resource)
                 .WithMany(x => x.ResourceViews)
                 .HasForeignKey(x => x.ResourceId)
                 .OnDelete(DeleteBehavior.Restrict);
