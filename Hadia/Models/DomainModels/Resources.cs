@@ -21,6 +21,7 @@ namespace Hadia.Models.DomainModels
 
         public Mem_Master Member { get; set; }
         public Mem_Master DeletedBy { get; set; }
+        public ICollection<Res_Views> ResourceViews { get; set; }
     }
     public enum ResourceStatus : byte
     {
