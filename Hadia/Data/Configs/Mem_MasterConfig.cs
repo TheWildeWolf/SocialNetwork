@@ -69,7 +69,9 @@ namespace Hadia.Data.Configs
                 .HasForeignKey(x => x.VarifiedBy)
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
-            
+            builder.Property(x => x.DateOfBirth).HasColumnType("date");
+
+
 
         }
     }

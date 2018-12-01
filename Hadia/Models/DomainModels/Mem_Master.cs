@@ -50,7 +50,7 @@ namespace Hadia.Models.DomainModels
         public ICollection<Mem_DistrictMaster> DistrictMasters { get; set; }
         public ICollection<Mem_UniversityMaster> UniversityMasters { get; set; }
         public ICollection<Mem_Photo> Photos { get; set; }
-        public ICollection<Mem_MemberContanct> Contacts { get; set; }
+        public ICollection<Mem_Contanct> Contacts { get; set; }
         public ICollection<Mem_UgColleges> UgColleges { get; set; }
         public ICollection<Mem_EducationDetail> EducationDetails { get; set; }
         public ICollection<Mem_Kid> Kids { get; set; }
@@ -105,6 +105,30 @@ namespace Hadia.Models.DomainModels
         public ICollection<Com_Master> MemCreatedBy { get; set; }
         public ICollection<Com_Master> MemModifiedBy { get; set; }
 
+        public ICollection<Com_ExecutiveMember> ExMember { get; set; }
+        public ICollection<Com_ExecutiveMember> ExCreatedBy { get; set; }
+        public ICollection<Com_ExecutiveMember> ExModifiedBy { get; set; }
+
+        public ICollection<Post_Follow> FollowedPosts { get; set; }
+        public ICollection<Post_Donation> Donations { get; set; }
+        public ICollection<Post_Category> CreatedCategories { get; set; }
+        public ICollection<Post_Category> ModifiedCategories { get; set; }
+        public ICollection<Post_EventRegistration> EventRegistrations { get; set; }
+
+        public ICollection<Post_Categorypermission> CreatedPermissions { get; set; }
+
+        public ICollection<Post_Categorypermission> ModifiedPermissions { get; set; }
+
+        public ICollection<Post_Categorypermission> Categorypermissions { get; set; }
+        //Job
+        public ICollection<Job_Master> PostedJobs { get; set; }
+        public ICollection<Job_Master> AppointedJobs { get; set; }
+        public ICollection<Job_Master> DeletedJobs { get; set; }
+        public ICollection<Job_View> ViewedJobs { get; set; }
+
+        //Sett
+        public ICollection<Sett_PrivacySetting> PrivacySettings { get; set; }
+        public ICollection<Sett_AdminActivityLog> AdminActivities { get; set; }
     }
 
     public enum MaritalStatus : byte

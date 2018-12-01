@@ -8,7 +8,7 @@ namespace Hadia.Data.Configs
     {
         public void Configure(EntityTypeBuilder<Post_Master> builder)
         {
-            builder.HasOne(x => x.OpnedBy)
+            builder.HasOne(x => x.OpendBy)
                 .WithMany(x => x.CreatedPosts)
                 .HasForeignKey(x => x.OpnedId)
                 .OnDelete(DeleteBehavior.Restrict);
@@ -22,7 +22,10 @@ namespace Hadia.Data.Configs
                 .WithMany(x => x.DeletedPosts)
                 .OnDelete(DeleteBehavior.Restrict);
 
-
+            builder.HasOne(x => x.Category)
+                .WithMany(x => x.Posts)
+                .HasForeignKey(x => x.CategoryId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

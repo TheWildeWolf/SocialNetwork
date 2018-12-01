@@ -14,7 +14,7 @@ namespace Hadia.Models.DomainModels
         public DateTime  CDate { get; set; }
 
         public ICollection<Mem_UniversityMaster> UniversityMasters { get; set; }
-        public ICollection<Mem_MemberContanct> Contancts { get; set; }
+        public ICollection<Mem_Contanct> Contancts { get; set; }
         public ICollection<Mem_WorkDetail> WorkersInCountry { get; set; }
     }
 }
