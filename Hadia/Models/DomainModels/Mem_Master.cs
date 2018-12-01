@@ -85,6 +85,7 @@ namespace Hadia.Models.DomainModels
 
         public ICollection<Post_ReportReason> CreatedPostReportReasons { get; set; }
         public ICollection<Post_ReportReason> ModifiedPostReportReasons { get; set; }
+        
         public ICollection<HadiyaYearMaster> HadiyaYearAdded { get; set; }
         public ICollection<HadiyaYearMaster> HadiyaYearModified { get; set; }
 
@@ -92,6 +93,18 @@ namespace Hadia.Models.DomainModels
         public ICollection<HAF> HAFmember { get; set; }
         public ICollection<HAF> HAFCreatedBy { get; set; }
         public ICollection<HAF> HAFModifiedBy { get; set; }
+        public ICollection<Post_View> ViewedPosts { get; set; }
+
+        public ICollection<Com_Master> MemPresident { get; set; }
+        public ICollection<Com_Master> MemVice1 { get; set; }
+        public ICollection<Com_Master> MemVice2 { get; set; }
+        public ICollection<Com_Master> MemSecretery { get; set; }
+        public ICollection<Com_Master> MemJointSecr1 { get; set; }
+        public ICollection<Com_Master> MemJointSecr2 { get; set; }
+        public ICollection<Com_Master> MemTreasurer { get; set; }
+        public ICollection<Com_Master> MemCreatedBy { get; set; }
+        public ICollection<Com_Master> MemModifiedBy { get; set; }
+
     }
 
     public enum MaritalStatus : byte
