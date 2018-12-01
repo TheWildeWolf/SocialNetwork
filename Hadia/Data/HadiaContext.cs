@@ -48,7 +48,6 @@ namespace Hadia.Data
         public DbSet<Post_Comment> Post_Comments { get; set; }
         public DbSet<Post_Like> Post_Likes { get; set; }
         public DbSet<Post_CommentsLike> Post_CommentsLikes { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //modelBuilder.ApplyConfiguration(new Mem_MasterConfig());

@@ -18,6 +18,7 @@ namespace Hadia.Models.DomainModels
 
         public Mem_Master YearAddedBy { get; set; }
         public Mem_Master YearModifiedBy { get; set; }
+        public ICollection<HAF> Hafs { get; set; }
        
     }
 }

@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Configs\HAF.cs" />
     <Compile Remove="Migrations\20181130104011_CreateMemberMasterAndOtherMasters.cs" />
     <Compile Remove="Migrations\20181130104011_CreateMemberMasterAndOtherMasters.Designer.cs" />
   </ItemGroup>
