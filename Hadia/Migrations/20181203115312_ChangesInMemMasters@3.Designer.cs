@@ -4,14 +4,16 @@ using Hadia.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Hadia.Migrations
 {
     [DbContext(typeof(HadiaContext))]
-    partial class HadiaContextModelSnapshot : ModelSnapshot
+    [Migration("20181203115312_ChangesInMemMasters@3")]
+    partial class ChangesInMemMasters3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -423,10 +425,6 @@ namespace Hadia.Migrations
                         .IsRequired()
                         .HasMaxLength(128);
 
-                    b.Property<string>("CountryCode")
-                        .IsRequired()
-                        .HasMaxLength(8);
-
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("date");
 
@@ -447,18 +445,12 @@ namespace Hadia.Migrations
                         .IsRequired()
                         .HasMaxLength(128);
 
-                    b.Property<byte[]>("PasswordHash")
-                        .IsRequired();
+                    b.Property<byte[]>("PasswordHash");
 
-                    b.Property<byte[]>("PasswordSalt")
-                        .IsRequired();
+                    b.Property<byte[]>("PasswordSalt");
 
                     b.Property<string>("PermanentAddress")
                         .HasMaxLength(500);
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasMaxLength(15);
 
                     b.Property<string>("PresentAddress")
                         .HasMaxLength(500);

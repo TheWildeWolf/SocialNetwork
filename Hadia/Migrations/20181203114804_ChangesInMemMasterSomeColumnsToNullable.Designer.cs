@@ -4,14 +4,16 @@ using Hadia.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Hadia.Migrations
 {
     [DbContext(typeof(HadiaContext))]
-    partial class HadiaContextModelSnapshot : ModelSnapshot
+    [Migration("20181203114804_ChangesInMemMasterSomeColumnsToNullable")]
+    partial class ChangesInMemMasterSomeColumnsToNullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -423,17 +425,12 @@ namespace Hadia.Migrations
                         .IsRequired()
                         .HasMaxLength(128);
 
-                    b.Property<string>("CountryCode")
-                        .IsRequired()
-                        .HasMaxLength(8);
-
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("date");
 
                     b.Property<int?>("DistrictId");
 
-                    b.Property<string>("Email")
-                        .HasMaxLength(128);
+                    b.Property<string>("Email");
 
                     b.Property<int?>("GroupId");
 
@@ -447,29 +444,20 @@ namespace Hadia.Migrations
                         .IsRequired()
                         .HasMaxLength(128);
 
-                    b.Property<byte[]>("PasswordHash")
-                        .IsRequired();
+                    b.Property<byte[]>("PasswordHash");
 
-                    b.Property<byte[]>("PasswordSalt")
-                        .IsRequired();
+                    b.Property<byte[]>("PasswordSalt");
 
-                    b.Property<string>("PermanentAddress")
-                        .HasMaxLength(500);
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasMaxLength(15);
+                    b.Property<string>("PermanentAddress");
 
                     b.Property<string>("PresentAddress")
-                        .HasMaxLength(500);
+                        .HasMaxLength(150);
 
-                    b.Property<DateTime?>("SpouseAge")
-                        .HasColumnType("date");
+                    b.Property<DateTime?>("SpouseAge");
 
                     b.Property<int?>("SpouseEducationId");
 
-                    b.Property<string>("SpouseName")
-                        .HasMaxLength(128);
+                    b.Property<string>("SpouseName");
 
                     b.Property<int?>("UgCollageId");
 

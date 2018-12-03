@@ -15,11 +15,28 @@
     <Compile Remove="Data\Configs\HAF.cs" />
     <Compile Remove="Migrations\20181130104011_CreateMemberMasterAndOtherMasters.cs" />
     <Compile Remove="Migrations\20181130104011_CreateMemberMasterAndOtherMasters.Designer.cs" />
+    <Compile Remove="Migrations\20181203120222_Test.cs" />
+    <Compile Remove="Migrations\20181203120222_Test.Designer.cs" />
+    <Compile Remove="Migrations\20181203120632_Test.cs" />
+    <Compile Remove="Migrations\20181203120632_Test.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="logfile.txt" />
+    <None Remove="ScaffoldingReadMe.txt" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Member\Controllers\" />
+    <Folder Include="Areas\Member\Data\" />
+    <Folder Include="Areas\Member\Models\" />
+    <Folder Include="Areas\Member\Views\" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -43,7 +44,7 @@ namespace Hadia.Data
         public DbSet<Post_InterestedArea> Post_InterestedAreas { get; set; }
         public DbSet<Post_Master> Post_Masters { get; set; }
         public DbSet<Post_Image> Post_Images { get; set; }
-        public DbSet<Res_Master> Resources { get; set; }
+        public DbSet<Res_Master> Res_Masters { get; set; }
         public DbSet<Res_Views>Res_Views  { get; set; }
         public DbSet<Post_Comment> Post_Comments { get; set; }
         public DbSet<Post_Like> Post_Likes { get; set; }
@@ -85,11 +86,15 @@ namespace Hadia.Data
                 .Where(t => t.GetInterfaces().Any(gi => gi.IsGenericType && gi.GetGenericTypeDefinition() == typeof(IEntityTypeConfiguration<>))).ToList();
 
 
-            foreach (var type in typesToRegister)
-            {
-                dynamic configurationInstance = Activator.CreateInstance(type);
-                modelBuilder.ApplyConfiguration(configurationInstance);
-            }
+                foreach (var type in typesToRegister)
+                {
+                    dynamic configurationInstance = Activator.CreateInstance(type);
+                    modelBuilder.ApplyConfiguration(configurationInstance);
+                }
+                
+ 
+
+
         }
     }
 

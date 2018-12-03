@@ -14,8 +14,20 @@ namespace Hadia.Data.Configs
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Name).HasMaxLength(128).IsRequired();
-            builder.Property(x => x.AdNo).IsRequired();
-            builder.Property(x => x.PresentAddress).IsRequired();
+
+            builder.Property(x => x.AdNo).HasMaxLength(128).IsRequired();
+
+            builder.Property(x => x.PresentAddress).HasMaxLength(500);
+            builder.Property(x => x.Email).HasMaxLength(128);
+            builder.Property(x => x.PermanentAddress).HasMaxLength(500);
+            builder.Property(x => x.Phone).HasMaxLength(15).IsRequired();
+            builder.Property(x => x.CountryCode).HasMaxLength(8).IsRequired();
+
+            builder.Property(x => x.PasswordHash).IsRequired();
+            builder.Property(x => x.PasswordSalt).IsRequired();
+
+            builder.Property(x => x.SpouseName).HasMaxLength(128);
+            builder.Property(x => x.SpouseAge).HasColumnType("date");
 
             builder.HasMany(x => x.EducationalQualificationMasters)
                     .WithOne(x => x.CreatedBy)

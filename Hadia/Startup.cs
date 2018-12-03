@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Hadia.Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -24,6 +25,7 @@ namespace Hadia
         public IConfiguration Configuration { get; }
 
         private static readonly string DEFAULT_CONNECTION_STRING = "Default";
+        private static readonly string DEV_CONNECTION_STRING = "Development";
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -37,7 +39,15 @@ namespace Hadia
             
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<HadiaContext>(op =>
-                op.UseSqlServer(Configuration.GetConnectionString(DEFAULT_CONNECTION_STRING)));
+                op.UseSqlServer(Configuration.GetConnectionString(DEV_CONNECTION_STRING)));
+
+            //AuthCoockie
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.AccessDeniedPath = "";
+                    options.LoginPath = "/Auth/Login";
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,11 +62,10 @@ namespace Hadia
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
-
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
+            app.UseAuthentication();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

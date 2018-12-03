@@ -13,7 +13,7 @@ namespace Hadia.Models.DomainModels
         public string AdNo { get; set; }
         public string PresentAddress { get; set; }
         public string PermanentAddress { get; set; }
-        public MaritalStatus Type { get; set; }
+        public MaritalStatus? MaritalStatus { get; set; }
         public DateTime DateOfBirth { get; set; }
 
         public int? UgCollageId { get; set; }
@@ -21,6 +21,8 @@ namespace Hadia.Models.DomainModels
 
         public string SpouseName { get; set; }
         public DateTime? SpouseAge { get; set; }
+        public string Phone { get; set; }
+        public string CountryCode { get; set; }
 
         public int? SpouseEducationId { get; set; }
         public int? GroupId { get; set; }

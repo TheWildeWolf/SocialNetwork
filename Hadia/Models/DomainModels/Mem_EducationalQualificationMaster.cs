@@ -8,7 +8,7 @@ namespace Hadia.Models.DomainModels
     public class Mem_EducationalQualificationMaster
     {
         public int Id { get; set; }
-        public String DegreeName { get; set; }
+        public string DegreeName { get; set; }
         public int Rank { get; set; }
         public DateTime CDate { get; set; }
         public int CLogin { get; set; }
