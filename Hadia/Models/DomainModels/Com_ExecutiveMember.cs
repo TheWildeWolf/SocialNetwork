@@ -16,7 +16,7 @@ namespace Hadia
         public int MLogin { get; set; }
         public DateTime? MDate { get; set; }
 
-        public HadiaCommittee HadiaCommittees { get; set; }
+        public Com_Master HadiaCommittees { get; set; }
         public Mem_Master Member { get; set; }
         public Mem_Master CreatedBy { get; set; }
         public Mem_Master ModifiedBy { get; set; }
