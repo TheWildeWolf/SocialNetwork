@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Hadia.Data.Configs
 {
-    public class HadiyaYearMasterConfig : IEntityTypeConfiguration<HadiyaYearMaster>
+    public class Haf_YearMasterMasterConfig : IEntityTypeConfiguration<Haf_YearMaster>
     {
-        public void Configure(EntityTypeBuilder<HadiyaYearMaster> builder)
+        public void Configure(EntityTypeBuilder<Haf_YearMaster> builder)
         {
             builder.HasOne(x => x.YearAddedBy)
                 .WithMany(x => x.HadiyaYearAdded)

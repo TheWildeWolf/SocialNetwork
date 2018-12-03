@@ -43,16 +43,16 @@ namespace Hadia.Data
         public DbSet<Post_InterestedArea> Post_InterestedAreas { get; set; }
         public DbSet<Post_Master> Post_Masters { get; set; }
         public DbSet<Post_Image> Post_Images { get; set; }
-        public DbSet<Resource> Resources { get; set; }
+        public DbSet<Res_Master> Resources { get; set; }
         public DbSet<Res_Views>Res_Views  { get; set; }
         public DbSet<Post_Comment> Post_Comments { get; set; }
         public DbSet<Post_Like> Post_Likes { get; set; }
         public DbSet<Post_CommentsLike> Post_CommentsLikes { get; set; }
         public DbSet<Post_ReportReason> Post_ReportReasons { get; set; }
-        public DbSet<HadiyaYearMaster> HadiyaYearMasters { get; set; }
+        public DbSet<Haf_YearMaster> Haf_YearMasters { get; set; }
         public DbSet<Post_Report> Post_Reports { get; set; }
         public DbSet<Post_Edit> Post_Edits { get; set; }
-        public DbSet<HAF> HAFs { get; set; }
+        public DbSet<Haf_Master> Haf_Masters { get; set; }
         public DbSet<Com_Master> Com_Masters { get; set; }
         public DbSet<Post_View> Post_Views { get; set; }
         public DbSet<Com_ExecutiveMember> Com_ExecutiveMembers { get; set; }

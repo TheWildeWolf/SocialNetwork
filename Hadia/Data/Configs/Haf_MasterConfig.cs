@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Hadia.Data.Configs
 {
-    public class HAFConfig : IEntityTypeConfiguration<HAF>
+    public class Haf_MasterConfig : IEntityTypeConfiguration<Haf_Master>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<HAF> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Haf_Master> builder)
         {
             builder.HasOne(x => x.Member)
                 .WithMany(x => x.HAFmember)

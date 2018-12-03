@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Hadia.Models.DomainModels
 {
-    public class Resource
+    public class Res_Master
     {
         public int Id { get; set; }
         public int MemberId { get; set; }

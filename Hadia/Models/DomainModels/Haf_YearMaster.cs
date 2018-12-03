@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Hadia.Models.DomainModels
 {
-    public class HadiyaYearMaster
+    public class Haf_YearMaster
     {
         public int Id { get; set; }
         public string  YearName { get; set; }
@@ -18,7 +18,7 @@ namespace Hadia.Models.DomainModels
 
         public Mem_Master YearAddedBy { get; set; }
         public Mem_Master YearModifiedBy { get; set; }
-        public ICollection<HAF> Hafs { get; set; }
+        public ICollection<Haf_Master> HafMasters { get; set; }
        
     }
 }
