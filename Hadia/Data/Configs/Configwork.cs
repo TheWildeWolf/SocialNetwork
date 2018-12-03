@@ -7,6 +7,6 @@ namespace Hadia.Data.Configs
 {
     public class dssd
     {
-
+       
     }
 }

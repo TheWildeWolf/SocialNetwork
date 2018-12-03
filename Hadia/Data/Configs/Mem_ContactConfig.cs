@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Hadia.Data.Configs
 {
-    public class Mem_ContactConfig : IEntityTypeConfiguration<Mem_MemberContanct>
+    public class Mem_ContactConfig : IEntityTypeConfiguration<Mem_Contanct>
     {
-        public void Configure(EntityTypeBuilder<Mem_MemberContanct> builder)
+        public void Configure(EntityTypeBuilder<Mem_Contanct> builder)
         {
             builder.HasOne(x => x.Member)
                 .WithMany(x => x.Contacts)

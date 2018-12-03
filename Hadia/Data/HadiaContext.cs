@@ -25,7 +25,7 @@ namespace Hadia.Data
         public DbSet<Mem_CountryCode> Mem_CountryCodes { get; set; }
         public DbSet<Mem_UgColleges> Mem_UgColleges { get; set; }
         public DbSet<Mem_Photo> Mem_Photos { get; set; }
-        public DbSet<Mem_MemberContanct> Mem_MemberContancts { get; set; }
+        public DbSet<Mem_Contanct> Mem_Contacts { get; set; }
         public DbSet<Mem_EducationDetail> Mem_EducationDetails { get; set; }
         public DbSet<Mem_AdminPrivilage> Mem_AdminPrivilages { get; set; }
 
@@ -55,7 +55,19 @@ namespace Hadia.Data
         public DbSet<HAF> HAFs { get; set; }
         public DbSet<Com_Master> Com_Masters { get; set; }
         public DbSet<Post_View> Post_Views { get; set; }
+        public DbSet<Com_ExecutiveMember> Com_ExecutiveMembers { get; set; }
+        public DbSet<Post_CommentEdit> Post_CommentEdits { get; set; }
+        public DbSet<Post_Follow> Post_Followers { get; set; }
+        public DbSet<Post_Donation> Post_Donations { get; set; }
+        public DbSet<Post_Category> Post_Categories { get; set; }
+        public DbSet<Post_Categorypermission> Post_Categorypermissions { get; set; }
+        public DbSet<Post_EventRegistration> Post_EventRegistrations { get; set; }
+        public DbSet<Sett_PrivacyInfoCategory> Sett_PrivacyInfoCategories { get; set; }
+        public DbSet<Sett_PrivacySetting> Sett_PrivacySettings { get; set; }
+        public DbSet<Sett_AdminActivityLog> Sett_AdminActivityLogses { get; set; }
+        public DbSet<Job_Master> Job_Masters { get; set; }
 
+        public DbSet<Job_View> Job_Views { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //modelBuilder.ApplyConfiguration(new Mem_MasterConfig());

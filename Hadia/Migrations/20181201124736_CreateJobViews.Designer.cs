@@ -4,14 +4,16 @@ using Hadia.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Hadia.Migrations
 {
     [DbContext(typeof(HadiaContext))]
-    partial class HadiaContextModelSnapshot : ModelSnapshot
+    [Migration("20181201124736_CreateJobViews")]
+    partial class CreateJobViews
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -669,66 +671,6 @@ namespace Hadia.Migrations
                     b.ToTable("Mem_WorkDetails");
                 });
 
-            modelBuilder.Entity("Hadia.Models.DomainModels.Post_Category", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CDate");
-
-                    b.Property<int>("CLogin");
-
-                    b.Property<DateTime?>("MDate");
-
-                    b.Property<int?>("MLogin");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CLogin");
-
-                    b.HasIndex("MLogin");
-
-                    b.ToTable("Post_Categories");
-                });
-
-            modelBuilder.Entity("Hadia.Models.DomainModels.Post_Categorypermission", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CDate");
-
-                    b.Property<int>("CLogin");
-
-                    b.Property<bool>("IsPermitted");
-
-                    b.Property<DateTime?>("MDate");
-
-                    b.Property<int?>("MLogin");
-
-                    b.Property<int>("MemberId");
-
-                    b.Property<int?>("ModifiedById");
-
-                    b.Property<int>("PostCategoryId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CLogin");
-
-                    b.HasIndex("MemberId");
-
-                    b.HasIndex("ModifiedById");
-
-                    b.HasIndex("PostCategoryId");
-
-                    b.ToTable("Post_Categorypermissions");
-                });
-
             modelBuilder.Entity("Hadia.Models.DomainModels.Post_ChapterLeader", b =>
                 {
                     b.Property<int>("Id")
@@ -1077,7 +1019,7 @@ namespace Hadia.Migrations
 
                     b.Property<DateTime>("CDate");
 
-                    b.Property<int>("CategoryId");
+                    b.Property<byte>("Category");
 
                     b.Property<DateTime?>("DDate");
 
@@ -1098,8 +1040,6 @@ namespace Hadia.Migrations
                     b.Property<string>("Voice");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
 
                     b.HasIndex("DeletedById");
 
@@ -1235,76 +1175,6 @@ namespace Hadia.Migrations
                     b.HasIndex("MemberId");
 
                     b.ToTable("Resources");
-                });
-
-            modelBuilder.Entity("Hadia.Models.DomainModels.Sett_AdminActivityLog", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ActivityType")
-                        .HasMaxLength(125);
-
-                    b.Property<DateTime>("DateTime");
-
-                    b.Property<int>("MemberId");
-
-                    b.Property<string>("Notes");
-
-                    b.Property<string>("Page")
-                        .HasMaxLength(125);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MemberId");
-
-                    b.ToTable("Sett_AdminActivityLogses");
-                });
-
-            modelBuilder.Entity("Hadia.Models.DomainModels.Sett_PrivacyInfoCategory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CategoryName")
-                        .HasMaxLength(50);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Sett_PrivacyInfoCategories");
-                });
-
-            modelBuilder.Entity("Hadia.Models.DomainModels.Sett_PrivacySetting", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("All");
-
-                    b.Property<bool>("Batch");
-
-                    b.Property<DateTime>("CDate");
-
-                    b.Property<int>("CategoryId");
-
-                    b.Property<bool>("Chapter");
-
-                    b.Property<DateTime?>("MDate");
-
-                    b.Property<int>("MemberId");
-
-                    b.Property<bool>("MyNetwork");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("MemberId");
-
-                    b.ToTable("Sett_PrivacySettings");
                 });
 
             modelBuilder.Entity("Hadia.Com_ExecutiveMember", b =>
@@ -1628,40 +1498,6 @@ namespace Hadia.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("Hadia.Models.DomainModels.Post_Category", b =>
-                {
-                    b.HasOne("Hadia.Models.DomainModels.Mem_Master", "CreatedBy")
-                        .WithMany("CreatedCategories")
-                        .HasForeignKey("CLogin")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Hadia.Models.DomainModels.Mem_Master", "ModifiedBy")
-                        .WithMany("ModifiedCategories")
-                        .HasForeignKey("MLogin");
-                });
-
-            modelBuilder.Entity("Hadia.Models.DomainModels.Post_Categorypermission", b =>
-                {
-                    b.HasOne("Hadia.Models.DomainModels.Mem_Master", "CreatedBy")
-                        .WithMany("CreatedPermissions")
-                        .HasForeignKey("CLogin")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Hadia.Models.DomainModels.Mem_Master", "Member")
-                        .WithMany("Categorypermissions")
-                        .HasForeignKey("MemberId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Hadia.Models.DomainModels.Mem_Master", "ModifiedBy")
-                        .WithMany("ModifiedPermissions")
-                        .HasForeignKey("ModifiedById");
-
-                    b.HasOne("Hadia.Models.DomainModels.Post_Category", "Category")
-                        .WithMany("Categorypermissions")
-                        .HasForeignKey("PostCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("Hadia.Models.DomainModels.Post_ChapterLeader", b =>
                 {
                     b.HasOne("Hadia.Models.DomainModels.Mem_Master", "CreatedBy")
@@ -1839,11 +1675,6 @@ namespace Hadia.Migrations
 
             modelBuilder.Entity("Hadia.Models.DomainModels.Post_Master", b =>
                 {
-                    b.HasOne("Hadia.Models.DomainModels.Post_Category", "Category")
-                        .WithMany("Posts")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.HasOne("Hadia.Models.DomainModels.Mem_Master", "DeletedBy")
                         .WithMany("DeletedPosts")
                         .HasForeignKey("DeletedById")
@@ -1854,7 +1685,7 @@ namespace Hadia.Migrations
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Hadia.Models.DomainModels.Mem_Master", "OpendBy")
+                    b.HasOne("Hadia.Models.DomainModels.Mem_Master", "OpnedBy")
                         .WithMany("CreatedPosts")
                         .HasForeignKey("OpnedId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -1925,27 +1756,6 @@ namespace Hadia.Migrations
 
                     b.HasOne("Hadia.Models.DomainModels.Mem_Master", "Member")
                         .WithMany("Resources")
-                        .HasForeignKey("MemberId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("Hadia.Models.DomainModels.Sett_AdminActivityLog", b =>
-                {
-                    b.HasOne("Hadia.Models.DomainModels.Mem_Master", "Member")
-                        .WithMany("AdminActivities")
-                        .HasForeignKey("MemberId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("Hadia.Models.DomainModels.Sett_PrivacySetting", b =>
-                {
-                    b.HasOne("Hadia.Models.DomainModels.Sett_PrivacyInfoCategory", "Category")
-                        .WithMany("PrivacySettings")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Hadia.Models.DomainModels.Mem_Master", "Member")
-                        .WithMany("PrivacySettings")
                         .HasForeignKey("MemberId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });

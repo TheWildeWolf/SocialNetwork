@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Hadia.Models.DomainModels
 {
-    public class Mem_MemberContanct
+    public class Mem_Contanct
     {
         public int Id { get; set; }
         public int MemberId { get; set; }
