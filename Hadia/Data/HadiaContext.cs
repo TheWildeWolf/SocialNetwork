@@ -64,7 +64,11 @@ namespace Hadia.Data
         public DbSet<Post_EventRegistration> Post_EventRegistrations { get; set; }
         public DbSet<Sett_PrivacyInfoCategory> Sett_PrivacyInfoCategories { get; set; }
         public DbSet<Sett_PrivacySetting> Sett_PrivacySettings { get; set; }
+        public DbSet<Sett_GroupAdminHistory> Sett_GroupAdminHistories { get; set; }
         public DbSet<Sett_AdminActivityLog> Sett_AdminActivityLogses { get; set; }
+        public DbSet<Sett_DeviceInfoLog> Sett_DeviceInfoLogs { get; set; }
+        public DbSet<Sett_LoginLog> Sett_LoginLogs { get; set; }
+        
         public DbSet<Job_Master> Job_Masters { get; set; }
 
         public DbSet<Job_View> Job_Views { get; set; }

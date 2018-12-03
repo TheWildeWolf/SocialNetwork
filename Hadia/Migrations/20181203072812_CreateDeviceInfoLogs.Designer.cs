@@ -4,14 +4,16 @@ using Hadia.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Hadia.Migrations
 {
     [DbContext(typeof(HadiaContext))]
-    partial class HadiaContextModelSnapshot : ModelSnapshot
+    [Migration("20181203072812_CreateDeviceInfoLogs")]
+    partial class CreateDeviceInfoLogs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1302,29 +1304,6 @@ namespace Hadia.Migrations
                     b.ToTable("Sett_GroupAdminHistories");
                 });
 
-            modelBuilder.Entity("Hadia.Models.DomainModels.Sett_LoginLog", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("IPAddress");
-
-                    b.Property<string>("KeyValue");
-
-                    b.Property<DateTime>("LoginTime");
-
-                    b.Property<DateTime?>("LogoutTime");
-
-                    b.Property<int>("MemberId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MemberId");
-
-                    b.ToTable("Sett_LoginLogs");
-                });
-
             modelBuilder.Entity("Hadia.Models.DomainModels.Sett_PrivacyInfoCategory", b =>
                 {
                     b.Property<int>("Id")
@@ -2017,14 +1996,6 @@ namespace Hadia.Migrations
 
                     b.HasOne("Hadia.Models.DomainModels.Mem_Master", "Member")
                         .WithMany("AdminHistory")
-                        .HasForeignKey("MemberId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("Hadia.Models.DomainModels.Sett_LoginLog", b =>
-                {
-                    b.HasOne("Hadia.Models.DomainModels.Mem_Master", "Member")
-                        .WithMany("LoginLogs")
                         .HasForeignKey("MemberId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });

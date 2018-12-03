@@ -4,14 +4,16 @@ using Hadia.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Hadia.Migrations
 {
     [DbContext(typeof(HadiaContext))]
-    partial class HadiaContextModelSnapshot : ModelSnapshot
+    [Migration("20181203071240_CreateGroupAdminHistory")]
+    partial class CreateGroupAdminHistory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1262,25 +1264,6 @@ namespace Hadia.Migrations
                     b.ToTable("Sett_AdminActivityLogses");
                 });
 
-            modelBuilder.Entity("Hadia.Models.DomainModels.Sett_DeviceInfoLog", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CDate");
-
-                    b.Property<string>("DeviceKey");
-
-                    b.Property<int>("MemberId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MemberId");
-
-                    b.ToTable("Sett_DeviceInfoLogs");
-                });
-
             modelBuilder.Entity("Hadia.Models.DomainModels.Sett_GroupAdminHistory", b =>
                 {
                     b.Property<int>("Id")
@@ -1300,29 +1283,6 @@ namespace Hadia.Migrations
                     b.HasIndex("MemberId");
 
                     b.ToTable("Sett_GroupAdminHistories");
-                });
-
-            modelBuilder.Entity("Hadia.Models.DomainModels.Sett_LoginLog", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("IPAddress");
-
-                    b.Property<string>("KeyValue");
-
-                    b.Property<DateTime>("LoginTime");
-
-                    b.Property<DateTime?>("LogoutTime");
-
-                    b.Property<int>("MemberId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MemberId");
-
-                    b.ToTable("Sett_LoginLogs");
                 });
 
             modelBuilder.Entity("Hadia.Models.DomainModels.Sett_PrivacyInfoCategory", b =>
@@ -2000,14 +1960,6 @@ namespace Hadia.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("Hadia.Models.DomainModels.Sett_DeviceInfoLog", b =>
-                {
-                    b.HasOne("Hadia.Models.DomainModels.Mem_Master", "Member")
-                        .WithMany("DeviceInfoLogs")
-                        .HasForeignKey("MemberId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
             modelBuilder.Entity("Hadia.Models.DomainModels.Sett_GroupAdminHistory", b =>
                 {
                     b.HasOne("Hadia.Models.DomainModels.Post_GroupMaster", "GroupMaster")
@@ -2017,14 +1969,6 @@ namespace Hadia.Migrations
 
                     b.HasOne("Hadia.Models.DomainModels.Mem_Master", "Member")
                         .WithMany("AdminHistory")
-                        .HasForeignKey("MemberId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("Hadia.Models.DomainModels.Sett_LoginLog", b =>
-                {
-                    b.HasOne("Hadia.Models.DomainModels.Mem_Master", "Member")
-                        .WithMany("LoginLogs")
                         .HasForeignKey("MemberId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });

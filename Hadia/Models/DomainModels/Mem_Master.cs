@@ -129,6 +129,10 @@ namespace Hadia.Models.DomainModels
         //Sett
         public ICollection<Sett_PrivacySetting> PrivacySettings { get; set; }
         public ICollection<Sett_AdminActivityLog> AdminActivities { get; set; }
+        public ICollection<Sett_GroupAdminHistory> AdminHistory { get; set; }
+        public ICollection<Sett_DeviceInfoLog> DeviceInfoLogs { get; set; }
+        public ICollection<Sett_LoginLog> LoginLogs { get; set; }
+        
     }
 
     public enum MaritalStatus : byte

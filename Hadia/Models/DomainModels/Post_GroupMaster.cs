@@ -25,6 +25,7 @@ namespace Hadia.Models.DomainModels
         public ICollection<Post_ChapterLeader> ChapterLeaders { get; set; }
         public ICollection<Post_InterestedArea> InterestedAreas { get; set; }
         public ICollection<Post_Master> Posts { get; set; }
+        public ICollection<Sett_GroupAdminHistory> AdminGroup { get; set; }
     }
 
     public enum GroupType : byte
