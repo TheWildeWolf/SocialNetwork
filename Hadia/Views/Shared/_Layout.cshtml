@@ -5,7 +5,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Hadia</title>
-
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
@@ -34,16 +33,7 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li><a class="btn btn-warning" asp-area="" asp-controller="Auth" asp-action="Logout">Log Out</a></li>
-
-                    }
-                    else
-                    {
-                        <li><a class="btn btn-success" asp-area="" asp-controller="Auth" asp-action="Login">Login</a></li>
-
-                    }
+                    <li><a asp-area="Member" asp-controller="QualificationMaster" asp-action="Index">Member</a></li>
                 </ul>
             </div>
         </div>
@@ -51,13 +41,14 @@
 
     <partial name="_CookieConsentPartial" />
 
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2018 - Hadia</p>
-        </footer>
-    </div>
+<div class="container body-content">
+    <br />
+    @RenderBody()
+    <hr/>
+    @*<footer>
+        <p>&copy; 2018 - Hadia</p>
+    </footer>*@
+</div>
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>

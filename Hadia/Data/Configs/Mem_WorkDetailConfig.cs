@@ -22,6 +22,11 @@ namespace Hadia.Data.Configs
                 .HasForeignKey(x => x.CountryId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder.HasOne(x => x.CategoryMaster)
+               .WithMany(x => x.WorkDetails)
+               .HasForeignKey(x => x.JobCategoryId)
+               .OnDelete(DeleteBehavior.Restrict);
+
         }
     }
 }

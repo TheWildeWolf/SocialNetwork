@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Hadia.Data.Configs
 {
-    public class ResourcesConfig : IEntityTypeConfiguration<Res_Master>
+    public class Res_MasterConfig : IEntityTypeConfiguration<Res_Master>
     {
         public void Configure(EntityTypeBuilder<Res_Master> builder)
         {

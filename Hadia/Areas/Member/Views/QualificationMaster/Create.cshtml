@@ -1,0 +1,19 @@
+﻿@model Hadia.Models.DomainModels.Mem_EducationalQualificationMaster
+@{
+
+}
+
+<form asp-action="Create" asp-controller="QualificationMaster" method="post">
+    <div class="col-md-4">
+        <div class="form-group">
+            @Html.LabelFor(x => x.DegreeName)
+            @Html.TextBoxFor(x => x.DegreeName, new {@class = "form-control"})
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.Rank)
+            @Html.TextBoxFor(x => x.Rank, new {@class = "form-control"})
+        </div>
+        <button class="btn btn-success">Save</button>
+    </div>
+
+</form>

@@ -63,6 +63,8 @@ namespace Hadia.Models.DomainModels
         public ICollection<Mem_Membership> MemberShips { get; set; }
         public ICollection<Mem_Membership> MemberShipsCreated { get; set; }
         public ICollection<Mem_Membership> MemberShipsModified { get; set; }
+        public ICollection<Mem_ProjectWork> Projects{ get; set; }
+        public ICollection<Mem_JobCategoryMaster> CreatedJobCategoryMasters { get; set; }
 
         public ICollection<Post_GroupMaster> CreatedGroups { get; set; }
         public ICollection<Post_GroupMember> MembersAdded { get; set; }

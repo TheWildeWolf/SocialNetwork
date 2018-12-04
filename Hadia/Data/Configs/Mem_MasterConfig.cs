@@ -81,6 +81,11 @@ namespace Hadia.Data.Configs
                 .HasForeignKey(x => x.VarifiedBy)
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
+            builder.HasMany(x => x.CreatedJobCategoryMasters)
+                .WithOne(x => x.CreatedBy)
+                .HasForeignKey(x => x.CLogin)
+                .OnDelete(DeleteBehavior.Restrict);
+
             builder.Property(x => x.DateOfBirth).HasColumnType("date");
 
 

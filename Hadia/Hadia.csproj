@@ -23,6 +23,8 @@
     <Compile Remove="Migrations\20181203120222_Test.Designer.cs" />
     <Compile Remove="Migrations\20181203120632_Test.cs" />
     <Compile Remove="Migrations\20181203120632_Test.Designer.cs" />
+    <Compile Remove="Migrations\20181204120557_CreateProjectMasterWorkCategory.cs" />
+    <Compile Remove="Migrations\20181204120557_CreateProjectMasterWorkCategory.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,9 +33,40 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="Areas\Member\Controllers\QualificationMasterController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Areas\Member\Views\QualificationMaster\Create.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Include="Areas\Member\Views\_ViewImports.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Include="Areas\Member\Views\_ViewStart.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Tools" Version="1.1.0-preview4-final" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Member\Data\" />
+    <Folder Include="Areas\Member\Models\" />
+    <Folder Include="Areas\Member\Views\Shared\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Areas\Member\Views\QualificationMaster\Edit.cshtml" />
+    <None Include="Areas\Member\Views\QualificationMaster\Index.cshtml" />
   </ItemGroup>
 
 </Project>

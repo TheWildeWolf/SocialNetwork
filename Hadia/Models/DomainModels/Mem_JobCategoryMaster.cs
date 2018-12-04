@@ -5,19 +5,14 @@ using System.Threading.Tasks;
 
 namespace Hadia.Models.DomainModels
 {
-    public class Mem_EducationalQualificationMaster
+    public class Mem_JobCategoryMaster
     {
         public int Id { get; set; }
-        public string DegreeName { get; set; }
-        public int Rank { get; set; }
-        public bool IsPhd { get; set; }
+        public string CategoryName { get; set; }
         public DateTime CDate { get; set; }
         public int CLogin { get; set; }
 
         public Mem_Master CreatedBy { get; set; }
-        public ICollection<Mem_EducationDetail> EducationDetails { get; set; }
-
-        
-
+        public ICollection<Mem_WorkDetail> WorkDetails { get; set; }
     }
 }
