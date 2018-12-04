@@ -1,0 +1,42 @@
+﻿
+@model List<Hadia.Models.DomainModels.Mem_EducationalQualificationMaster>
+@{
+    ViewData["Title"] = "Index";
+    int sn = 1;
+}
+
+<h2>Educational Qualifications</h2>
+@Html.ActionLink("Create New","Create")
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Sn
+                </th>
+                <th>
+                    Degree Name
+                </th>
+                <th>
+                    Rank
+                </th>
+                <th>
+                    Option
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var master in Model)
+            {
+                <tr>
+                    <td>@sn</td>
+                    <td>@Html.DisplayFor(x => master.DegreeName)</td>
+                    <td>@Html.DisplayFor(x => master.Rank)</td>
+                    <td>
+                      
+                        @Html.ActionLink("Edit", "Edit", new { id = master.Id })
+                        <a asp-action="Delete" asp-route-id="@master.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

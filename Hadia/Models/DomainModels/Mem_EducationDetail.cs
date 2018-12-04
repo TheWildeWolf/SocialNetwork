@@ -12,7 +12,7 @@ namespace Hadia.Models.DomainModels
 
         public DateTime PassoutYear { get; set; }
         public string Specialization { get; set; }
-
+        public string PhdTopic { get; set; }
         public DateTime CDate { get; set; }
 
         public Mem_Master Member { get; set; }

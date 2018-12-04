@@ -12,6 +12,7 @@ namespace Hadia.Models.DomainModels
         public int CountryId { get; set; }
 
         public string JobTitle { get; set; }
+        public int JobCategoryId { get; set; }
         public DateTime DateForm { get; set; }
         public DateTime DateUpto { get; set; }
 
@@ -19,6 +20,7 @@ namespace Hadia.Models.DomainModels
 
         public Mem_Master Member { get; set; }
         public Mem_CountryCode Country { get; set; }
+        public Mem_JobCategoryMaster CategoryMaster { get; set; }
     }
 }
 

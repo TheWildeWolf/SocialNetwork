@@ -4,14 +4,16 @@ using Hadia.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Hadia.Migrations
 {
     [DbContext(typeof(HadiaContext))]
-    partial class HadiaContextModelSnapshot : ModelSnapshot
+    [Migration("20181204105247_AlterMemEducationDetalColumn")]
+    partial class AlterMemEducationDetalColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -393,25 +395,6 @@ namespace Hadia.Migrations
                     b.ToTable("Mem_InterestedAreas");
                 });
 
-            modelBuilder.Entity("Hadia.Models.DomainModels.Mem_JobCategoryMaster", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CDate");
-
-                    b.Property<int>("CLogin");
-
-                    b.Property<string>("CategoryName");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CLogin");
-
-                    b.ToTable("Mem_JobCategoryMasters");
-                });
-
             modelBuilder.Entity("Hadia.Models.DomainModels.Mem_Kid", b =>
                 {
                     b.Property<int>("Id")
@@ -592,27 +575,6 @@ namespace Hadia.Migrations
                     b.ToTable("Mem_Photos");
                 });
 
-            modelBuilder.Entity("Hadia.Models.DomainModels.Mem_ProjectWork", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CDate");
-
-                    b.Property<string>("Description");
-
-                    b.Property<int>("MemberId");
-
-                    b.Property<string>("ProjectTitle");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MemberId");
-
-                    b.ToTable("Mem_ProjectWorks");
-                });
-
             modelBuilder.Entity("Hadia.Models.DomainModels.Mem_SpouseEducationMaster", b =>
                 {
                     b.Property<int>("Id")
@@ -711,8 +673,6 @@ namespace Hadia.Migrations
 
                     b.Property<DateTime>("DateUpto");
 
-                    b.Property<int>("JobCategoryId");
-
                     b.Property<string>("JobTitle")
                         .HasMaxLength(100);
 
@@ -724,8 +684,6 @@ namespace Hadia.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CountryId");
-
-                    b.HasIndex("JobCategoryId");
 
                     b.HasIndex("MemberId");
 
@@ -1634,14 +1592,6 @@ namespace Hadia.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("Hadia.Models.DomainModels.Mem_JobCategoryMaster", b =>
-                {
-                    b.HasOne("Hadia.Models.DomainModels.Mem_Master", "CreatedBy")
-                        .WithMany("CreatedJobCategoryMasters")
-                        .HasForeignKey("CLogin")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
             modelBuilder.Entity("Hadia.Models.DomainModels.Mem_Kid", b =>
                 {
                     b.HasOne("Hadia.Models.DomainModels.Mem_Master", "Member")
@@ -1712,14 +1662,6 @@ namespace Hadia.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("Hadia.Models.DomainModels.Mem_ProjectWork", b =>
-                {
-                    b.HasOne("Hadia.Models.DomainModels.Mem_Master", "Member")
-                        .WithMany("Projects")
-                        .HasForeignKey("MemberId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
             modelBuilder.Entity("Hadia.Models.DomainModels.Mem_SpouseEducationMaster", b =>
                 {
                     b.HasOne("Hadia.Models.DomainModels.Mem_Master", "CreatedBy")
@@ -1762,11 +1704,6 @@ namespace Hadia.Migrations
                     b.HasOne("Hadia.Models.DomainModels.Mem_CountryCode", "Country")
                         .WithMany("WorkersInCountry")
                         .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Hadia.Models.DomainModels.Mem_JobCategoryMaster", "CategoryMaster")
-                        .WithMany("WorkDetails")
-                        .HasForeignKey("JobCategoryId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Hadia.Models.DomainModels.Mem_Master", "Member")

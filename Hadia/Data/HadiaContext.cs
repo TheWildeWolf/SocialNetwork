@@ -29,6 +29,8 @@ namespace Hadia.Data
         public DbSet<Mem_Contanct> Mem_Contacts { get; set; }
         public DbSet<Mem_EducationDetail> Mem_EducationDetails { get; set; }
         public DbSet<Mem_AdminPrivilage> Mem_AdminPrivilages { get; set; }
+        public DbSet<Mem_ProjectWork> Mem_ProjectWorks { get; set; }
+        public DbSet<Mem_JobCategoryMaster> Mem_JobCategoryMasters { get; set; }
 
         public DbSet<Post_GroupMember> Post_GroupMembers { get; set; }
         public DbSet<Post_GroupMaster> Post_GroupMasters { get; set; }
