@@ -5,9 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\**" />
     <Compile Remove="Models\DataTransferObjects\**" />
+    <Content Remove="Areas\**" />
     <Content Remove="Models\DataTransferObjects\**" />
+    <EmbeddedResource Remove="Areas\**" />
     <EmbeddedResource Remove="Models\DataTransferObjects\**" />
+    <None Remove="Areas\**" />
     <None Remove="Models\DataTransferObjects\**" />
   </ItemGroup>
 
@@ -30,13 +34,6 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Areas\Member\Controllers\" />
-    <Folder Include="Areas\Member\Data\" />
-    <Folder Include="Areas\Member\Models\" />
-    <Folder Include="Areas\Member\Views\" />
   </ItemGroup>
 
 </Project>
