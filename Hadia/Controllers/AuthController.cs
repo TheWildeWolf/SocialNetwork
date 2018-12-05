@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Hadia.Data;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,11 @@ namespace Hadia.Controllers
 {
     public class AuthController : Controller
     {
+        private HadiaContext _db;
+        public AuthController( HadiaContext context)
+        {
+            _db = context;
+        }
         [HttpGet]
         public IActionResult Login(string ReturnUrl)
         {
@@ -19,10 +25,13 @@ namespace Hadia.Controllers
         [HttpPost]
         public async Task<IActionResult> Login()
         {
+            var userId = _db.Mem_Masters.FirstOrDefault().Id;
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, "Selik"),
                 new Claim(ClaimTypes.Role, "Administrator"),
+                new Claim(ClaimTypes.NameIdentifier,userId.ToString())
+
             };
 
             var claimsIdentity = new ClaimsIdentity(
@@ -38,7 +47,7 @@ namespace Hadia.Controllers
                 // value set here overrides the ExpireTimeSpan option of 
                 // CookieAuthenticationOptions set with AddCookie.
 
-                //IsPersistent = true,
+                IsPersistent = true,
                 // Whether the authentication session is persisted across 
                 // multiple requests. Required when setting the 
                 // ExpireTimeSpan option of CookieAuthenticationOptions 
