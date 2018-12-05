@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using System.Runtime.Serialization.Json;
+using System.Text;
 using Hadia.Models.DomainModels;
 using Hadia.Models.ViewModels;
 
@@ -31,7 +32,25 @@ namespace Hadia.Controllers
         }
         public IActionResult Index()
         {
-          
+            if (!_db.Mem_Masters.Any())
+            {
+                byte[] bytes = Encoding.ASCII.GetBytes("sample");
+                var newMem = new Mem_Master
+                {
+                    AdNo = "111",
+                    Name = "Jon Doe",
+                    DateOfBirth = DateTime.Now,
+                    IsGroupAdmin = false,
+                    IsVarified = false,
+                    PasswordSalt = bytes,
+                    PasswordHash = bytes,
+                    CountryCode = "91",
+                    Phone = "9969969961"
+
+                };
+                _db.Mem_Masters.Add(newMem);
+                _db.SaveChanges();
+            }
             return View();
         }
 
