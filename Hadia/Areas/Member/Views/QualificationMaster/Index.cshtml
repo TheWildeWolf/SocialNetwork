@@ -32,8 +32,8 @@
                     <td>@Html.DisplayFor(x => master.DegreeName)</td>
                     <td>@Html.DisplayFor(x => master.Rank)</td>
                     <td>
-                      
-                        @Html.ActionLink("Edit", "Edit", new { id = master.Id })
+                        <a asp-action="Edit" asp-route-id="@master.Id">Edit</a>
+                        <a asp-action="Details" asp-route-id="@master.Id">Details</a>
                         <a asp-action="Delete" asp-route-id="@master.Id">Delete</a>
                     </td>
                 </tr>

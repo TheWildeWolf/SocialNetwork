@@ -45,21 +45,50 @@ namespace Hadia.Areas.Member.Controllers
             return View(qualificationMaster);
         }
         [HttpGet]
-        public async Task< IActionResult> Edit(int id)
+        public async Task< IActionResult> Edit(int ?id)
         {
+            if(id==null)
+            {
+                return NotFound();
+            }
             var EditData =await _db.Mem_EducationalQualifications.FindAsync(id);
+            if(EditData==null)
+            {
+                return NotFound();
+            }
             _db.SaveChanges();
             return View(EditData);
 
 
         }
-        public async Task<IActionResult> Delete(int id)
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, Mem_EducationalQualificationMaster qualificationMaster)
+        {
+            if(ModelState.IsValid)
+            {
+
+
+            }
+            return View();
+        }
+
+            public async Task<IActionResult> Delete(int id)
         {
             var DelData = await _db.Mem_EducationalQualifications.FindAsync(id);
             _db.Mem_EducationalQualifications.Remove(DelData);
             _db.SaveChanges();
             return RedirectToAction("Index");
 
+        }
+        [HttpGet]
+        public async Task<ActionResult>Details(int?id)
+        {
+            if(id==null)
+            {
+                return NotFound();
+            }
+            var ListEmployee = await _db.Mem_EducationalQualifications.FindAsync(id);
+            return View(ListEmployee);
         }
     }
 }

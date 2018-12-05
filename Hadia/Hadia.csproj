@@ -64,6 +64,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Areas\Member\Views\QualificationMaster\Details.cshtml" />
     <None Include="Areas\Member\Views\QualificationMaster\Edit.cshtml" />
     <None Include="Areas\Member\Views\QualificationMaster\Index.cshtml" />
   </ItemGroup>
