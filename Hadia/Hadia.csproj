@@ -34,6 +34,7 @@
 
   <ItemGroup>
     <Compile Include="Areas\Member\Controllers\QualificationMasterController.cs" />
+    <Compile Include="Areas\Member\Controllers\RegisterApiController.cs" />
     <Compile Include="Areas\Member\Controllers\SpouseEducationController.cs" />
     <Compile Include="Areas\Member\Controllers\StateMasterController.cs" />
   </ItemGroup>
@@ -54,6 +55,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
