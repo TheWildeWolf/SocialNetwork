@@ -12,15 +12,21 @@
             @Html.LabelFor(model => model.DegreeName)
         </dt>
         <dd>
-            @Html.LabelFor(model => model.DegreeName)
+            @Html.DisplayFor(model => model.DegreeName)
         </dd>
         <dt>
             @Html.LabelFor(model => model.Rank)
         </dt>
         <dd>
-            @Html.LabelFor(model => model.Rank)
+            @Html.DisplayFor(model => model.Rank)
+        </dd>
+        <dt>
+            @Html.LabelFor(model => model.IsPhd)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsPhd)
         </dd>
     </dl>
 </div>
-<a asp-action="Edit" asp-route-id="@model.id">Edit</a>|
+
 <a asp-action="Index">Back to List</a>

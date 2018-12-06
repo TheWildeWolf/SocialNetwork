@@ -1,19 +1,41 @@
 ﻿@model Hadia.Models.DomainModels.Mem_EducationalQualificationMaster
 @{
-
+    ViewData["Title"] = "Create";
 }
-
+<h2>Create</h2>
+<h4>Educational Qualification</h4>
+<hr />
 <form asp-action="Create" asp-controller="QualificationMaster" method="post">
-    <div class="col-md-4">
-        <div class="form-group">
-            @Html.LabelFor(x => x.DegreeName)
-            @Html.TextBoxFor(x => x.DegreeName, new {@class = "form-control"})
+    <div class="row">
+        <div class=" col-md-4">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="DegreeName" class=" control-label"></label>
+                <input asp-for="DegreeName" class=" form-control" />
+
+                <span asp-validation-for="DegreeName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Rank" class=" control-label"></label>
+                <input asp-for="Rank" class=" form-control" />
+
+                <span asp-validation-for="Rank" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsPhd" class=" control-label"></label>
+                <input type="checkbox" asp-for="IsPhd"  />
+
+               
+            </div>
+            <button class="btn btn-success">Save</button>
+
         </div>
-        <div class="form-group">
-            @Html.LabelFor(x => x.Rank)
-            @Html.TextBoxFor(x => x.Rank, new {@class = "form-control"})
-        </div>
-        <button class="btn btn-success">Save</button>
     </div>
 
 </form>
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
