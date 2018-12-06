@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Hadia.Data;
 using Hadia.Models.DomainModels;
+using Hadia.Models.DomainModels.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
@@ -25,7 +26,7 @@ namespace Hadia.Areas.Member.Controllers
         {
             var listOfQualifications =await _db.Mem_EducationalQualifications
                 .ToListAsync();
-            
+
             return View(listOfQualifications);
         }
         [HttpGet]
@@ -37,7 +38,7 @@ namespace Hadia.Areas.Member.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Mem_EducationalQualificationMaster qualificationMaster)
         {
-            if (_db.Mem_EducationalQualifications.Any(x => x.DegreeName == qualificationMaster.DegreeName))
+            if (await _db.Mem_EducationalQualifications.AnyAsync(x => x.DegreeName == qualificationMaster.DegreeName))
             {
                 ModelState.AddModelError("DegreeName","Degree Name Already Exist");
                
