@@ -69,8 +69,8 @@ namespace Hadia.Areas.Member.Controllers
             {
                 return NotFound();
             }
-            _db.SaveChanges();
-            return View(EditData);
+                await _db.SaveChangesAsync();
+                return View(EditData);
 
 
         }
@@ -118,8 +118,8 @@ namespace Hadia.Areas.Member.Controllers
             {
                 return NotFound();
             }
-            var ListEmployee = await _db.Mem_EducationalQualifications.FindAsync(id);
-            return View(ListEmployee);
+            var ListQualification = await _db.Mem_EducationalQualifications.FindAsync(id);
+            return View(ListQualification);
         }
     }
 }
