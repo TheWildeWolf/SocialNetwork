@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Hadia.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -40,7 +41,7 @@ namespace Hadia
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<HadiaContext>(op =>
                 op.UseSqlServer(Configuration.GetConnectionString(DEV_CONNECTION_STRING)));
-
+            services.AddAutoMapper();
             //AuthCoockie
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
