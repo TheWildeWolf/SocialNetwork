@@ -10,8 +10,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Hadia.Models;
 using Hadia.Data;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
+
 using Microsoft.AspNetCore.Authorization;
 using System.Runtime.Serialization.Json;
 using System.Text;

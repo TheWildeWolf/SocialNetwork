@@ -95,8 +95,64 @@ namespace Hadia.Areas.Member.Controllers
 
         }
 
+        [HttpGet]
+        public async Task<IActionResult> steptwo()
+        {
+            //Add Multiple Education Details for an Member get method
+            var educationQualifications = await _db.Mem_EducationalQualifications
+                                            .Select(x=> _mapper.Map<EducationQualificationDto>(x)).ToListAsync();
+            var universities            = await _db.Mem_UniversityMasters.Select(x=> _mapper.Map<UniversityDto>(x))
+                                            .ToListAsync();
+            
+            var registrationEducationResource = new RegisterEductionResourceDto {
+                EducationQualifications =educationQualifications,
+                Universities = universities
+            };
 
-        
+            return Ok(registrationEducationResource);
+            
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> steptwo(EducationRegisterDto registerEducation)
+        {
+            int userId = 1; //change this JWT token claim
+            foreach(var edu in registerEducation.Qualifications)
+            {
+               await _db.Mem_EducationDetails.AddAsync(new Mem_EducationDetail{
+                   CDate =DateTime.Now,
+                   EducationQualificationId =edu.QualificationId,
+                   MemberId = userId,
+                   PassoutYear = new DateTime(edu.PassoutYear,1,1),
+                   PhdTopic = edu.Topic,
+                   UniversityId =edu.UniversityId,
+                   Specialization = edu.Specialization,
+                   
+               });
+            }
+
+            foreach (var project in registerEducation.Projects)
+            {
+                await _db.Mem_ProjectWorks.AddAsync( new Mem_ProjectWork{
+                    MemberId = userId,
+                    Description = project.Description,
+                    ProjectTitle = project.ProjectTitle
+                });
+            }
+
+            try
+            {
+            await _db.SaveChangesAsync();    
+            }
+            catch (System.Exception ex)
+            {
+                
+                return Ok(ex);
+            }
+            
+
+            return Ok("Success");
+        }
 
         
     }
