@@ -13,8 +13,8 @@ namespace Hadia.Helper
         
         public MappingProfile()
         {
-            CreateMap<Mem_UgColleges, UgCollageDto>();
-            CreateMap<Mem_StateMaster,StateDto>();
+
+
         }
     }
 }

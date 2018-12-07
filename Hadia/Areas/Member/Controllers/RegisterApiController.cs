@@ -14,7 +14,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Hadia.Areas.Member.Controllers
 {
 
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class RegisterController : ControllerBase
@@ -35,9 +35,7 @@ namespace Hadia.Areas.Member.Controllers
         public async Task<IActionResult> StepOne()
         {
             var listOfUgiColleges = await 
-            _db.
-            Mem_UgColleges
-            .Select(x => _mapper.Map<UgCollageDto>(x)).ToListAsync();
+            _db.Mem_UgColleges.Select(x => _mapper.Map<UgCollageDto>(x)).ToListAsync();
 
             var listOfBatch = await _db.Post_GroupMasters.Where(x=>x.Type == GroupType.Chapter )
             .Select(x=> new BatchDto {
@@ -116,7 +114,7 @@ namespace Hadia.Areas.Member.Controllers
         [HttpPost]
         public async Task<IActionResult> steptwo(EducationRegisterDto registerEducation)
         {
-            int userId = 1; //change this JWT token claim
+            int userId = 1; //change this to JWT token claim
             foreach(var edu in registerEducation.Qualifications)
             {
                await _db.Mem_EducationDetails.AddAsync(new Mem_EducationDetail{
@@ -154,6 +152,36 @@ namespace Hadia.Areas.Member.Controllers
             return Ok("Success");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> stepthree()
+        {
+            //jobDetail
+            var listOfCountries = await _db.Mem_CountryCodes
+                                .Select(x=> _mapper.Map<CountryDto>(x))
+                                .ToListAsync();
+            var listOfJobs = await _db.Mem_JobCategoryMasters
+                            .Select(x=>_mapper.Map<JobCategoryDto>(x)).ToListAsync();
+            var jobResource = new RegisterJobResourceDto {
+                Countries =listOfCountries,
+                JobCategories = listOfJobs
+            };
+            return Ok(jobResource);
+        }
         
+        [HttpPost]
+         public async Task<IActionResult> stepthree(List<JobdetailDto> jobs)
+         {
+             var userId = 1;
+             var joblis = _mapper.Map<IEnumerable<Mem_WorkDetail>>(jobs);
+              foreach (var job in joblis)
+             {
+                job.CDate = DateTime.Now;
+                job.MemberId = userId;
+             }
+             await _db.AddRangeAsync(joblis);
+             await _db.SaveChangesAsync();
+             return Ok();
+             
+         }
     }
 }

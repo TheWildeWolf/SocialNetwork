@@ -37,7 +37,6 @@ namespace Hadia
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<HadiaContext>(op =>
                 op.UseSqlServer(Configuration.GetConnectionString(DEV_CONNECTION_STRING)));
@@ -49,6 +48,8 @@ namespace Hadia
                     options.AccessDeniedPath = "";
                     options.LoginPath = "/Auth/Login";
                 });
+                //swagger
+   
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
