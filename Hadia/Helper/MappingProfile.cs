@@ -27,6 +27,9 @@ namespace Hadia.Helper
             CreateMap<Mem_StateMaster, StateMasterViewModel>();
             CreateMap<StateMasterViewModel, Mem_StateMaster>();
 
+            CreateMap<Mem_UgColleges, UgCollegesViewModel>();
+            CreateMap<UgCollegesViewModel, Mem_UgColleges>();
+
 
         }
     }

@@ -100,7 +100,7 @@ namespace Hadia.Areas.Member.Controllers
                 {
                     throw;
                 }
-                return RedirectToAction(nameof(Index));
+              
             }
             return View(qualificationMaster);
         }
