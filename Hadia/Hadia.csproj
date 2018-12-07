@@ -37,6 +37,7 @@
     <Compile Include="Areas\Member\Controllers\RegisterApiController.cs" />
     <Compile Include="Areas\Member\Controllers\SpouseEducationController.cs" />
     <Compile Include="Areas\Member\Controllers\StateMasterController.cs" />
+    <Compile Include="Areas\Member\Controllers\UgCollegeController.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -76,6 +77,9 @@
     <None Include="Areas\Member\Views\StateMaster\Create.cshtml" />
     <None Include="Areas\Member\Views\StateMaster\Edit.cshtml" />
     <None Include="Areas\Member\Views\StateMaster\Index.cshtml" />
+    <None Include="Areas\Member\Views\UgCollege\Create.cshtml" />
+    <None Include="Areas\Member\Views\UgCollege\Edit.cshtml" />
+    <None Include="Areas\Member\Views\UgCollege\Index.cshtml" />
   </ItemGroup>
 
 </Project>
