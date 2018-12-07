@@ -1,8 +1,8 @@
 ﻿
-@model List<Hadia.Models.DomainModels.Mem_EducationalQualificationMaster>
+@model List<Hadia.Models.ViewModels.EducationalQualificationMasterViewModel>
 @{
     ViewData["Title"] = "Index";
-    int sn = 1;
+  
 }
 
 <h2>Educational Qualifications</h2>
@@ -20,23 +20,28 @@
                     Rank
                 </th>
                 <th>
+                    Is Phd
+                </th>
+                <th>
                     Option
                 </th>
             </tr>
         </thead>
         <tbody>
+            @{ int SlNo = 0; }
             @foreach (var master in Model)
             {
-                <tr>
-                    <td>@sn</td>
-                    <td>@Html.DisplayFor(x => master.DegreeName)</td>
-                    <td>@Html.DisplayFor(x => master.Rank)</td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@master.Id">Edit</a>
-                        <a asp-action="Details" asp-route-id="@master.Id">Details</a>
-                        <a asp-action="Delete" asp-route-id="@master.Id">Delete</a>
-                    </td>
-                </tr>
+            <tr>
+                <td> @(SlNo += 1)</td>
+                <td>@Html.DisplayFor(x => master.DegreeName)</td>
+                <td>@Html.DisplayFor(x => master.Rank)</td>
+                <td>@Html.DisplayFor(x => master.IsPhd)</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@master.Id">Edit</a>
+                    <a asp-action="Details" asp-route-id="@master.Id">Details</a>
+                    <a asp-action="Delete" asp-route-id="@master.Id">Delete</a>
+                </td>
+            </tr>
             }
         </tbody>
     </table>

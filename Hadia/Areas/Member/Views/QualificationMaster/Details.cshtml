@@ -1,26 +1,32 @@
-﻿@model Hadia.Models.DomainModels.Mem_EducationalQualificationMaster
+﻿@model Hadia.Models.ViewModels.EducationalQualificationMasterViewModel
 @{
     ViewData["Title"] = "Details";
 }
 
 <h2>Details</h2>
 <div>
-    <h4>Qualification Details</h4>
+    <h4>Qualification </h4>
     <hr/>
     <dl class=" dl-horizontal">
         <dt>
             @Html.LabelFor(model => model.DegreeName)
         </dt>
         <dd>
-            @Html.LabelFor(model => model.DegreeName)
+            @Html.DisplayFor(model => model.DegreeName)
         </dd>
         <dt>
             @Html.LabelFor(model => model.Rank)
         </dt>
         <dd>
-            @Html.LabelFor(model => model.Rank)
+            @Html.DisplayFor(model => model.Rank)
+        </dd>
+        <dt>
+            @Html.LabelFor(model => model.IsPhd)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsPhd)
         </dd>
     </dl>
 </div>
-<a asp-action="Edit" asp-route-id="@model.id">Edit</a>|
+
 <a asp-action="Index">Back to List</a>

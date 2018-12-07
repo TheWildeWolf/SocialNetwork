@@ -1,0 +1,22 @@
+﻿@model Hadia.Models.ViewModels.StateMasterViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+<h4>Stae</h4>
+<hr />
+<form asp-action="Create" asp-controller="StateMaster" method="post">
+    <div class="row">
+        <div class="col-md-4">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class=" form-group">
+                <label asp-for="StateName" class="control-label"></label>
+                <Input asp-for="StateName" class="form-control" />
+                <span asp-validation-for="StateName" class="text-danger"></span>
+            </div>
+            <button class="btn btn-success">Save</button>
+        </div>
+    </div>
+
+</form>

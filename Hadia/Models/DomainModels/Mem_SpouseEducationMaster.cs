@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,7 +14,6 @@ namespace Hadia.Models.DomainModels
         public int CLogin { get; set; }
          
         public Mem_Master CreatedBy { get; set; }
-
         public ICollection<Mem_Master> MembersSpouses { get; set; }
     }
 }
