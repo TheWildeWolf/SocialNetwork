@@ -35,6 +35,7 @@ namespace Hadia.Areas.Member.Controllers
         public async Task<IActionResult> StepOne()
         {
             var listOfUgiColleges = await 
+            
             _db.Mem_UgColleges.Select(x => _mapper.Map<UgCollageDto>(x)).ToListAsync();
 
             var listOfBatch = await _db.Post_GroupMasters.Where(x=>x.Type == GroupType.Chapter )

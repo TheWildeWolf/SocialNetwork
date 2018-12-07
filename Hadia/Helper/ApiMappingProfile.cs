@@ -30,6 +30,10 @@ namespace Hadia.Helper
 
             CreateMap<Mem_SpouseEducationMaster,SpouseEducationDto>();
             CreateMap<SpouseEducationDto,Mem_SpouseEducationMaster>();
+
+            
+            CreateMap<Mem_Kid,KidsDto>();
+            CreateMap<KidsDto,Mem_Kid>();
         }
     }
 }
