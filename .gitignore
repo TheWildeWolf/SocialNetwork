@@ -260,3 +260,4 @@ paket-files/
 __pycache__/
 *.pyc
 Hadia/wwwroot/old.zip
+Hadia/Views/Shared/_Layout - Copy.cshtml
