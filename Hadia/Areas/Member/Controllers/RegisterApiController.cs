@@ -183,5 +183,45 @@ namespace Hadia.Areas.Member.Controllers
              return Ok();
              
          }
+
+         [HttpGet]
+         public async Task<IActionResult> stepfour()
+         {
+             var listOfSpouseEducations = await _db.Mem_SpouseEducationMasters
+                                     .Select(x=> _mapper.Map<SpouseEducationDto>(x)).ToListAsync();
+
+                                     return Ok(new RegistrationFamilyResourceDto {
+                                            SpouseEducations = listOfSpouseEducations
+                                     });
+         }
+
+         [HttpPost]
+         public async Task<IActionResult> stepfour(RegistrationFamilyDto family)
+         {
+             var userid = 1;
+             var userFromDb = await _db.Mem_Masters.FindAsync(userid);
+             userFromDb.SpouseName = family.SpouseName;
+             userFromDb.SpouseEducationId = family.SpouseEducationId;
+             userFromDb.SpouseAge  = DateTime.Now.AddYears(-family.SpouseAge);
+            var listOfKids = _mapper.Map<IEnumerable<Mem_Kid>>(family.Childrens);
+            foreach(var kid in listOfKids){
+                 kid.CDate =DateTime.Now;
+                 kid.MemberId =userid;
+            }
+
+            _db.Update(userFromDb);
+            await _db.Mem_Kids.AddRangeAsync(listOfKids);
+            try
+            {
+              await  _db.SaveChangesAsync();
+                
+            }
+            catch (System.Exception ex)
+            {
+                return StatusCode(404,ex);                
+            }
+
+            return Ok("Succes");
+         }
     }
 }

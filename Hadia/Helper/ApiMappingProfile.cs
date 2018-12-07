@@ -27,6 +27,9 @@ namespace Hadia.Helper
 
             CreateMap<Mem_WorkDetail,JobdetailDto>();
             CreateMap<JobdetailDto,Mem_WorkDetail>();
+
+            CreateMap<Mem_SpouseEducationMaster,SpouseEducationDto>();
+            CreateMap<SpouseEducationDto,Mem_SpouseEducationMaster>();
         }
     }
 }

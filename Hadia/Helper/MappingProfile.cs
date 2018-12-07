@@ -14,8 +14,6 @@ namespace Hadia.Helper
         
         public MappingProfile()
         {
-<<<<<<< HEAD
-=======
             CreateMap<Mem_UgColleges, UgCollageDto>();
             CreateMap<Mem_StateMaster,StateDto>();
 
@@ -28,7 +26,6 @@ namespace Hadia.Helper
             
             CreateMap<Mem_StateMaster, StateMasterViewModel>();
             CreateMap<StateMasterViewModel, Mem_StateMaster>();
->>>>>>> deb411ad5e6e0a6c90c2da5c2da412655c9baea0
 
 
         }

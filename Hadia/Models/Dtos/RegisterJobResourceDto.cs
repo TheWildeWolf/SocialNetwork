@@ -6,5 +6,7 @@ namespace Hadia.Models.Dtos
     {
         public List<CountryDto> Countries { get; set; }
         public List<JobCategoryDto> JobCategories { get; set; }
+
+        
     }
 }
