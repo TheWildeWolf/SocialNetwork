@@ -1,4 +1,4 @@
-﻿@model Hadia.Models.DomainModels.Mem_EducationalQualificationMaster
+﻿@model Hadia.Models.ViewModels.EducationalQualificationMasterViewModel
 @{
     ViewData["Title"] = "Edit";
 }
@@ -11,8 +11,6 @@
     <div class="row">
         
         <div class=" col-md-4">
-            <input type="hidden" asp-for="CLogin" />
-            <input type="hidden" asp-for="CDate" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Hadia.Models.DomainModels.ViewModels
+namespace Hadia.Models.ViewModels
 {
     public class EducationalQualificationMasterViewModel
     {
@@ -17,7 +17,5 @@ namespace Hadia.Models.DomainModels.ViewModels
         public int Rank { get; set; }
         [Display(Name = "Is This Phd?")]
         public bool IsPhd { get; set; }
-        public DateTime CDate { get; set; }
-        public int CLogin { get; set; }
     }
 }

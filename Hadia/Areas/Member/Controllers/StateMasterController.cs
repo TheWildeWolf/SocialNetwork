@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using AutoMapper;
 using Hadia.Data;
 using Hadia.Models.DomainModels;
+using Hadia.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,13 +16,16 @@ namespace Hadia.Areas.Member.Controllers
     public class StateMasterController : Controller
     {
         private HadiaContext _db;
-        public StateMasterController(HadiaContext context)
+        private IMapper _mapper;
+        public StateMasterController(HadiaContext context, IMapper mapper)
         {
             _db = context;
+            _mapper = mapper;
         }
         public async Task<IActionResult> Index()
         {
             var ListOfStates = await _db.Mem_StateMasters
+                .Select(x=> _mapper.Map<StateMasterViewModel>(x))
                .ToListAsync();
             return View(ListOfStates);
         }
@@ -31,7 +36,7 @@ namespace Hadia.Areas.Member.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(Mem_StateMaster StateMaster)
+        public async Task<IActionResult> Create(StateMasterViewModel StateMaster)
         {
             if (_db.Mem_StateMasters.Any(X => X.StateName == StateMaster.StateName))
             {
@@ -39,10 +44,11 @@ namespace Hadia.Areas.Member.Controllers
             }
             if (ModelState.IsValid)
             {
+                var newStateMaster = _mapper.Map<Mem_StateMaster>(StateMaster);
                 var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-                await _db.Mem_StateMasters.AddAsync(StateMaster);
-                StateMaster.CLogin = userId;
-                StateMaster.CDate = DateTime.Now;
+                newStateMaster.CLogin = userId;
+                newStateMaster.CDate = DateTime.Now;
+                await _db.Mem_StateMasters.AddAsync(newStateMaster);
                 await _db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
@@ -53,14 +59,16 @@ namespace Hadia.Areas.Member.Controllers
         {
             if (id == null)
                 return NotFound();
-            var EditData = await _db.Mem_StateMasters.FindAsync(id);
+            var EditData = await _db.Mem_StateMasters
+                .Select(x => _mapper.Map<StateMasterViewModel>(x))
+                .FirstOrDefaultAsync(x => x.Id == id);
             if (EditData == null)
                 return NotFound();
             await _db.SaveChangesAsync();
             return View(EditData);
         }
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, Mem_StateMaster StateMaster)
+        public async Task<IActionResult> Edit(int id, StateMasterViewModel StateMaster)
         {
             if (id != StateMaster.Id)
                 return NotFound();
@@ -70,8 +78,8 @@ namespace Hadia.Areas.Member.Controllers
             }
             if (ModelState.IsValid)
             {
-
-                _db.Update(StateMaster);
+                var dataInDb = _db.Mem_StateMasters.Find(id);
+                var editMaster = _mapper.Map(StateMaster, dataInDb);
                 await _db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -86,5 +94,5 @@ namespace Hadia.Areas.Member.Controllers
             return RedirectToAction("Index");
 
         }
-       
+    }
 }
