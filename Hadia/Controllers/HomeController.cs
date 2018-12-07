@@ -10,16 +10,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Hadia.Models;
 using Hadia.Data;
-
 using Microsoft.AspNetCore.Authorization;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using Hadia.Models.DomainModels;
 using Hadia.Models.ViewModels;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Hadia.Controllers
 {
-    [Authorize]
+    [Authorize(AuthenticationSchemes=CookieAuthenticationDefaults.AuthenticationScheme)]
     public class HomeController : Controller
     {
         private readonly HadiaContext _db;
