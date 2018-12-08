@@ -21,7 +21,7 @@ namespace Hadia.Areas.Member.Controllers
 {
 
     //[Authorize]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class RegisterController : ControllerBase
@@ -41,7 +41,7 @@ namespace Hadia.Areas.Member.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> StepOne()
+        public async Task<ActionResult<RegistrationResourseDto>> StepOne()
         {
             var listOfUgiColleges = await 
             
@@ -56,7 +56,7 @@ namespace Hadia.Areas.Member.Controllers
                .Cast<MaritalStatus>()
                .Select(t => new EnumValuesDto
                {
-                   Value = ((int)t),
+                   Id = ((int)t),
                    Name = Enum.GetName(typeof(MaritalStatus),t)
                });
             var listOfStates = await _db.Mem_StateMasters.Select(x =>_mapper.Map<StateDto>(x)).ToListAsync();
@@ -72,7 +72,7 @@ namespace Hadia.Areas.Member.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> StepOne(RegistrationDto registration)
+        public async Task<ActionResult<int>> StepOne(RegistrationDto registration)
         {
 
                 if(await _authServive.UserExists(registration.Email))
@@ -89,7 +89,8 @@ namespace Hadia.Areas.Member.Controllers
 
                 model.PasswordHash = passwordHash;
                 model.PasswordSalt = passwordSalt;
-
+                model.CDate = DateTime.Now;
+        
                 await _db.Mem_Masters.AddAsync(model);
                 try
                 {
@@ -104,7 +105,7 @@ namespace Hadia.Areas.Member.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> steptwo()
+        public async Task<ActionResult<RegisterEductionResourceDto>> steptwo()
         {
             //Add Multiple Education Details for an Member get method
             var educationQualifications = await _db.Mem_EducationalQualifications
@@ -163,7 +164,7 @@ namespace Hadia.Areas.Member.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> stepthree()
+        public async Task<ActionResult<RegisterJobResourceDto>> stepthree()
         {
             //jobDetail
             var listOfCountries = await _db.Mem_CountryCodes

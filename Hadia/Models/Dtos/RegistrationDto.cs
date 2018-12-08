@@ -19,8 +19,9 @@ namespace Hadia.Models.Dtos
         public DateTime DateOfBirth { get; set; }
 
         public int UgCollageId { get; set; }
-        public int DistrictId { get; set; }
 
+        public int StateId { get; set; }
+        
         [Required]
         public string Phone { get; set; }
         [Required]

@@ -11,6 +11,9 @@ namespace Hadia.Helper
             CreateMap<Mem_UgColleges, UgCollageDto>();
             CreateMap<Mem_StateMaster,StateDto>();
 
+            CreateMap<Mem_Master, RegistrationDto>();
+            CreateMap<RegistrationDto, Mem_Master>();
+
             CreateMap<Mem_UniversityMaster,UniversityDto>();
             CreateMap<UniversityDto,Mem_UniversityMaster>();
 

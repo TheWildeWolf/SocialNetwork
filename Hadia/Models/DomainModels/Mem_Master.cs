@@ -37,6 +37,9 @@ namespace Hadia.Models.DomainModels
         public int? VarifiedBy { get; set; }
         public DateTime? VarifiedDate { get; set; }
 
+        public DateTime CDate { get; set; }
+        public DateTime? MDate { get; set; }
+
         public Mem_Master VarifiedMember { get; set; }
 
         public Mem_UgColleges UgCollege { get; set; }

@@ -16,6 +16,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Hadia
 {
@@ -45,6 +46,10 @@ namespace Hadia
                 op.UseSqlServer(Configuration.GetConnectionString(DEV_CONNECTION_STRING)));
             services.AddAutoMapper();
             //AuthCoockie
+            services.AddSwaggerGen(c =>
+                {
+                    c.SwaggerDoc("v1", new Info { Title = "Hadia Api", Version = "v1" });
+                });
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
@@ -80,6 +85,11 @@ namespace Hadia
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseAuthentication();
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
