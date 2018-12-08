@@ -1,0 +1,12 @@
+﻿@model Hadia.Models.ViewModels.DistrictMasterViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<div class="form-group">
+    Select List
+    @Html.DropDownListFor(x => x.StateId, Model.StateList, "--Select A List --" ,new {@class="form-control"});
+</div>
+
