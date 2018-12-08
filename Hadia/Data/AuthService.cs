@@ -43,5 +43,6 @@ namespace Hadia.Data
                 passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             }
         }
+        
     }
 }

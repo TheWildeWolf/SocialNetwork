@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 using Hadia.Data;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Hadia.Controllers
 {
     public class AuthController : Controller
     {
-        private HadiaContext _db;
+        private readonly HadiaContext _db;
         public AuthController( HadiaContext context)
         {
             _db = context;
@@ -22,10 +24,13 @@ namespace Hadia.Controllers
         {
             return View();
         }
+
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login()
         {
             var userId = _db.Mem_Masters.FirstOrDefault().Id;
+            
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, "Selik"),
@@ -68,11 +73,20 @@ namespace Hadia.Controllers
                 authProperties);
             return RedirectToAction("Index", "Home");
         }
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login");
         }
+
+        //[HttpPost]
+        //public async Task<IActionResult> Register()
+        //{
+
+        //}
+
+
     }
 }
