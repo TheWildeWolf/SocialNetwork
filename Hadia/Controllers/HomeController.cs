@@ -44,7 +44,9 @@ namespace Hadia.Controllers
                     PasswordSalt = bytes,
                     PasswordHash = bytes,
                     CountryCode = "91",
-                    Phone = "9969969961"
+                    Phone = "9969969961",
+                    CDate = DateTime.Now
+                    
 
                 };
                 _db.Mem_Masters.Add(newMem);
