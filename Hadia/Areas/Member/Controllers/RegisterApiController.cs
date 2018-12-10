@@ -72,7 +72,7 @@ namespace Hadia.Areas.Member.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<ActionResult<int>> StepOne(RegistrationDto registration)
+        public async Task<ActionResult> StepOne(RegistrationDto registration)
         {
 
                 if(await _authServive.UserExists(registration.Email))
@@ -95,7 +95,10 @@ namespace Hadia.Areas.Member.Controllers
                 try
                 {
                     await _db.SaveChangesAsync();
-                    return Ok(model.Id);
+                    return Ok(new {
+                        userid = model.Id
+
+                    });
                 }
                 catch (System.Exception ex)
                 {
