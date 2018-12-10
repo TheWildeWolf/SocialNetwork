@@ -7,12 +7,12 @@
 
 <h4>Districts</h4>
 <hr />
-<form asp-action="Ëdit" asp-controller="DistrictMaster" method="post">
+<form asp-action="Edit" asp-controller="DistrictMaster" method="post">
     <div class=" row">
         <div class=" col-md-4">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            <input type="hidden" asp-for="StateId" />
+           
             <div class="form-group">
                 <label asp-for="DistrictName" class="control-label"></label>
                 <input asp-for="DistrictName" class=" form-control" />

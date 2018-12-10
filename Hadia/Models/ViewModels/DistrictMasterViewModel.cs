@@ -14,6 +14,7 @@ namespace Hadia.Models.ViewModels
         [Display(Name = "District Name")]
         [Required(ErrorMessage = "District Name Required")]
         public string DistrictName { get; set; }
+        [Required(ErrorMessage = "Select state")]
         public int StateId { get; set; }       
         [Display(Name = "State")]
         public SelectList StateList { get; set; }
