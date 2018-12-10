@@ -33,6 +33,8 @@ namespace Hadia.Data.Configs
                     .WithOne(x => x.CreatedBy)
                     .HasForeignKey(x => x.CLogin);
 
+            builder.HasIndex(x=>x.Email).IsUnique();
+
             builder.HasMany(x => x.SpouseEducationMasters)
             .WithOne(x => x.CreatedBy)
             .HasForeignKey(x => x.CLogin);
