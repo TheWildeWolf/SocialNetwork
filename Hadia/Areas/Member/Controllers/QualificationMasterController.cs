@@ -13,8 +13,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Hadia.Areas.Member.Controllers
 {
-    [Area("Member")]
-    public class QualificationMasterController : Controller
+
+    public class QualificationMasterController : BaseMemberController
     {
         private HadiaContext _db;
         private IMapper _mapper;

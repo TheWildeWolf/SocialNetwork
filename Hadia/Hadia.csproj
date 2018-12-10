@@ -33,6 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="Areas\Member\Controllers\BaseMemberController.cs" />
     <Compile Include="Areas\Member\Controllers\DistrictMasterController.cs" />
     <Compile Include="Areas\Member\Controllers\QualificationMasterController.cs" />
     <Compile Include="Areas\Member\Controllers\RegisterApiController.cs" />

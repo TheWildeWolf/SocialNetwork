@@ -12,8 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Hadia.Areas.Member.Controllers
 {
-    [Area("Member")]
-    public class StateMasterController : Controller
+    public class StateMasterController : BaseMemberController
     {
         private HadiaContext _db;
         private IMapper _mapper;
