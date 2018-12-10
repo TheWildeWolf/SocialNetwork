@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Hadia.Models.DomainModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -13,8 +14,9 @@ namespace Hadia.Models.ViewModels
         [Display(Name = "District Name")]
         [Required(ErrorMessage = "District Name Required")]
         public string DistrictName { get; set; }
-        public int StateId { get; set; }
-        [Display(Name ="State")]
+        public int StateId { get; set; }       
+        [Display(Name = "State")]
         public SelectList StateList { get; set; }
+        public string StateName { get; set; }
     }
 }

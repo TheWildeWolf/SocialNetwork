@@ -30,6 +30,11 @@ namespace Hadia.Helper
             CreateMap<Mem_UgColleges, UgCollegesViewModel>();
             CreateMap<UgCollegesViewModel, Mem_UgColleges>();
 
+            CreateMap<Mem_DistrictMaster, DistrictMasterViewModel>().
+                ForMember(dest => dest.StateName, o => o.MapFrom(s => s.State.StateName));
+            CreateMap<DistrictMasterViewModel, Mem_DistrictMaster>();
+
+
 
         }
     }
