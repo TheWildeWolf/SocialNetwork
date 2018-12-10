@@ -76,7 +76,9 @@ namespace Hadia.Areas.Member.Controllers
         {
 
                 if(await _authServive.UserExists(registration.Email))
-                    return BadRequest("Same Email Exist");
+                    return StatusCode(500,new {
+                        Error ="Same Email Id Exist"
+                    });
                 
                 byte[] passwordHash, passwordSalt;
 
@@ -95,9 +97,9 @@ namespace Hadia.Areas.Member.Controllers
                 try
                 {
                     await _db.SaveChangesAsync();
-                    return Ok(new {
-                        userid = model.Id
-
+                    return Ok(new RegistrationResultDto {
+                        UserId = model.Id,
+                        Key=1
                     });
                 }
                 catch (System.Exception ex)
