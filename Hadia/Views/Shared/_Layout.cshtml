@@ -220,19 +220,24 @@
 								<span>Dashboard</span>
 							</a>
 						</li>
-						<li class="nav-item nav-item-submenu nav-item-expanded nav-item-open">
+						<li class="nav-item nav-item-submenu nav-item-expanded">
 							<a href="#" class="nav-link"><i class="icon-stack"></i> <span>Masters</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
 								<li class="nav-item"><a href="#" class="nav-link">Demo</a></li>
 								<!-- Copy and past this section for new menu start -->
-								<li class="nav-item nav-item-submenu">
-									<a href="#" class="nav-link">Educational Qualifications</a>
-									<ul class="nav nav-group-sub">
-										<li class="nav-item"><a asp-area="Member" asp-controller="QualificationMaster" asp-action="Create" class="nav-link">Create</a></li>
-										<li class="nav-item"><a asp-area="Member" asp-controller="QualificationMaster" asp-action="Index"  class="nav-link">View All</a></li>
-									</ul>
-								</li>
+                                <li class="nav-item nav-item-submenu">
+                                    <a href="#" class="nav-link">Educational Qualifications</a>
+                                    <ul class="nav nav-group-sub">
+                                        <li class="nav-item"><a asp-area="Member" asp-controller="QualificationMaster" asp-action="Create" class="nav-link">Create</a></li>
+                                        <li class="nav-item"><a asp-area="Member" asp-controller="QualificationMaster" asp-action="Index" class="nav-link">View All</a></li>
+                                    </ul>
+                                    <a href="#" class="nav-link">Districts</a>
+                                    <ul class="nav nav-group-sub">
+                                        <li class="nav-item"><a asp-area="Member" asp-controller="DistrictMaster" asp-action="Create" class="nav-link">Create</a></li>
+                                        <li class="nav-item"><a asp-area="Member" asp-controller="DistrictMaster" asp-action="Index" class="nav-link">View All</a></li>
+                                    </ul>
+                                </li>
 								<!-- end -->
 								<li class="nav-item-divider"></li>
 								<li class="nav-item"><a href="#" class="nav-link">Demo</a></li>

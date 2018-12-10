@@ -26,6 +26,7 @@ namespace Hadia.Areas.Member.Controllers
         public async Task<IActionResult>Index()
         {
             var ListOfDistrict = await _db.Mem_DistrictMasters
+                .Include(x=>x.State)
                 .Select(x => _mapper.Map<DistrictMasterViewModel>(x)).ToListAsync();
             return View(ListOfDistrict);
         }
@@ -47,9 +48,11 @@ namespace Hadia.Areas.Member.Controllers
                 ModelState.AddModelError("DistrictName", "District name already exist");
 
             }
-            if(ModelState.IsValid)
+          
+            if (ModelState.IsValid)
             {
 
+               
                 var newDistrict = _mapper.Map<Mem_DistrictMaster>(districtMaster);
                 var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);
                 newDistrict.CLogin = userId;
@@ -64,15 +67,24 @@ namespace Hadia.Areas.Member.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int ?id)
         {
-            if(id==null)
-            {
-                return NotFound();
-            }
+
             var EditData = await _db.Mem_DistrictMasters.Select(x => _mapper.Map<DistrictMasterViewModel>(x))
-                .FirstOrDefaultAsync(x => x.Id == id);
+               .FirstOrDefaultAsync(x => x.Id == id);
+            var stateselctlist = new SelectList(_db.Mem_StateMasters.ToList(), "Id", "StateName", EditData.StateId);
+            EditData.StateList = stateselctlist;
             if (EditData == null)
                 return NotFound();
             return View(EditData);
+
+            //var stateselctlist = new SelectList(_db.Mem_StateMasters.ToList(), "Id", "StateName",StateId);
+            //var districtViewModel = new DistrictMasterViewModel
+            //{
+            //    StateList = stateselctlist
+            //};
+            //return View(districtViewModel);
+
+        
+           
         }
         [HttpPost]
         public async Task<IActionResult> Edit(int id,DistrictMasterViewModel districtMaster)
@@ -120,9 +132,12 @@ namespace Hadia.Areas.Member.Controllers
             {
                 return NotFound();
             }
-            var ListDistricts = await _db.Mem_DistrictMasters
+            var ListDistricts = await _db.Mem_DistrictMasters.Include(x=>x.State)
                   .Select(x => _mapper.Map<DistrictMasterViewModel>(x))
                   .FirstOrDefaultAsync(x => x.Id == id);
+            var stateselctlist = new SelectList(_db.Mem_StateMasters.Where(S=>S.Id==ListDistricts.StateId).ToList(), "Id", "StateName");
+
+
             return View(ListDistricts);
         }
 

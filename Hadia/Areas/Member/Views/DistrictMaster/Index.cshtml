@@ -30,17 +30,17 @@
             @{ int SlNo = 0; }
             @foreach (var master in Model)
             {
-                <tr>
-                    <td> @(SlNo += 1)</td>
-                    <td>@Html.DisplayFor(x => master.DistrictName)</td>
-                  
-                    
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@master.Id">Edit</a>
-                        <a asp-action="Details" asp-route-id="@master.Id">Details</a>
-                        <a asp-action="Delete" asp-route-id="@master.Id">Delete</a>
-                    </td>
-                </tr>
+            <tr>
+                <td> @(SlNo += 1)</td>
+                <td>@Html.DisplayFor(x => master.DistrictName)</td>
+
+                <td>@Html.DisplayFor(x => master.StateName)</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@master.Id">Edit</a>
+                    <a asp-action="Details" asp-route-id="@master.Id">Details</a>
+                    <a asp-action="Delete" asp-route-id="@master.Id">Delete</a>
+                </td>
+            </tr>
             }
         </tbody>
     </table>
