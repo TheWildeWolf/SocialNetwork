@@ -60,6 +60,7 @@ namespace Hadia.Areas.Member.Controllers
                 await _db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+            districtMaster.StateList = new SelectList(_db.Mem_StateMasters.ToList(), "Id", "StateName",districtMaster.StateId);
             return View(districtMaster);
 
         }
@@ -75,14 +76,6 @@ namespace Hadia.Areas.Member.Controllers
                 return NotFound();
             return View(EditData);
 
-            //var stateselctlist = new SelectList(_db.Mem_StateMasters.ToList(), "Id", "StateName",StateId);
-            //var districtViewModel = new DistrictMasterViewModel
-            //{
-            //    StateList = stateselctlist
-            //};
-            //return View(districtViewModel);
-
-        
            
         }
         [HttpPost]

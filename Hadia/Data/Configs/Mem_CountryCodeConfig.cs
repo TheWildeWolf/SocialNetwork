@@ -14,7 +14,7 @@ namespace Hadia.Data.Configs
         public void Configure(EntityTypeBuilder<Mem_CountryCode> builder)
         {
             builder.HasMany(x => x.UniversityMasters)
-                .WithOne(x => x.CountryCode)
+                .WithOne(x => x.Country)
                 .HasForeignKey(x => x.CountryId)
              .OnDelete(DeleteBehavior.Restrict); 
         }

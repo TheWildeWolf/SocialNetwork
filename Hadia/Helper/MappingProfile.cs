@@ -37,6 +37,13 @@ namespace Hadia.Helper
             CreateMap<Mem_CountryCode, CountryViewModel>();
             CreateMap<CountryViewModel, Mem_CountryCode>();
 
+            CreateMap<Mem_UniversityMaster, UniversityMasterViewModel>().
+               ForMember(dest => dest.CountryName, o => o.MapFrom(s => s.Country.CountryName));
+            CreateMap<UniversityMasterViewModel, Mem_UniversityMaster>();
+
+            CreateMap<Mem_JobCategoryMaster, JobCategoryViewModel>();
+            CreateMap<JobCategoryViewModel, Mem_JobCategoryMaster>();
+
 
         }
     }

@@ -1,0 +1,29 @@
+﻿@model Hadia.Models.ViewModels.CountryViewModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <dl class=" dl-horizontal">
+        <dt>
+            @Html.LabelFor(model => model.CountryName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CountryName)
+        </dd>
+        <dt>
+            @Html.LabelFor(model => model.CountryCode)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CountryCode)
+        </dd>
+        <dt>
+            @Html.LabelFor(model => model.TimeZone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TimeZone)
+        </dd>
+    </dl>
+</div>

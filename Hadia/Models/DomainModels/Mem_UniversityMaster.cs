@@ -14,7 +14,7 @@ namespace Hadia.Models.DomainModels
         public int CLogin { get; set; }
 
         public Mem_Master CreatedBy { get; set; }
-        public Mem_CountryCode CountryCode { get; set; }
+        public Mem_CountryCode Country { get; set; }
 
         public ICollection<Mem_EducationDetail> EducationDetails { get; set; }
 
