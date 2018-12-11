@@ -1,0 +1,23 @@
+﻿@model Hadia.Models.ViewModels.UniversityMasterViewModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <dl class=" dl-horizontal">
+        <dt>
+            @Html.LabelFor(model => model.UniversityName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UniversityName)
+        </dd>
+        <dt>
+            <label>State</label>
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CountryName)
+        </dd>
+    </dl>
+</div>

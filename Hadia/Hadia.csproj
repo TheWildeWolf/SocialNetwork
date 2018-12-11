@@ -34,13 +34,15 @@
 
   <ItemGroup>
     <Compile Include="Areas\Member\Controllers\BaseMemberController.cs" />
-    <Compile Include="Areas\Member\Controllers\CountryCodeController.cs" />
+    <Compile Include="Areas\Member\Controllers\CountryController.cs" />
     <Compile Include="Areas\Member\Controllers\DistrictMasterController.cs" />
+    <Compile Include="Areas\Member\Controllers\JobCategoryController.cs" />
     <Compile Include="Areas\Member\Controllers\QualificationMasterController.cs" />
     <Compile Include="Areas\Member\Controllers\RegisterApiController.cs" />
     <Compile Include="Areas\Member\Controllers\SpouseEducationController.cs" />
     <Compile Include="Areas\Member\Controllers\StateMasterController.cs" />
     <Compile Include="Areas\Member\Controllers\UgCollegeController.cs" />
+    <Compile Include="Areas\Member\Controllers\UniversityMasterController.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -72,14 +74,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Areas\Member\Views\CountryCode\Create.cshtml" />
-    <None Include="Areas\Member\Views\CountryCode\Details.cshtml" />
-    <None Include="Areas\Member\Views\CountryCode\Edit.cshtml" />
-    <None Include="Areas\Member\Views\CountryCode\Index.cshtml" />
+    <None Include="Areas\Member\Views\Country\Create.cshtml" />
+    <None Include="Areas\Member\Views\Country\Details.cshtml" />
+    <None Include="Areas\Member\Views\Country\Edit.cshtml" />
+    <None Include="Areas\Member\Views\Country\Index.cshtml" />
     <None Include="Areas\Member\Views\DistrictMaster\Create.cshtml" />
     <None Include="Areas\Member\Views\DistrictMaster\Details.cshtml" />
     <None Include="Areas\Member\Views\DistrictMaster\Edit.cshtml" />
     <None Include="Areas\Member\Views\DistrictMaster\Index.cshtml" />
+    <None Include="Areas\Member\Views\JobCategory\Create.cshtml" />
+    <None Include="Areas\Member\Views\JobCategory\Edit.cshtml" />
+    <None Include="Areas\Member\Views\JobCategory\Index.cshtml" />
     <None Include="Areas\Member\Views\QualificationMaster\Details.cshtml" />
     <None Include="Areas\Member\Views\QualificationMaster\Edit.cshtml" />
     <None Include="Areas\Member\Views\QualificationMaster\Index.cshtml" />
@@ -93,6 +98,10 @@
     <None Include="Areas\Member\Views\UgCollege\Create.cshtml" />
     <None Include="Areas\Member\Views\UgCollege\Edit.cshtml" />
     <None Include="Areas\Member\Views\UgCollege\Index.cshtml" />
+    <None Include="Areas\Member\Views\UniversityMaster\Create.cshtml" />
+    <None Include="Areas\Member\Views\UniversityMaster\Details.cshtml" />
+    <None Include="Areas\Member\Views\UniversityMaster\Edit.cshtml" />
+    <None Include="Areas\Member\Views\UniversityMaster\Index.cshtml" />
   </ItemGroup>
 
 </Project>

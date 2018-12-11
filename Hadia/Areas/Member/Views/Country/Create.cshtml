@@ -1,9 +1,8 @@
-﻿@model Hadia.Models.ViewModels.CountryCodeViewModel
+﻿@model Hadia.Models.ViewModels.CountryViewModel
 @{
     ViewData["Title"] = "Create";
 }
-
-<form asp-action="Create" asp-controller="CountryCode" method="post">
+<form asp-action="Create" method="post">
     <div class="card">
         <div class="card-header header-elements-inline">
             <h5 class="card-title">Create Country</h5>
@@ -14,9 +13,9 @@
         <div class="card-body">
             <div asp-validation-summary="ModelOnly" class=" text-danger"></div>
             <div class="form-group">
-                <label asp-for="CountryName" class=" control-label"></label>
-                <input asp-for="CountryName" class=" form-control" />
-                <span asp-validation-for="CountryName" class=" text-danger"></span>
+                <label asp-for="CountryName" class="control-label"></label>
+                <input asp-for="CountryName" class="form-control" />
+                <span asp-validation-for="CountryName" class="text-danger"></span>
             </div>
 
             <div class="form-group">
@@ -26,21 +25,23 @@
             </div>
             <div class="form-group">
                 <label asp-for="TimeZone" class=" control-label"></label>
-                <input asp-for="TimeZone" class=" form-control" />
+                <input asp-for="TimeZone" class="form-control" />
                 <span asp-validation-for="TimeZone" class=" text-danger"></span>
             </div>
-        </div>
 
-        <div class="card-footer d-flex justify-content-between align-items-center bg-teal-400 border-top-0">
-            <a asp-action="index" class="btn bg-transparent text-white border-white border-2">Cancel</a>
-            <button type="submit" class="btn btn-outline bg-white text-white border-white border-2">Save <i class="icon-paperplane ml-2"></i></button>
+
+            <div class="card-footer d-flex justify-content-between align-items-center bg-teal-400 border-top-0">
+                <a asp-action="index" class="btn bg-transparent text-white border-white border-2">Cancel</a>
+                <button type="submit" class="btn btn-outline bg-white text-white border-white border-2">Save <i class="icon-paperplane ml-2"></i></button>
+            </div>
         </div>
     </div>
 </form>
 @section Scripts
-{
+    {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 
 }
+
