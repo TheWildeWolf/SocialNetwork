@@ -13,7 +13,7 @@
 	<link href="~/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	<link href="~/css/bootstrap_limitless.min.css" rel="stylesheet" type="text/css">
 	<link href="~/css/layout.min.css" rel="stylesheet" type="text/css">
-	<link href="~/css/components.min.css" rel="stylesheet" type="text/css">
+	<link href="~/css/components.css" rel="stylesheet" type="text/css">
 	<link href="~/css/colors.min.css" rel="stylesheet" type="text/css">
 	<!-- /global stylesheets -->
 
@@ -26,6 +26,7 @@
 
 	<!-- Theme JS files -->
 	<script src="~/global_assets/js/plugins/ui/sticky.min.js"></script>
+	<script src="~/global_assets/js/plugins/forms/styling/uniform.min.js"></script>
 	<script src="~/global_assets/js/plugins/notifications/sweet_alert.min.js"></script>
 	<script src="~/js/app.js"></script>
 	<script src="~/global_assets/js/demo_pages/navbar_multiple_sticky.js"></script>
@@ -89,7 +90,7 @@
 						<a href="#" class="dropdown-item"><i class="icon-comment-discussion"></i> Messages <span class="badge badge-pill bg-blue ml-auto">58</span></a>
 						<div class="dropdown-divider"></div>
 						<a href="#" class="dropdown-item"><i class="icon-cog5"></i> Account settings</a>
-						<a href="#" class="dropdown-item"><i class="icon-switch2"></i> Logout</a>
+						<a asp-action="logout" asp-controller="auth" asp-area="" class="dropdown-item"><i class="icon-switch2"></i> Logout</a>
 					</div>
 				</li>
 			</ul>
@@ -221,7 +222,7 @@
 								<span>Dashboard</span>
 							</a>
 						</li>
-						<li class="nav-item nav-item-submenu nav-item-expanded">
+						<li class="nav-item nav-item-submenu nav-item">
 							<a href="#" class="nav-link"><i class="icon-stack"></i> <span>Masters</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
@@ -233,16 +234,22 @@
                                         <li class="nav-item"><a asp-area="Member" asp-controller="QualificationMaster" asp-action="Create" class="nav-link">Create</a></li>
                                         <li class="nav-item"><a asp-area="Member" asp-controller="QualificationMaster" asp-action="Index" class="nav-link">View All</a></li>
                                     </ul>
-                                    <a href="#" class="nav-link">Spouse Education</a>
+                                </li>
+								 <li class="nav-item nav-item-submenu">
+                                   <a href="#" class="nav-link">Spouse Education</a>
                                     <ul class="nav nav-group-sub">
                                         <li class="nav-item"><a asp-area="Member" asp-controller="SpouseEducation" asp-action="Create" class="nav-link">Create</a></li>
                                         <li class="nav-item"><a asp-area="Member" asp-controller="SpouseEducation" asp-action="Index" class="nav-link">View All</a></li>
                                     </ul>
+                                </li>
+								<li class="nav-item nav-item-submenu">
                                     <a href="#" class="nav-link">UG Colleges</a>
                                     <ul class="nav nav-group-sub">
                                         <li class="nav-item"><a asp-area="Member" asp-controller="UgCollege" asp-action="Create" class="nav-link">Create</a></li>
                                         <li class="nav-item"><a asp-area="Member" asp-controller="UgCollege" asp-action="Index" class="nav-link">View All</a></li>
                                     </ul>
+                                </li>
+								<li class="nav-item nav-item-submenu">
                                     <a href="#" class="nav-link">Districts</a>
                                     <ul class="nav nav-group-sub">
                                         <li class="nav-item"><a asp-area="Member" asp-controller="DistrictMaster" asp-action="Create" class="nav-link">Create</a></li>
@@ -265,11 +272,21 @@
 								
 							</ul>
 						</li>
+						<li class="nav-item nav-item-submenu nav-item">
+							<a href="#" class="nav-link"><i class="icon-stack"></i><span>Side menu 2</span></a>
+
+							<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
+								<li class="nav-item"><a href="#" class="nav-link">Sub link 1</a></li>
+								<li class="nav-item-divider"></li>
+								<li class="nav-item"><a href="#" class="nav-link">Sub link 2</a></li>
+								
+							</ul>
+						</li>
 						<li class="nav-item">
 							<a href="#" class="nav-link">
 								<i class="icon-list-unordered"></i>
-								<span>Changelog</span>
-								<span class="badge bg-blue-400 align-self-center ml-auto">2.1</span>
+								<span>Menu with Badge</span>
+								<span class="badge bg-blue-400 align-self-center ml-auto ">2</span>
 							</a>
 						</li>
 						<!-- /main -->
@@ -391,21 +408,26 @@
 	</div>
 	<!-- /page content -->
 	<script>
-		$('.confirm').on('click', function(e) {
-			var url = $(this).attr('href');
-			e.preventDefault();
-            swal({
-                title: 'Are you sure?',
-                text: 'this item will be deleted',
+	  $(".confirm").click(function(e){
+  		e.preventDefault();
+		var location = $(this).attr('href');
+  		swal({
+ 				title: 'Are you sure?',
+                text: "You won't be able to revert this!",
                 type: 'warning',
                 showCancelButton: true,
-                confirmButtonText: 'Yes, delete it!'
-            }).then(function () {
-				window.location.href=url;
-            }, function (dismiss) {
-
-            });
-        });
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                confirmButtonClass: 'btn btn-success',
+                cancelButtonClass: 'btn btn-danger',
+                buttonsStyling: false
+   		 }).then(function(isConfirm) {
+				if(isConfirm.value)
+				{
+				  window.location.href = location;
+				};
+      	 });
+	   });
 	</script>
 	@RenderSection("Scripts", required: false)
 </body>

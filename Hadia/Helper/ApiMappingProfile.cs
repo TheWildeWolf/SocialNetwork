@@ -14,11 +14,17 @@ namespace Hadia.Helper
             CreateMap<Mem_Master, RegistrationDto>();
             CreateMap<RegistrationDto, Mem_Master>();
 
-            CreateMap<Mem_UniversityMaster,UniversityDto>();
-            CreateMap<UniversityDto,Mem_UniversityMaster>();
+            CreateMap<Mem_UniversityMaster,UniversityDto>()
+             .ForMember(dest => dest.Name, o => o.MapFrom(s => s.UniversityName));
 
-            CreateMap<Mem_EducationalQualificationMaster,EducationQualificationDto>();
+            CreateMap<UniversityDto,Mem_UniversityMaster>()
+            .ForMember(dest => dest.UniversityName, o => o.MapFrom(s => s.Name));
+
+            CreateMap<Mem_EducationalQualificationMaster,EducationQualificationDto>()
+                .ForMember(dest => dest.Name, o => o.MapFrom(s => s.DegreeName));
             CreateMap<EducationQualificationDto,Mem_EducationalQualificationMaster>();
+                        
+
 
             
             CreateMap<Mem_JobCategoryMaster,JobCategoryDto>();

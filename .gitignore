@@ -262,3 +262,4 @@ __pycache__/
 Hadia/wwwroot/old.zip
 Hadia/Views/Shared/_Layout - Copy.cshtml
 
+Hadia/wwwroot/global_assets/js/plugins/notifications/alertDemo.js
