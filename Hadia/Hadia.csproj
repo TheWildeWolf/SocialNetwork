@@ -34,6 +34,7 @@
 
   <ItemGroup>
     <Compile Include="Areas\Member\Controllers\BaseMemberController.cs" />
+    <Compile Include="Areas\Member\Controllers\CountryCodeController.cs" />
     <Compile Include="Areas\Member\Controllers\DistrictMasterController.cs" />
     <Compile Include="Areas\Member\Controllers\QualificationMasterController.cs" />
     <Compile Include="Areas\Member\Controllers\RegisterApiController.cs" />
@@ -71,6 +72,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Areas\Member\Views\CountryCode\Create.cshtml" />
+    <None Include="Areas\Member\Views\CountryCode\Details.cshtml" />
+    <None Include="Areas\Member\Views\CountryCode\Edit.cshtml" />
+    <None Include="Areas\Member\Views\CountryCode\Index.cshtml" />
     <None Include="Areas\Member\Views\DistrictMaster\Create.cshtml" />
     <None Include="Areas\Member\Views\DistrictMaster\Details.cshtml" />
     <None Include="Areas\Member\Views\DistrictMaster\Edit.cshtml" />

@@ -3,48 +3,55 @@
             ViewData["Title"] = "Index";
         }
 
-<h2>Ug Colleges</h2>
-@Html.ActionLink("Create New", "Create")
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Sn
-            </th>
-            <th>
-                Ug College Name
-            </th>
-            <th>
-                Option
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @{int SlNo = 0;}
-@foreach (var item in Model)
-{
-            <tr>
-                <td>
-                    @(SlNo += 1)
-        </td>
+<div class="card">
+    <div class="card-header bg-white header-elements-inline">
+        <h6 class="card-title">Districts</h6>
+        <div class="header-elements">
+            <a asp-action="Create" class="btn bg-blue">Create New</a>
+        </div>
+    </div>
 
-        <td>@Html.DisplayFor(x =>item.UgCollegeName)</td>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Sn
+                    </th>
+                    <th>
+                        Ug College Name
+                    </th>
+                    <th>
+                        Option
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @{int SlNo = 0;}
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @(SlNo += 1)
+                        </td>
 
-
-        <td>
-
-            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-
-
-            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-
-        </td>
-
-    </tr>
-
-        }
+                        <td>@Html.DisplayFor(x => item.UgCollegeName)</td>
 
 
-    </tbody>
-</table>
+                        <td>
+
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline bg-primary border-primary text-primary-800 btn-icon"><i class="icon-compose"></i></a>
+
+
+                            <a asp-action="Delete" asp-route-id="@item.Id"class="btn btn-outline bg-danger border-primary text-primary-800 btn-icon confirm"><i class="icon-trash-alt"></i></a>
+
+                        </td>
+
+                    </tr>
+
+                }
+
+
+            </tbody>
+        </table>
 

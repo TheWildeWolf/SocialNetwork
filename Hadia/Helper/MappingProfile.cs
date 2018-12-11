@@ -34,6 +34,8 @@ namespace Hadia.Helper
                 ForMember(dest => dest.StateName, o => o.MapFrom(s => s.State.StateName));
             CreateMap<DistrictMasterViewModel, Mem_DistrictMaster>();
 
+            CreateMap<Mem_CountryCode, CountryCodeViewModel>();
+            CreateMap<CountryCodeViewModel, Mem_CountryCode>();
 
 
         }
