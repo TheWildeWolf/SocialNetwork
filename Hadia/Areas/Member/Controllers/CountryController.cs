@@ -22,15 +22,9 @@ namespace Hadia.Areas.Member.Controllers
         }
         public async Task<IActionResult> Index()
         {
-<<<<<<< HEAD:Hadia/Areas/Member/Controllers/CountryCodeController.cs
-            var ListOfCountry = await _db.Mem_CountryCodes
-                 .Select(x => _mapper.Map<CountryViewModel>(x)).ToListAsync();
-            return View(ListOfCountry);
-=======
             var listOfCountry = await _db.Mem_CountryCodes
                .Select(x => _mapper.Map<CountryViewModel>(x)).ToListAsync();
             return View(listOfCountry);
->>>>>>> 5706c5295c6597f176433ec3495f65cbbfad3ae6:Hadia/Areas/Member/Controllers/CountryController.cs
         }
         [HttpGet]
         public IActionResult Create()
@@ -39,11 +33,7 @@ namespace Hadia.Areas.Member.Controllers
             return View();
         }
         [HttpPost]
-<<<<<<< HEAD:Hadia/Areas/Member/Controllers/CountryCodeController.cs
-        public async Task<IActionResult> Create(CountryViewModel countryCode)
-=======
         public async Task<IActionResult> Create(CountryViewModel countryView)
->>>>>>> 5706c5295c6597f176433ec3495f65cbbfad3ae6:Hadia/Areas/Member/Controllers/CountryController.cs
         {
             if (await _db.Mem_CountryCodes.AnyAsync(x => x.CountryName == countryView.CountryName))
             {
@@ -74,11 +64,7 @@ namespace Hadia.Areas.Member.Controllers
             return View(EditData);
         }
         [HttpPost]
-<<<<<<< HEAD:Hadia/Areas/Member/Controllers/CountryCodeController.cs
-        public async Task<IActionResult> Edit(int id, CountryViewModel countryCode)
-=======
         public async Task<IActionResult> Edit(int id, CountryViewModel countryView)
->>>>>>> 5706c5295c6597f176433ec3495f65cbbfad3ae6:Hadia/Areas/Member/Controllers/CountryController.cs
         {
             if (id != countryView.Id)
                 return NotFound();
@@ -113,11 +99,7 @@ namespace Hadia.Areas.Member.Controllers
             {
                 return NotFound();
             }
-<<<<<<< HEAD:Hadia/Areas/Member/Controllers/CountryCodeController.cs
-            var ListCountry= await _db.Mem_CountryCodes
-=======
             var ListCountry = await _db.Mem_CountryCodes
->>>>>>> 5706c5295c6597f176433ec3495f65cbbfad3ae6:Hadia/Areas/Member/Controllers/CountryController.cs
                .Select(x => _mapper.Map<CountryViewModel>(x))
                .FirstOrDefaultAsync(x => x.Id == id);
             return View(ListCountry);

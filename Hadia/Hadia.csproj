@@ -36,12 +36,9 @@
     <Compile Include="Areas\Member\Controllers\BaseMemberController.cs" />
     <Compile Include="Areas\Member\Controllers\CountryController.cs" />
     <Compile Include="Areas\Member\Controllers\DistrictMasterController.cs" />
-<<<<<<< HEAD
     <Compile Include="Areas\Member\Controllers\EducationQualificationApi.cs" />
     <Compile Include="Areas\Member\Controllers\ProjectsApi.cs" />
-=======
     <Compile Include="Areas\Member\Controllers\JobCategoryController.cs" />
->>>>>>> 5706c5295c6597f176433ec3495f65cbbfad3ae6
     <Compile Include="Areas\Member\Controllers\QualificationMasterController.cs" />
     <Compile Include="Areas\Member\Controllers\RegisterApiController.cs" />
     <Compile Include="Areas\Member\Controllers\SpouseEducationController.cs" />
