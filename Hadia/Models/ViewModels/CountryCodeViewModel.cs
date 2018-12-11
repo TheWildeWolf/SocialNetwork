@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Hadia.Models.ViewModels
 {
-    public class CountryCodeViewModel
+    public class CountryViewModel
     {
         public int Id { get; set; }
         [Display(Name = "Country Name")]

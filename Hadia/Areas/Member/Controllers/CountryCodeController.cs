@@ -24,7 +24,7 @@ namespace Hadia.Areas.Member.Controllers
         public async Task<IActionResult> Index()
         {
             var ListOfCountry = await _db.Mem_CountryCodes
-                 .Select(x => _mapper.Map<CountryCodeViewModel>(x)).ToListAsync();
+                 .Select(x => _mapper.Map<CountryViewModel>(x)).ToListAsync();
             return View(ListOfCountry);
         }
         [HttpGet]
@@ -34,7 +34,7 @@ namespace Hadia.Areas.Member.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(CountryCodeViewModel countryCode)
+        public async Task<IActionResult> Create(CountryViewModel countryCode)
         {
             if (_db.Mem_CountryCodes.Any(X => X.CountryName == countryCode.CountryName))
             {
@@ -59,7 +59,7 @@ namespace Hadia.Areas.Member.Controllers
                 return NotFound();
 
             var EditData = await _db.Mem_CountryCodes
-               .Select(x => _mapper.Map<CountryCodeViewModel>(x))
+               .Select(x => _mapper.Map<CountryViewModel>(x))
                .FirstOrDefaultAsync(x => x.Id == id);
             if (EditData == null)
                 return NotFound();
@@ -67,7 +67,7 @@ namespace Hadia.Areas.Member.Controllers
             return View(EditData);
         }
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, CountryCodeViewModel countryCode)
+        public async Task<IActionResult> Edit(int id, CountryViewModel countryCode)
         {
             if (id != countryCode.Id)
                 return NotFound();
@@ -103,7 +103,7 @@ namespace Hadia.Areas.Member.Controllers
                 return NotFound();
             }
             var ListCountry= await _db.Mem_CountryCodes
-               .Select(x => _mapper.Map<CountryCodeViewModel>(x))
+               .Select(x => _mapper.Map<CountryViewModel>(x))
                .FirstOrDefaultAsync(x => x.Id == id);
             return View(ListCountry);
         }

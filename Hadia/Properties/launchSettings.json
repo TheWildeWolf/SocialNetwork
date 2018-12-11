@@ -3,17 +3,17 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iis": {
-      "applicationUrl": "http://localhost/Hadia",
+      "applicationUrl": "http://localhost/Hadi",
       "sslPort": 0
     },
     "iisExpress": {
       "applicationUrl": "http://localhost:11494",
-      "sslPort": 44322
+      "sslPort": 0
     }
   },
   "profiles": {
     "IIS Express": {
-      "commandName": "IISExpress",
+      "commandName": "IIS",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

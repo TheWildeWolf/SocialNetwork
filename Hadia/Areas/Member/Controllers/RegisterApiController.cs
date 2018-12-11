@@ -20,6 +20,7 @@ using Microsoft.Extensions.Configuration;
 namespace Hadia.Areas.Member.Controllers
 {
 
+    [Produces("application/json")]
     //[Authorize]
     //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]/[action]")]
@@ -108,6 +109,7 @@ namespace Hadia.Areas.Member.Controllers
                 }
 
         }
+
 
         [HttpGet]
         public async Task<ActionResult<RegisterEductionResourceDto>> steptwo()
@@ -273,5 +275,7 @@ namespace Hadia.Areas.Member.Controllers
 
             return tokenHandler.WriteToken(token);
         }
+
+
     }
 }
