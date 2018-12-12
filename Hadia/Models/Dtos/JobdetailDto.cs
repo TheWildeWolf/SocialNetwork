@@ -4,7 +4,7 @@ namespace Hadia.Models.Dtos
 {
     public class JobdetailDto
     {
-        public int Id { get; set; }
+        public int UserId { get; set; }
         public string CompanyName { get; set; }
         public string Location { get; set; }
         public int CountryId { get; set; }
@@ -12,6 +12,6 @@ namespace Hadia.Models.Dtos
         public string JobTitle { get; set; }
         public int JobCategoryId { get; set; }
         public DateTime DateForm { get; set; }
-        public DateTime DateUpto { get; set; }
+        public DateTime? DateUpto { get; set; }
     }
 }

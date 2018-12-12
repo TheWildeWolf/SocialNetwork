@@ -14,7 +14,7 @@ namespace Hadia.Models.DomainModels
         public string JobTitle { get; set; }
         public int JobCategoryId { get; set; }
         public DateTime DateForm { get; set; }
-        public DateTime DateUpto { get; set; }
+        public DateTime? DateUpto { get; set; }
 
         public DateTime CDate { get; set; }
 

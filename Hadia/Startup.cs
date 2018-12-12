@@ -50,7 +50,7 @@ namespace Hadia
                 {
                     c.SwaggerDoc("v1", new Info { Title = "Hadia Api", Version = "v1" });
                 });
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            services.AddAuthentication("MainCookie")
                 .AddCookie(options =>
                 {
                     options.AccessDeniedPath = "";
@@ -79,9 +79,9 @@ namespace Hadia
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                app.UseHsts();
+               // app.UseHsts();
             }
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseAuthentication();
