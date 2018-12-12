@@ -8,14 +8,6 @@ namespace Hadia.Areas.Post.Controllers
 {
     public class BatchController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
 
-        public IActionResult Create()
-        {
-
-        }
     }
 }
