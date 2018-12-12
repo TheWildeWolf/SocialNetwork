@@ -46,6 +46,7 @@
     <Compile Include="Areas\Post\Controllers\BasePostController.cs" />
     <Compile Include="Areas\Post\Controllers\BatchController.cs" />
     <Compile Include="Areas\Post\Controllers\ChapterController.cs" />
+    <Compile Include="Areas\Post\Controllers\MemberListController.cs" />
   </ItemGroup>
 
   <ItemGroup>
