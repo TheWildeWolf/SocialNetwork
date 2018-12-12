@@ -13,7 +13,7 @@ namespace Hadia.Models.DomainModels
         public GroupPrivacy OpenOrClosed { get; set; }
         public string Description { get; set; }
         public string GroupImage { get; set; }
-        public DateTime FormedOn { get; set; }
+        public DateTime? FormedOn { get; set; }
         public string PassoutYear { get; set; }
         public DateTime CDate { get; set; }
         public int CLogin { get; set; }
