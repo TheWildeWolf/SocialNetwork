@@ -37,6 +37,7 @@
     <Compile Include="Areas\Member\Controllers\CountryController.cs" />
     <Compile Include="Areas\Member\Controllers\DistrictMasterController.cs" />
     <Compile Include="Areas\Member\Controllers\EducationQualificationApi.cs" />
+    <Compile Include="Areas\Member\Controllers\JobDetailApiController.cs" />
     <Compile Include="Areas\Member\Controllers\ProjectsApi.cs" />
     <Compile Include="Areas\Member\Controllers\JobCategoryController.cs" />
     <Compile Include="Areas\Member\Controllers\QualificationMasterController.cs" />
