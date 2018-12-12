@@ -13,26 +13,26 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Hadia.Areas.Post.Controllers
 {
-    public class BatchController : BasePostController
+    public class ChapterController : BasePostController
     {
         private HadiaContext _db;
         private IMapper _mapper;
-        public BatchController(HadiaContext context, IMapper mapper)
+        public ChapterController(HadiaContext context, IMapper mapper)
         {
             _db = context;
             _mapper = mapper;
         }
-        public async Task<IActionResult>Index()
+        public async Task<IActionResult> Index()
         {
-           var ListOfBatch=await _db.Post_GroupMasters
-                .Select(x=>_mapper.Map<BatchViewModel>(x)).ToListAsync();
+            var ListOfBatch = await _db.Post_GroupMasters
+                 .Select(x => _mapper.Map<BatchViewModel>(x)).ToListAsync();
             return View(ListOfBatch);
         }
 
         [HttpGet]
         public IActionResult Create()
         {
-            var Batch = new BatchViewModel();           
+            var Batch = new BatchViewModel();
             return View(Batch);
         }
         [HttpPost]
@@ -40,7 +40,7 @@ namespace Hadia.Areas.Post.Controllers
         {
             if (await _db.Post_GroupMasters.AnyAsync(x => x.GroupName == batchView.GroupName))
             {
-                ModelState.AddModelError("GroupName", "Batch name already exist");
+                ModelState.AddModelError("GroupName", "Chapter Name Already Exist");
 
             }
 
@@ -60,7 +60,7 @@ namespace Hadia.Areas.Post.Controllers
                 await _db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-           
+
             return View(batchView);
 
         }
@@ -114,7 +114,7 @@ namespace Hadia.Areas.Post.Controllers
             {
                 return NotFound();
             }
-            var ListBatch= await _db.Post_GroupMasters
+            var ListBatch = await _db.Post_GroupMasters
                .Select(x => _mapper.Map<BatchViewModel>(x))
                .FirstOrDefaultAsync(x => x.Id == id);
             return View(ListBatch);

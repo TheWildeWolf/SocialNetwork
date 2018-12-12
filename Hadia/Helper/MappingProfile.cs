@@ -44,6 +44,9 @@ namespace Hadia.Helper
             CreateMap<Mem_JobCategoryMaster, JobCategoryViewModel>();
             CreateMap<JobCategoryViewModel, Mem_JobCategoryMaster>();
 
+            CreateMap<Post_GroupMaster, BatchViewModel>();
+            CreateMap<BatchViewModel, Post_GroupMaster>();
+
 
         }
     }

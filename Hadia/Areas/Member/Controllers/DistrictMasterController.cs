@@ -44,7 +44,7 @@ namespace Hadia.Areas.Member.Controllers
         {
             if(await _db.Mem_DistrictMasters.AnyAsync(x=>x.DistrictName==districtMaster.DistrictName))
             {
-                ModelState.AddModelError("DistrictName", "District name already exist");
+                ModelState.AddModelError("DistrictName", "District Name Already Exist");
 
             }
           
