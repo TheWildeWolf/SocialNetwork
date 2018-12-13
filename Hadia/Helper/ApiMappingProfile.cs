@@ -1,3 +1,4 @@
+using System;
 using AutoMapper;
 using Hadia.Models.DomainModels;
 using Hadia.Models.Dtos;
@@ -37,12 +38,15 @@ namespace Hadia.Helper
             CreateMap<Mem_WorkDetail,JobdetailDto>();
             CreateMap<JobdetailDto,Mem_WorkDetail>();
 
-            CreateMap<Mem_SpouseEducationMaster,SpouseEducationDto>();
+            CreateMap<Mem_SpouseEducationMaster,SpouseEducationDto>()
+                .ForMember(f=>f.Name,o=> o.MapFrom(s=>s.QualificationName));
             CreateMap<SpouseEducationDto,Mem_SpouseEducationMaster>();
 
             
             CreateMap<Mem_Kid,KidsDto>();
-            CreateMap<KidsDto,Mem_Kid>();
+            CreateMap<KidsDto,Mem_Kid>()
+             .ForMember(dest => dest.Age,opt => opt.MapFrom(src => new DateTime(src.Age,1,1)));
+               
         }
     }
 }

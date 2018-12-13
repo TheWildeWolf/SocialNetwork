@@ -204,7 +204,7 @@ namespace Hadia.Areas.Member.Controllers
          }
 
          [HttpGet]
-         public async Task<IActionResult> stepfour()
+         public async Task<ActionResult<RegistrationFamilyResourceDto>> stepfour()
          {
              var listOfSpouseEducations = await _db.Mem_SpouseEducationMasters
                                      .Select(x=> _mapper.Map<SpouseEducationDto>(x)).ToListAsync();
@@ -217,30 +217,40 @@ namespace Hadia.Areas.Member.Controllers
          [HttpPost]
          public async Task<IActionResult> stepfour(RegistrationFamilyDto family)
          {
-             var userid = 1;
-             var userFromDb = await _db.Mem_Masters.FindAsync(userid);
+            try
+            {
+             var userFromDb = await _db.Mem_Masters.FindAsync(family.UserId);
              userFromDb.SpouseName = family.SpouseName;
              userFromDb.SpouseEducationId = family.SpouseEducationId;
              userFromDb.SpouseAge  = DateTime.Now.AddYears(-family.SpouseAge);
-            var listOfKids = _mapper.Map<IEnumerable<Mem_Kid>>(family.Childrens);
-            foreach(var kid in listOfKids){
-                 kid.CDate =DateTime.Now;
-                 kid.MemberId =userid;
+             if (family.Children != null)
+             {
+                    var kids = _mapper.Map<IEnumerable<Mem_Kid>>(family.Children);
+                    foreach (var kid in kids)
+                    {
+
+                        kid.CDate = DateTime.Now;
+                        kid.MemberId = family.UserId;
+
+                    }
+
+                    await _db.Mem_Kids.AddRangeAsync(kids);
             }
 
-            _db.Update(userFromDb);
-            await _db.Mem_Kids.AddRangeAsync(listOfKids);
-            try
-            {
-              await  _db.SaveChangesAsync();
+                _db.Update(userFromDb);
+            await  _db.SaveChangesAsync();
+            return Ok(new {
+                  success ="sucess"
+            });
                 
             }
             catch (System.Exception ex)
             {
-                return StatusCode(404,ex);                
+                return Ok(new {
+                  error =ex.Message,
+                  inner = ex.InnerException.Message
+              });                
             }
-
-            return Ok("Succes");
          }
 
         private  string GenerateJwtToken(Mem_Master user)
@@ -277,6 +287,15 @@ namespace Hadia.Areas.Member.Controllers
             return tokenHandler.WriteToken(token);
         }
 
-
+        // private  int ProfilePercentage(int userid)
+        // {
+        //     var education = new List<ProfileCompletation>(){
+        //         new ProfileCompletation{
+        //             Field ="
+        //             "
+        //         }
+        //     }
+        // }
+        
     }
 }

@@ -50,7 +50,7 @@ namespace Hadia
                 {
                     c.SwaggerDoc("v1", new Info { Title = "Hadia Api", Version = "v1" });
                 });
-            services.AddAuthentication("MainCookie")
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
                     options.AccessDeniedPath = "";
@@ -88,7 +88,7 @@ namespace Hadia
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.SwaggerEndpoint("/Hadia/swagger/v1/swagger.json", "My API V1");
             });
             app.UseMvc(routes =>
             {
