@@ -44,7 +44,7 @@ namespace Hadia.Areas.Member.Controllers
         {
             if (await _db.Mem_UniversityMasters.AnyAsync(x => x.UniversityName == universityMaster.UniversityName))
             {
-                ModelState.AddModelError("UniversityName", "University name already exist");
+                ModelState.AddModelError("UniversityName", "University Name Already Exist");
 
             }
 

@@ -15,11 +15,7 @@ namespace Hadia.Areas.Member.Controllers
     {
         private HadiaContext _db;
         private IMapper _mapper;
-        public CountryController(HadiaContext context, IMapper mapper)
-        {
-            _db = context;
-            _mapper = mapper;
-        }
+        
         public async Task<IActionResult> Index()
         {
             var listOfCountry = await _db.Mem_CountryCodes
