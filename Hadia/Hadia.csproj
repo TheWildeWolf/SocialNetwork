@@ -49,7 +49,7 @@
     <Compile Include="Areas\Post\Controllers\BasePostController.cs" />
     <Compile Include="Areas\Post\Controllers\BatchController.cs" />
     <Compile Include="Areas\Post\Controllers\ChapterController.cs" />
-    <Compile Include="Areas\Post\Controllers\MemberListController.cs" />
+    <Compile Include="Areas\Member\Controllers\MemberListController.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -88,6 +88,7 @@
     <Folder Include="Areas\Member\Views\Shared\" />
     <Folder Include="Areas\Post\Data\" />
     <Folder Include="Areas\Post\Models\" />
+    <Folder Include="wwwroot\ChapterImages\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -127,6 +128,7 @@
     <None Include="Areas\Post\Views\Chapter\Details.cshtml" />
     <None Include="Areas\Post\Views\Chapter\Edit.cshtml" />
     <None Include="Areas\Post\Views\Chapter\Index.cshtml" />
+    <None Include="Areas\Member\Views\MemberList\Index.cshtml" />
   </ItemGroup>
 
 </Project>

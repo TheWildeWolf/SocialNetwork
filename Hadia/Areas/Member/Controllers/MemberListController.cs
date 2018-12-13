@@ -8,9 +8,9 @@ using Hadia.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Hadia.Areas.Post.Controllers
+namespace Hadia.Areas.Member.Controllers
 {
-    public class MemberListController : Controller
+    public class MemberListController :BaseMemberController
     {
         private HadiaContext _db;
         private IMapper _mapper;
@@ -22,6 +22,7 @@ namespace Hadia.Areas.Post.Controllers
         public async Task<IActionResult> Index()
         {
             var ListOfMember = await _db.Mem_Masters
+                 .Include(x => x.UgCollege).Include(x=>x.MainGroup)
                  .Select(x => _mapper.Map<MemberViewModel>(x)).ToListAsync();
             return View(ListOfMember);
         }

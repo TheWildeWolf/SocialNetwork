@@ -44,8 +44,19 @@ namespace Hadia.Helper
             CreateMap<Mem_JobCategoryMaster, JobCategoryViewModel>();
             CreateMap<JobCategoryViewModel, Mem_JobCategoryMaster>();
 
-            CreateMap<Post_GroupMaster, BatchViewModel>();
+            CreateMap<Post_GroupMaster, BatchViewModel>().
+            ForMember(dest => dest.GroupName, o => o.MapFrom(s => s.GroupName));
             CreateMap<BatchViewModel, Post_GroupMaster>();
+
+            CreateMap<Post_GroupMaster, ChapterViewModel>().
+            ForMember(dest => dest.GroupName, o => o.MapFrom(s => s.GroupName));
+            CreateMap<ChapterViewModel, Post_GroupMaster>();
+
+            CreateMap<Mem_Master, MemberViewModel>()
+            .ForMember(dest => dest.UgCollegeName, o => o.MapFrom(s => s.UgCollege.UgCollegeName))
+            .ForMember(dest => dest.BatchName, o => o.MapFrom(s => s.MainGroup.GroupName))
+            .ForMember(dest => dest.ChapterName, o => o.MapFrom(s => s.));
+            CreateMap<MemberViewModel, Mem_Master>();
 
 
         }

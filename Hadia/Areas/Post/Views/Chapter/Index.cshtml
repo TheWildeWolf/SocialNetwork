@@ -1,7 +1,63 @@
-﻿
+﻿@model List<Hadia.Models.ViewModels.ChapterViewModel>
 @{
     ViewData["Title"] = "Index";
+
 }
+<div class="card">
 
-<h2>Index</h2>
+    <div class="card-header bg-white header-elements-inline">
+        <h6 class="card-title">Chapters</h6>
+        <div class="header-elements">
+            <a asp-action="Create" class="btn bg-blue">Create New</a>
+        </div>
+    </div>
 
+
+
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Sn
+                    </th>
+                    <th>
+                        Chapter Name
+                    </th>
+
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Formed On
+                    </th>
+                    <th>
+                        
+                    </th>
+                    <th>
+                        Option
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ int SlNo = 0; }
+                @foreach (var master in Model)
+                {
+                <tr>
+                    <td> @(SlNo += 1)</td>
+                    <td>@Html.DisplayFor(x => master.GroupName)</td>
+
+                    <td>@Html.DisplayFor(x => master.Description)</td>
+                    <td>@Html.DisplayFor(x => master.FormedOn)</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@master.Id" class="btn btn-outline bg-primary border-primary text-primary-800 btn-icon"><i class="icon-compose"></i></a>
+                        <a asp-action="Details" asp-route-id="@master.Id" class="btn btn-outline bg-success border-primary text-primary-800 btn-icon"><i class="icon-file-eye"></i></a>
+                        <a asp-action="Delete" asp-route-id="@master.Id" class="btn btn-outline bg-danger border-primary text-primary-800 btn-icon confirm"><i class="icon-trash-alt"></i></a>
+                    </td>
+                </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>

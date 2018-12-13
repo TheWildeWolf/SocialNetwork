@@ -22,18 +22,6 @@ namespace Hadia.Models.ViewModels
         [Display(Name = "Pass out Year")]
         public string PassoutYear { get; set; }
     }
-    public enum GroupType : byte
-    {
-        Chapter = 1,
-        Group = 2,
-        Batch = 3
 
-    }
-
-    public enum GroupPrivacy : byte
-    {
-        Open = 1,
-        Closed = 2
-    }
 
 }

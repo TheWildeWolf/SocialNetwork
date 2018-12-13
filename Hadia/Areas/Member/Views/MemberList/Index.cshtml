@@ -1,0 +1,62 @@
+﻿
+@model List< Hadia.Models.ViewModels.MemberViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="card">
+
+    <div class="card-header bg-white header-elements-inline">
+        <h6 class="card-title">Members</h6>
+        <div class="header-elements">
+            <a asp-action="Create" class="btn bg-blue">Create New</a>
+        </div>
+    </div>
+
+
+
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Sn
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Phone
+                    </th>
+                    <th>
+                        Email
+                    </th>
+                    <th>
+                        Ug College
+                    </th>
+                    g
+                    <th>
+                        Chapter
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ int SlNo = 0; }
+                @foreach (var master in Model)
+                {
+                <tr>
+                    <td> @(SlNo += 1)</td>
+                    <td>@Html.DisplayFor(x => master.Name)</td>
+                    <td>@Html.DisplayFor(x => master.Phone)</td>
+                    <td>@Html.DisplayFor(x => master.Email)</td>
+                    <td>@Html.DisplayFor(x => master.UgCollegeName)</td>
+                    <td>@Html.DisplayFor(x => master.ChapterName)</td>
+                   
+                </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+    </div>
+
