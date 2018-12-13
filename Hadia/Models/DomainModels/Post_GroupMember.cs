@@ -23,6 +23,8 @@ namespace Hadia.Models.DomainModels
         public Mem_Master AddedMember { get; set; }
         public Mem_Master ModifiedMember { get; set; }
 
+        public Mem_Master Member { get; set; }
+
         public Post_GroupMaster GroupMaster { get; set; }
         
     }

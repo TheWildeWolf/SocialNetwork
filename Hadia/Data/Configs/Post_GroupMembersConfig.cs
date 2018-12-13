@@ -20,13 +20,18 @@ namespace Hadia.Data.Configs
             builder.HasOne(x => x.ModifiedMember)
                 .WithMany(x => x.MembersModified)
                 .HasForeignKey(x => x.ModifiedBy)
-                .OnDelete(DeleteBehavior.Restrict); ;
+                .OnDelete(DeleteBehavior.Restrict);
 
 
             builder.HasOne(x => x.GroupMaster)
                 .WithMany(x => x.GroupMembers)
                 .HasForeignKey(x => x.GroupId)
-                .OnDelete(DeleteBehavior.Restrict); ;
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(x => x.Member)
+                .WithMany(x => x.MembershipInGroups)
+                .HasForeignKey(x => x.MemberId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

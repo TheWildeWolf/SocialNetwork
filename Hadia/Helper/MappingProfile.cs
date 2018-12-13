@@ -54,8 +54,8 @@ namespace Hadia.Helper
 
             CreateMap<Mem_Master, MemberViewModel>()
             .ForMember(dest => dest.UgCollegeName, o => o.MapFrom(s => s.UgCollege.UgCollegeName))
-            .ForMember(dest => dest.BatchName, o => o.MapFrom(s => s.MainGroup.GroupName))
-            .ForMember(dest => dest.ChapterName, o => o.MapFrom(s => s.));
+            .ForMember(dest => dest.BatchName, o => o.MapFrom(s => s.MainGroup.GroupName));
+            
             CreateMap<MemberViewModel, Mem_Master>();
 
 

@@ -74,7 +74,7 @@ namespace Hadia.Data.Configs
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
             builder.HasOne(x => x.MainGroup)
-                .WithMany(x => x.Members)
+                .WithMany(x => x.MembersInBatch)
                 .HasForeignKey(x => x.GroupId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
 

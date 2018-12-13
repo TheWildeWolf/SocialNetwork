@@ -21,7 +21,7 @@ namespace Hadia.Models.DomainModels
         public Mem_Master CreatedBy { get; set; }
 
         public ICollection<Post_GroupMember> GroupMembers { get; set; }
-        public ICollection<Mem_Master> Members { get; set; }
+        public ICollection<Mem_Master> MembersInBatch { get; set; }
         public ICollection<Post_ChapterLeader> ChapterLeaders { get; set; }
         public ICollection<Post_InterestedArea> InterestedAreas { get; set; }
         public ICollection<Post_Master> Posts { get; set; }
