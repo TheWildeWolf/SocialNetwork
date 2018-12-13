@@ -73,7 +73,8 @@ namespace Hadia.Controllers
                 authProperties);
             return RedirectToAction("Index", "Home");
         }
-        [Authorize]
+
+        [Authorize(AuthenticationSchemes=CookieAuthenticationDefaults.AuthenticationScheme)]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(
