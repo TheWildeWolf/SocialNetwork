@@ -10,6 +10,7 @@ using Hadia.Data;
 using Hadia.Models.DomainModels;
 using Hadia.Models.ViewModels;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -38,6 +39,20 @@ namespace Hadia.Areas.Post.Controllers
         {
             return View();
         }
+        public async Task UploadImageAsync(IFormFile ImageFile,string FileName)
+        {
+            var uploads = Path.Combine(_hostingEnvironment.WebRootPath, "ChapterImages");
+            if (ImageFile.Length > 0)
+            {
+                
+                var filePath = Path.Combine(uploads, FileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await ImageFile.CopyToAsync(fileStream);
+                }
+            }
+
+        }
         [HttpPost]
         public async Task<IActionResult> Create(ChapterViewModel chapterView)
         {
@@ -49,10 +64,10 @@ namespace Hadia.Areas.Post.Controllers
             var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);
             if (ModelState.IsValid)
             {
-                    var uploads = Path.Combine(_hostingEnvironment.WebRootPath, "ChapterImages");
-                     var imageFileName = string.Empty;
-                  
-                
+                    
+                var imageFileName = DateTime.Now.ToFileTime().ToString();
+
+                await UploadImageAsync(chapterView.ImageFile, imageFileName + ".jpg");
                 var newChapter = _mapper.Map<Post_GroupMaster>(chapterView);
                 newChapter.Type = GroupType.Chapter;
                 newChapter.OpenOrClosed = GroupPrivacy.Closed;
@@ -61,15 +76,7 @@ namespace Hadia.Areas.Post.Controllers
                 newChapter.CDate = DateTime.Now;
                 await _db.Post_GroupMasters.AddAsync(newChapter);
                 await _db.SaveChangesAsync();
-                if (chapterView.ImageFile.Length > 0)
-                {
-                    imageFileName = DateTime.Now.ToFileTime().ToString();
-                    var filePath = Path.Combine(uploads, imageFileName);
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await chapterView.ImageFile.CopyToAsync(fileStream);
-                    }
-                }
+
                 return RedirectToAction("Index");
             }
 
@@ -87,7 +94,7 @@ namespace Hadia.Areas.Post.Controllers
                .FirstOrDefaultAsync(x => x.Id == id);
             if (EditData == null)
                 return NotFound();
-            await _db.SaveChangesAsync();
+            EditData.ImageLocation = GetImage(EditData.GroupImage);
             return View(EditData);
         }
         [HttpPost]
@@ -101,9 +108,15 @@ namespace Hadia.Areas.Post.Controllers
             }
             if (ModelState.IsValid)
             {
-
                 var dataInDb = _db.Post_GroupMasters.Find(id);
                 var editMaster = _mapper.Map(chapterView, dataInDb);
+                if (chapterView.ImageFile != null)
+                {
+                    if (string.IsNullOrEmpty(editMaster.GroupImage))
+                        editMaster.GroupImage = DateTime.Now.ToFileTime().ToString();
+
+                    await UploadImageAsync(chapterView.ImageFile, editMaster.GroupImage+".jpg");
+                }
                 await _db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -129,9 +142,13 @@ namespace Hadia.Areas.Post.Controllers
             var ListChapter = await _db.Post_GroupMasters
                .Select(x => _mapper.Map<ChapterViewModel>(x))
                .FirstOrDefaultAsync(x => x.Id == id);
-            ListChapter.ImageLocation = $"/ChapterImages/{ListChapter.GroupImage}.jpg";
+            ListChapter.ImageLocation = GetImage(ListChapter.GroupImage);
             //Path.Combine(_hostingEnvironment.WebRootPath, "ChapterImages\\"+ListChapter.GroupImage+".jpg");
             return View(ListChapter);
         }
+
+        private string GetImage(string image) => $"/ChapterImages/{image}.jpg";
+
+
     }
 }
