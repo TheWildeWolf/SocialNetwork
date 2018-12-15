@@ -36,12 +36,12 @@
     <Compile Include="Areas\Member\Controllers\BaseMemberController.cs" />
     <Compile Include="Areas\Member\Controllers\CountryController.cs" />
     <Compile Include="Areas\Member\Controllers\DistrictMasterController.cs" />
-    <Compile Include="Areas\Member\Controllers\EducationQualificationApi.cs" />
+    <Compile Include="Areas\Member\Apis\EducationQualificationApi.cs" />
     <Compile Include="Areas\Member\Controllers\JobDetailApiController.cs" />
-    <Compile Include="Areas\Member\Controllers\ProjectsApi.cs" />
+    <Compile Include="Areas\Member\Apis\ProjectsApi.cs" />
     <Compile Include="Areas\Member\Controllers\JobCategoryController.cs" />
     <Compile Include="Areas\Member\Controllers\QualificationMasterController.cs" />
-    <Compile Include="Areas\Member\Controllers\RegisterApiController.cs" />
+    <Compile Include="Areas\Member\Apis\RegisterApiController.cs" />
     <Compile Include="Areas\Member\Controllers\SpouseEducationController.cs" />
     <Compile Include="Areas\Member\Controllers\StateMasterController.cs" />
     <Compile Include="Areas\Member\Controllers\UgCollegeController.cs" />

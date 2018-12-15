@@ -94,7 +94,7 @@ namespace Hadia.Data
                     modelBuilder.ApplyConfiguration(configurationInstance);
                 }
                 
- 
+       
 
 
         }

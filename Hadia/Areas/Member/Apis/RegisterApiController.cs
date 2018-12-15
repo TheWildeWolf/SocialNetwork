@@ -12,11 +12,11 @@ using Hadia.Models.Dtos;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
 using Hadia.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Hadia.Areas.Member.Controllers
 {
@@ -45,10 +45,7 @@ namespace Hadia.Areas.Member.Controllers
         [HttpGet]
         public async Task<ActionResult<RegistrationResourseDto>> StepOne()
         {
-            var listOfUgiColleges = await 
-            
-            _db.Mem_UgColleges.Select(x => _mapper.Map<UgCollageDto>(x)).ToListAsync();
-
+            var listOfUgiColleges = await _db.Mem_UgColleges.Select(x => _mapper.Map<UgCollageDto>(x)).ToListAsync();
             var listOfBatch = await _db.Post_GroupMasters.Where(x=>x.Type == GroupType.Batch )
             .Select(x=> new BatchDto {
                 Id = x.Id,
@@ -62,11 +59,18 @@ namespace Hadia.Areas.Member.Controllers
                    Name = Enum.GetName(typeof(MaritalStatus),t)
                });
             var listOfStates = await _db.Mem_StateMasters.Select(x =>_mapper.Map<StateDto>(x)).ToListAsync();
+            var listOfChapters = await _db.Post_GroupMasters.Where(x => x.Type == GroupType.Chapter)
+                                      .Select(x=> new ChapterDto
+                                      {
+                                          Id = x.Id,
+                                          Name = x.GroupName
+                                      }).ToListAsync();
             var newResorce = new RegistrationResourseDto {
                 Batches =listOfBatch,
                 UgCollages = listOfUgiColleges,
                 States = listOfStates,
-                MaritalStatus = maritalStatus.ToList()
+                MaritalStatus = maritalStatus.ToList(),
+                Chapters = listOfChapters
             };
             
             return Ok(newResorce);
@@ -94,7 +98,7 @@ namespace Hadia.Areas.Member.Controllers
                 model.PasswordHash = passwordHash;
                 model.PasswordSalt = passwordSalt;
                 model.CDate = DateTime.Now;
-        
+   
                 await _db.Mem_Masters.AddAsync(model);
                 try
                 {

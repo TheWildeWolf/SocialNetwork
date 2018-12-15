@@ -26,7 +26,7 @@ namespace Hadia.Areas.Member.Controllers
     [ApiController]
     public class EducationQualificationController : ControllerBase
     {
-         private readonly HadiaContext _db;
+        private readonly HadiaContext _db;
         private  IMapper _mapper ;
         public EducationQualificationController(IMapper mapper,HadiaContext context)
         {
@@ -40,7 +40,7 @@ namespace Hadia.Areas.Member.Controllers
         public async Task<IActionResult> Create(QualificationDto qualification)
         {
             await _db.Mem_EducationDetails.AddAsync(new Mem_EducationDetail{
-                CDate =DateTime.Now,
+                //CDate =DateTime.Now,
                 EducationQualificationId =qualification.QualificationId,
                 PassoutYear = new DateTime(qualification.PassoutYear,1,1),
                 MemberId =qualification.UserId,
@@ -49,6 +49,7 @@ namespace Hadia.Areas.Member.Controllers
                 PhdTopic = qualification.Topic 
 
             });
+            
             try
             {
                 await _db.SaveChangesAsync();
@@ -56,8 +57,8 @@ namespace Hadia.Areas.Member.Controllers
             }
             catch (System.Exception ex)
             {
-                
-                return Ok(new {error= ex.Message });
+
+                throw ex;
             }
 
             
