@@ -7,12 +7,16 @@
   <ItemGroup>
     <Compile Remove="Areas\**" />
     <Compile Remove="Models\DataTransferObjects\**" />
+    <Compile Remove="wwwroot\ChapterImages\**" />
     <Content Remove="Areas\**" />
     <Content Remove="Models\DataTransferObjects\**" />
+    <Content Remove="wwwroot\ChapterImages\**" />
     <EmbeddedResource Remove="Areas\**" />
     <EmbeddedResource Remove="Models\DataTransferObjects\**" />
+    <EmbeddedResource Remove="wwwroot\ChapterImages\**" />
     <None Remove="Areas\**" />
     <None Remove="Models\DataTransferObjects\**" />
+    <None Remove="wwwroot\ChapterImages\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -88,10 +92,10 @@
     <Folder Include="Areas\Member\Views\Shared\" />
     <Folder Include="Areas\Post\Data\" />
     <Folder Include="Areas\Post\Models\" />
-    <Folder Include="wwwroot\ChapterImages\" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Areas\Member\Views\MemberList\Details.cshtml" />
     <None Include="Areas\Post\Views\Batch\Create.cshtml" />
     <None Include="Areas\Post\Views\Batch\Details.cshtml" />
     <None Include="Areas\Post\Views\Batch\Edit.cshtml" />

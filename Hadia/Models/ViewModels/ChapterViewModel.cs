@@ -20,6 +20,6 @@ namespace Hadia.Models.ViewModels
         public DateTime? FormedOn { get; set; }
         public IFormFile ImageFile { get; set; }
         public string ImageLocation { get; set; }
-        public string GroupImage { get; set; }
+        public string ChapterImage { get; set; }
     }
 }
