@@ -49,7 +49,8 @@ namespace Hadia.Helper
             CreateMap<BatchViewModel, Post_GroupMaster>();
 
             CreateMap<Post_GroupMaster, ChapterViewModel>().
-            ForMember(dest => dest.GroupName, o => o.MapFrom(s => s.GroupName));
+            ForMember(dest => dest.GroupName, o => o.MapFrom(s => s.GroupName))
+            .ForMember(dest => dest.ChapterImage, o => o.MapFrom(s => s.GroupImage));
             CreateMap<ChapterViewModel, Post_GroupMaster>();
 
             CreateMap<Mem_Master, MemberViewModel>()

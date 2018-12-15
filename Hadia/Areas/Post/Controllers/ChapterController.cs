@@ -41,10 +41,10 @@ namespace Hadia.Areas.Post.Controllers
         }
         public async Task UploadImageAsync(IFormFile ImageFile,string FileName)
         {
+           
             var uploads = Path.Combine(_hostingEnvironment.WebRootPath, "ChapterImages");
             if (ImageFile.Length > 0)
-            {
-                
+            {   
                 var filePath = Path.Combine(uploads, FileName);
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
@@ -66,7 +66,6 @@ namespace Hadia.Areas.Post.Controllers
             {
                     
                 var imageFileName = DateTime.Now.ToFileTime().ToString();
-
                 await UploadImageAsync(chapterView.ImageFile, imageFileName + ".jpg");
                 var newChapter = _mapper.Map<Post_GroupMaster>(chapterView);
                 newChapter.Type = GroupType.Chapter;
@@ -76,7 +75,6 @@ namespace Hadia.Areas.Post.Controllers
                 newChapter.CDate = DateTime.Now;
                 await _db.Post_GroupMasters.AddAsync(newChapter);
                 await _db.SaveChangesAsync();
-
                 return RedirectToAction("Index");
             }
 
@@ -88,13 +86,12 @@ namespace Hadia.Areas.Post.Controllers
         {
             if (id == null)
                 return NotFound();
-
             var EditData = await _db.Post_GroupMasters
                .Select(x => _mapper.Map<ChapterViewModel>(x))
                .FirstOrDefaultAsync(x => x.Id == id);
             if (EditData == null)
                 return NotFound();
-            EditData.ImageLocation = GetImage(EditData.GroupImage);
+            EditData.ImageLocation = GetImage(EditData.ChapterImage);
             return View(EditData);
         }
         [HttpPost]
@@ -117,6 +114,10 @@ namespace Hadia.Areas.Post.Controllers
 
                     await UploadImageAsync(chapterView.ImageFile, editMaster.GroupImage+".jpg");
                 }
+                //else
+                //{
+                //    editMaster.GroupImage = dataInDb.GroupImage;
+                //}
                 await _db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -142,7 +143,7 @@ namespace Hadia.Areas.Post.Controllers
             var ListChapter = await _db.Post_GroupMasters
                .Select(x => _mapper.Map<ChapterViewModel>(x))
                .FirstOrDefaultAsync(x => x.Id == id);
-            ListChapter.ImageLocation = GetImage(ListChapter.GroupImage);
+            ListChapter.ImageLocation = GetImage(ListChapter.ChapterImage);
             //Path.Combine(_hostingEnvironment.WebRootPath, "ChapterImages\\"+ListChapter.GroupImage+".jpg");
             return View(ListChapter);
         }
