@@ -1,7 +1,9 @@
 ﻿
 @model List< Hadia.Models.ViewModels.MemberViewModel>
 @{
-    ViewData["Title"] = "Index";
+        ViewData["Title"] = "Index";
+        var varified = "<span class=\"badge bg-success-400\">Approved</span>";
+        var notvarified = "<span class=\"badge bg-danger\">Not Approved</span>";
 }
 
 <div class="card">
@@ -9,58 +11,88 @@
     <div class="card-header bg-white header-elements-inline">
         <h6 class="card-title">Members</h6>
         <div class="header-elements">
-            <a asp-action="Create" class="btn bg-blue">Create New</a>
+
         </div>
     </div>
 
+    @Html.DropDownList("Search", new List<SelectListItem>
+{
 
+    new SelectListItem {Text = "--Search By--", Value="1"  },
+    new SelectListItem {Text = "Batch", Value="1"  },
+    new SelectListItem {Text = "Approval", Value="2"  },
+    new SelectListItem {Text = "Chapter", Value="3"  }
 
-    <div class="card-body">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        Sn
-                    </th>
-                    <th>
-                        Name
-                    </th>
-                    <th>
-                        Phone
-                    </th>
-                    <th>
-                        Email
-                    </th>
-                    <th>
-                        Ug College
-                    </th>
+})
+     <button type="submit">Search </button>
 
-                    <th>
-                        Chapter
-                    </th>
-                    <th>
-                        Batch
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @{ int SlNo = 0; }
-                @foreach (var master in Model)
-                {
+<div class="card-body">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Sn
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Batch
+                </th>
+                <th>
+                    Phone
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Ug College
+                </th>
+
+                <th>
+                    Chapter
+                </th>
+
+                <th>
+                    Approvel
+                </th>
+                <th>
+                    Option
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ int SlNo = 0; }
+            @foreach (var master in Model)
+            {
                 <tr>
                     <td> @(SlNo += 1)</td>
                     <td>@Html.DisplayFor(x => master.Name)</td>
+                    <td>@Html.DisplayFor(x => master.BatchName)</td>
                     <td>@Html.DisplayFor(x => master.Phone)</td>
                     <td>@Html.DisplayFor(x => master.Email)</td>
                     <td>@Html.DisplayFor(x => master.UgCollegeName)</td>
                     <td>@Html.DisplayFor(x => master.ChapterName)</td>
-                    <td>@Html.DisplayFor(x => master.BatchName)</td>
 
+                    <td>
+                        @if (master.IsVarified)
+                        {
+                            @Html.Raw(varified)
+                        }
+                        else
+                        {
+                            @Html.Raw(notvarified)
+
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@master.Id" class="btn btn-outline bg-success border-primary text-primary-800 btn-icon"><i class="icon-file-eye"></i></a>
+                    </td>
                 </tr>
-                }
+            }
 
-            </tbody>
-        </table>
-    </div>
-    </div>
+        </tbody>
+    </table>
+</div>
+</div>
 

@@ -14,6 +14,14 @@ namespace Hadia.Models.ViewModels
         [DisplayName("UgCollegeName")]
         public int? UgCollageId { get; set; }
         public string Phone { get; set; }
+        public string AdNo { get; set; }
+        public string PresentAddress { get; set; }
+        public string PermanentAddress { get; set; }
+        //public MaritalStatus? MaritalStatus { get; set; }
+        public string SpouseName { get; set; }
+        public DateTime DateOfBirth { get; set; }
+        [DisplayName("DistrictName")]
+        public int? DistrictId { get; set; }
         [DisplayName("GroupName")]
         public int? GroupId { get; set; } 
         public string Email { get; set; }
@@ -21,6 +29,7 @@ namespace Hadia.Models.ViewModels
         public string UgCollegeName { get; set; }
         public string ChapterName { get; set; }
         public string BatchName { get; set; }
+        public string DistrictName { get; set; }
 
     }
 }

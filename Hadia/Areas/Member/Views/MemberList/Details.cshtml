@@ -1,0 +1,67 @@
+﻿@model Hadia.Models.ViewModels.MemberViewModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            Name:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            Batch:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BatchName)
+        </dd>
+        <dt>
+            Phone:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+        <dt>
+            UG College:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UgCollegeName)
+        </dd>
+        <dt>
+            Email:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            Chapter:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ChapterName)
+        </dd>
+
+        <dt>
+            District:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DistrictName)
+        </dd>
+        <dt>
+            Spouse Name:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SpouseName)
+        </dd>
+
+    </dl>
+    <div class="card-footer d-flex justify-content-between align-items-center bg-teal-400 border-top-0">
+        <a asp-action="index" class="btn bg-transparent text-white border-white border-2">Cancel</a>
+        <a asp-action="Approve" asp-route-id="@Model.Id"  class="btn btn-outline bg-white text-white border-white border-2">Approve </a>
+    </div>
+</div>

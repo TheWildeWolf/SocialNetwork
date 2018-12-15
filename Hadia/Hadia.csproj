@@ -95,6 +95,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Areas\Member\Views\MemberList\Details.cshtml" />
     <None Include="Areas\Post\Views\Batch\Create.cshtml" />
     <None Include="Areas\Post\Views\Batch\Details.cshtml" />
     <None Include="Areas\Post\Views\Batch\Edit.cshtml" />

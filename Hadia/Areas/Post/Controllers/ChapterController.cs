@@ -86,6 +86,7 @@ namespace Hadia.Areas.Post.Controllers
         {
             if (id == null)
                 return NotFound();
+
             var EditData = await _db.Post_GroupMasters
                .Select(x => _mapper.Map<ChapterViewModel>(x))
                .FirstOrDefaultAsync(x => x.Id == id);
