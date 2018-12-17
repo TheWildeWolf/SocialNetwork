@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Hadia.Models.DomainModels
 {
@@ -11,6 +12,8 @@ namespace Hadia.Models.DomainModels
         public DateTime CDate { get; set; }
 
         public Mem_Master Member { get; set; }
+
+        public ICollection<Mem_Master> Members { get; set; }
     }
 }
 

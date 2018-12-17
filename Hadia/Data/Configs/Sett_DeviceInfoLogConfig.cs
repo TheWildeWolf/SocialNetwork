@@ -16,6 +16,11 @@ namespace Hadia.Data.Configs
                     .WithMany(x => x.DeviceInfoLogs)
                     .HasForeignKey(x => x.MemberId)
                    .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasMany(x => x.Members)
+                .WithOne(x => x.ActiveDevice)
+                .HasForeignKey(x => x.ActiveDeviceId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

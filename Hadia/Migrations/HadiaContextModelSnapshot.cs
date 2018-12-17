@@ -15,7 +15,7 @@ namespace Hadia.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.0-rtm-35687")
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -1042,8 +1042,6 @@ namespace Hadia.Migrations
 
                     b.HasIndex("GroupId");
 
-                    b.HasIndex("MemberId");
-
                     b.HasIndex("ModifiedBy");
 
                     b.ToTable("Post_GroupMembers");
@@ -1668,7 +1666,7 @@ namespace Hadia.Migrations
                         .HasForeignKey("DistrictId");
 
                     b.HasOne("Hadia.Models.DomainModels.Post_GroupMaster", "MainGroup")
-                        .WithMany("MembersInBatch")
+                        .WithMany("Members")
                         .HasForeignKey("GroupId");
 
                     b.HasOne("Hadia.Models.DomainModels.Mem_SpouseEducationMaster", "SpouseEducation")
@@ -1936,11 +1934,6 @@ namespace Hadia.Migrations
                     b.HasOne("Hadia.Models.DomainModels.Post_GroupMaster", "GroupMaster")
                         .WithMany("GroupMembers")
                         .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Hadia.Models.DomainModels.Mem_Master", "Member")
-                        .WithMany("MembershipInGroups")
-                        .HasForeignKey("MemberId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Hadia.Models.DomainModels.Mem_Master", "ModifiedMember")

@@ -30,14 +30,13 @@ namespace Hadia.Areas.Member.Controllers
     {
         private readonly HadiaContext _db;
         private  IMapper _mapper ;
-        private IConfiguration _config ;
 
         private AuthService _authServive ;
-        public RegisterController(IMapper mapper,HadiaContext context,IConfiguration config)
+        public RegisterController(IMapper mapper,HadiaContext context)
         {
             _mapper = mapper;
             _db = context;
-            _config = config;
+            
             _authServive = new AuthService(context);
         }
 
@@ -98,7 +97,7 @@ namespace Hadia.Areas.Member.Controllers
                 model.PasswordHash = passwordHash;
                 model.PasswordSalt = passwordSalt;
                 model.CDate = DateTime.Now;
-   
+                
                 await _db.Mem_Masters.AddAsync(model);
                 try
                 {
@@ -110,7 +109,7 @@ namespace Hadia.Areas.Member.Controllers
                 }
                 catch (System.Exception ex)
                 {
-                    return  StatusCode(500,ex);
+                     throw ex;
                 }
 
         }
@@ -167,10 +166,9 @@ namespace Hadia.Areas.Member.Controllers
             }
             catch (System.Exception ex)
             {
-                
-                return Ok(ex);
+                throw ex;
             }
-            
+
 
             return Ok("Success");
         }
@@ -190,9 +188,10 @@ namespace Hadia.Areas.Member.Controllers
             };
             return Ok(jobResource);
         }
-        
+
+        [Obsolete]
         [HttpPost]
-         public async Task<IActionResult> stepthree(List<JobdetailDto> jobs)
+        public  async Task<IActionResult> stepthree(List<JobdetailDto> jobs)
          {
              var userId = 1;
              var joblis = _mapper.Map<IEnumerable<Mem_WorkDetail>>(jobs);
@@ -207,89 +206,49 @@ namespace Hadia.Areas.Member.Controllers
              
          }
 
-         [HttpGet]
-         public async Task<ActionResult<RegistrationFamilyResourceDto>> stepfour()
+        [HttpGet]
+        public async Task<ActionResult<RegistrationFamilyResourceDto>> stepfour()
          {
              var listOfSpouseEducations = await _db.Mem_SpouseEducationMasters
                                      .Select(x=> _mapper.Map<SpouseEducationDto>(x)).ToListAsync();
-
                                      return Ok(new RegistrationFamilyResourceDto {
                                             SpouseEducations = listOfSpouseEducations
                                      });
+             
          }
 
-         [HttpPost]
-         public async Task<IActionResult> stepfour(RegistrationFamilyDto family)
-         {
+        [HttpPost]
+        public async Task<IActionResult> stepfour(RegistrationFamilyDto family)
+        {
             try
             {
+            
              var userFromDb = await _db.Mem_Masters.FindAsync(family.UserId);
              userFromDb.SpouseName = family.SpouseName;
              userFromDb.SpouseEducationId = family.SpouseEducationId;
-             userFromDb.SpouseAge  = DateTime.Now.AddYears(-family.SpouseAge);
-             if (family.Children != null)
+             if(family.SpouseAge != null)
+             userFromDb.SpouseAge  = DateTime.Now.AddYears(-family.SpouseAge??0);
+             if (family.Children.Any())
              {
                     var kids = _mapper.Map<IEnumerable<Mem_Kid>>(family.Children);
                     foreach (var kid in kids)
                     {
-
                         kid.CDate = DateTime.Now;
                         kid.MemberId = family.UserId;
-
                     }
-
-                    await _db.Mem_Kids.AddRangeAsync(kids);
+                  await _db.Mem_Kids.AddRangeAsync(kids);
             }
-
-                _db.Update(userFromDb);
+            _db.Update(userFromDb);
             await  _db.SaveChangesAsync();
-            return Ok(new {
-                  success ="sucess"
-            });
-                
+            return Ok(new {success ="sucess"});
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                return Ok(new {
-                  error =ex.Message,
-                  inner = ex.InnerException.Message
-              });                
+                throw ex;
             }
          }
 
-        private  string GenerateJwtToken(Mem_Master user)
-        {
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.Name)
-            };
-
-            // var roles = await _userManager.GetRolesAsync(user);
-
-            // foreach (var role in roles)
-            // {
-            //     claims.Add(new Claim(ClaimTypes.Role, role));
-            // }
-            
-            var key = new SymmetricSecurityKey(Encoding.UTF8
-                .GetBytes(_config.GetSection("AppSettings:Token").Value));
-
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
-
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(1),
-                SigningCredentials = creds
-            };
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-
-            return tokenHandler.WriteToken(token);
-        }
+       
 
         // private  int ProfilePercentage(int userid)
         // {
@@ -300,6 +259,7 @@ namespace Hadia.Areas.Member.Controllers
         //         }
         //     }
         // }
+       
         
     }
 }

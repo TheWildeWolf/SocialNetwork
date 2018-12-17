@@ -1,22 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="Areas\**" />
     <Compile Remove="Models\DataTransferObjects\**" />
-    <Compile Remove="wwwroot\ChapterImages\**" />
     <Content Remove="Areas\**" />
     <Content Remove="Models\DataTransferObjects\**" />
-    <Content Remove="wwwroot\ChapterImages\**" />
     <EmbeddedResource Remove="Areas\**" />
     <EmbeddedResource Remove="Models\DataTransferObjects\**" />
-    <EmbeddedResource Remove="wwwroot\ChapterImages\**" />
     <None Remove="Areas\**" />
     <None Remove="Models\DataTransferObjects\**" />
-    <None Remove="wwwroot\ChapterImages\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,10 +29,11 @@
 
   <ItemGroup>
     <None Remove="logfile.txt" />
-    <None Remove="ScaffoldingReadMe.txt" />
+    <None Remove="wwwroot\ChapterImages\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="Areas\Login\Api\AuthController.cs" />
     <Compile Include="Areas\Member\Controllers\BaseMemberController.cs" />
     <Compile Include="Areas\Member\Controllers\CountryController.cs" />
     <Compile Include="Areas\Member\Controllers\DistrictMasterController.cs" />
@@ -81,17 +78,18 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.0.0" />
-    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Login\Controllers\" />
+    <Folder Include="Areas\Login\Models\" />
+    <Folder Include="Areas\Login\Views\" />
     <Folder Include="Areas\Member\Views\Shared\" />
     <Folder Include="Areas\Post\Data\" />
-    <Folder Include="Areas\Post\Models\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -133,6 +131,7 @@
     <None Include="Areas\Post\Views\Chapter\Edit.cshtml" />
     <None Include="Areas\Post\Views\Chapter\Index.cshtml" />
     <None Include="Areas\Member\Views\MemberList\Index.cshtml" />
+    
   </ItemGroup>
 
 </Project>

@@ -50,10 +50,8 @@ namespace Hadia.Areas.Member.Controllers
             }
             catch (System.Exception ex)
             {
-                
-                return Ok(new {
-                    error=ex.Message
-                });
+
+                throw ex;
             }
 
         }

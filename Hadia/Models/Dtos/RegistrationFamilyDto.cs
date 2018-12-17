@@ -8,7 +8,7 @@ namespace Hadia.Models.Dtos
     {
         public int UserId { get; set; }
         public string SpouseName { get; set; }
-        public int SpouseAge { get; set; }
+        public int? SpouseAge { get; set; }
 
         public int? SpouseEducationId { get; set; }
 
@@ -18,7 +18,7 @@ namespace Hadia.Models.Dtos
     public class KidsDto
     {
         public string KidName { get; set; }
-        public int Age { get; set; }
+        public int? Age { get; set; }
         public GenderType Gender { get; set; }
 
     }

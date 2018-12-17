@@ -1,22 +1,12 @@
 using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Hadia.Data;
 using Hadia.Models.DomainModels;
 using Hadia.Models.Dtos;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 
-namespace Hadia.Areas.Member.Controllers
+namespace Hadia.Areas.Member.Apis
 {
 
     [Produces("application/json")]
@@ -49,7 +39,6 @@ namespace Hadia.Areas.Member.Controllers
                 PhdTopic = qualification.Topic 
 
             });
-            
             try
             {
                 await _db.SaveChangesAsync();

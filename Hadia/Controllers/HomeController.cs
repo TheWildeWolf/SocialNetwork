@@ -19,42 +19,49 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Hadia.Controllers
 {
-    [Authorize(AuthenticationSchemes=CookieAuthenticationDefaults.AuthenticationScheme)]
+    /*
+     * This is a Democontroller for Test and development
+     */
+    //[Authorize(AuthenticationSchemes=CookieAuthenticationDefaults.AuthenticationScheme)]
     public class HomeController : Controller
     {
         private readonly HadiaContext _db;
+        private AuthService _auth;
         private static readonly HttpClient client = new HttpClient();
-
         public HomeController(HadiaContext db)
         {
             this._db = db;
+            _auth = new AuthService(db);
         }
         public IActionResult Index()
         {
-            if (!_db.Mem_Masters.Any())
-            {
-                byte[] bytes = Encoding.ASCII.GetBytes("sample");
+            //if (!_db.Mem_Masters.Any())
+            //{
+                byte[] passhash;
+                byte[] passsalt;
+
+                _auth.CreatePasswordHash("123456",out passhash,out passsalt);
                 var newMem = new Mem_Master
                 {
                     AdNo = "111",
-                    Name = "Jon Doe",
+                    Name = "Jane Doe",
                     DateOfBirth = DateTime.Now,
                     IsGroupAdmin = false,
                     IsVarified = false,
-                    PasswordSalt = bytes,
-                    PasswordHash = bytes,
+                    PasswordSalt = passsalt,
+                    PasswordHash = passhash,
                     CountryCode = "91",
                     Phone = "9969969961",
-                    CDate = DateTime.Now
+                    CDate = DateTime.Now,
+                    Email = "janedoe"
                     
 
                 };
                 _db.Mem_Masters.Add(newMem);
                 _db.SaveChanges();
-            }
+            //}
             return View();
         }
-
         public async Task<IActionResult> About()
         {
             var serializer = new DataContractJsonSerializer(typeof(List<CountryApi>));
@@ -71,9 +78,7 @@ namespace Hadia.Controllers
         [AllowAnonymous]
         public IActionResult Contact()
         {
-         
-            ViewData["Message"] = "Your contact page.";
-            
+            ViewData["Message"] = "Your contact page.";    
             return View();
         }
 

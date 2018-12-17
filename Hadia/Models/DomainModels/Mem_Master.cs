@@ -32,6 +32,8 @@ namespace Hadia.Models.DomainModels
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
 
+        public int ActiveDeviceId { get; set; }
+
         public bool IsVarified { get; set; }
 
         public int? VarifiedBy { get; set; }
@@ -41,6 +43,8 @@ namespace Hadia.Models.DomainModels
         public DateTime? MDate { get; set; }
 
         public Mem_Master VarifiedMember { get; set; }
+
+        public Sett_DeviceInfoLog ActiveDevice { get; set; }
 
         public Mem_UgColleges UgCollege { get; set; }
         public Mem_DistrictMaster District { get; set; }
