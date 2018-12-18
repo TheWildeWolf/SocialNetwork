@@ -4,14 +4,16 @@ using Hadia.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Hadia.Migrations
 {
     [DbContext(typeof(HadiaContext))]
-    partial class HadiaContextModelSnapshot : ModelSnapshot
+    [Migration("20181218052534_AddDeviceIdInMemMaster")]
+    partial class AddDeviceIdInMemMaster
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1346,15 +1348,9 @@ namespace Hadia.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Brand")
-                        .HasMaxLength(125);
-
                     b.Property<DateTime>("CDate");
 
                     b.Property<string>("DeviceKey");
-
-                    b.Property<string>("DeviceModel")
-                        .HasMaxLength(125);
 
                     b.Property<int>("MemberId");
 

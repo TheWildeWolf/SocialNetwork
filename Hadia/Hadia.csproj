@@ -25,6 +25,14 @@
     <Compile Remove="Migrations\20181203120632_Test.Designer.cs" />
     <Compile Remove="Migrations\20181204120557_CreateProjectMasterWorkCategory.cs" />
     <Compile Remove="Migrations\20181204120557_CreateProjectMasterWorkCategory.Designer.cs" />
+    <Compile Remove="Migrations\20181218050724_AddDeviceIdInMemMaster.cs" />
+    <Compile Remove="Migrations\20181218050724_AddDeviceIdInMemMaster.Designer.cs" />
+    <Compile Remove="Migrations\20181218051515_AddDeviceKey.cs" />
+    <Compile Remove="Migrations\20181218051515_AddDeviceKey.Designer.cs" />
+    <Compile Remove="Migrations\20181218052422_AddDeviceIdInMemMaster.cs" />
+    <Compile Remove="Migrations\20181218052422_AddDeviceIdInMemMaster.Designer.cs" />
+    <Compile Remove="Migrations\20181218052750_Test.cs" />
+    <Compile Remove="Migrations\20181218052750_Test.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -32,7 +32,7 @@ namespace Hadia.Models.DomainModels
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
 
-        public int ActiveDeviceId { get; set; }
+        public int? ActiveDeviceId { get; set; }
 
         public bool IsVarified { get; set; }
 
