@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Hadia.Data;
+using Hadia.Helper;
 using Hadia.Models.DomainModels;
 using Hadia.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -58,6 +59,7 @@ namespace Hadia.Areas.Member.Controllers
                 newDistrict.CDate = DateTime.Now;
                 await _db.Mem_DistrictMasters.AddAsync(newDistrict);
                 await _db.SaveChangesAsync();
+                TempData["message"] = Notifications.SuccessNotify("District Created!");
                 return RedirectToAction("Index");
             }
             districtMaster.StateList = new SelectList(_db.Mem_StateMasters.ToList(), "Id", "StateName",districtMaster.StateId);
