@@ -60,10 +60,26 @@ namespace Hadia.Helper
             .ForMember(dest => dest.DistrictName, o => o.MapFrom(s => s.District.DistrictName))
             .ForMember(dest => dest.ChapterName, o => o.MapFrom(s => s.MembershipInGroups
             .Where(x => x.GroupMaster.Type == GroupType.Chapter).OrderByDescending(x => x.GroupMaster.FormedOn)
-            .FirstOrDefault().GroupMaster.GroupName));
+            .FirstOrDefault().GroupMaster.GroupName))
+            .ForMember(dest => dest.ChapterId, o => o.MapFrom(s => s.MembershipInGroups
+            .Where(x => x.GroupMaster.Type == GroupType.Chapter).OrderByDescending(x => x.GroupMaster.FormedOn)
+            .FirstOrDefault().GroupMaster.Id));
             CreateMap<MemberViewModel, Mem_Master>();
 
-          
+
+            CreateMap<Mem_Master, MemberDetailsViewModel>()
+          .ForMember(dest => dest.UgCollegeName, o => o.MapFrom(s => s.UgCollege.UgCollegeName))
+          .ForMember(dest => dest.BatchName, o => o.MapFrom(s => s.MainGroup.GroupName))
+          .ForMember(dest => dest.DistrictName, o => o.MapFrom(s => s.District.DistrictName))
+          .ForMember(dest => dest.ChapterName, o => o.MapFrom(s => s.MembershipInGroups
+          .Where(x => x.GroupMaster.Type == GroupType.Chapter).OrderByDescending(x => x.GroupMaster.FormedOn)
+          .FirstOrDefault().GroupMaster.GroupName))
+          .ForMember(dest => dest.ChapterId, o => o.MapFrom(s => s.MembershipInGroups
+          .Where(x => x.GroupMaster.Type == GroupType.Chapter).OrderByDescending(x => x.GroupMaster.FormedOn)
+          .FirstOrDefault().GroupMaster.Id))
+          .ForMember(des => des.Kids, o => o.MapFrom(s => s.Kids.Where(x => x.MemberId == s.Id)));
+          // CreateMap<MemberDetailsViewModel, Mem_Master>();
+
 
 
         }

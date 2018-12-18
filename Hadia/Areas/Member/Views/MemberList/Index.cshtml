@@ -1,5 +1,5 @@
 ﻿
-@model List< Hadia.Models.ViewModels.MemberViewModel>
+@model Hadia.Models.ViewModels.MembersMasterViewModel
 @{
         ViewData["Title"] = "Index";
         var varified = "<span class=\"badge bg-success-400\">Approved</span>";
@@ -12,19 +12,16 @@
         <h6 class="card-title">Members</h6>
         <div class="header-elements">
 
+            <form asp-action="Index" asp-controller="MemberList">
+                @Html.DropDownListFor(x => x.BatchId, (SelectList)Model.BatchList, "--Select Batch--")
+                @Html.DropDownListFor(x => x.ChapterId, (SelectList)Model.ChapterList, "--Select Chapter--")
+                @Html.RadioButtonFor(x=> x.Approval, "Approved")<span>Approved</span>
+                @Html.RadioButtonFor(x => x.Approval, "Not Approved") <span>Not Approved</span>
+                @Html.RadioButtonFor(x => x.Approval, "All")<span>All</span>
+                <button type="submit">Search </button>
+            </form>
         </div>
     </div>
-
-    @Html.DropDownList("Search", new List<SelectListItem>
-{
-
-    new SelectListItem {Text = "--Search By--", Value="1"  },
-    new SelectListItem {Text = "Batch", Value="1"  },
-    new SelectListItem {Text = "Approval", Value="2"  },
-    new SelectListItem {Text = "Chapter", Value="3"  }
-
-})
-     <button type="submit">Search </button>
 
 <div class="card-body">
     <table class="table">
@@ -63,7 +60,7 @@
         </thead>
         <tbody>
             @{ int SlNo = 0; }
-            @foreach (var master in Model)
+            @foreach (var master in Model.Members)
             {
                 <tr>
                     <td> @(SlNo += 1)</td>

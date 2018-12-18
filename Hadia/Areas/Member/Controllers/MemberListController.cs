@@ -7,6 +7,8 @@ using Hadia.Data;
 using Hadia.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Hadia.Models.DomainModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Hadia.Areas.Member.Controllers
 {
@@ -19,16 +21,49 @@ namespace Hadia.Areas.Member.Controllers
             _db = context;
             _mapper = mapper;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(MembersMasterViewModel memberMaster)
         {
-
             var ListOfMember = await _db.Mem_Masters
                  .Include(x => x.UgCollege)
                  .Include(x => x.MembershipInGroups)
                  .ThenInclude(x => x.GroupMaster)
                  .Include(x => x.MainGroup)
                  .Select(x => _mapper.Map<MemberViewModel>(x)).ToListAsync();
-            return View(ListOfMember);
+            memberMaster.BatchList = new SelectList(_db.Post_GroupMasters.Where(s => s.Type == GroupType.Batch), "Id", "GroupName");
+            if (memberMaster.BatchId != null)
+            {
+                ListOfMember = ListOfMember.Where(s => s.GroupId == memberMaster.BatchId).ToList();
+            }
+            memberMaster.ChapterList = new SelectList(_db.Post_GroupMasters.Where(s => s.Type == GroupType.Chapter), "Id", "GroupName");
+            if(memberMaster.ChapterId != null)
+            {
+                ListOfMember = ListOfMember.Where(s => s.ChapterId== memberMaster.ChapterId).ToList();
+            }
+            switch (memberMaster.Approval)
+            {
+                case "Approved":
+                    {
+                        ListOfMember = ListOfMember.Where(s => s.IsVarified).ToList();
+                        break;
+                    }
+                case "Not Approved":
+                    {
+                        ListOfMember = ListOfMember.Where(s => !s.IsVarified).ToList();
+                        break;
+                    }
+                default:                    
+                        {
+                        ListOfMember = ListOfMember.ToList();
+                        break;
+                    }
+
+
+            }
+          
+            memberMaster.Approval = memberMaster.Approval ?? "All";
+            memberMaster.Members = ListOfMember;
+            return View(memberMaster);
+
         }
         [HttpGet]
         public async Task<ActionResult> Details(int? id)
@@ -37,10 +72,20 @@ namespace Hadia.Areas.Member.Controllers
             {
                 return NotFound();
             }
+            var KidsDetails = new SelectList(_db.Mem_Kids.Where(s=>s.MemberId==id), "Id", "KidsName");
+            var memViewModel = new MemberDetailsViewModel
+            {
+                KidsList = KidsDetails
+            };
+
             var MemberDetails = await _db.Mem_Masters.Include(x => x.UgCollege).Include(x => x.MainGroup)
                 .Include (x=>x.District)
-                  .Select(x => _mapper.Map<MemberViewModel>(x))
+                .Include (y=>y.Kids)
+                  .Select(x => _mapper.Map<MemberDetailsViewModel>(x))
                   .FirstOrDefaultAsync(x => x.Id == id);
+
+           
+
             return View(MemberDetails);
         }
         [HttpGet]
