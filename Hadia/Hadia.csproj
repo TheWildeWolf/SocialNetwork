@@ -97,7 +97,6 @@
     <Folder Include="Areas\Login\Models\" />
     <Folder Include="Areas\Login\Views\" />
     <Folder Include="Areas\Member\Views\Shared\" />
-    <Folder Include="Areas\Post\Data\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,15 +1,16 @@
 ﻿
 @model Hadia.Models.ViewModels.MembersMasterViewModel
 @{
-        ViewData["Title"] = "Index";
-        var varified = "<span class=\"badge bg-success-400\">Approved</span>";
-        var notvarified = "<span class=\"badge bg-danger\">Not Approved</span>";
+    ViewData["Title"] = "Members";
+    ViewData["Description"] = "All Registered Members";
+    var varified = "<span class=\"badge bg-success-400\">Approved</span>";
+    var notvarified = "<span class=\"badge bg-danger\">Not Approved</span>";
 }
 
 <div class="card">
 
     <div class="card-header bg-white header-elements-inline">
-        <h6 class="card-title">Members</h6>
+        @*<h6 class="card-title">Members</h6>*@
         <div class="header-elements">
 
             <form asp-action="Index" asp-controller="MemberList">

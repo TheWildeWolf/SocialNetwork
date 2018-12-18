@@ -133,7 +133,7 @@ namespace Hadia
 
                 routes.MapRoute(
                         name: "default",
-                        template: "{controller=Home}/{action=Index}/{id?}");
+                        template: "{area=member}/{controller=Memberlist}/{action=Index}/{id?}");
             });
         }
     }
