@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Hadia.Data;
+using Hadia.Helper;
 using Hadia.Models.DomainModels;
 using Hadia.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -58,6 +59,7 @@ namespace Hadia.Areas.Member.Controllers
                 newUniversity.CDate = DateTime.Now;
                 await _db.Mem_UniversityMasters.AddAsync(newUniversity);
                 await _db.SaveChangesAsync();
+                TempData["message"] = Notifications.SuccessNotify("University Created!");
                 return RedirectToAction("Index");
             }
             universityMaster.CountryList = new SelectList(_db.Mem_CountryCodes.ToList(), "Id", "CountryName", universityMaster.CountryId);

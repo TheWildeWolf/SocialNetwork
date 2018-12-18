@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Hadia.Data;
+using Hadia.Helper;
 using Hadia.Models.DomainModels;
 using Hadia.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -49,6 +50,7 @@ namespace Hadia.Areas.Member.Controllers
                 newJobCatgryr.CDate = DateTime.Now;
                 await _db.Mem_JobCategoryMasters.AddAsync(newJobCatgryr);
                 await _db.SaveChangesAsync();
+                TempData["message"] = Notifications.SuccessNotify("Category Created!");
                 return RedirectToAction("Index");
             }
             return View(jobCategory);
