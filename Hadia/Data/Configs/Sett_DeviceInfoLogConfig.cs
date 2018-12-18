@@ -20,7 +20,10 @@ namespace Hadia.Data.Configs
             builder.HasMany(x => x.Members)
                 .WithOne(x => x.ActiveDevice)
                 .HasForeignKey(x => x.ActiveDeviceId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            builder.Property(x => x.DeviceModel).HasMaxLength(125);
+            builder.Property(x => x.Brand).HasMaxLength(125);
         }
     }
 }

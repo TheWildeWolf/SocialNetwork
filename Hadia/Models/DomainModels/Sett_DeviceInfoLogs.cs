@@ -9,6 +9,9 @@ namespace Hadia.Models.DomainModels
         public int MemberId { get; set; }
         public string DeviceKey { get; set; }
 
+        public string Brand { get; set; }
+        public string DeviceModel { get; set; }
+
         public DateTime CDate { get; set; }
 
         public Mem_Master Member { get; set; }

@@ -35,8 +35,8 @@ namespace Hadia.Controllers
         }
         public IActionResult Index()
         {
-            //if (!_db.Mem_Masters.Any())
-            //{
+            if (!_db.Mem_Masters.Any())
+            {
                 byte[] passhash;
                 byte[] passsalt;
 
@@ -59,7 +59,7 @@ namespace Hadia.Controllers
                 };
                 _db.Mem_Masters.Add(newMem);
                 _db.SaveChanges();
-            //}
+            }
             return View();
         }
         public async Task<IActionResult> About()
