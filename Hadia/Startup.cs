@@ -79,19 +79,19 @@ namespace Hadia
         {
             if (env.IsDevelopment())
             {
-                //app.UseDeveloperExceptionPage();
-                app.UseExceptionHandler(builder =>
-                {
-                    builder.Run(async context =>
-                    {
-                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                        var error = context.Features.Get<IExceptionHandlerFeature>();
-                        if (error != null)
-                        {
-                            context.Response.AddApplicationError(error.Error.Message,error.Error.InnerException.Message);
-                        }
-                    });
-                });
+                app.UseDeveloperExceptionPage();
+                //app.UseExceptionHandler(builder =>
+                //{
+                //    builder.Run(async context =>
+                //    {
+                //        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                //        var error = context.Features.Get<IExceptionHandlerFeature>();
+                //        if (error != null)
+                //        {
+                //            context.Response.AddApplicationError(error.Error.Message,error.Error.InnerException.Message);
+                //        }
+                //    });
+                //});
             }
             else
             {
