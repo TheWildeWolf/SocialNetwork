@@ -78,6 +78,7 @@ namespace Hadia.Helper
           .Where(x => x.GroupMaster.Type == GroupType.Chapter).OrderByDescending(x => x.GroupMaster.FormedOn)
           .FirstOrDefault().GroupMaster.Id))
           .ForMember(des => des.Kids, o => o.MapFrom(s => s.Kids.Where(x => x.MemberId == s.Id)));
+           
           // CreateMap<MemberDetailsViewModel, Mem_Master>();
 
 

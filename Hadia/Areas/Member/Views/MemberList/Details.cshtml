@@ -28,7 +28,7 @@
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="highlighted-justified-tab1">
                     <div id="London" class="tabcontent">
-                       
+
                         <dl>
                             <dt>
                                 Name:
@@ -65,9 +65,11 @@
                         </dl>
                     </div>
                 </div>
-
+                
                 <div class="tab-pane fade" id="highlighted-justified-tab2">
+
                     <dl>
+
                         <dt>
                             Batch:
                         </dt>
@@ -81,7 +83,55 @@
                             @Html.DisplayFor(model => model.UgCollegeName)
                         </dd>
                     </dl>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Sn
+                                </th>
+                                <th>
+
+                                    Degree Name
+                                </th>
+                                <th>
+                                    Rank
+                                </th>
+                                <th>
+                                    University
+                                </th>
+                                <th>
+
+                                    Pass Out Year
+                                </th>
+                                <th>
+                                    Specialization
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ int SNo = 0; }
+                            @foreach (var edu in Model.EducationDetails)
+                            {
+                                <div>
+                                    <tr>
+
+                                        <td> @(SNo += 1)</td>
+                                        <td>@Html.DisplayFor(x => edu.Qualification.DegreeName)</td>
+                                        <td>@Html.DisplayFor(x => edu.Qualification.Rank)</td>
+                                        <td>@Html.DisplayFor(x => edu.University.UniversityName)</td>
+                                        <td>@Html.DisplayFor(x => edu.PassoutYear)</td>
+                                        <td>@Html.DisplayFor(x => edu.Specialization)</td>
+
+                                    </tr>
+                                </div>
+
+
+                            }
+                        </tbody>
+                    </table>
                 </div>
+              
 
                 <div class="tab-pane fade" id="highlighted-justified-tab3">
                     <dl>
@@ -91,10 +141,103 @@
                         <dd>
                             @Html.DisplayFor(model => model.SpouseName)
                         </dd>
+                        <dt>
+                            Spouse Age:
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.SpouseAge)
+                        </dd>
+                        <dt>
+                            Spouse Education:
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.QualificationName)
+                        </dd>
                     </dl>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Sn
+                                </th>
+                                <th>
+
+                                    Kids Name
+                                </th>
+                                <th>
+
+                                    Kids Age
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ int SlNo = 0; }
+                            @foreach (var Kid in Model.Kids)
+                            {
+                                <div>
+                                    <tr>
+
+                                        <td> @(SlNo += 1)</td>
+                                        <td>@Html.DisplayFor(x => Kid.KidName)</td>
+                                        <td>@Html.DisplayFor(x => Kid.Age)</td>
+                                    </tr>
+                                </div>
+
+
+                            }
+                        </tbody>
+                    </table>
                 </div>
                 <div class="tab-pane fade" id="highlighted-justified-tab4">
-                    
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Sn
+                                </th>
+                                <th>
+
+                                    Company Name
+                                </th>
+                                <th>
+                                    Location
+                                </th>
+                                <th>
+                                    Country
+                                </th>
+                                <th>
+
+                                    Job Title
+                                </th>
+                                <th>
+                                    Date From
+                                </th>
+                                <th>
+                                    Date Upto
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ int SN = 0; }
+                            @foreach (var Work in Model.WorkDetails)
+                            {
+                                <div>
+                                    <tr>
+
+                                        <td> @(SNo += 1)</td>
+                                        <td>@Html.DisplayFor(x => Work.CompanyName)</td>
+                                        <td>@Html.DisplayFor(x => Work.Location)</td>
+                                        <td>@Html.DisplayFor(x => Work.Country.CountryName)</td>
+                                        <td>@Html.DisplayFor(x => Work.JobTitle)</td>
+                                        <td>@Html.DisplayFor(x => Work.DateForm)</td>
+                                        <td>@Html.DisplayFor(x => Work.DateUpto)</td>
+                                    </tr>
+                                </div>
+
+
+                            }
+                        </tbody>
+                    </table>
                 </div>
 
             </div>
