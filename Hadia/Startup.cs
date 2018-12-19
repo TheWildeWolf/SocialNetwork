@@ -88,7 +88,7 @@ namespace Hadia
                 //        var error = context.Features.Get<IExceptionHandlerFeature>();
                 //        if (error != null)
                 //        {
-                //            context.Response.AddApplicationError(error.Error.Message,error.Error.InnerException.Message);
+                //            context.ShowApplicationError(error.Error.Message, error.Error.InnerException.Message);
                 //        }
                 //    });
                 //});
@@ -96,18 +96,18 @@ namespace Hadia
             else
             {
                 //app.UseExceptionHandler("/Home/Error");
-                app.UseExceptionHandler(builder =>
-                {
-                    builder.Run(async context =>
-                    {
-                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                        var error = context.Features.Get<IExceptionHandlerFeature>();
-                        if (error != null)
-                        {
-                            context.Response.AddApplicationError(error.Error.Message, error.Error.InnerException.Message);
-                        }
-                    });
-                });
+                //app.UseExceptionHandler(builder =>
+                //{
+                //    builder.Run(async context =>
+                //    {
+                //        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                //        var error = context.Features.Get<IExceptionHandlerFeature>();
+                //        if (error != null)
+                //        {
+                //            context.ShowApplicationError(error.Error.Message, error.Error.InnerException.Message);
+                //        }
+                //    });
+                //});
                 app.UseHsts();
             }
             //app.UseHttpsRedirection();
@@ -127,13 +127,14 @@ namespace Hadia
             });
             app.UseMvc(routes =>
             {
+                //{ area: exists}
                 routes.MapRoute(
                     name: "area",
                     template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
                 routes.MapRoute(
                         name: "default",
-                        template: "{area=member}/{controller=Memberlist}/{action=Index}/{id?}");
+                        template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

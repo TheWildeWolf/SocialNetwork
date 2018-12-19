@@ -43,13 +43,4 @@ namespace Hadia.Helper
             return context.Response.WriteAsync(result);
         }
     }
-
-    public static class Extensions
-    {
-        public static void AddApplicationError(this HttpResponse response, string exceptionMessage,string innerException)
-        {
-            var result = JsonConvert.SerializeObject(new { error = exceptionMessage ,detail=innerException });
-            response.HttpContext.Response.WriteAsync(result);
-        }
-    }
 }
