@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Hadia.Data;
+using Hadia.Helper;
 using Hadia.Models.DomainModels;
 using Hadia.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -51,6 +52,7 @@ namespace Hadia.Areas.Member.Controllers
                 newSpouseEduMaster.CDate = DateTime.Now;
                 await _db.Mem_SpouseEducationMasters.AddAsync(newSpouseEduMaster);
                 await _db.SaveChangesAsync();
+                TempData["message"] = Notifications.SuccessNotify("Spouse Education Created!");
                 return RedirectToAction("Index");
             }
             return View(SpouseEducationMaster);

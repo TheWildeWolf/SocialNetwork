@@ -21,7 +21,11 @@ namespace Hadia.Models.ViewModels
         public string PermanentAddress { get; set; }
         //public MaritalStatus? MaritalStatus { get; set; }
         public string SpouseName { get; set; }
-        public DateTime DateOfBirth { get; set; }
+        public int? SpouseAge { get; set; }
+        [DisplayName("QualificationName")]
+        public int? SpouseEducationId { get; set; }
+        public string QualificationName { get; set; }
+        public DateTime? DateOfBirth { get; set; }
         [DisplayName("DistrictName")]
         public int? DistrictId { get; set; }
         public string DistrictName { get; set; }
@@ -33,10 +37,32 @@ namespace Hadia.Models.ViewModels
         [DisplayName("ChapterName")]
         public int ChapterId { get; set; }
         public string ChapterName { get; set; }
-        public SelectList KidsList { get; set; }
-        public ICollection<Mem_Kid> Kids { get; set; }
-     
-     
+        public string DegreeName { get; set; }
+        public string Rank { get; set; }
+        public string PassoutYear { get; set; }
+        public string Specialization { get; set; }
+        public string UniversityName { get; set; }
+        //public SelectList KidsList { get; set; }
+        public string CompanyName { get; set; }
+        public string Location { get; set; }
+        public string CountryName { get; set; }
+        public string JobTitle { get; set; }
+        public DateTime? DateFrom { get; set; }
+        public DateTime? DateUpto { get; set; }
+        public ICollection<KidViewModel> Kids { get; set; }
+        public ICollection<Mem_EducationDetail> EducationDetails { get; set; }
+        public ICollection<Mem_EducationalQualificationMaster> EducationalQualificationMasters { get; set; }
+        public ICollection<Mem_WorkDetail> WorkDetails { get; set; }
+        public ICollection<Mem_CountryCode> Country { get; set; }
 
+
+
+    }
+
+    public class KidViewModel
+    {
+        public string KidName { get; set; }
+        public int Age { get; set; }
+        public GenderType Gender { get; set; }
     }
 }
