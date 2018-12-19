@@ -66,22 +66,24 @@ namespace Hadia.Helper
             .FirstOrDefault().GroupMaster.Id));
             CreateMap<MemberViewModel, Mem_Master>();
 
+            
 
             CreateMap<Mem_Master, MemberDetailsViewModel>()
           .ForMember(dest => dest.UgCollegeName, o => o.MapFrom(s => s.UgCollege.UgCollegeName))
           .ForMember(dest => dest.BatchName, o => o.MapFrom(s => s.MainGroup.GroupName))
           .ForMember(dest => dest.DistrictName, o => o.MapFrom(s => s.District.DistrictName))
+          .ForMember(dest => dest.QualificationName, o => o.MapFrom(s => s.SpouseEducation.QualificationName))
           .ForMember(dest => dest.ChapterName, o => o.MapFrom(s => s.MembershipInGroups
           .Where(x => x.GroupMaster.Type == GroupType.Chapter).OrderByDescending(x => x.GroupMaster.FormedOn)
           .FirstOrDefault().GroupMaster.GroupName))
           .ForMember(dest => dest.ChapterId, o => o.MapFrom(s => s.MembershipInGroups
           .Where(x => x.GroupMaster.Type == GroupType.Chapter).OrderByDescending(x => x.GroupMaster.FormedOn)
           .FirstOrDefault().GroupMaster.Id))
-          .ForMember(des => des.Kids, o => o.MapFrom(s => s.Kids.Where(x => x.MemberId == s.Id)));
-           
-          // CreateMap<MemberDetailsViewModel, Mem_Master>();
+          .ForMember(des => des.SpouseAge, o => o.MapFrom(s => s.SpouseAge != null ? DateTime.Now.Year - s.SpouseAge.Value.Year : 0));
 
 
+            CreateMap<Mem_Kid, KidViewModel>()
+                .ForMember(x => x.Age, o => o.MapFrom(s => DateTime.Now.Year - s.Age.Year));
 
         }
     }

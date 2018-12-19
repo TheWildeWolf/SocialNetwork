@@ -70,23 +70,28 @@ namespace Hadia.Areas.Member.Controllers
             {
                 return NotFound();
             }
-            var  KidsLists = _db.Mem_Kids.Where(s => s.MemberId == id).ToList();
+            var  KidsLists = _db.Mem_Kids.Where(s => s.MemberId == id).Select(x=>_mapper.Map<KidViewModel>(x)).ToList();
             var memViewModel = new MemberDetailsViewModel
             {
                 Kids = KidsLists
             };
-            var MemberDetails = await _db.Mem_Masters.Include(x => x.UgCollege).Include(x => x.MainGroup)
+            var MemberDetails = await _db.Mem_Masters
+                .Include(x => x.UgCollege)
+                .Include(x => x.MainGroup)
+                .Include(x => x.MembershipInGroups)
+                       .ThenInclude(n=>n.GroupMaster)
                 .Include (x=>x.District)
                 .Include (y=>y.Kids)
-                 .Include(y => y.SpouseEducation)
-                 .Include(x => x.EducationDetails)
-                 .ThenInclude(x => x.Qualification)
-                  .Include(x => x.EducationDetails)
-                 .ThenInclude(x => x.University)
-                 .Include(x=>x.WorkDetails)
-                 .ThenInclude(x=>x.Country)
+                .Include(y => y.SpouseEducation)
+                .Include(x => x.EducationDetails)
+                .ThenInclude(x => x.Qualification)
+                .Include(x => x.EducationDetails)
+                .ThenInclude(x => x.University)
+                .Include(x=>x.WorkDetails)
+                .ThenInclude(x=>x.Country)
                 .Select(x => _mapper.Map<MemberDetailsViewModel>(x))
                 .FirstOrDefaultAsync(x => x.Id == id);
+
             return View(MemberDetails);
         }
         [HttpGet]
