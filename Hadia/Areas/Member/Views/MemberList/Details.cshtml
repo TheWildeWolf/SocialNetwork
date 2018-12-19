@@ -73,7 +73,7 @@
                             Date of Birth:
                         </dt>
                         <dd class="col-md-2">
-                            @Model.DateOfBirth?.ToString("dd-MMM-yyy")
+                            @Model.DateOfBirth?.ToString("MMM/dd/yyyy")
                         </dd>
                         <dt class="col-md-2">
                             Email:
@@ -243,8 +243,8 @@
                                         <td>@Html.DisplayFor(x => Work.Location)</td>
                                         <td>@Html.DisplayFor(x => Work.Country.CountryName)</td>
                                         <td>@Html.DisplayFor(x => Work.JobTitle)</td>
-                                        <td>@Work.DateForm.ToString("dd-MMM-yyy")</td>
-                                        <td>@Work.DateUpto?.ToString("dd-MMM-yyy")</td>
+                                        <td>@Work.DateForm.ToString("MMM/dd/yyyy")</td>
+                                        <td>@Work.DateUpto?.ToString("MMM/dd/yyyy")</td>
                                     </tr>
                                 </div>
 

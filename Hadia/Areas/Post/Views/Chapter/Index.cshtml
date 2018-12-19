@@ -48,7 +48,7 @@
                     <td>@Html.DisplayFor(x => master.GroupName)</td>
 
                     <td>@Html.DisplayFor(x => master.Description)</td>
-                    <td>@Html.DisplayFor(x => master.FormedOn)</td>
+                    <td>@master.FormedOn?.ToString("MM/dd/yyyy")</td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@master.Id" class="btn btn-outline bg-primary border-primary text-primary-800 btn-icon"><i class="icon-compose"></i></a>
                         <a asp-action="Details" asp-route-id="@master.Id" class="btn btn-outline bg-success border-primary text-primary-800 btn-icon"><i class="icon-file-eye"></i></a>
