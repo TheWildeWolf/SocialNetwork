@@ -22,7 +22,7 @@ namespace Hadia.Controllers
     /*
      * This is a Democontroller for Test and development
      */
-    //[Authorize(AuthenticationSchemes=CookieAuthenticationDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes=CookieAuthenticationDefaults.AuthenticationScheme)]
     public class HomeController : Controller
     {
         private readonly HadiaContext _db;
@@ -78,6 +78,7 @@ namespace Hadia.Controllers
         [AllowAnonymous]
         public IActionResult Contact()
         {
+          
             ViewData["Message"] = "Your contact page.";    
             return View();
         }

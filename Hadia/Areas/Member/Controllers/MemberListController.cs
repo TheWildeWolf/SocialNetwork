@@ -27,17 +27,7 @@ namespace Hadia.Areas.Member.Controllers
     //string searchString,
     //int? page)
         {
-            //ViewData["CurrentSort"] = sortOrder;
-            //if (searchString != null)
-            //{
-            //    page = 1;
-            //}
-            //else
-            //{
-            //    searchString = currentFilter;
-            //}
-            //ViewData["CurrentFilter"] = searchString;
-            var ListOfMember = await _db.Mem_Masters
+            var listOfMember = await _db.Mem_Masters.AsNoTracking()
                  .Include(x => x.UgCollege)
                  .Include(x => x.MembershipInGroups)
                  .ThenInclude(x => x.GroupMaster)
@@ -46,36 +36,34 @@ namespace Hadia.Areas.Member.Controllers
             memberMaster.BatchList = new SelectList(_db.Post_GroupMasters.Where(s => s.Type == GroupType.Batch), "Id", "GroupName");
             if (memberMaster.BatchId != null)
             {
-                ListOfMember = ListOfMember.Where(s => s.GroupId == memberMaster.BatchId).ToList();
+                listOfMember = listOfMember.Where(s => s.GroupId == memberMaster.BatchId).ToList();
             }
             memberMaster.ChapterList = new SelectList(_db.Post_GroupMasters.Where(s => s.Type == GroupType.Chapter), "Id", "GroupName");
             if(memberMaster.ChapterId != null)
             {
-                ListOfMember = ListOfMember.Where(s => s.ChapterId== memberMaster.ChapterId).ToList();
+                listOfMember = listOfMember.Where(s => s.ChapterId== memberMaster.ChapterId).ToList();
             }
             switch (memberMaster.Approval)
             {
                 case "Approved":
                     {
-                        ListOfMember = ListOfMember.Where(s => s.IsVarified).ToList();
+                        listOfMember = listOfMember.Where(s => s.IsVarified).ToList();
                         break;
                     }
                 case "Not Approved":
                     {
-                        ListOfMember = ListOfMember.Where(s => !s.IsVarified).ToList();
+                        listOfMember = listOfMember.Where(s => !s.IsVarified).ToList();
                         break;
                     }
                 default:
                     {
-                        ListOfMember = ListOfMember.ToList();
+                        listOfMember = listOfMember.ToList();
                         break;
                     }
             }
 
             memberMaster.Approval = memberMaster.Approval ?? "All";
-            memberMaster.Members = ListOfMember;
-
-           
+            memberMaster.Members = listOfMember;
             return View(memberMaster);
 
 

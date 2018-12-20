@@ -88,27 +88,35 @@ namespace Hadia
                 //        var error = context.Features.Get<IExceptionHandlerFeature>();
                 //        if (error != null)
                 //        {
-                //            context.Response.AddApplicationError(error.Error.Message,error.Error.InnerException.Message);
+                //            context.ShowApplicationError(error.Error.Message, error.Error.InnerException.Message);
                 //        }
                 //    });
                 //});
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/Hadia/swagger/v1/swagger.json", "My API V1");
+                });
             }
             else
             {
                 //app.UseExceptionHandler("/Home/Error");
-                app.UseExceptionHandler(builder =>
-                {
-                    builder.Run(async context =>
-                    {
-                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                        var error = context.Features.Get<IExceptionHandlerFeature>();
-                        if (error != null)
-                        {
-                            context.Response.AddApplicationError(error.Error.Message, error.Error.InnerException.Message);
-                        }
-                    });
-                });
+                //app.UseExceptionHandler(builder =>
+                //{
+                //    builder.Run(async context =>
+                //    {
+                //        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                //        var error = context.Features.Get<IExceptionHandlerFeature>();
+                //        if (error != null)
+                //        {
+                //            context.ShowApplicationError(error.Error.Message, error.Error.InnerException.Message);
+                //        }
+                //    });
+                //});
                 app.UseHsts();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                });
             }
             //app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -121,19 +129,17 @@ namespace Hadia
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot", "ChapterImages")),
                 RequestPath = new PathString("/ChapterImages")
             });
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/Hadia/swagger/v1/swagger.json", "My API V1");
-            });
+
             app.UseMvc(routes =>
             {
+                //{ area: exists}
                 routes.MapRoute(
                     name: "area",
                     template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
                 routes.MapRoute(
                         name: "default",
-                        template: "{area=member}/{controller=Memberlist}/{action=Index}/{id?}");
+                        template: "{area=member}/{controller=memberlist}/{action=Index}/{id?}");
             });
         }
     }

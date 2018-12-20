@@ -19,12 +19,12 @@ namespace Hadia.Areas.Login.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthController : ControllerBase
+    public class LoginController : ControllerBase
     {
         private HadiaContext _db;
         private IConfiguration _config;
         private AuthService _authServive;
-        public AuthController(HadiaContext context,IConfiguration config)
+        public LoginController(HadiaContext context,IConfiguration config)
         {
             _db = context;
             _config = config;

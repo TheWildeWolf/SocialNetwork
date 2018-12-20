@@ -1,0 +1,46 @@
+﻿@model Hadia.Models.ViewModels.AuthSettingsViewModel
+
+@{
+    ViewData["Title"] = "Settings";
+    ViewData["Description"] = "Change Password";
+}
+
+
+<div class="card">
+    <div class="card-header header-elements-inline">
+        <h5 class="card-title">Change your password</h5>
+        
+    </div>
+    <div class="card-body">
+        <form asp-action="Settings" method="post">
+            <div class="form-group row">
+                <label asp-for="CurrentPassword" class="col-lg-3 col-form-label"></label>
+                <div class="col-lg-9">
+                    <input type="password" asp-for="CurrentPassword" class="form-control" placeholder="Your Current Password">
+                    <span asp-validation-for="CurrentPassword" class="text-danger"></span>
+                </div>
+               
+            </div>
+            <div class="form-group row">
+                <label asp-for="NewPassword" class="col-lg-3 col-form-label"></label>
+                <div class="col-lg-9">
+                    <input type="password" asp-for="NewPassword" class="form-control" placeholder="Your Current Password">
+                    <span asp-validation-for="NewPassword" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="ConfirmPassword" class="col-lg-3 col-form-label"></label>
+                <div class="col-lg-9">
+                    <input type="password" asp-for="ConfirmPassword" class="form-control" placeholder="Your Current Password">
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+            </div>
+            <a asp-action="Index" asp-controller="Home" class="btn btn-primary">Cancel</a> <button class="btn btn-success" type="submit">Save</button>
+        </form>
+    </div>
+</div>
+@section Scripts
+{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

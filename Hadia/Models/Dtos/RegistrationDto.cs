@@ -13,6 +13,7 @@ namespace Hadia.Models.Dtos
         [Required]
         public string PresentAddress { get; set; }
         public string PermanentAddress { get; set; }
+
         public MaritalStatus MaritalStatus { get; set; }
 
         [Required]
@@ -21,6 +22,7 @@ namespace Hadia.Models.Dtos
         public int UgCollageId { get; set; }
 
         public int StateId { get; set; }
+        public int? DistrictId { get; set; }
         
         [Required]
         public string Phone { get; set; }
