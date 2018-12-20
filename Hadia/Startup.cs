@@ -92,6 +92,10 @@ namespace Hadia
                 //        }
                 //    });
                 //});
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/Hadia/swagger/v1/swagger.json", "My API V1");
+                });
             }
             else
             {
@@ -109,6 +113,10 @@ namespace Hadia
                 //    });
                 //});
                 app.UseHsts();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                });
             }
             //app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -121,10 +129,7 @@ namespace Hadia
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot", "ChapterImages")),
                 RequestPath = new PathString("/ChapterImages")
             });
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/Hadia/swagger/v1/swagger.json", "My API V1");
-            });
+
             app.UseMvc(routes =>
             {
                 //{ area: exists}
@@ -134,7 +139,7 @@ namespace Hadia
 
                 routes.MapRoute(
                         name: "default",
-                        template: "{controller=Home}/{action=Index}/{id?}");
+                        template: "{area=member}/{controller=memberlist}/{action=Index}/{id?}");
             });
         }
     }

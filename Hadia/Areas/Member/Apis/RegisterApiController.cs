@@ -30,8 +30,8 @@ namespace Hadia.Areas.Member.Controllers
     {
         private readonly HadiaContext _db;
         private  IMapper _mapper ;
-
         private AuthService _authServive ;
+
         public RegisterController(IMapper mapper,HadiaContext context)
         {
             _mapper = mapper;
@@ -248,7 +248,20 @@ namespace Hadia.Areas.Member.Controllers
             }
          }
 
-       
+
+        [HttpGet]
+        public async Task<IActionResult> Districts(int id)
+        {
+            var districts = await _db.Mem_DistrictMasters
+                .Where(x => x.StateId == id)
+                .Select(dist => new DistrictDto
+                {
+                    Id = dist.Id,
+                    Name = dist.DistrictName
+                }).ToListAsync();
+
+           return Ok(districts);
+        }
 
         // private  int ProfilePercentage(int userid)
         // {

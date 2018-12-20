@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Hadia.Data;
 using Hadia.Helper;
+using Hadia.Models.DomainModels;
 using Hadia.Models.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -142,7 +143,38 @@ namespace Hadia.Controllers
             return View();
         }
 
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> Seed()
+        {
+            if (!_db.Mem_Masters.Any())
+            {
+                byte[] passhash;
+                byte[] passsalt;
 
+                _auth.CreatePasswordHash("hadia@123", out passhash, out passsalt);
+                var newMem = new Mem_Master
+                {
+                    AdNo = "000",
+                    Name = "Administrator",
+                    DateOfBirth = DateTime.Now,
+                    IsGroupAdmin = false,
+                    IsVarified = false,
+                    PasswordSalt = passsalt,
+                    PasswordHash = passhash,
+                    CountryCode = "91",
+                    Phone = "001",
+                    CDate = DateTime.Now,
+                    Email = "Admin"
+
+
+                };
+                await _db.Mem_Masters.AddAsync(newMem);
+                await _db.SaveChangesAsync();
+            }
+
+            return RedirectToAction("Login");
+        }
 
 
     }
