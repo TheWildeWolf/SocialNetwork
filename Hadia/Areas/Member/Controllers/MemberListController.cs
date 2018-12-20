@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Hadia.Models.DomainModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Hadia.Helper;
 
 namespace Hadia.Areas.Member.Controllers
 {
@@ -22,10 +23,6 @@ namespace Hadia.Areas.Member.Controllers
             _mapper = mapper;
         }
         public async Task<IActionResult> Index(MembersMasterViewModel memberMaster)
-    //        , string sortOrder,
-    //string currentFilter,
-    //string searchString,
-    //int? page)
         {
             var listOfMember = await _db.Mem_Masters.AsNoTracking()
                  .Include(x => x.UgCollege)
@@ -93,12 +90,14 @@ namespace Hadia.Areas.Member.Controllers
             return View(memberDetails);
         }
         [HttpGet]
-        public async Task<ActionResult> Approve(int? id)
+        public async Task<ActionResult> Approve(int? id,bool isActive)
         {
             var EditData = await _db.Mem_Masters.FirstOrDefaultAsync(x => x.Id == id);
-            EditData.IsVarified = true;
+            EditData.IsVarified = isActive;
             await _db.SaveChangesAsync();
+            TempData["message"] = Notifications.NormalNotify(isActive ? "Approved " + EditData.Name +" Successfully.": "Approval of " +EditData.Name+" Cancelled.");
             return RedirectToAction("Index");
         }
+      
     }
 }
