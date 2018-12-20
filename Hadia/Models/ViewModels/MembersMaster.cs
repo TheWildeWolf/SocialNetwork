@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,7 @@ namespace Hadia.Models.ViewModels
         public SelectList BatchList { get; set; }
 
         public List<MemberViewModel> Members { get; set; }
+
+       
     }
 }

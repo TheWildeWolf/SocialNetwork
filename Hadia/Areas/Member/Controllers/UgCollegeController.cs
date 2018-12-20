@@ -35,7 +35,7 @@ namespace Hadia.Areas.Member.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(UgCollegesViewModel UgColleges)
+        public async Task<IActionResult> Create(UgCollegesViewModel UgColleges,string btnSave)
         {
             if (await _db.Mem_UgColleges.AnyAsync(x => x.UgCollegeName == UgColleges.UgCollegeName))
             {
@@ -50,7 +50,12 @@ namespace Hadia.Areas.Member.Controllers
                 await _db.Mem_UgColleges.AddAsync(newUgCollegeName);
                 await _db.SaveChangesAsync();
                 TempData["message"] = Notifications.SuccessNotify("Ug College Created!");
-                return RedirectToAction("Index");
+                if (btnSave == "Save")
+                {
+                    return RedirectToAction("Index");
+                }
+                ModelState.Clear();
+                return View("Create");
             }
             return View(UgColleges);
         }

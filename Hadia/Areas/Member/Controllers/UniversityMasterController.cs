@@ -41,7 +41,7 @@ namespace Hadia.Areas.Member.Controllers
             return View(UniversityViewModel);
         }
         [HttpPost]
-        public async Task<IActionResult> Create(UniversityMasterViewModel universityMaster)
+        public async Task<IActionResult> Create(UniversityMasterViewModel universityMaster,string btnSave)
         {
             if (await _db.Mem_UniversityMasters.AnyAsync(x => x.UniversityName == universityMaster.UniversityName))
             {
@@ -60,7 +60,18 @@ namespace Hadia.Areas.Member.Controllers
                 await _db.Mem_UniversityMasters.AddAsync(newUniversity);
                 await _db.SaveChangesAsync();
                 TempData["message"] = Notifications.SuccessNotify("University Created!");
-                return RedirectToAction("Index");
+                if (btnSave == "Save")
+                {
+                    return RedirectToAction("Index");
+                }
+                ModelState.Clear();
+                var Countryselctlist = new SelectList(_db.Mem_CountryCodes.ToList(), "Id", "CountryName");
+                var UniversityViewModel = new UniversityMasterViewModel
+                {
+                    CountryList = Countryselctlist
+                };
+                return View(UniversityViewModel);
+               
             }
             universityMaster.CountryList = new SelectList(_db.Mem_CountryCodes.ToList(), "Id", "CountryName", universityMaster.CountryId);
             return View(universityMaster);

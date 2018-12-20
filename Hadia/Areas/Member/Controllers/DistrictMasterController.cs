@@ -41,18 +41,15 @@ namespace Hadia.Areas.Member.Controllers
             return  View(districtViewModel);
         }
         [HttpPost]
-        public async Task<IActionResult>Create(DistrictMasterViewModel districtMaster)
+        public async Task<IActionResult>Create(DistrictMasterViewModel districtMaster,string btnSave)
         {
             if(await _db.Mem_DistrictMasters.AnyAsync(x=>x.DistrictName==districtMaster.DistrictName))
             {
                 ModelState.AddModelError("DistrictName", "District Name Already Exist");
-
             }
           
             if (ModelState.IsValid)
             {
-
-               
                 var newDistrict = _mapper.Map<Mem_DistrictMaster>(districtMaster);
                 var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);
                 newDistrict.CLogin = userId;
@@ -60,7 +57,18 @@ namespace Hadia.Areas.Member.Controllers
                 await _db.Mem_DistrictMasters.AddAsync(newDistrict);
                 await _db.SaveChangesAsync();
                 TempData["message"] = Notifications.SuccessNotify("District Created!");
-                return RedirectToAction("Index");
+                if (btnSave == "Save")
+                {
+                    return RedirectToAction("Index");
+                }
+                ModelState.Clear();
+                var stateselctlist = new SelectList(_db.Mem_StateMasters.ToList(), "Id", "StateName");
+                var districtViewModel = new DistrictMasterViewModel
+                {
+                    StateList = stateselctlist
+                };
+                return View(districtViewModel);
+
             }
             districtMaster.StateList = new SelectList(_db.Mem_StateMasters.ToList(), "Id", "StateName",districtMaster.StateId);
             return View(districtMaster);

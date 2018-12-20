@@ -39,7 +39,7 @@ namespace Hadia.Areas.Member.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(EducationalQualificationMasterViewModel qualificationMaster)
+        public async Task<IActionResult> Create(EducationalQualificationMasterViewModel qualificationMaster,string btnSave)
         {
             if (await _db.Mem_EducationalQualifications.AnyAsync(x => x.DegreeName == qualificationMaster.DegreeName))
             {
@@ -54,7 +54,12 @@ namespace Hadia.Areas.Member.Controllers
                 await _db.Mem_EducationalQualifications.AddAsync(newQualificationMaster);
                 await _db.SaveChangesAsync();
                 TempData["message"] = Notifications.SuccessNotify("Qualification Created!");
-                return RedirectToAction("Index");
+                if(btnSave == "Save") 
+                {
+                    return RedirectToAction("Index");
+                }
+                ModelState.Clear();
+                return View("Create");
             }
             return View(qualificationMaster);
         }

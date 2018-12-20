@@ -22,7 +22,21 @@ namespace Hadia.Areas.Member.Controllers
             _mapper = mapper;
         }
         public async Task<IActionResult> Index(MembersMasterViewModel memberMaster)
+    //        , string sortOrder,
+    //string currentFilter,
+    //string searchString,
+    //int? page)
         {
+            //ViewData["CurrentSort"] = sortOrder;
+            //if (searchString != null)
+            //{
+            //    page = 1;
+            //}
+            //else
+            //{
+            //    searchString = currentFilter;
+            //}
+            //ViewData["CurrentFilter"] = searchString;
             var ListOfMember = await _db.Mem_Masters
                  .Include(x => x.UgCollege)
                  .Include(x => x.MembershipInGroups)
@@ -57,11 +71,16 @@ namespace Hadia.Areas.Member.Controllers
                         break;
                     }
             }
-          
+
             memberMaster.Approval = memberMaster.Approval ?? "All";
             memberMaster.Members = ListOfMember;
+
+           
             return View(memberMaster);
 
+
+
+           
         }
         [HttpGet]
         public async Task<ActionResult> Details(int? id)

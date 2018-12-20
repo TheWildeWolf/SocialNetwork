@@ -36,7 +36,7 @@ namespace Hadia.Areas.Member.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(StateMasterViewModel StateMaster)
+        public async Task<IActionResult> Create(StateMasterViewModel StateMaster,string btnSave)
         {
             if (_db.Mem_StateMasters.Any(X => X.StateName == StateMaster.StateName))
             {
@@ -51,7 +51,12 @@ namespace Hadia.Areas.Member.Controllers
                 await _db.Mem_StateMasters.AddAsync(newStateMaster);
                 await _db.SaveChangesAsync();
                 TempData["message"] = Notifications.SuccessNotify("State Created!");
-                return RedirectToAction("Index");
+                if (btnSave == "Save")
+                {
+                    return RedirectToAction("Index");
+                }
+                ModelState.Clear();
+                return View("Create");
             }
             return View(StateMaster);
         }

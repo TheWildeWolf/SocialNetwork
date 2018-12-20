@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Hadia.Areas.Member.Controllers;
 using Hadia.Data;
+using Hadia.Helper;
 using Hadia.Models.DomainModels;
 using Hadia.Models.ViewModels;
 using Microsoft.AspNetCore.Hosting;
@@ -41,20 +42,22 @@ namespace Hadia.Areas.Post.Controllers
         }
         public async Task UploadImageAsync(IFormFile ImageFile,string FileName)
         {
-           
-            var uploads = Path.Combine(_hostingEnvironment.WebRootPath, "ChapterImages");
-            if (ImageFile.Length > 0)
-            {   
-                var filePath = Path.Combine(uploads, FileName);
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
+            if (ImageFile != null)
+            {
+                var uploads = Path.Combine(_hostingEnvironment.WebRootPath, "ChapterImages");
+                if (ImageFile.Length > 0)
                 {
-                    await ImageFile.CopyToAsync(fileStream);
+                    var filePath = Path.Combine(uploads, FileName);
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await ImageFile.CopyToAsync(fileStream);
+                    }
                 }
             }
 
         }
         [HttpPost]
-        public async Task<IActionResult> Create(ChapterViewModel chapterView)
+        public async Task<IActionResult> Create(ChapterViewModel chapterView,string btnSave)
         {
             if (await _db.Post_GroupMasters.AnyAsync(x => x.GroupName == chapterView.GroupName &&  x.Type == GroupType.Chapter))
             {
@@ -65,7 +68,7 @@ namespace Hadia.Areas.Post.Controllers
             if (ModelState.IsValid)
             {
                     
-                var imageFileName = DateTime.Now.ToFileTime().ToString();
+                var imageFileName = DateTime.Now.ToFileTime().ToString();          
                 await UploadImageAsync(chapterView.ImageFile, imageFileName + ".jpg");
                 var newChapter = _mapper.Map<Post_GroupMaster>(chapterView);
                 newChapter.Type = GroupType.Chapter;
@@ -75,7 +78,13 @@ namespace Hadia.Areas.Post.Controllers
                 newChapter.CDate = DateTime.Now;
                 await _db.Post_GroupMasters.AddAsync(newChapter);
                 await _db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                TempData["message"] = Notifications.SuccessNotify("Chapter Created!");
+                if (btnSave == "Save")
+                {
+                    return RedirectToAction("Index");
+                }
+                ModelState.Clear();
+                return View("Create");
             }
 
             return View(chapterView);

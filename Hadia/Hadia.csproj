@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Areas\Login\Api\AuthController.cs" />
     <Compile Include="Areas\Member\Controllers\BaseMemberController.cs" />
+    <Compile Include="Areas\Member\Controllers\PaginatedList.cs" />
     <Compile Include="Areas\Member\Controllers\CountryController.cs" />
     <Compile Include="Areas\Member\Controllers\DistrictMasterController.cs" />
     <Compile Include="Areas\Member\Apis\EducationQualificationApi.cs" />

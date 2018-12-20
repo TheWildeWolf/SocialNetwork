@@ -35,7 +35,7 @@ namespace Hadia.Areas.Member.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(CountryViewModel countryView)
+        public async Task<IActionResult> Create(CountryViewModel countryView,string btnSave)
         {
             if (await _db.Mem_CountryCodes.AnyAsync(x => x.CountryName == countryView.CountryName))
             {
@@ -48,7 +48,12 @@ namespace Hadia.Areas.Member.Controllers
                 await _db.Mem_CountryCodes.AddAsync(newCountry);
                 await _db.SaveChangesAsync();
                 TempData["message"] = Notifications.SuccessNotify("Country Created!");
-                return RedirectToAction("Index");
+                if (btnSave == "Save")
+                {
+                    return RedirectToAction("Index");
+                }
+                ModelState.Clear();
+                return View("Create");
             }
             return View(countryView);
         }

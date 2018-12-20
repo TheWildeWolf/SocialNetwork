@@ -36,7 +36,7 @@ namespace Hadia.Areas.Member.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(JobCategoryViewModel jobCategory)
+        public async Task<IActionResult> Create(JobCategoryViewModel jobCategory,string btnSave)
         {
             if (await _db.Mem_JobCategoryMasters.AnyAsync(x => x.CategoryName == jobCategory.CategoryName))
             {
@@ -51,7 +51,13 @@ namespace Hadia.Areas.Member.Controllers
                 await _db.Mem_JobCategoryMasters.AddAsync(newJobCatgryr);
                 await _db.SaveChangesAsync();
                 TempData["message"] = Notifications.SuccessNotify("Category Created!");
-                return RedirectToAction("Index");
+                if (btnSave == "Save")
+                {
+                    return RedirectToAction("Index");
+                }
+                ModelState.Clear();
+                return View("Create");
+
             }
             return View(jobCategory);
         }

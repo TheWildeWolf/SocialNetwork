@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Hadia.Areas.Member.Controllers;
 using Hadia.Data;
+using Hadia.Helper;
 using Hadia.Models.DomainModels;
 using Hadia.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -35,7 +36,7 @@ namespace Hadia.Areas.Post.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(BatchViewModel batchView)
+        public async Task<IActionResult> Create(BatchViewModel batchView,string btnSave)
         {
             if (await _db.Post_GroupMasters.AnyAsync(x => x.GroupName == batchView.GroupName && x.Type == GroupType.Batch))
             {
@@ -57,7 +58,13 @@ namespace Hadia.Areas.Post.Controllers
                 newBatch.CDate = DateTime.Now;
                 await _db.Post_GroupMasters.AddAsync(newBatch);
                 await _db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                TempData["message"] = Notifications.SuccessNotify("Batch Created!");
+                if (btnSave == "Save")
+                {
+                    return RedirectToAction("Index");
+                }
+                ModelState.Clear();
+                return View("Create");
             }
 
             return View(batchView);
