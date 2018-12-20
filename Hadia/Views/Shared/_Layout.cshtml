@@ -29,10 +29,11 @@
     <script src="~/global_assets/js/plugins/forms/styling/uniform.min.js"></script>
     <script src="~/global_assets/js/plugins/notifications/sweet_alert.min.js"></script>
     <script src="~/js/app.js"></script>
+    <script src="~/js/custom.js"></script>
     <script src="~/global_assets/js/demo_pages/navbar_multiple_sticky.js"></script>
     <!-- /theme JS files -->
 
-    
+
 </head>
 
 <body>
@@ -296,7 +297,7 @@
                         <!-- /main -->
 
                         <li class="nav-item nav-item-submenu nav-item">
-                            <a href="#" class="nav-link"><i class="icon-stack"></i><span>Batch</span></a>
+                            <a href="#" class="nav-link"><i class="icon-quill4"></i><span>Batch</span></a>
 
                             <ul class="nav nav-group-sub" data-submenu-title="Starter kit">
                                 <li class="nav-item"><a asp-area="Post" asp-controller="Batch" asp-action="Create" class="nav-link">Create</a></li>
@@ -306,7 +307,7 @@
                             </ul>
                         </li>
                         <li class="nav-item nav-item-submenu nav-item">
-                            <a href="#" class="nav-link"><i class="icon-stack"></i><span>Chapter</span></a>
+                            <a href="#" class="nav-link"><i class="icon-collaboration"></i><span>Chapter</span></a>
 
                             <ul class="nav nav-group-sub" data-submenu-title="Starter kit">
                                 <li class="nav-item"><a asp-area="Post" asp-controller="Chapter" asp-action="Create" class="nav-link">Create</a></li>
@@ -419,7 +420,9 @@
             };
         });
     });
+  
 </script>
 	@RenderSection("Scripts", required: false)
+
 </body>
 </html>

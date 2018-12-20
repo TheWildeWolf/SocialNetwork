@@ -65,10 +65,6 @@ namespace Hadia.Areas.Member.Controllers
             memberMaster.Approval = memberMaster.Approval ?? "All";
             memberMaster.Members = listOfMember;
             return View(memberMaster);
-
-
-
-           
         }
         [HttpGet]
         public async Task<ActionResult> Details(int? id)
@@ -77,29 +73,24 @@ namespace Hadia.Areas.Member.Controllers
             {
                 return NotFound();
             }
-            //var  KidsLists = _db.Mem_Kids.Where(s => s.MemberId == id).Select(x=>_mapper.Map<KidViewModel>(x)).ToList();
-            //var memViewModel = new MemberDetailsViewModel
-            //{
-            //    Kids = KidsLists
-            //};
-            var MemberDetails = await _db.Mem_Masters
+            var memberDetails = await _db.Mem_Masters.AsNoTracking()
                 .Include(x => x.UgCollege)
                 .Include(x => x.MainGroup)
                 .Include(x => x.MembershipInGroups)
                        .ThenInclude(n=>n.GroupMaster)
-                .Include (x=>x.District)
-                .Include (y=>y.Kids)
+                .Include(x=>x.District)
+                .Include(y=>y.Kids)
                 .Include(y => y.SpouseEducation)
                 .Include(x => x.EducationDetails)
-                .ThenInclude(x => x.Qualification)
+                    .ThenInclude(x => x.Qualification)
                 .Include(x => x.EducationDetails)
-                .ThenInclude(x => x.University)
+                    .ThenInclude(x => x.University)
                 .Include(x=>x.WorkDetails)
-                .ThenInclude(x=>x.Country)
+                    .ThenInclude(x=>x.Country)
                 .Select(x => _mapper.Map<MemberDetailsViewModel>(x))
                 .FirstOrDefaultAsync(x => x.Id == id);
 
-            return View(MemberDetails);
+            return View(memberDetails);
         }
         [HttpGet]
         public async Task<ActionResult> Approve(int? id)

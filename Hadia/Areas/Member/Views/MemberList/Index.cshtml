@@ -7,86 +7,124 @@
     var notvarified = "<span class=\"badge bg-danger\">Not Approved</span>";
 }
 
+
+
 <div class="card">
+    <div class="card-body">
+        <form asp-action="Index" asp-controller="MemberList">
+            <div class="row">
+                <div class="form-group col-md-3">
+                    Batch
+                    <select asp-for="BatchId" class="form-control select" asp-items="@{Model.BatchList}">
+                        <option>--Select Batch--</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    Chapter
+                    <select asp-for="ChapterId" class="form-control select" asp-items="@{Model.ChapterList}">
+                        <option>--Select Chapter--</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    Status
+                    <div>
 
-    <div class="card-header bg-white header-elements-inline">
-        @*<h6 class="card-title">Members</h6>*@
-        <div class="header-elements">
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                                <input type="radio" asp-for="Approval" value="Approved" class="form-check-input-styled"  data-fouc>
+                                Approved
+                            </label>
+                        </div>
 
-            <form asp-action="Index" asp-controller="MemberList">
-                @Html.DropDownListFor(x => x.BatchId, (SelectList)Model.BatchList, "--Select Batch--")
-                @Html.DropDownListFor(x => x.ChapterId, (SelectList)Model.ChapterList, "--Select Chapter--")
-                @Html.RadioButtonFor(x=> x.Approval, "Approved")<span>Approved</span>
-                @Html.RadioButtonFor(x => x.Approval, "Not Approved") <span>Not Approved</span>
-                @Html.RadioButtonFor(x => x.Approval, "All")<span>All</span>
-                <button type="submit">Search </button>
-            </form>
-        </div>
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                                <input type="radio" asp-for="Approval" value="Not Approved" class="form-check-input-styled"  data-fouc>
+                                Not Approved
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                                <input type="radio" asp-for="Approval" value="All" class="form-check-input-styled"  data-fouc>
+                                All
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group col-md-3">
+                    <label> &nbsp;</label>
+                    <button type="submit" class="btn btn-warning rounded-round"><i class="icon-search4"></i> Search</button>
+                </div>
+            </div>
+        </form>
     </div>
 
-<div class="card-body">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    Sn
-                </th>
-                <th>
-                    Name
-                </th>
-                <th>
-                    Batch
-                </th>
-                <th>
-                    Phone
-                </th>
-                <th>
-                    Ug College
-                </th>
-
-                <th>
-                    Chapter
-                </th>
-
-                <th>
-                    Approvel
-                </th>
-                <th>
-                    Option
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @{ int SlNo = 0; }
-            @foreach (var master in Model.Members)
-            {
-                <tr>
-                    <td> @(SlNo += 1)</td>
-                    <td>@Html.DisplayFor(x => master.Name)</td>
-                    <td>@Html.DisplayFor(x => master.BatchName)</td>
-                    <td>@Html.DisplayFor(x => master.Phone)</td>
-                    <td>@Html.DisplayFor(x => master.UgCollegeName)</td>
-                    <td>@Html.DisplayFor(x => master.ChapterName)</td>
-
-                    <td>
-                        @if (master.IsVarified)
-                        {
-                            @Html.Raw(varified)
-                        }
-                        else
-                        {
-                            @Html.Raw(notvarified)
-
-                        }
-                    </td>
-                    <td>
-                        <a asp-action="Details" asp-route-id="@master.Id" class="btn btn-outline bg-success border-primary text-primary-800 btn-icon"><i class="icon-file-eye"></i></a>
-                    </td>
-                </tr>
-            }
-
-        </tbody>
-    </table>
 </div>
-</div>
+
+    <div class="card">
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Sn
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Batch
+                        </th>
+                        <th>
+                            Phone
+                        </th>
+                        <th>
+                            Ug College
+                        </th>
+
+                        <th>
+                            Chapter
+                        </th>
+
+                        <th>
+                            Approvel
+                        </th>
+                        <th>
+                            Option
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ int SlNo = 0; }
+                    @foreach (var master in Model.Members)
+                    {
+                        <tr>
+                            <td> @(SlNo += 1)</td>
+                            <td>@Html.DisplayFor(x => master.Name)</td>
+                            <td>@Html.DisplayFor(x => master.BatchName)</td>
+                            <td>@Html.DisplayFor(x => master.Phone)</td>
+                            <td>@Html.DisplayFor(x => master.UgCollegeName)</td>
+                            <td>@Html.DisplayFor(x => master.ChapterName)</td>
+
+                            <td>
+                                @if (master.IsVarified)
+                                {
+                                    @Html.Raw(varified)
+                                }
+                                else
+                                {
+                                    @Html.Raw(notvarified)
+
+                                }
+                            </td>
+                            <td>
+                                <a asp-action="Details" asp-route-id="@master.Id" class="btn btn-outline bg-success border-primary text-primary-800 btn-icon"><i class="icon-file-eye"></i></a>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
 
