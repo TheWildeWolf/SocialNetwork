@@ -89,11 +89,11 @@ namespace Hadia.Areas.Member.Controllers
             {
                 return NotFound();
             }
-            var  KidsLists = _db.Mem_Kids.Where(s => s.MemberId == id).Select(x=>_mapper.Map<KidViewModel>(x)).ToList();
-            var memViewModel = new MemberDetailsViewModel
-            {
-                Kids = KidsLists
-            };
+            //var  KidsLists = _db.Mem_Kids.Where(s => s.MemberId == id).Select(x=>_mapper.Map<KidViewModel>(x)).ToList();
+            //var memViewModel = new MemberDetailsViewModel
+            //{
+            //    Kids = KidsLists
+            //};
             var MemberDetails = await _db.Mem_Masters
                 .Include(x => x.UgCollege)
                 .Include(x => x.MainGroup)

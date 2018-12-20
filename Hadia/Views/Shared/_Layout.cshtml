@@ -31,6 +31,7 @@
     <script src="~/global_assets/js/demo_pages/navbar_multiple_sticky.js"></script>
     <!-- /theme JS files -->
 
+    
 </head>
 
 <body>
@@ -183,44 +184,45 @@
 
 
 			<!-- Sidebar content -->
-			<div class="sidebar-content">
+            <div class="sidebar-content">
 
-				<!-- User menu -->
-				<div class="sidebar-user">
-					<div class="card-body">
-						<div class="media">
-							<div class="mr-3">
-								<a href="#"><img src="~/global_assets/images/image.png" width="38" height="38" class="rounded-circle" alt=""></a>
-							</div>
+                <!-- User menu -->
+                <div class="sidebar-user">
+                    <div class="card-body">
+                        <div class="media">
+                            <div class="mr-3">
+                                <a href="#"><img src="~/global_assets/images/image.png" width="38" height="38" class="rounded-circle" alt=""></a>
+                            </div>
 
-							<div class="media-body">
-								<div class="media-title font-weight-semibold">Victoria Baker</div>
-								<div class="font-size-xs opacity-50">
-									<i class="icon-pin font-size-sm"></i> &nbsp;Santa Ana, CA
-								</div>
-							</div>
+                            <div class="media-body">
+                                <div class="media-title font-weight-semibold">Victoria Baker</div>
+                                <div class="font-size-xs opacity-50">
+                                    <i class="icon-pin font-size-sm"></i> &nbsp;Santa Ana, CA
+                                </div>
+                            </div>
 
-							<div class="ml-3 align-self-center">
-								<a href="#" class="text-white"><i class="icon-cog3"></i></a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- /user menu -->
+                            <div class="ml-3 align-self-center">
+                                <a href="#" class="text-white"><i class="icon-cog3"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /user menu -->
+               
+                
 
-
-				<!-- Main navigation -->
-				<div class="card card-sidebar-mobile">
+                <!-- Main navigation -->
+                <div class="card card-sidebar-mobile">
                     <ul class="nav nav-sidebar" data-nav-type="accordion">
 
                         <!-- Main -->
                         <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Main</div> <i class="icon-menu" title="Main"></i></li>
                         @*<li class="nav-item">
-                            <a asp-action="Index" asp-controller="Home" asp-area="" class="nav-link">
-                                <i class="icon-home4"></i>
-                                <span>Dashboard</span>
-                            </a>
-                        </li>*@
+                    <a asp-action="Index" asp-controller="Home" asp-area="" class="nav-link">
+                        <i class="icon-home4"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>*@
                         <li class="nav-item">
                             <a asp-area="Member" asp-controller="MemberList" asp-action="Index" class="nav-link">
                                 <i class="icon-users"></i>
@@ -229,72 +231,75 @@
                         </li>
                         <li class="nav-item nav-item-submenu nav-item">
                             <a href="#" class="nav-link"><i class="icon-stack"></i> <span>Masters</span></a>
+                            
+                                <ul class="nav nav-group-sub" data-submenu-title="Starter kit">
 
-                            <ul class="nav nav-group-sub" data-submenu-title="Starter kit">
+                                    <!-- Copy and past this section for new menu start -->
+                                    <li class="nav-item nav-item-submenu">
+                                        <a href="#" class="nav-link">Educational Qualifications</a>
+                                      
+                                            <ul class="nav nav-group-sub">
+                                                <li class="nav-item"><a asp-area="Member" asp-controller="QualificationMaster" asp-action="Create" class="nav-link">Create</a></li>
+                                                <li class="nav-item"><a asp-area="Member" asp-controller="QualificationMaster" asp-action="Index" class="nav-link">View All</a></li>
+                                            </ul>
+                                            
+</li>
+                                    <li class="nav-item nav-item-submenu">
+                                        <a href="#" class="nav-link">Spouse Education</a>
+                                        <ul class="nav nav-group-sub">
+                                            <li class="nav-item"><a asp-area="Member" asp-controller="SpouseEducation" asp-action="Create" class="nav-link">Create</a></li>
+                                            <li class="nav-item"><a asp-area="Member" asp-controller="SpouseEducation" asp-action="Index" class="nav-link">View All</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item nav-item-submenu">
+                                        <a href="#" class="nav-link">UG Colleges</a>
+                                        <ul class="nav nav-group-sub">
+                                            <li class="nav-item"><a asp-area="Member" asp-controller="UgCollege" asp-action="Create" class="nav-link">Create</a></li>
+                                            <li class="nav-item"><a asp-area="Member" asp-controller="UgCollege" asp-action="Index" class="nav-link">View All</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item nav-item-submenu">
+                                        <a href="#" class="nav-link">Districts</a>
+                                        <ul class="nav nav-group-sub">
+                                            <li class="nav-item"><a asp-area="Member" asp-controller="DistrictMaster" asp-action="Create" class="nav-link">Create</a></li>
+                                            <li class="nav-item"><a asp-area="Member" asp-controller="DistrictMaster" asp-action="Index" class="nav-link">View All</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item nav-item-submenu">
+                                        <a href="#" class="nav-link">States</a>
+                                        <ul class="nav nav-group-sub">
+                                            <li class="nav-item"><a asp-area="Member" asp-controller="StateMaster" asp-action="Create" class="nav-link">Create</a></li>
+                                            <li class="nav-item"><a asp-area="Member" asp-controller="StateMaster" asp-action="Index" class="nav-link">View All</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item nav-item-submenu">
+                                        <a href="#" class="nav-link">Country</a>
+                                        <ul class="nav nav-group-sub">
+                                            <li class="nav-item"><a asp-area="Member" asp-controller="Country" asp-action="Create" class="nav-link">Create</a></li>
+                                            <li class="nav-item"><a asp-area="Member" asp-controller="Country" asp-action="Index" class="nav-link">View All</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item nav-item-submenu">
+                                        <a href="#" class="nav-link">University</a>
+                                        <ul class="nav nav-group-sub">
+                                            <li class="nav-item"><a asp-area="Member" asp-controller="UniversityMaster" asp-action="Create" class="nav-link">Create</a></li>
+                                            <li class="nav-item"><a asp-area="Member" asp-controller="UniversityMaster" asp-action="Index" class="nav-link">View All</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item nav-item-submenu">
+                                        <a href="#" class="nav-link">Job Category</a>
+                                        <ul class="nav nav-group-sub">
+                                            <li class="nav-item"><a asp-area="Member" asp-controller="JobCategory" asp-action="Create" class="nav-link">Create</a></li>
+                                            <li class="nav-item"><a asp-area="Member" asp-controller="JobCategory" asp-action="Index" class="nav-link">View All</a></li>
+                                        </ul>
+                                    </li>
+                                    <!-- end -->
+                                    <li class="nav-item-divider"></li>
+                                    <li class="nav-item"><a href="#" class="nav-link">Demo</a></li>
 
-                                <!-- Copy and past this section for new menu start -->
-                                <li class="nav-item nav-item-submenu">
-                                    <a href="#" class="nav-link">Educational Qualifications</a>
-                                    <ul class="nav nav-group-sub">
-                                        <li class="nav-item"><a asp-area="Member" asp-controller="QualificationMaster" asp-action="Create" class="nav-link">Create</a></li>
-                                        <li class="nav-item"><a asp-area="Member" asp-controller="QualificationMaster" asp-action="Index" class="nav-link">View All</a></li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item nav-item-submenu">
-                                    <a href="#" class="nav-link">Spouse Education</a>
-                                    <ul class="nav nav-group-sub">
-                                        <li class="nav-item"><a asp-area="Member" asp-controller="SpouseEducation" asp-action="Create" class="nav-link">Create</a></li>
-                                        <li class="nav-item"><a asp-area="Member" asp-controller="SpouseEducation" asp-action="Index" class="nav-link">View All</a></li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item nav-item-submenu">
-                                    <a href="#" class="nav-link">UG Colleges</a>
-                                    <ul class="nav nav-group-sub">
-                                        <li class="nav-item"><a asp-area="Member" asp-controller="UgCollege" asp-action="Create" class="nav-link">Create</a></li>
-                                        <li class="nav-item"><a asp-area="Member" asp-controller="UgCollege" asp-action="Index" class="nav-link">View All</a></li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item nav-item-submenu">
-                                    <a href="#" class="nav-link">Districts</a>
-                                    <ul class="nav nav-group-sub">
-                                        <li class="nav-item"><a asp-area="Member" asp-controller="DistrictMaster" asp-action="Create" class="nav-link">Create</a></li>
-                                        <li class="nav-item"><a asp-area="Member" asp-controller="DistrictMaster" asp-action="Index" class="nav-link">View All</a></li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item nav-item-submenu">
-                                    <a href="#" class="nav-link">States</a>
-                                    <ul class="nav nav-group-sub">
-                                        <li class="nav-item"><a asp-area="Member" asp-controller="StateMaster" asp-action="Create" class="nav-link">Create</a></li>
-                                        <li class="nav-item"><a asp-area="Member" asp-controller="StateMaster" asp-action="Index" class="nav-link">View All</a></li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item nav-item-submenu">
-                                    <a href="#" class="nav-link">Country</a>
-                                    <ul class="nav nav-group-sub">
-                                        <li class="nav-item"><a asp-area="Member" asp-controller="Country" asp-action="Create" class="nav-link">Create</a></li>
-                                        <li class="nav-item"><a asp-area="Member" asp-controller="Country" asp-action="Index" class="nav-link">View All</a></li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item nav-item-submenu">
-                                    <a href="#" class="nav-link">University</a>
-                                    <ul class="nav nav-group-sub">
-                                        <li class="nav-item"><a asp-area="Member" asp-controller="UniversityMaster" asp-action="Create" class="nav-link">Create</a></li>
-                                        <li class="nav-item"><a asp-area="Member" asp-controller="UniversityMaster" asp-action="Index" class="nav-link">View All</a></li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item nav-item-submenu">
-                                    <a href="#" class="nav-link">Job Category</a>
-                                    <ul class="nav nav-group-sub">
-                                        <li class="nav-item"><a asp-area="Member" asp-controller="JobCategory" asp-action="Create" class="nav-link">Create</a></li>
-                                        <li class="nav-item"><a asp-area="Member" asp-controller="JobCategory" asp-action="Index" class="nav-link">View All</a></li>
-                                    </ul>
-                                </li>
-                                <!-- end -->
-                                <li class="nav-item-divider"></li>
-                                <li class="nav-item"><a href="#" class="nav-link">Demo</a></li>
 
-
-                            </ul>
+                                </ul>
+                             
                         </li>
                         <!-- /main -->
 
@@ -339,10 +344,10 @@
                         <!-- /main -->
 
                     </ul>
-				</div>
-				<!-- /main navigation -->
+                </div>
+                <!-- /main navigation -->
 
-			</div>
+            </div>
 			<!-- /sidebar content -->
 			
 		</div>
