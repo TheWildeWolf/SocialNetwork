@@ -92,6 +92,7 @@ namespace Hadia.Areas.Login.Api
 
         private string GenerateJwtToken(Mem_Master user)
         {
+            
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),

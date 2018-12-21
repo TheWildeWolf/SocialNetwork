@@ -96,7 +96,6 @@ namespace Hadia
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
                 app.UseExceptionHandler(builder =>
                 {
                     builder.Run(async context =>
@@ -136,7 +135,7 @@ namespace Hadia
 
                 routes.MapRoute(
                         name: "default",
-                        template: "{area=member}/{controller=memberlist}/{action=Index}/{id?}");
+                        template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

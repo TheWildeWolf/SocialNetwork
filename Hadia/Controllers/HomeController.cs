@@ -76,9 +76,20 @@ namespace Hadia.Controllers
             return View();
         }
         [AllowAnonymous]
-        public IActionResult Contact()
+        public async Task<IActionResult> Contact()
         {
-            throw  new Exception("super cool");
+            await _db.Mem_Masters.AddAsync(new Mem_Master
+            {
+                CDate = DateTime.Now
+            });
+            try
+            {
+                await _db.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
             ViewData["Message"] = "Your contact page.";    
             return View();
         }
