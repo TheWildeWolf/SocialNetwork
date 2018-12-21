@@ -13,6 +13,7 @@ using Hadia.Data;
 using Microsoft.AspNetCore.Authorization;
 using System.Runtime.Serialization.Json;
 using System.Text;
+using Hadia.Helper;
 using Hadia.Models.DomainModels;
 using Hadia.Models.ViewModels;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -78,6 +79,7 @@ namespace Hadia.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Contact()
         {
+            
             await _db.Mem_Masters.AddAsync(new Mem_Master
             {
                 CDate = DateTime.Now
