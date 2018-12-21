@@ -40,11 +40,8 @@
 
 	<!-- Main navbar -->
 	<div class="navbar navbar-expand-md navbar-dark">
-		<div class="navbar-brand">
-			<a href="#" class="d-inline-block">
-				<img src="~/global_assets/images/logo_light.png" alt="">
-				
-			</a>
+		<div class="navbar-brand">	
+				Hadia Alumni
 		</div>
 
 		<div class="d-md-none">
@@ -225,7 +222,7 @@
                                 <span>Members</span>
                             </a>
                         </li>
-                        <li class="nav-item nav-item-submenu nav-item">
+                        <li class="subsubmenu nav-item nav-item-submenu nav-item">
                             <a href="#" class="nav-link"><i class="icon-stack"></i> <span>Masters</span></a>
                             
                                 <ul class="nav nav-group-sub" data-submenu-title="Starter kit">
@@ -301,17 +298,15 @@
 
                             <ul class="nav nav-group-sub" data-submenu-title="Starter kit">
                                 <li class="nav-item"><a asp-area="Post" asp-controller="Batch" asp-action="Create" class="nav-link">Create</a></li>
-                                <li class="nav-item-divider"></li>
                                 <li class="nav-item"><a asp-area="Post" asp-controller="Batch" asp-action="Index" class="nav-link">View All</a></li>
 
                             </ul>
                         </li>
                         <li class="nav-item nav-item-submenu nav-item">
                             <a href="#" class="nav-link"><i class="icon-collaboration"></i><span>Chapter</span></a>
-
                             <ul class="nav nav-group-sub" data-submenu-title="Starter kit">
                                 <li class="nav-item"><a asp-area="Post" asp-controller="Chapter" asp-action="Create" class="nav-link">Create</a></li>
-                                <li class="nav-item-divider"></li>
+                                @*<li class="nav-item-divider"></li>*@
                                 <li class="nav-item"><a asp-area="Post" asp-controller="Chapter" asp-action="Index" class="nav-link">View All</a></li>
 
                             </ul>
@@ -341,16 +336,16 @@
 					</div>
 				</div>
 
-				<div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+				@*<div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
 					<div class="d-flex">
 						<div class="breadcrumb">
-							<a href="index.html" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
+							<a href="#" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
 							<a href="#" class="breadcrumb-item">Link</a>
 							<span class="breadcrumb-item active">Current</span>
 						</div>
 						<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 					</div>
-				</div>
+				</div>*@
 			</div>
 			<!-- /page header -->
 
@@ -418,6 +413,28 @@
             {
                 window.location.href = location;
             };
+        });
+    });
+    $(function() {
+        var current = location.pathname;
+        $('.nav-link').each(function () {
+            var $this = $(this);
+            var attr = $(this).attr('href');
+            if (current == '/') {
+                //$('.dashboardmenu').addClass('active');
+            }
+            if (typeof attr !== typeof undefined && attr !== false) {
+                if (attr == current) {
+                    $this.addClass('active');
+                    //$this.closest('li').addClass('is-expanded');$this.attr('href').indexOf(current) !== -1
+
+                    $(this).closest('.nav-item-submenu').addClass('nav-item-open nav-item-expanded');
+                    if ($(this).closest('.subsubmenu').length > 0) {
+                        $(this).closest('.subsubmenu').addClass('nav-item-open nav-item-expanded');
+                    }
+                }
+            }
+
         });
     });
 </script>

@@ -79,50 +79,47 @@ namespace Hadia
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
-                //app.UseExceptionHandler(builder =>
-                //{
-                //    builder.Run(async context =>
-                //    {
-                //        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                //        var error = context.Features.Get<IExceptionHandlerFeature>();
-                //        if (error != null)
-                //        {
-                //            context.ShowApplicationError(error.Error.Message, error.Error.InnerException.Message);
-                //        }
-                //    });
-                //});
-                app.UseSwaggerUI(c =>
+                //app.UseDeveloperExceptionPage();
+                app.UseExceptionHandler(builder =>
                 {
-                    c.SwaggerEndpoint("/Hadia/swagger/v1/swagger.json", "My API V1");
+                    builder.Run(async context =>
+                    {
+                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                        var error = context.Features.Get<IExceptionHandlerFeature>();
+                        if (error != null)
+                        {
+                            context.ShowApplicationError(error.Error.Message, error.Error.InnerException.Message);
+                        }
+                    });
                 });
+
             }
             else
             {
-                //app.UseExceptionHandler("/Home/Error");
-                //app.UseExceptionHandler(builder =>
-                //{
-                //    builder.Run(async context =>
-                //    {
-                //        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                //        var error = context.Features.Get<IExceptionHandlerFeature>();
-                //        if (error != null)
-                //        {
-                //            context.ShowApplicationError(error.Error.Message, error.Error.InnerException.Message);
-                //        }
-                //    });
-                //});
-                app.UseHsts();
-                app.UseSwaggerUI(c =>
+                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler(builder =>
                 {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                    builder.Run(async context =>
+                    {
+                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                        var error = context.Features.Get<IExceptionHandlerFeature>();
+                        if (error != null)
+                        {
+                            context.ShowApplicationError(error.Error.Message, error.Error.InnerException.Message);
+                        }
+                    });
                 });
+                app.UseHsts();
             }
             //app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseAuthentication();
             app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/Hadia/swagger/v1/swagger.json", "My API V1");
+            });
             //app.UseMiddleware(typeof(ErrorHandlingMiddleware));
             app.UseDirectoryBrowser(new DirectoryBrowserOptions()
             {

@@ -97,8 +97,18 @@ namespace Hadia.Areas.Member.Controllers
                 model.PasswordHash = passwordHash;
                 model.PasswordSalt = passwordSalt;
                 model.CDate = DateTime.Now;
-                
+
                 await _db.Mem_Masters.AddAsync(model);
+                await _db.Post_GroupMembers.AddAsync(new Post_GroupMember
+                {
+                    GroupId   = model.GroupId??0,
+                    CDate = DateTime.Now,
+                    IsActive = true,
+                    MemberId = model.Id,
+                    IsGroupAdmin = false,
+                    AddedBy = model.Id
+                    
+                });
                 try
                 {
                     await _db.SaveChangesAsync();

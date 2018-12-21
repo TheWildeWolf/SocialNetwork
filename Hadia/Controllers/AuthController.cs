@@ -67,7 +67,7 @@ namespace Hadia.Controllers
                 // value set here overrides the ExpireTimeSpan option of 
                 // CookieAuthenticationOptions set with AddCookie.
 
-                IsPersistent = true,
+                //IsPersistent = true,
                 // Whether the authentication session is persisted across 
                 // multiple requests. Required when setting the 
                 // ExpireTimeSpan option of CookieAuthenticationOptions 

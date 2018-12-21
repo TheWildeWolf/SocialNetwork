@@ -31,6 +31,7 @@ namespace Hadia.Areas.Login.Api
             _authServive =new AuthService(context);
         }
         //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Get()
         {

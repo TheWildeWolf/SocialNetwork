@@ -18,7 +18,7 @@ namespace Hadia.Models.DomainModels
         public int AddedBy { get; set; }
 
         public DateTime MDate { get; set; }
-        public int ModifiedBy { get; set; }
+        public int? ModifiedBy { get; set; }
 
         public Mem_Master AddedMember { get; set; }
         public Mem_Master ModifiedMember { get; set; }

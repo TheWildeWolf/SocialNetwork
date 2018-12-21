@@ -78,7 +78,7 @@ namespace Hadia.Controllers
         [AllowAnonymous]
         public IActionResult Contact()
         {
-          
+            throw  new Exception("super cool");
             ViewData["Message"] = "Your contact page.";    
             return View();
         }
