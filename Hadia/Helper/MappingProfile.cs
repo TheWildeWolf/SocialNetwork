@@ -66,9 +66,7 @@ namespace Hadia.Helper
             .FirstOrDefault().GroupMaster.Id));
             CreateMap<MemberViewModel, Mem_Master>();
 
-            
-
-            CreateMap<Mem_Master, MemberDetailsViewModel>()
+           CreateMap<Mem_Master, MemberDetailsViewModel>()
           .ForMember(dest => dest.UgCollegeName, o => o.MapFrom(s => s.UgCollege.UgCollegeName))
           .ForMember(dest => dest.BatchName, o => o.MapFrom(s => s.MainGroup.GroupName))
           .ForMember(dest => dest.DistrictName, o => o.MapFrom(s => s.District.DistrictName))

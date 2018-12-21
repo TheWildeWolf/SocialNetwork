@@ -265,7 +265,7 @@
     <a asp-action="index" class="btn bg-transparent text-white border-white border-2">Cancel</a>
     @if (Model.IsVarified)
     {
-        <a asp-action="Approve"  asp-route-id="@Model.Id" asp-route-isActive="@Model.Id" class="btn btn-outline bg-white text-white border-white border-2">Disapprove </a>
+        <a asp-action="Approve"  asp-route-id="@Model.Id" asp-route-isActive="false" class="btn btn-outline bg-white text-white border-white border-2">Disapprove </a>
     }
     else
     {
