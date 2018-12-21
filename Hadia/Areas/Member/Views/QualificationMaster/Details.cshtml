@@ -1,32 +1,22 @@
 ﻿@model Hadia.Models.ViewModels.EducationalQualificationMasterViewModel
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Educational Qualification";
+    ViewData["Description"] = "Details";
 }
 
-<h2>Details</h2>
-<div>
-    <h4>Qualification </h4>
-    <hr/>
-    <dl class=" dl-horizontal">
-        <dt>
-            @Html.LabelFor(model => model.DegreeName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DegreeName)
-        </dd>
-        <dt>
-            @Html.LabelFor(model => model.Rank)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Rank)
-        </dd>
-        <dt>
-            @Html.LabelFor(model => model.IsPhd)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.IsPhd)
-        </dd>
-    </dl>
-</div>
+<div class="card">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3"> @Html.LabelFor(model => model.DegreeName)</dt>
+            <dd class="col-sm-9"> @Html.DisplayFor(model => model.DegreeName)</dd>
 
+            <dt class="col-sm-3"> @Html.LabelFor(model => model.Rank)</dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Rank)
+            </dd>
+            <dt class="col-sm-3"> @Html.LabelFor(model => model.IsPhd)</dt>
+            <dd class="col-sm-9"> @Html.DisplayFor(model => model.IsPhd)</dd>
+        </dl>
+    </div>
+</div>
 <a asp-action="Index">Back to List</a>

@@ -1,17 +1,19 @@
 ﻿@model Hadia.Models.ViewModels.UniversityMasterViewModel
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "University";
+    ViewData["Description"] = "Edit";
 }
+
 
 <form asp-action="Edit" asp-controller="UniversityMaster" method="post">
     <div class="card">
         <div class="card-header header-elements-inline">
-            <h5 class="card-title">Create University</h5>
+            <h5 class="card-title"></h5>
             <div class="header-elements">
             </div>
         </div>
         <div class="card-body">
-            <input type="hidden"asp-for="Id" />
+            <input type="hidden" asp-for="Id" />
             <div asp-validation-summary="ModelOnly" class=" text-danger"></div>
             <div class="form-group">
                 <label asp-for="UniversityName" class=" control-label"></label>
