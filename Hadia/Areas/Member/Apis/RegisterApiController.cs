@@ -84,29 +84,24 @@ namespace Hadia.Areas.Member.Controllers
                     return StatusCode(500,new {
                         Error ="Same Email Id Exist"
                     });
-                
                 byte[] passwordHash, passwordSalt;
-
                 var model = _mapper.Map<Mem_Master>(registration);
 
                 model.IsVarified =false;
                 model.IsGroupAdmin = false;
-
                 _authServive.CreatePasswordHash(registration.Password,out passwordHash,out passwordSalt);
-
                 model.PasswordHash = passwordHash;
                 model.PasswordSalt = passwordSalt;
                 model.CDate = DateTime.Now;
-
                 await _db.Mem_Masters.AddAsync(model);
                 await _db.Post_GroupMembers.AddAsync(new Post_GroupMember
                 {
-                    GroupId   = model.GroupId??0,
+                    GroupId = registration.ChapterId,
                     CDate = DateTime.Now,
                     IsActive = true,
                     MemberId = model.Id,
                     IsGroupAdmin = false,
-                    AddedBy = model.Id
+                    AddedBy = model.Id,
                     
                 });
                 try

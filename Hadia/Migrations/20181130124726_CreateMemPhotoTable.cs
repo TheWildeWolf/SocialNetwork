@@ -103,7 +103,7 @@ namespace Hadia.Migrations
                 column: "CLogin",
                 principalTable: "Mem_Masters",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Post_GroupMembers_Mem_Masters_AddedBy",

@@ -11,7 +11,7 @@ namespace Hadia.Data.Configs
             builder.HasOne(x => x.Post)
                 .WithMany(x => x.Followers)
                 .HasForeignKey(x => x.MemberId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
             builder.HasOne(x => x.Member)
                 .WithMany(x => x.FollowedPosts)
                 .HasForeignKey(x => x.MemberId)

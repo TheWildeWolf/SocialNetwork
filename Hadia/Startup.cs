@@ -48,7 +48,7 @@ namespace Hadia
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<HadiaContext>(op =>
-                op.UseSqlServer(Configuration.GetConnectionString(DEV_CONNECTION_STRING)));
+                op.UseSqlServer(Configuration.GetConnectionString(DEFAULT_CONNECTION_STRING)));
             services.AddAutoMapper();
             //AuthCoockie
             services.AddSwaggerGen(c =>
@@ -79,20 +79,7 @@ namespace Hadia
         {
             if (env.IsDevelopment())
             {
-                //app.UseDeveloperExceptionPage();
-                app.UseExceptionHandler(builder =>
-                {
-                    builder.Run(async context =>
-                    {
-                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                        var error = context.Features.Get<IExceptionHandlerFeature>();
-                        if (error != null)
-                        {
-                            context.ShowApplicationError(error.Error.Message, error.Error.InnerException.Message);
-                        }
-                    });
-                });
-
+                app.UseDeveloperExceptionPage();
             }
             else
             {
@@ -104,7 +91,7 @@ namespace Hadia
                         var error = context.Features.Get<IExceptionHandlerFeature>();
                         if (error != null)
                         {
-                            context.ShowApplicationError(error.Error.Message, error.Error.InnerException.Message);
+                           await context.ShowApplicationError(error.Error.Message, error.Error.InnerException.Message);
                         }
                     });
                 });
@@ -117,9 +104,8 @@ namespace Hadia
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/Hadia/swagger/v1/swagger.json", "My API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
-            //app.UseMiddleware(typeof(ErrorHandlingMiddleware));
             app.UseDirectoryBrowser(new DirectoryBrowserOptions()
             {
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot", "ChapterImages")),
@@ -135,7 +121,7 @@ namespace Hadia
 
                 routes.MapRoute(
                         name: "default",
-                        template: "{controller=Home}/{action=Index}/{id?}");
+                        template: "{area=member}/{controller=memberlist}/{action=Index}/{id?}");
             });
         }
     }

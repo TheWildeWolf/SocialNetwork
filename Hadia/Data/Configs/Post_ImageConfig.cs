@@ -16,7 +16,7 @@ namespace Hadia.Data.Configs
             builder.HasOne(x => x.PostMaster)
                 .WithMany(x => x.PostImages)
                 .HasForeignKey(x => x.PostId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

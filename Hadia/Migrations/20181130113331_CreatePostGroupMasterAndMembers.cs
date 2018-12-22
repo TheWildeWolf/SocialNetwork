@@ -32,7 +32,7 @@ namespace Hadia.Migrations
                         column: x => x.CLogin,
                         principalTable: "Mem_Masters",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(

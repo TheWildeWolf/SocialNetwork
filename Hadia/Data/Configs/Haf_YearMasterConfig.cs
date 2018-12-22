@@ -14,11 +14,11 @@ namespace Hadia.Data.Configs
         {
             builder.HasOne(x => x.YearAddedBy)
                 .WithMany(x => x.HadiyaYearAdded)
-                .HasForeignKey(x => x.CLogin);
+                .HasForeignKey(x => x.CLogin).OnDelete(DeleteBehavior.Restrict); ;
 
             builder.HasOne(x => x.YearModifiedBy)
                 .WithMany(x => x.HadiyaYearModified)
-                .HasForeignKey(x => x.MLogin);
+                .HasForeignKey(x => x.MLogin).OnDelete(DeleteBehavior.Restrict); ;
 
         }
     }

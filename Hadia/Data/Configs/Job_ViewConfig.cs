@@ -11,12 +11,12 @@ namespace Hadia.Data.Configs
             builder.HasOne(x => x.Job)
                 .WithMany(x => x.Views)
                 .HasForeignKey(x => x.MasterId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(x => x.Member)
                 .WithMany(x => x.ViewedJobs)
                 .HasForeignKey(x => x.MemberId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
 
         }
     }

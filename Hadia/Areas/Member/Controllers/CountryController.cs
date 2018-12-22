@@ -48,6 +48,7 @@ namespace Hadia.Areas.Member.Controllers
                 await _db.Mem_CountryCodes.AddAsync(newCountry);
                 await _db.SaveChangesAsync();
                 TempData["message"] = Notifications.SuccessNotify("Country Created!");
+                
                 if (btnSave == "Save")
                 {
                     return RedirectToAction("Index");

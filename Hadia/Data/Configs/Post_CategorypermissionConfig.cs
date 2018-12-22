@@ -11,16 +11,16 @@ namespace Hadia.Data.Configs
             builder.HasOne(x => x.Category)
                 .WithMany(x => x.Categorypermissions)
                 .HasForeignKey(x => x.PostCategoryId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(x => x.CreatedBy)
                 .WithMany(x => x.CreatedPermissions)
                 .HasForeignKey(x => x.CLogin)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(x => x.ModifiedBy)
                 .WithMany(x => x.ModifiedPermissions)
-                .OnDelete(DeleteBehavior.ClientSetNull);
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(x => x.Member)
                 .WithMany(x => x.Categorypermissions)

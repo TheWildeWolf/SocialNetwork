@@ -17,6 +17,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Hadia.Areas.Login.Api
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class LoginController : ControllerBase

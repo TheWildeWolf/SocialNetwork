@@ -38,10 +38,10 @@ namespace Hadia.Helper
             var exceptionHandler = context.Features.Get<IExceptionHandlerPathFeature>();
             context.Response.Headers.Add("Application-Error", exceptionMessage);
             context.Response.Headers.Add("Access-Control-Expose-Headers", "Application-Error");
-            var result = JsonConvert.SerializeObject(new { error = exceptionMessage, detail = innerException });
             if (exceptionHandler.Path.Contains("/api/"))
             {
-               await context.Response.WriteAsync(result);
+                var result = JsonConvert.SerializeObject(new { error = exceptionMessage.ToCode(), detail = innerException.ToCode() });
+                await context.Response.WriteAsync(result);
             }
             else
             {

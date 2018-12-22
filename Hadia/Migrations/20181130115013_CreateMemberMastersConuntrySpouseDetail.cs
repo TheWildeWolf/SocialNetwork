@@ -75,7 +75,7 @@ namespace Hadia.Migrations
                         column: x => x.CLogin,
                         principalTable: "Mem_Masters",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -99,7 +99,7 @@ namespace Hadia.Migrations
                 column: "CLogin",
                 principalTable: "Mem_Masters",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Mem_UniversityMasters_Mem_CountryCodes_CountryId",

@@ -17,7 +17,7 @@ namespace Hadia.Data.Configs
 
             builder.HasOne(x => x.CreatedBy)
                 .WithMany(x => x.CreatedGroups)
-                .HasForeignKey(x => x.CLogin);
+                .HasForeignKey(x => x.CLogin).OnDelete(DeleteBehavior.Restrict);
 
             
 

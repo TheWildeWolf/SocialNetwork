@@ -31,57 +31,57 @@ namespace Hadia.Data.Configs
 
             builder.HasMany(x => x.EducationalQualificationMasters)
                     .WithOne(x => x.CreatedBy)
-                    .HasForeignKey(x => x.CLogin);
+                    .HasForeignKey(x => x.CLogin).OnDelete(DeleteBehavior.Restrict);
 
             builder.HasIndex(x=>x.Email).IsUnique();
 
             builder.HasMany(x => x.SpouseEducationMasters)
             .WithOne(x => x.CreatedBy)
-            .HasForeignKey(x => x.CLogin);
+            .HasForeignKey(x => x.CLogin).OnDelete(DeleteBehavior.Restrict);
 
             builder.HasMany(x => x.StateMasters)
                 .WithOne(x => x.CreatedBy)
-                .HasForeignKey(x => x.CLogin);
+                .HasForeignKey(x => x.CLogin).OnDelete(DeleteBehavior.Restrict);
 
             builder.HasMany(x => x.DistrictMasters)
                 .WithOne(x => x.CreatedBy)
-                .HasForeignKey(x => x.CLogin);
+                .HasForeignKey(x => x.CLogin).OnDelete(DeleteBehavior.Restrict);
 
             builder.HasMany(x => x.UniversityMasters)
               .WithOne(x => x.CreatedBy)
-              .HasForeignKey(x => x.CLogin);
+              .HasForeignKey(x => x.CLogin).OnDelete(DeleteBehavior.Restrict);
 
             builder.HasMany(x => x.UgColleges)
               .WithOne(x => x.CreatedBy)
-              .HasForeignKey(x => x.CLogin);
+              .HasForeignKey(x => x.CLogin).OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(x=>x.Privilage)
-                .WithOne(x=>x.Member);
+                .WithOne(x=>x.Member).OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(x => x.UgCollege)
                 .WithMany(x => x.MembersInUg)
                 .HasForeignKey(x => x.UgCollageId)
-                .OnDelete(DeleteBehavior.ClientSetNull);
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(x => x.District)
                 .WithMany(x => x.MembersInDistrict)
                 .HasForeignKey(x => x.DistrictId)
-                .OnDelete(DeleteBehavior.ClientSetNull);
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(x => x.SpouseEducation)
                 .WithMany(x => x.MembersSpouses)
                 .HasForeignKey(x => x.SpouseEducationId)
-                .OnDelete(DeleteBehavior.ClientSetNull);
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(x => x.MainGroup)
                 .WithMany(x => x.MembersInBatch)
                 .HasForeignKey(x => x.GroupId)
-                .OnDelete(DeleteBehavior.ClientSetNull);
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(x => x.VarifiedMember)
                 .WithMany(x => x.VarifiedMembers)
                 .HasForeignKey(x => x.VarifiedBy)
-                .OnDelete(DeleteBehavior.ClientSetNull);
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasMany(x => x.CreatedJobCategoryMasters)
                 .WithOne(x => x.CreatedBy)

@@ -16,7 +16,7 @@ namespace Hadia.Models.DomainModels
         public MaritalStatus? MaritalStatus { get; set; }
         public DateTime DateOfBirth { get; set; }
 
-        public int? UgCollageId { get; set; }
+        public int UgCollageId { get; set; }
         public int? DistrictId { get; set; }
 
         public string SpouseName { get; set; }

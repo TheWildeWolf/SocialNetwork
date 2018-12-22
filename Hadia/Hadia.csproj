@@ -35,6 +35,8 @@
     <Compile Remove="Migrations\20181218052422_AddDeviceIdInMemMaster.Designer.cs" />
     <Compile Remove="Migrations\20181218052750_Test.cs" />
     <Compile Remove="Migrations\20181218052750_Test.Designer.cs" />
+    <Compile Remove="Migrations\20181222092748_ChangeCascadeInMastersToMemMaster.cs" />
+    <Compile Remove="Migrations\20181222092748_ChangeCascadeInMastersToMemMaster.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

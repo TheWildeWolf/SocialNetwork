@@ -12,9 +12,10 @@ namespace Hadia.Data.Configs
     {
         public void Configure(EntityTypeBuilder<Post_InterestedAreaMaster> builder)
         {
-            builder.HasOne(X => X.CreatedBy)
-                .WithMany(X => X.InterestedAreaMasterCreated)
-                .HasForeignKey(X => X.CLogin);
+            builder.HasOne(x => x.CreatedBy)
+                .WithMany(x => x.InterestedAreaMasterCreated)
+                .HasForeignKey(x => x.CLogin)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

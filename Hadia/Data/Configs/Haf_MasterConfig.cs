@@ -23,7 +23,8 @@ namespace Hadia.Data.Configs
 
             builder.HasOne(x => x.ModifiedBy)
                 .WithMany(x => x.HAFModifiedBy)
-                .HasForeignKey(x => x.MLogin);
+                .HasForeignKey(x => x.MLogin)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

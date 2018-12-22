@@ -59,7 +59,7 @@ namespace Hadia.Migrations
                         column: x => x.CLogin,
                         principalTable: "Mem_Masters",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -80,7 +80,7 @@ namespace Hadia.Migrations
                         column: x => x.CLogin,
                         principalTable: "Mem_Masters",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -101,7 +101,7 @@ namespace Hadia.Migrations
                         column: x => x.CLogin,
                         principalTable: "Mem_Masters",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -146,7 +146,7 @@ namespace Hadia.Migrations
                         column: x => x.CLogin,
                         principalTable: "Mem_Masters",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Mem_DistrictMasters_Mem_StateMasters_StateId",
                         column: x => x.StateId,

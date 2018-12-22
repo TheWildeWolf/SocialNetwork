@@ -11,7 +11,7 @@ namespace Hadia.Data.Configs
             builder.HasOne(x => x.PostComment)
                 .WithMany(x => x.Edits)
                 .HasForeignKey(x => x.CommentId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

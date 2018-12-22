@@ -28,7 +28,7 @@ namespace Hadia.Migrations
                         column: x => x.MemberId,
                         principalTable: "Mem_Masters",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
