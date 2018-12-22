@@ -48,7 +48,7 @@ namespace Hadia
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<HadiaContext>(op =>
-                op.UseSqlServer(Configuration.GetConnectionString(DEFAULT_CONNECTION_STRING)));
+                op.UseSqlServer(Configuration.GetConnectionString(DEV_CONNECTION_STRING)));
             services.AddAutoMapper();
             //AuthCoockie
             services.AddSwaggerGen(c =>

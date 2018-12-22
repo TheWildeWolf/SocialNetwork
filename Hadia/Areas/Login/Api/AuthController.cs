@@ -31,7 +31,7 @@ namespace Hadia.Areas.Login.Api
             _config = config;
             _authServive =new AuthService(context);
         }
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Get()
@@ -54,6 +54,8 @@ namespace Hadia.Areas.Login.Api
 
             return Ok();
         }
+
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login(LoginDto logindata)
         {
@@ -110,13 +112,13 @@ namespace Hadia.Areas.Login.Api
             var key = new SymmetricSecurityKey(Encoding.UTF8
                 .GetBytes(_config.GetSection("AppSettings:Token").Value));
 
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.Now.AddDays(1),
-                SigningCredentials = creds
+                SigningCredentials = credentials
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();
