@@ -1,16 +1,11 @@
 ﻿@model Hadia.Models.ViewModels.EducationalQualificationMasterViewModel
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Educational Qualification";
+    ViewData["Description"] = "Create";
 }
 
 <form asp-action="Create" asp-controller="QualificationMaster" method="post">
     <div class="card">
-        <div class="card-header header-elements-inline">
-            <h5 class="card-title">Create Education Qualification</h5>
-            <div class="header-elements">
-            </div>
-        </div>
-
         <div class="card-body">
             <div asp-validation-summary="ModelOnly" class=" text-danger"></div>
             <div class="form-group">
