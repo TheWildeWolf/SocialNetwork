@@ -5,8 +5,6 @@
     ViewData["Description"] = "All Registered Members";
     var varified = "<span class=\"badge bg-success-400\">Approved</span>";
     var notvarified = "<span class=\"badge bg-danger\">Not Approved</span>";
-
-   
 }
 
 
@@ -16,19 +14,19 @@
         <form asp-action="Index" asp-controller="MemberList">
             <div class="row">
                 <div class="form-group col-md-3">
-                    Batch
+                    <label>Batch</label>
                     <select asp-for="BatchId" class="form-control select" asp-items="@{Model.BatchList}">
                         <option>--Select Batch--</option>
                     </select>
                 </div>
-                <div class="col-md-3">
-                    Chapter
+                <div class="form-group col-md-3">
+                    <label>Chapter</label>
                     <select asp-for="ChapterId" class="form-control select" asp-items="@{Model.ChapterList}">
                         <option>--Select Chapter--</option>
                     </select>
                 </div>
                 <div class="form-group col-md-3">
-                    Status
+                    <label>Status</label>
                     <div>
 
                         <div class="form-check form-check-inline">
@@ -54,8 +52,8 @@
 
                 </div>
                 <div class="form-group col-md-3">
-                        &nbsp;
-                    <button type="submit" class="btn btn-warning rounded-round"><i class="icon-search4"></i> Search</button>
+                    <div>&nbsp;</div>
+                    <button type="submit" class="btn btn-warning btn-lg rounded-round">&nbsp;&nbsp;<i class="icon-search4"></i>&nbsp;&nbsp;&nbsp;&nbsp;Search</button>
                 </div>
             </div>
         </form>

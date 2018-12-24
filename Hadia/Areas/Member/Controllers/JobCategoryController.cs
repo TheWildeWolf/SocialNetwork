@@ -26,7 +26,7 @@ namespace Hadia.Areas.Member.Controllers
         public async Task<IActionResult> Index()
         {
             var listOfJobs = await _db.Mem_JobCategoryMasters
-                .Select(x => _mapper.Map<JobCategoryViewModel>(x)).ToListAsync();
+                .Select(x => _mapper.Map<JobCategoryViewModel>(x)).OrderBy(x=>x.CategoryName).ToListAsync();
             return View(listOfJobs);
         }
         [HttpGet]

@@ -26,6 +26,7 @@ namespace Hadia.Areas.Member.Controllers
         {
             var ListOfStates = await _db.Mem_StateMasters
                 .Select(x=> _mapper.Map<StateMasterViewModel>(x))
+                .OrderBy(x=>x.StateName)
                .ToListAsync();
             return View(ListOfStates);
         }

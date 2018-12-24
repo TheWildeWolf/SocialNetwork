@@ -25,10 +25,12 @@ namespace Hadia.Areas.Member.Controllers
 
         public async Task< IActionResult> Index()
         {
-            var ListOfSpouseEducation=await _db.Mem_SpouseEducationMasters
-              .Select(x => _mapper.Map<SpouseEducationMasterViewModel>(x)).ToListAsync();
+            var listOfSpouseEducation=await _db.Mem_SpouseEducationMasters
+              .Select(x => _mapper.Map<SpouseEducationMasterViewModel>(x))
+                .OrderBy(x=>x.QualificationName)
+                .ToListAsync();
 
-            return View(ListOfSpouseEducation);
+            return View(listOfSpouseEducation);
         }
         [HttpGet]
         public IActionResult Create()

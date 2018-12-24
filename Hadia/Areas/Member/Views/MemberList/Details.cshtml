@@ -2,281 +2,347 @@
 @{
     ViewData["Title"] = "Member";
     ViewData["Description"] = "Member Detail";
-    
+
 }
-<div>
-    <div class="card">
-        @*<div class="card-header header-elements-inline">
-                <h6 class="card-title">Member</h6>
-                <div class="header-elements">
-                    <div class="list-icons">
-                        <a class="list-icons-item" data-action="collapse"></a>
-                        <a class="list-icons-item" data-action="reload"></a>
-                        <a class="list-icons-item" data-action="remove"></a>
+<div class="content">
+    <!-- Inner container -->
+    <div class="d-md-flex align-items-md-start">
+        <!-- Left sidebar component -->
+        <div class="sidebar sidebar-light bg-transparent sidebar-component sidebar-component-left wmin-300 border-0 shadow-0 sidebar-expand-md">
+            <!-- Sidebar content -->
+            <div class="sidebar-content">
+                <!-- Navigation -->
+                <div class="card">
+                    @*background-image: url(http://demo.interface.club/limitless/assets/images/bg.png);*@
+                    <div class="card-body bg-indigo-400 text-center card-img-top" style="background-size: contain;">
+                        <div class="card-img-actions d-inline-block mb-3">
+                            <img class="img-fluid rounded-circle" src="~/global_assets/images/placeholders/placeholder.jpg" width="170" height="170" alt="">
+                            @*<div class="card-img-actions-overlay rounded-circle">
+                                <a href="#" class="btn btn-outline bg-white text-white border-white border-2 btn-icon rounded-round">
+                                    <i class="icon-plus3"></i>
+                                </a>
+                                <a href="#" class="btn btn-outline bg-white text-white border-white border-2 btn-icon rounded-round ml-2">
+                                    <i class="icon-link"></i>
+                                </a>
+                            </div>*@
+                        </div>
+                        <h6 class="font-weight-semibold mb-0">@Html.DisplayFor(model => model.Name)</h6>
+                        <span class="d-block opacity-75">@Html.DisplayFor(model => model.UgCollegeName)</span>
+                        @*<div class="list-icons list-icons-extended mt-3">
+                            <a href="#" class="list-icons-item text-white" data-popup="tooltip" title="" data-container="body" data-original-title="Google Drive"><i class="icon-google-drive"></i></a>
+                            <a href="#" class="list-icons-item text-white" data-popup="tooltip" title="" data-container="body" data-original-title="Twitter"><i class="icon-twitter"></i></a>
+                            <a href="#" class="list-icons-item text-white" data-popup="tooltip" title="" data-container="body" data-original-title="Github"><i class="icon-github"></i></a>
+                        </div>*@
+                    </div>
+                    <div class="card-body p-0">
+                        <ul class="nav nav-sidebar mb-2">
+                            <li class="nav-item-header">Navigation</li>
+                            <li class="nav-item">
+                                <a href="#profile" class="nav-link active" data-toggle="tab">
+                                    <i class="icon-user"></i>
+                                    Profile
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#education" class="nav-link" data-toggle="tab">
+                                    <i class="icon-quill2"></i>
+                                    Education
+                                    @*<span class="font-size-sm font-weight-normal opacity-75 ml-auto">02:56pm</span>*@
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#family" class="nav-link" data-toggle="tab">
+                                    <i class="icon-heart5"></i>
+                                    Family
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#work" class="nav-link" data-toggle="tab">
+                                    <i class="icon-briefcase"></i>
+                                    Work
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#projects" class="nav-link" data-toggle="tab">
+                                    <i class="icon-puzzle3"></i>
+                                    Projects
+                                </a>
+                            </li>
+                            <li class="nav-item-divider"></li>
+                            <li class="nav-item" style="text-align:center">
+                                @if (Model.IsVarified)
+                                {
+                                    <a asp-action="Approve" asp-route-id="@Model.Id" asp-route-isActive="false" class="btn btn-danger rounded-round deactivate"><i class="icon-user-minus mr-2"></i>Disapprove</a>
+                                }
+                                else
+                                {
+                                    <a asp-action="Approve" asp-route-id="@Model.Id" asp-route-isActive="true" class="btn btn-success rounded-round"><i class="icon-checkmark mr-2"></i>Approve</a>
+                                }
+                            </li>
+                        </ul>
                     </div>
                 </div>
-            </div>*@
-        <div class="card-body">
-            <div class="tab-pane fade show active" id="highlighted-justified-tab1">
-                <div>
-
-
-                    <dl class="row col-md-12">
-                        <dt class="col-md-2">
-                            Member Name:
-                        </dt>
-                        <dd class="col-md-2">
-                            @Html.DisplayFor(model => model.Name)
-                        </dd>
-                        <dt class="col-md-2">
-                            Batch Name:
-                        </dt>
-                        <dd class="col-md-2">
-                            @Html.DisplayFor(model => model.BatchName)
-                        </dd>
-                        <dt class="col-md-2">
-                            Chapter Name:
-                        </dt>
-                        <dd class="col-md-2">
-                            @Html.DisplayFor(model => model.ChapterName)
-                        </dd>
-
-                    </dl>
-
-                    <dl class="row col-md-12">
-                        <dt class="col-md-2">
-                            Contact Number:
-                        </dt>
-                        <dd class="col-md-2">
-                            @Html.DisplayFor(model => model.Phone)
-                        </dd>
-                        <dt class="col-md-2">
-                            Present Address:
-                        </dt>
-                        <dd class="col-md-2">
-                            @Html.DisplayFor(model => model.PresentAddress)
-                        </dd>
-                        <dt class="col-md-2">
-                            Permanant Address:
-                        </dt>
-                        <dd class="col-md-2">
-                            @Html.DisplayFor(model => model.PermanentAddress)
-                        </dd>
-                    </dl>
-                    <dl class="row col-md-12">
-                        <dt class="col-md-2">
-                            UG College:
-                        </dt>
-                        <dd class="col-md-2">
-                            @Html.DisplayFor(model => model.UgCollegeName)
-                        </dd>
-                        <dt class="col-md-2">
-                            Date of Birth:
-                        </dt>
-                        <dd class="col-md-2">
-                            @Model.DateOfBirth?.ToString("MMM/dd/yyyy")
-                        </dd>
-                        <dt class="col-md-2">
-                            Email:
-                        </dt>
-                        <dd class="col-md-2">
-                            @Html.DisplayFor(model => model.Email)
-                        </dd>
-
-                    </dl>
-                    <dl class="row col-md-12"></dl>
-
-                </div>
             </div>
-            <ul class="nav nav-tabs nav-tabs-highlight nav-justified">
-                @*<li class="nav-item"><a href="#highlighted-justified-tab1" class="nav-link active" data-toggle="tab"></a>Profile</li>*@
-                <li class="nav-item"><a href="#highlighted-justified-tab2" class="nav-link" data-toggle="tab">Education</a></li>
-                <li class="nav-item"><a href="#highlighted-justified-tab3" class="nav-link" data-toggle="tab">Family</a></li>
-                <li class="nav-item"><a href="#highlighted-justified-tab4" class="nav-link" data-toggle="tab">Work</a></li>
-            </ul>
-            <div class="tab-content">
-                <div class="tab-pane fade" id="highlighted-justified-tab2">
-
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>
-                                    Sn
-                                </th>
-                                <th>
-
-                                    Degree
-                                </th>
-                                <th>
-                                    Rank
-                                </th>
-                                <th>
-                                    University
-                                </th>
-                                <th>
-
-                                    Pass Out Year
-                                </th>
-                                <th>
-                                    Specialization
-                                </th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @{ int SNo = 0; }
-                            @foreach (var edu in Model.EducationDetails)
-                            {
-                                <div>
-                                    <tr>
-                                        <td> @(SNo += 1)</td>
-                                        <td>@Html.DisplayFor(x => edu.Qualification.DegreeName)</td>
-                                        <td>@Html.DisplayFor(x => edu.Qualification.Rank)</td>
-                                        <td>@Html.DisplayFor(x => edu.University.UniversityName)</td>
-                                        <td>@Html.DisplayFor(x => edu.PassoutYear.Year)</td>
-                                        <td>@Html.DisplayFor(x => edu.Specialization)</td>
-                                    </tr>
-                                </div>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-
-
-                <div class="tab-pane fade" id="highlighted-justified-tab3">
-                    <dl class="row col-md-12">
-                        <dt class="col-md-2">
-                            Spouse Name:
-                        </dt>
-                        <dd>
-                            @Html.DisplayFor(model => model.SpouseName)
-                        </dd>
-                        <dt class="col-md-2">
-                            Age:
-                        </dt>
-                        <dd class="col-md-2">
-                            @Html.DisplayFor(model => model.SpouseAge)
-                        </dd>
-                        <dt class="col-md-2">
-                            Spouse Education:
-                        </dt>
-                        <dd class="col-md-2">
-                            @Html.DisplayFor(model => model.QualificationName)
-                        </dd>
-                    </dl>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>
-                                    Sn
-                                </th>
-                                <th>
-
-                                    Kid's Name
-                                </th>
-                                <th>
-
-                                    Age
-                                </th>
-                                <th>
-
-                                    Gender
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @{ int SlNo = 0; }
-                            @foreach (var Kid in Model.Kids)
-                            {
-                                <div>
-                                    <tr>
-
-                                        <td> @(SlNo += 1)</td>
-                                        <td>@Html.DisplayFor(x => Kid.KidName)</td>
-                                        <td>@Html.DisplayFor(x => Kid.Age)</td>
-                                        <td>@Html.DisplayFor(x => Kid.Gender)</td>
-                                    </tr>
-                                </div>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-                <div class="tab-pane fade" id="highlighted-justified-tab4">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>
-                                    Sn
-                                </th>
-                                <th>
-
-                                    Company Name
-                                </th>
-                                <th>
-                                    Location
-                                </th>
-                                <th>
-                                    Country
-                                </th>
-                                <th>
-
-                                    Job Title
-                                </th>
-                                <th>
-                                    Date From
-                                </th>
-                                <th>
-                                    Date Upto
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @{ int SN = 0; }
-                            @foreach (var Work in Model.WorkDetails)
-                            {
-                                <div>
-                                    <tr>
-
-                                        <td> @(SN += 1)</td>
-                                        <td>@Html.DisplayFor(x => Work.CompanyName)</td>
-                                        <td>@Html.DisplayFor(x => Work.Location)</td>
-                                        <td>@Html.DisplayFor(x => Work.Country.CountryName)</td>
-                                        <td>@Html.DisplayFor(x => Work.JobTitle)</td>
-                                        <td>@Work.DateForm.ToString("MMM/dd/yyyy")</td>
-                                        <td>@Work.DateUpto?.ToString("MMM/dd/yyyy")</td>
-                                    </tr>
-                                </div>
-
-
-                            }
-                        </tbody>
-                    </table>
-                </div>
-
-
-            </div>
+            <!-- /sidebar content -->
         </div>
+        <!-- /left sidebar component -->
+        <!-- Right content -->
+        <div class="tab-content w-100 overflow-auto">
+            <div class="tab-pane fade active show" id="profile">
+                <div class="card">
+                    <div class="card-header header-elements-sm-inline">
+                        <h6 class="card-title">Profile</h6>
+                    </div>
+                   
+                    <div class="card-body">
+                        <dl class="row">
+                            <dt class="col-sm-3">
+                                Member Name:
+                            </dt>
+                            <dd class="col-sm-9">
+                                @Html.DisplayFor(model => model.Name)
+                            </dd>
+                            <dt class="col-sm-3">
+                                Batch Name:
+                            </dt>
+                            <dd class="col-sm-9">
+                                @Html.DisplayFor(model => model.BatchName)
+                            </dd>
+                            <dt class="col-sm-3">
+                                Chapter Name:
+                            </dt>
+                            <dd class="col-sm-9">
+                                @Html.DisplayFor(model => model.ChapterName)
+                            </dd>
+                            <dt class="col-sm-3">
+                                Contact Number:
+                            </dt>
+                            <dd class="col-sm-9">
+                                @Html.DisplayFor(model => model.Phone)
+                            </dd>
+                            <dt class="col-sm-3">
+                                Present Address:
+                            </dt>
+                            <dd class="col-sm-9">
+                                <p>@Html.DisplayFor(model => model.PresentAddress)</p>
+                            </dd>
+                            <dt class="col-sm-3">
+                                Permanant Address:
+                            </dt>
+                            <dd class="col-sm-9">
+                                <p> @Html.DisplayFor(model => model.PermanentAddress)</p>
+                            </dd>
+                            <dt class="col-sm-3">
+                                UG College:
+                            </dt>
+                            <dd class="col-sm-9">
+                                @Html.DisplayFor(model => model.UgCollegeName)
+                            </dd>
+                            <dt class="col-sm-3">
+                                Date of Birth:
+                            </dt>
+                            <dd class="col-sm-9">
+                                @Model.DateOfBirth?.ToString("MMM/dd/yyyy")
+                            </dd>
+                            <dt class="col-sm-3">
+                                Email:
+                            </dt>
+                            <dd class="col-sm-9">
+                                @Html.DisplayFor(model => model.Email)
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="education">
+                <div class="card">
+                    <div class="card-header header-elements-sm-inline">
+                        <h6 class="card-title">Education</h6>
+                    </div>
+                    <div class="card-body">
+                            <table class="table table-framed">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Sn
+                                        </th>
+                                        <th>
+
+                                            Degree
+                                        </th>
+                                        <th>
+                                            Rank
+                                        </th>
+                                        <th>
+                                            University
+                                        </th>
+                                        <th>
+
+                                            Pass Out Year
+                                        </th>
+                                        <th>
+                                            Specialization
+                                        </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{ int SNo = 0; }
+                                    @foreach (var edu in Model.EducationDetails)
+                                    {
+                                        <div>
+                                            <tr>
+                                                <td> @(SNo += 1)</td>
+                                                <td>@Html.DisplayFor(x => edu.Qualification.DegreeName)</td>
+                                                <td>@Html.DisplayFor(x => edu.Qualification.Rank)</td>
+                                                <td>@Html.DisplayFor(x => edu.University.UniversityName)</td>
+                                                <td>@Html.DisplayFor(x => edu.PassoutYear.Year)</td>
+                                                <td>@Html.DisplayFor(x => edu.Specialization)</td>
+                                            </tr>
+                                        </div>
+                                    }
+                                </tbody>
+                            </table>               
+                    </div>
+
+                </div>
+            </div>
+            <div class="tab-pane fade" id="family">
+                <div class="card">
+                    <div class="card-header header-elements-sm-inline">
+                        <h6 class="card-title">Family</h6>
+                    </div>
+                    <div class="card-body">
+                        <dl class="row col-md-12">
+                            <dt class="col-md-2">
+                                Spouse Name:
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.SpouseName)
+                            </dd>
+                            <dt class="col-md-2">
+                                Age:
+                            </dt>
+                            <dd class="col-md-2">
+                                @Html.DisplayFor(model => model.SpouseAge)
+                            </dd>
+                            <dt class="col-md-2">
+                                Spouse Education:
+                            </dt>
+                            <dd class="col-md-2">
+                                @Html.DisplayFor(model => model.QualificationName)
+                            </dd>
+                        </dl>
+                        <table class="table table-border-solid">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Sn
+                                    </th>
+                                    <th>
+
+                                        Kid's Name
+                                    </th>
+                                    <th>
+
+                                        Age
+                                    </th>
+                                    <th>
+
+                                        Gender
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{ int SlNo = 0; }
+                                @foreach (var Kid in Model.Kids)
+                                {
+                                    <div>
+                                        <tr>
+
+                                            <td> @(SlNo += 1)</td>
+                                            <td>@Html.DisplayFor(x => Kid.KidName)</td>
+                                            <td>@Html.DisplayFor(x => Kid.Age)</td>
+                                            <td>@Html.DisplayFor(x => Kid.Gender)</td>
+                                        </tr>
+                                    </div>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <div class="tab-pane fade" id="work">
+                <div class="card">
+                    <div class="card-header header-elements-sm-inline">
+                        <h6 class="card-title">Work</h6>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-border-solid">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Sn
+                                    </th>
+                                    <th>
+
+                                        Company Name
+                                    </th>
+                                    <th>
+                                        Location
+                                    </th>
+                                    <th>
+                                        Country
+                                    </th>
+                                    <th>
+
+                                        Job Title
+                                    </th>
+                                    <th>
+                                        Date From
+                                    </th>
+                                    <th>
+                                        Date Upto
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{ int SN = 0; }
+                                @foreach (var Work in Model.WorkDetails)
+                                {
+                                    <div>
+                                        <tr>
+
+                                            <td> @(SN += 1)</td>
+                                            <td>@Html.DisplayFor(x => Work.CompanyName)</td>
+                                            <td>@Html.DisplayFor(x => Work.Location)</td>
+                                            <td>@Html.DisplayFor(x => Work.Country.CountryName)</td>
+                                            <td>@Html.DisplayFor(x => Work.JobTitle)</td>
+                                            <td>@Work.DateForm.ToString("MMM/dd/yyyy")</td>
+                                            <td>@Work.DateUpto?.ToString("MMM/dd/yyyy")</td>
+                                        </tr>
+                                    </div>
+
+
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="projects">
+                    <div class="card">
+                        <div class="card-header header-elements-sm-inline">
+                            <h6 class="card-title">Projects</h6>
+                        </div>
+                        <div class="card-body">
+                        </div>
+                   </div>
+            </div>
+            <!-- /right content -->
+        </div>
+        <!-- /inner container -->
     </div>
 </div>
-<td>
-</td>
-
-<div class="card-footer d-flex justify-content-between align-items-center bg-teal-400 border-top-0">
-    <a asp-action="index" class="btn bg-transparent text-white border-white border-2">Cancel</a>
-    @if (Model.IsVarified)
-    {
-        <a asp-action="Approve"  asp-route-id="@Model.Id" asp-route-isActive="false" class="btn btn-outline bg-white text-white border-white border-2 deactivate">Disapprove </a>
-    }
-    else
-    {
-        <a asp-action="Approve"  asp-route-id="@Model.Id" asp-route-isActive="true" class="btn btn-outline bg-white text-white border-white border-2">Approve </a>
-    }
- </div>
-@section Scripts
-{
-    <script>
-        $(function() {
-            $(".maintab").toggle();
-        })
-    </script>
-}

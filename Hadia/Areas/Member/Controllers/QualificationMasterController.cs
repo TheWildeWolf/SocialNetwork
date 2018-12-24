@@ -29,7 +29,9 @@ namespace Hadia.Areas.Member.Controllers
         public async Task<IActionResult> Index()
         {
             var listOfQualifications =await _db.Mem_EducationalQualifications
-                .Select(x=> _mapper.Map<EducationalQualificationMasterViewModel>(x) ).ToListAsync();
+                .Select(x=> _mapper.Map<EducationalQualificationMasterViewModel>(x))
+                .OrderBy(x=>x.DegreeName)
+                .ToListAsync();
             return View(listOfQualifications);
         }
         [HttpGet]
