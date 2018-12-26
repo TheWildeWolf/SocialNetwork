@@ -53,7 +53,7 @@ namespace Hadia.Areas.Login.Api
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Login(LoginDto logindata)
+        public async Task<ActionResult<LoginSuccessDto>> Login(LoginDto logindata)
         {
            var user = await _authServive.Login(username: logindata.Username, password: logindata.Password);
             if (user == null)
@@ -75,7 +75,7 @@ namespace Hadia.Areas.Login.Api
             {
                 MemberId = user.Id,
                 CDate = DateTime.Now,
-                DeviceKey = logindata.DeviceKey,
+                DeviceKey = logindata.DeviceKey
 
             });
             try

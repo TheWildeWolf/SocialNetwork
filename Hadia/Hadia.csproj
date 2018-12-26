@@ -102,6 +102,7 @@
     <Folder Include="Areas\Member\Views\Shared\" />
     <Folder Include="Areas\Post\Apis\" />
     <Folder Include="wwwroot\ChapterImages\" />
+    <Content Remove="wwwroot\ChapterImages\**" />
   </ItemGroup>
 
   <ItemGroup>
