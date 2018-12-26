@@ -1,4 +1,5 @@
-﻿@model List<Hadia.Models.ViewModels.StateMasterViewModel>
+﻿@using Hadia.Helper
+@model PaginatedList<Hadia.Models.ViewModels.StateMasterViewModel>
 @{
     ViewData["Title"] = "All States";
     ViewData["Description"] = "Index";
@@ -43,10 +44,21 @@
                     </tr>
 
                 }
-
-
-
             </tbody>
         </table>
     </div>
+    @{
+        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    }
+    <ul class="pagination pagination-separated align-self-center">
+        <li class="page-item @prevDisabled"><a asp-action="Index" asp-route-page="@(Model.PageIndex - 1)" class="page-link">&larr; &nbsp; Prev</a></li>
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            var active = i == Model.PageIndex ? "active" : "";
+            <li class="page-item @active"><a asp-action="Index" asp-route-page="@i" class="page-link">@i</a></li>
+
+        }
+        <li class="page-item @nextDisabled"><a asp-action="Index" asp-route-page="@(Model.PageIndex + 1)" class="page-link">Next &nbsp; &rarr;</a></li>
+    </ul>
 </div>

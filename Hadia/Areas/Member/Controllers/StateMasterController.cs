@@ -22,13 +22,20 @@ namespace Hadia.Areas.Member.Controllers
             _db = context;
             _mapper = mapper;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? Page)
         {
-            var ListOfStates = await _db.Mem_StateMasters
+            var ListOfStates = await _db.Mem_StateMasters.AsNoTracking()
                 .Select(x=> _mapper.Map<StateMasterViewModel>(x))
                 .OrderBy(x=>x.StateName)
                .ToListAsync();
-            return View(ListOfStates);
+            int i = 1;
+            foreach(var item in ListOfStates)
+            {
+                item.Sn = i;
+                i++;
+            }
+            var paginatedList = PaginatedList<StateMasterViewModel>.Create(ListOfStates, Page ?? 1, 100);
+            return View(paginatedList);
         }
         [HttpGet]
         public IActionResult Create()
