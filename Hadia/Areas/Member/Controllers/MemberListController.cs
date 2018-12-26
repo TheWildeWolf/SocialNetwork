@@ -66,7 +66,6 @@ namespace Hadia.Areas.Member.Controllers
                 item.Sn=i;
                 i++;
             }
-           
             memberMaster.Approval = memberMaster.Approval ?? "All";
             memberMaster.Members = PaginatedList<MemberViewModel>.Create(listOfMember, page ?? 1, 100);
             return View(memberMaster);

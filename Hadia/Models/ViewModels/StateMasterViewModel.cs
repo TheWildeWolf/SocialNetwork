@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hadia.Helper;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,10 +9,11 @@ namespace Hadia.Models.ViewModels
 {
     public class StateMasterViewModel
     {
-
+        public int Sn { get; set; }
         public int Id { get; set; }
         [Display(Name = "State ")]
         [Required]
         public string StateName { get; set; }
+    
     }
 }
