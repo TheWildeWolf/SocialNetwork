@@ -27,7 +27,9 @@ namespace Hadia.Areas.Member.Controllers
         {
             var ListOfCountry = await _db.Mem_UniversityMasters
                 .Include(x => x.Country)
-                .Select(x => _mapper.Map<UniversityMasterViewModel>(x)).ToListAsync();
+                .Select(x => _mapper.Map<UniversityMasterViewModel>(x))
+                .OrderBy(x=>x.CountryName)
+                .ToListAsync();
             return View(ListOfCountry);
         }
         [HttpGet]

@@ -25,7 +25,7 @@ namespace Hadia.Areas.Member.Controllers
         public async Task<IActionResult> Index()
         {
             var listOfCountry = await _db.Mem_CountryCodes
-               .Select(x => _mapper.Map<CountryViewModel>(x)).ToListAsync();
+               .Select(x => _mapper.Map<CountryViewModel>(x)).OrderBy(x=>x.CountryName).ToListAsync();
             return View(listOfCountry);
         }
         [HttpGet]

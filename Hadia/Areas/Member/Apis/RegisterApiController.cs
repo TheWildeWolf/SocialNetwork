@@ -81,9 +81,8 @@ namespace Hadia.Areas.Member.Controllers
         {
 
                 if(await _authServive.UserExists(registration.Email))
-                    return StatusCode(500,new {
-                        Error ="Same Email Id Exist"
-                    });
+                    throw new Exception("Email Id exist.",new Exception("Email Id is unique."));
+                    
                 byte[] passwordHash, passwordSalt;
                 var model = _mapper.Map<Mem_Master>(registration);
 

@@ -17,6 +17,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Hadia.Areas.Login.Api
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
@@ -31,7 +32,7 @@ namespace Hadia.Areas.Login.Api
             _config = config;
             _authServive =new AuthService(context);
         }
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+
         [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Get()

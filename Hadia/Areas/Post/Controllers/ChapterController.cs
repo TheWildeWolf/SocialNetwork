@@ -28,11 +28,12 @@ namespace Hadia.Areas.Post.Controllers
             _mapper = mapper;
             _hostingEnvironment = hostingEnvironment;
         }
+
         public async Task<IActionResult> Index()
         {
-            var ListOfChapter = await _db.Post_GroupMasters.Where(x=>x.Type==GroupType.Chapter)
-                 .Select(x => _mapper.Map<ChapterViewModel>(x)).ToListAsync();
-            return View(ListOfChapter);
+            var listOfChapter = await _db.Post_GroupMasters.Where(x=>x.Type==GroupType.Chapter)
+                 .Select(x => _mapper.Map<ChapterViewModel>(x)).OrderBy(x=>x.GroupName).ToListAsync();
+            return View(listOfChapter);
         }
 
         [HttpGet]
@@ -96,13 +97,13 @@ namespace Hadia.Areas.Post.Controllers
             if (id == null)
                 return NotFound();
 
-            var EditData = await _db.Post_GroupMasters
+            var editData = await _db.Post_GroupMasters
                .Select(x => _mapper.Map<ChapterViewModel>(x))
                .FirstOrDefaultAsync(x => x.Id == id);
-            if (EditData == null)
+            if (editData == null)
                 return NotFound();
-            EditData.ImageLocation = GetImage(EditData.ChapterImage);
-            return View(EditData);
+            editData.ImageLocation = GetImage(editData.ChapterImage);
+            return View(editData);
         }
         [HttpPost]
         public async Task<IActionResult> Edit(int id, ChapterViewModel chapterView)
@@ -137,8 +138,8 @@ namespace Hadia.Areas.Post.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var DelData = await _db.Post_GroupMasters.FindAsync(id);
-            _db.Post_GroupMasters.Remove(DelData);
+            var delData = await _db.Post_GroupMasters.FindAsync(id);
+            _db.Post_GroupMasters.Remove(delData);
             _db.SaveChanges();
             return RedirectToAction("Index");
 
@@ -150,12 +151,11 @@ namespace Hadia.Areas.Post.Controllers
             {
                 return NotFound();
             }
-            var ListChapter = await _db.Post_GroupMasters
+            var listChapter = await _db.Post_GroupMasters
                .Select(x => _mapper.Map<ChapterViewModel>(x))
                .FirstOrDefaultAsync(x => x.Id == id);
-            ListChapter.ImageLocation = GetImage(ListChapter.ChapterImage);
-            //Path.Combine(_hostingEnvironment.WebRootPath, "ChapterImages\\"+ListChapter.GroupImage+".jpg");
-            return View(ListChapter);
+            listChapter.ImageLocation = GetImage(listChapter.ChapterImage);
+            return View(listChapter);
         }
 
         private string GetImage(string image) => $"/ChapterImages/{image}.jpg";

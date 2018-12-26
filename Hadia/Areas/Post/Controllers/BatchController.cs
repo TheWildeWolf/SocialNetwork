@@ -25,9 +25,9 @@ namespace Hadia.Areas.Post.Controllers
         }
         public async Task<IActionResult>Index()
         {
-           var ListOfBatch=await _db.Post_GroupMasters.Where(x => x.Type == GroupType.Batch)
-                .Select(x=>_mapper.Map<BatchViewModel>(x)).ToListAsync();
-            return View(ListOfBatch);
+           var listOfBatch=await _db.Post_GroupMasters.Where(x => x.Type == GroupType.Batch)
+                .Select(x=>_mapper.Map<BatchViewModel>(x)).OrderBy(x=>x.GroupName).ToListAsync();
+            return View(listOfBatch);
         }
 
         [HttpGet]
@@ -98,6 +98,7 @@ namespace Hadia.Areas.Post.Controllers
 
                 var dataInDb = _db.Post_GroupMasters.Find(id);
                 var editMaster = _mapper.Map(batchView, dataInDb);
+                _db.Update(editMaster);
                 await _db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

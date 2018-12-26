@@ -27,7 +27,7 @@ namespace Hadia.Areas.Member.Controllers
         {
             var ListOfDistrict = await _db.Mem_DistrictMasters
                 .Include(x=>x.State)
-                .Select(x => _mapper.Map<DistrictMasterViewModel>(x)).ToListAsync();
+                .Select(x => _mapper.Map<DistrictMasterViewModel>(x)).OrderBy(x=>x.DistrictName).ToListAsync();
             return View(ListOfDistrict);
         }
         [HttpGet]

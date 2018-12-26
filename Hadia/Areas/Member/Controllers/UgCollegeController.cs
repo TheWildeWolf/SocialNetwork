@@ -25,7 +25,9 @@ namespace Hadia.Areas.Member.Controllers
         public async Task<IActionResult> Index()
         {
             var listOfUgColleges = await _db.Mem_UgColleges
-                .Select(x => _mapper.Map<UgCollegesViewModel>(x)).ToListAsync();
+                .Select(x => _mapper.Map<UgCollegesViewModel>(x))
+                .OrderBy(x=>x.UgCollegeName)
+                .ToListAsync();
             return View(listOfUgColleges);
         }
         [HttpGet]
