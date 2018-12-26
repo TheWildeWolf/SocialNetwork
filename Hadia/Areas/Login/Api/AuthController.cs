@@ -1,27 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Hadia.Controllers;
 using Hadia.Data;
 using Hadia.Models.DomainModels;
 using Hadia.Models.Dtos;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Hadia.Areas.Login.Api
 {
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    [Produces("application/json")]
-    [Route("api/[controller]")]
-    [ApiController]
-    public class LoginController : ControllerBase
+
+    public class LoginController : BaseApiController
     {
         private HadiaContext _db;
         private IConfiguration _config;
@@ -100,7 +95,7 @@ namespace Hadia.Areas.Login.Api
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.Name),
+                new Claim(ClaimTypes.Name, user.Name)
             };
 
             // var roles = await _userManager.GetRolesAsync(user);

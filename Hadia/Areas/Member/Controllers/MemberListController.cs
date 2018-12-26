@@ -15,7 +15,7 @@ namespace Hadia.Areas.Member.Controllers
 {
     public class MemberListController : BaseMemberController
     {
-        private HadiaContext _db;
+        private readonly HadiaContext _db;
         private IMapper _mapper;
         public MemberListController(HadiaContext context, IMapper mapper)
         {
@@ -24,6 +24,7 @@ namespace Hadia.Areas.Member.Controllers
         }
         public async Task<IActionResult> Index(MembersMasterViewModel memberMaster,int? page)
         {
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(memberMaster.SortOrder) ? "name_desc" : "";
             var listOfMember = await _db.Mem_Masters.AsNoTracking()
                  .Include(x => x.UgCollege)
                  .Include(x => x.MembershipInGroups)
@@ -35,7 +36,7 @@ namespace Hadia.Areas.Member.Controllers
             {
                 listOfMember = listOfMember.Where(s => s.GroupId == memberMaster.BatchId).ToList();
             }
-            memberMaster.ChapterList = new SelectList(_db.Post_GroupMasters.Where(s => s.Type == GroupType.Chapter), "Id", "GroupName");
+            memberMaster.ChapterList = new SelectList(_db.Post_GroupMasters.Where(s => s.Type == GroupType.Chapter).OrderBy(x=>x.GroupName), "Id", "GroupName");
             if(memberMaster.ChapterId != null)
             {
                 listOfMember = listOfMember.Where(s => s.ChapterId== memberMaster.ChapterId).ToList();
@@ -67,7 +68,7 @@ namespace Hadia.Areas.Member.Controllers
             }
            
             memberMaster.Approval = memberMaster.Approval ?? "All";
-            memberMaster.Members = PaginatedList<MemberViewModel>.Create(listOfMember, page ?? 1, 20);
+            memberMaster.Members = PaginatedList<MemberViewModel>.Create(listOfMember, page ?? 1, 100);
             return View(memberMaster);
         }
         [HttpGet]
@@ -99,10 +100,10 @@ namespace Hadia.Areas.Member.Controllers
         [HttpGet]
         public async Task<ActionResult> Approve(int? id,bool isActive)
         {
-            var EditData = await _db.Mem_Masters.FirstOrDefaultAsync(x => x.Id == id);
-            EditData.IsVarified = isActive;
+            var editData = await _db.Mem_Masters.FirstOrDefaultAsync(x => x.Id == id);
+            editData.IsVarified = isActive;
             await _db.SaveChangesAsync();
-            TempData["message"] = Notifications.NormalNotify(isActive ? "Approved " + EditData.Name +" Successfully.": "Approval of " +EditData.Name+" Cancelled.");
+            TempData["message"] = Notifications.NormalNotify(isActive ? "Approved " + editData.Name +" Successfully.": "Approval of " +editData.Name+" Cancelled.");
             return RedirectToAction("Index");
         }
       

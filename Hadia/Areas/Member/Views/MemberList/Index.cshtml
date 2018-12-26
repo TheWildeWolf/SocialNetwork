@@ -1,4 +1,5 @@
 ﻿
+@using Hadia.Helper
 @model Hadia.Models.ViewModels.MembersMasterViewModel
 @{
     ViewData["Title"] = "Members";
@@ -28,28 +29,25 @@
                 <div class="form-group col-md-3">
                     <label>Status</label>
                     <div>
-
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
-                                <input type="radio" asp-for="Approval" value="Approved" class="form-check-input-styled"  data-fouc>
+                                <input type="radio" asp-for="Approval" value="Approved" class="form-check-input-styled" data-fouc>
                                 Approved
                             </label>
                         </div>
-
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
-                                <input type="radio" asp-for="Approval" value="Not Approved" class="form-check-input-styled"  data-fouc>
+                                <input type="radio" asp-for="Approval" value="Not Approved" class="form-check-input-styled" data-fouc>
                                 Not Approved
                             </label>
                         </div>
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
-                                <input type="radio" asp-for="Approval" value="All" class="form-check-input-styled"  data-fouc>
+                                <input type="radio" asp-for="Approval" value="All" class="form-check-input-styled" data-fouc>
                                 All
                             </label>
                         </div>
                     </div>
-
                 </div>
                 <div class="form-group col-md-3">
                     <div>&nbsp;</div>
@@ -61,86 +59,84 @@
 
 </div>
 
-    <div class="card">
-        <div class="card-body">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>
-                        Sn
-                    </th>
-                    <th>
-                        Name
-                    </th>
-                    <th>
-                        Batch
-                    </th>
-                    <th>
-                        Phone
-                    </th>
-                    <th>
-                        Ug College
-                    </th>
+<div class="card">
+    <div class="card-body">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>
+                    Sn
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">Name</a>
+                </th>
+                <th>
+                    Batch
+                </th>
+                <th>
+                    Phone
+                </th>
+                <th>
+                    Ug College
+                </th>
 
-                    <th>
-                        Chapter
-                    </th>
+                <th>
+                    Chapter
+                </th>
 
-                    <th>
-                        Approvel
-                    </th>
-                    <th>
-                        Option
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach (var master in Model.Members)
-                {
-                    <tr>
-                        <td>@master.Sn</td>
-                        <td>@Html.DisplayFor(x => master.Name)</td>
-                        <td>@Html.DisplayFor(x => master.BatchName)</td>
-                        <td>@Html.DisplayFor(x => master.Phone)</td>
-                        <td>@Html.DisplayFor(x => master.UgCollegeName)</td>
-                        <td>@Html.DisplayFor(x => master.ChapterName)</td>
-
-                        <td>
-                            @if (master.IsVarified)
-                            {
-                                @Html.Raw(varified)
-                            }
-                            else
-                            {
-                                @Html.Raw(notvarified)
-
-                            }
-                        </td>
-                        <td>
-                            <a asp-action="Details" asp-route-id="@master.Id" class="btn btn-outline bg-success border-primary text-primary-800 btn-icon"><i class="icon-file-eye"></i></a>
-                        </td>
-                    </tr>
-                }
-
-                </tbody>
-            </table>
-
-        </div>
-
-        @{
-            var prevDisabled = !Model.Members.HasPreviousPage ? "disabled" : "";
-            var nextDisabled = !Model.Members.HasNextPage ? "disabled" : "";
-        }
-
-        <ul class="pagination pagination-separated align-self-center">
-            <li class="page-item @prevDisabled"><a asp-action="Index" asp-route-page="@(Model.Members.PageIndex - 1)" class="page-link">&larr; &nbsp; Prev</a></li>
-            @for (int i = 1; i <= Model.Members.TotalPages; i++)
+                <th>
+                    Approvel
+                </th>
+                <th>
+                    Option
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var master in Model.Members)
             {
-                var active = i == Model.Members.PageIndex ? "active" : "";
-                <li class="page-item @active"><a asp-action="Index" asp-route-page="@i" asp-route-BatchId="@Model.BatchId" asp-route-ChapterId="@Model.ChapterId" asp-route-Approval="@Model.Approval"  class="page-link">@i</a></li>
+                <tr>
+                    <td>@master.Sn</td>
+                    <td>@Html.DisplayFor(x => master.Name)</td>
+                    <td>@Html.DisplayFor(x => master.BatchName)</td>
+                    <td>@Html.DisplayFor(x => master.Phone)</td>
+                    <td>@Html.DisplayFor(x => master.UgCollegeName)</td>
+                    <td>@Html.DisplayFor(x => master.ChapterName)</td>
 
+                    <td>
+                        @if (master.IsVarified)
+                        {
+                            @Html.Raw(varified)
+                        }
+                        else
+                        {
+                            @Html.Raw(notvarified)
+
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@master.Id" class="btn btn-outline bg-success border-primary text-primary-800 btn-icon"><i class="icon-file-eye"></i></a>
+                    </td>
+                </tr>
             }
-            <li class="page-item @nextDisabled"><a asp-action="Index" asp-route-page="@(Model.Members.PageIndex + 1)" class="page-link">Next &nbsp; &rarr;</a></li>
-        </ul>
+
+            </tbody>
+        </table>
+
     </div>
 
+    @{
+        var prevDisabled = !Model.Members.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.Members.HasNextPage ? "disabled" : "";
+    }
+    
+    <ul class="pagination pagination-separated align-self-center">
+        <li class="page-item @prevDisabled"><a asp-action="Index" asp-route-page="@(Model.Members.PageIndex - 1)" class="page-link">&larr; &nbsp; Prev</a></li>
+        @for (int i = 1; i <= Model.Members.TotalPages; i++)
+        {
+            var active = i == Model.Members.PageIndex ? "active" : "";
+            <li class="page-item @active"><a asp-action="Index" asp-route-page="@i" asp-route-BatchId="@Model.BatchId" asp-route-ChapterId="@Model.ChapterId" asp-route-Approval="@Model.Approval"  class="page-link">@i</a></li>
+        }
+        <li class="page-item @nextDisabled"><a asp-action="Index" asp-route-page="@(Model.Members.PageIndex + 1)" class="page-link">Next &nbsp; &rarr;</a></li>
+    </ul>
+</div>
