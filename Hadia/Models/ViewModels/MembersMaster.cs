@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Hadia.Helper;
 
 namespace Hadia.Models.ViewModels
 {
@@ -16,7 +17,7 @@ namespace Hadia.Models.ViewModels
         public SelectList ChapterList { get; set; }
         public SelectList BatchList { get; set; }
 
-        public List<MemberViewModel> Members { get; set; }
+        public PaginatedList<MemberViewModel> Members { get; set; }
 
        
     }
