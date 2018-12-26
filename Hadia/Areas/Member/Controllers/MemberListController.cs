@@ -22,7 +22,7 @@ namespace Hadia.Areas.Member.Controllers
             _db = context;
             _mapper = mapper;
         }
-        public async Task<IActionResult> Index(MembersMasterViewModel memberMaster)
+        public async Task<IActionResult> Index(MembersMasterViewModel memberMaster,int? page)
         {
             var listOfMember = await _db.Mem_Masters.AsNoTracking()
                  .Include(x => x.UgCollege)
@@ -59,8 +59,15 @@ namespace Hadia.Areas.Member.Controllers
                     }
             }
 
+            int i = 1;
+            foreach (var item in listOfMember)
+            {
+                item.Sn=i;
+                i++;
+            }
+           
             memberMaster.Approval = memberMaster.Approval ?? "All";
-            memberMaster.Members = listOfMember;
+            memberMaster.Members = PaginatedList<MemberViewModel>.Create(listOfMember, page ?? 1, 20);
             return View(memberMaster);
         }
         [HttpGet]
