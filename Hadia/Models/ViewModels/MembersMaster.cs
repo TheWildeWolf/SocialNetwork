@@ -17,9 +17,8 @@ namespace Hadia.Models.ViewModels
 
         public SelectList ChapterList { get; set; }
         public SelectList BatchList { get; set; }
+        public string SortOrder { get; set; }
 
         public PaginatedList<MemberViewModel> Members { get; set; }
-
-       
     }
 }

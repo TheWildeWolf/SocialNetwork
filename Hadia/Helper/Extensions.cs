@@ -1,12 +1,16 @@
-﻿ using System.Collections.Generic;
+﻿ using System;
+ using System.Collections.Generic;
  using System.Linq;
  using System.Text.RegularExpressions;
  using System.Threading.Tasks;
  using Hadia.Data;
  using Hadia.Models.DomainModels;
  using Microsoft.AspNetCore.Diagnostics;
+ using Microsoft.AspNetCore.Html;
  using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
+ using Microsoft.AspNetCore.Mvc.Rendering;
+ using Microsoft.AspNetCore.Mvc.ViewFeatures;
+ using Newtonsoft.Json;
 
 namespace Hadia.Helper
 {
@@ -48,6 +52,25 @@ namespace Hadia.Helper
                await context.Response.WriteAsync(errorpage);
             }
 
+        }
+
+        public static HtmlString Pagination<T>(this IHtmlHelper helper,PaginatedList<T> paginatedList)
+        {
+            var prevDisabled = paginatedList.HasPreviousPage ? "disabled" : "";
+            var nextDisabled = paginatedList.HasNextPage ? "disabled" : "";
+            var active = string.Empty;
+            var pageNumbers = "";
+            var prevButton =
+                $"<ul class=\"pagination pagination-separated align-self-center\"><li class=\"page-item {prevDisabled}\">" +
+                $"<a asp-action=\"Index\" asp-route-page=\"{paginatedList.PageIndex - 1}\" class=\"page-link\">&larr;&nbsp;Prev</a>";
+            for(int i = 1; i <= paginatedList.TotalPages; i++)
+            {
+                    active = i == paginatedList.PageIndex ? "active" : "";
+                    pageNumbers += $"<li class=\"page-item {active}\"><a asp-action=\"Index\" asp-route-page=\"{i}\"" +
+                                   $" asp-route-BatchId=\"\" asp-route-ChapterId=\"\" asp-route-Approval=\"\"" +
+                                   $"class=\"page-link\">{i}</a></li>";
+            }
+            return new HtmlString("");
         }
     }
 }
