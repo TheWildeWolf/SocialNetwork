@@ -1,0 +1,89 @@
+﻿@model Hadia.Models.ViewModels.MemberDetailsViewModel
+
+@{
+
+    ViewData["Title"] = "Profile";
+    ViewData["Description"] = "Edit";
+}
+<div class="card">
+    <form asp-action="EditProfile" asp-controller="MemberList" method="post">
+        <div class="card-header header-elements-inline">
+            <h5 class="card-title"></h5>
+            <div class="header-elements">
+            </div>
+        </div>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" />
+        <div class="form-group">
+            <label asp-for="Name" class="control-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="BatchName" class="control-label"></label>
+            <select asp-for="BatchName" class="form-control" asp-items="ViewBag.grouname"></select>
+            <span asp-validation-for="BatchName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PresentAddress" class="control-label"></label>
+            <input asp-for="PresentAddress" class="form-control" />
+            <span asp-validation-for="PresentAddress" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PermanentAddress" class="control-label"></label>
+            <input asp-for="PermanentAddress" class="form-control" />
+            <span asp-validation-for="PermanentAddress" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="DateOfBirth" class="control-label"></label>
+            <input asp-for="DateOfBirth" class="form-control" />
+            <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="UgCollageId" class="control-label"></label>
+            <select asp-for="UgCollageId" class="form-control" asp-items="ViewBag.UgCollageId"></select>
+            <span asp-validation-for="UgCollageId" class="text-danger"></span>
+        </div>
+
+        @*<div class="form-group">
+            <label asp-for="SpouseName" class="control-label"></label>
+            <input asp-for="SpouseName" class="form-control" />
+            <span asp-validation-for="SpouseName" class="text-danger"></span>
+        </div>*@
+        @*<div class="form-group">
+            <label asp-for="SpouseAge" class="control-label"></label>
+            <input asp-for="SpouseAge" class="form-control" />
+            <span asp-validation-for="SpouseAge" class="text-danger"></span>
+        </div>*@
+        <div class="form-group">
+            <label asp-for="Phone" class="control-label"></label>
+            <input asp-for="Phone" class="form-control" />
+            <span asp-validation-for="Phone" class="text-danger"></span>
+        </div>
+
+        @*<div class="form-group">
+            <label asp-for="SpouseEducationId" class="control-label"></label>
+            <select asp-for="SpouseEducationId" class="form-control" asp-items="ViewBag.SpouseEducationId"></select>
+            <span asp-validation-for="SpouseEducationId" class="text-danger"></span>
+        </div>*@
+
+
+        <div class="form-group">
+            <label asp-for="Email" class="control-label"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+
+
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </form>
+        </div>
+   
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+

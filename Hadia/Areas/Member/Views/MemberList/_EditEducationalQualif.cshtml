@@ -1,0 +1,56 @@
+﻿@model Hadia.Models.DomainModels.Mem_EducationDetail
+<h4></h4>
+<div class="card-body">
+    <div>
+
+    </div>
+    <table class="table table-framed">
+        <thead>
+            <tr>
+                <th>
+                    Sn
+                </th>
+                <th>
+
+                    Degree
+                </th>
+                <th>
+                    Rank
+                </th>
+                <th>
+                    University
+                </th>
+                <th>
+
+                    Pass Out Year
+                </th>
+                <th>
+                    Specialization
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @{ int SNo = 0; }
+            @foreach (var edu in Model.EducationDetails)
+            {
+                <div>
+                    <tr>
+                        <td> @(SNo += 1)</td>
+                        <td>@Html.DisplayFor(x => edu.Qualification.DegreeName)</td>
+                        <td>@Html.DisplayFor(x => edu.Qualification.Rank)</td>
+                        <td>@Html.DisplayFor(x => edu.University.UniversityName)</td>
+                        <td>@Html.DisplayFor(x => edu.PassoutYear.Year)</td>
+                        <td>@Html.DisplayFor(x => edu.Specialization)</td>
+                        <td>
+                            <a asp-action="DeleteEducationalQualif" asp-route-id="@edu.Id" class="btn btn-outline bg-danger border-primary text-primary-800 btn-icon confirm">
+                            <i class="icon-trash-alt"></i></a>
+                        </td>
+                    </tr>
+
+                </div>
+            }
+        </tbody>
+    </table>
+</div>
+

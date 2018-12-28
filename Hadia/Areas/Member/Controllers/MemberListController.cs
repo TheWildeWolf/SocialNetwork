@@ -40,6 +40,8 @@ namespace Hadia.Areas.Member.Controllers
             {
                 listOfMember = listOfMember.Where(s => s.ChapterId== memberMaster.ChapterId).ToList();
             }
+            if (!string.IsNullOrEmpty(memberMaster.Name))
+                listOfMember = listOfMember.Where(n => (n.Name).Replace(" ", "").ToUpper().Contains(memberMaster.Name.Replace(" ", "").ToUpper())).ToList();
             switch (memberMaster.Approval)
             {
                 case "Approved":
@@ -94,6 +96,89 @@ namespace Hadia.Areas.Member.Controllers
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             return View(memberDetails);
+        }
+        public async Task<IActionResult> Delete(int id)
+        {
+            var DelData = await _db.Mem_Masters.FindAsync(id);
+            _db.Mem_Masters.Remove(DelData);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+
+        }
+        [HttpGet]
+        public async Task<IActionResult> EditProfile(int? id)
+        {
+            var data = await _db.Mem_Masters
+                  .Include(x => x.MembershipInGroups)
+                     .ThenInclude(n => n.GroupMaster)
+                  .Include(X => X.UgCollege)
+                     .FirstOrDefaultAsync(x => x.Id == id);
+            
+            var profile = _mapper.Map<ProfileEditViewModel>(data);
+            profile.BatchList = 
+                new SelectList(_db.Post_GroupMasters
+                .Where(x=>x.Type ==GroupType.Batch).ToList(), "Id", "GroupName", profile.GroupId);
+
+            profile.ChapterList =
+                new SelectList(_db.Post_GroupMasters
+                .ToList(), "Id", "GroupName", profile.ChapterId);
+            profile.UgCollegeList =
+                new SelectList(_db.Mem_UgColleges.ToList(),"Id", "UgCollegeName", profile.UgCollageId);
+            return PartialView("_ProfileEdit", profile);
+        }
+        [HttpPost]
+        //public async Task<IActionResult> EditProfile(int id,  districtMaster)
+        //{
+        //    if (id != districtMaster.Id)
+        //    {
+        //        return NotFound();
+        //    }
+        //    if (_db.Mem_DistrictMasters.Any(x => x.DistrictName == districtMaster.DistrictName && x.Id != districtMaster.Id))
+        //    {
+        //        ModelState.AddModelError("DistrictName", "District Name Already Exist");
+
+        //    }
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            //View model to DomainModel
+        //            var dataInDb = _db.Mem_DistrictMasters.Find(id);
+        //            var editMaster = _mapper.Map(districtMaster, dataInDb);
+        //            await _db.SaveChangesAsync();
+        //            return RedirectToAction(nameof(Index));
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
+        //            throw;
+        //        }
+
+        //    }
+        //    return View(districtMaster);
+        //}
+        public async Task<IActionResult> EditEducationalQualif(int? id)
+        {
+            return View();
+        }
+        public async Task<IActionResult> DeleteEducationalQualif(int? id)
+        {
+            return View();
+        }
+        public async Task<IActionResult> EditFamily(int? id)
+        {
+            return View();
+        }
+        public async Task<IActionResult> DeleteFamily(int? id)
+        {
+            return View();
+        }
+        public async Task<IActionResult> EditWorkDetails(int? id)
+        {
+            return View();
+        }
+        public async Task<IActionResult> DeleteWorkDetails(int? id)
+        {
+            return View();
         }
         [HttpGet]
         public async Task<ActionResult> Approve(int? id,bool isActive)
