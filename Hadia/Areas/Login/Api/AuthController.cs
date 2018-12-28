@@ -55,9 +55,13 @@ namespace Hadia.Areas.Login.Api
         [HttpPost]
         public async Task<ActionResult<LoginSuccessDto>> Login(LoginDto logindata)
         {
-           var user = await _authServive.Login(username: logindata.Username, password: logindata.Password);
+            var user = await _authServive.Login(username: logindata.Username, password: logindata.Password);
+
             if (user == null)
-                return Unauthorized(new {error = "Username or Password is incorrect"});
+                return Unauthorized(new {error = "Username or Password is incorrect" });
+
+            if (!user.IsVarified)
+                return Unauthorized(new { error = "Your Account Not Approved." });
 
             var loginSuccess = new LoginSuccessDto
             {
