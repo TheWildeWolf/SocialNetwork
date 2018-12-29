@@ -81,8 +81,16 @@ namespace Hadia.Helper
 
 
             CreateMap<Mem_Kid, KidViewModel>()
-                .ForMember(x => x.Age, o => o.MapFrom(s => DateTime.Now.Year - s.Age.Year));
+            .ForMember(x => x.Age, o => o.MapFrom(s => s.Age != null ? DateTime.Now.Year - s.Age.Year : 0));
 
+            CreateMap<Mem_Master, ProfileEditViewModel>()
+            .ForMember(dest => dest.BatchName, o => o.MapFrom(s => s.MainGroup.GroupName))
+            .ForMember(dest => dest.ChapterId, o => o.MapFrom(s => s.MembershipInGroups
+            .Where(x => x.GroupMaster.Type == GroupType.Chapter).OrderByDescending(x => x.GroupMaster.FormedOn)
+            .FirstOrDefault().GroupMaster.Id));
+
+
+            CreateMap<ProfileEditViewModel, Mem_Master>();
         }
     }
 }

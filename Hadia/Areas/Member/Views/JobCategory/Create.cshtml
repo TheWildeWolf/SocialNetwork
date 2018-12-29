@@ -3,7 +3,6 @@
     ViewData["Title"] = "Job Category";
     ViewData["Description"] = "Create";
 }
-
 <form asp-action="Create" asp-controller="JobCategory" method="post">
     <div class="card">
         <div class="card-header header-elements-inline">
@@ -33,6 +32,6 @@
 </form>
 @section Scripts
     {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }

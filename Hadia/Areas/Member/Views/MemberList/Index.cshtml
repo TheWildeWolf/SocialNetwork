@@ -15,6 +15,8 @@
         <form asp-action="Index" asp-controller="MemberList">
             <div class="row">
                 <div class="form-group col-md-3">
+                    <label>Name</label>
+                    <input asp-for="Name" class=" form-control" />
                     <label>Batch</label>
                     <select asp-for="BatchId" class="form-control select" asp-items="@{Model.BatchList}">
                         <option>--Select Batch--</option>
@@ -112,12 +114,16 @@
                         {
                             @Html.Raw(notvarified)
 
-                        }
+                            }
+                        </td>
+                        <td>
+                             <a asp-action="Details" asp-route-id="@master.Id" class="btn btn-outline bg-success border-primary text-primary-800 btn-icon"><i class="icon-file-eye"></i></a>
+                            <a asp-action="Delete" asp-route-id="@master.Id" class="btn btn-outline bg-danger border-primary text-primary-800 btn-icon confirm"><i class="icon-trash-alt"></i></a>
+
+                           <a asp-action="Details" class="btn btn-outline bg-success border-primary text-primary-800 btn-icon"><i class="icon-file-eye"></i></a>
                     </td>
-                    <td>
-                        <a asp-action="Details" asp-route-id="@master.Id" class="btn btn-outline bg-success border-primary text-primary-800 btn-icon"><i class="icon-file-eye"></i></a>
-                    </td>
-                </tr>
+                    </tr>
+            
             }
 
             </tbody>

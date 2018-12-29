@@ -1,0 +1,86 @@
+﻿@model Hadia.Models.ViewModels.EducationQualifictaionEditMasterViewModel
+<form id="educationQualificationform">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">
+                Qualification:
+            </dt>
+            <dd class="col-sm-9">
+                <select asp-for="QualificationId" asp-items="Model.QualificationList" class="form-control">
+                    <option>--Select Qualification--</option>
+                </select>
+            </dd>
+            <dt class="col-sm-3">
+                University:
+            </dt>
+            <dd class="col-sm-9">
+                <select asp-for="UniversityId" asp-items="Model.UniversityList" class="form-control">
+                    <option>--Select University--</option>
+                </select>
+            </dd>
+            <dt class="col-sm-3">
+                Passout Year:
+            </dt>
+            <dd class="col-sm-9">
+                <input asp-for="PassoutYear" class="form-control" />
+            </dd>
+            <dt class="col-sm-3">
+                Specialization:
+            </dt>
+            <dd class="col-sm-9">
+                <input asp-for="Specialization" class="form-control" />
+            </dd>
+        </dl>
+        <a id="btnQuallificationAdd" class="btn btn-success">Add</a>
+        <table class="table table-framed">
+            <thead>
+                <tr>
+                    <th>
+                        Sn
+                    </th>
+                    <th>
+
+                        Degree
+                    </th>
+                    <th>
+                        University
+                    </th>
+                    <th>
+
+                        Pass Out Year
+                    </th>
+                    <th>
+                        Specialization
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @{int SNo = 0; }
+                @foreach (var edu in Model.Qualification)
+                {
+                    <tr>
+                        <td>
+                            @Html.HiddenFor(x => edu.Status)
+                            @(SNo += 1)
+                        </td>
+                        <td>@Html.DisplayFor(x => edu.QualificationName)</td>
+                        <td>@Html.DisplayFor(x => edu.UniversityName)</td>
+                        <td>@Html.DisplayFor(x => edu.PassoutYear.Year)</td>
+                        <td>@Html.DisplayFor(x => edu.Specialization)</td>
+                        <td>
+                            <a class="btn btn-outline bg-danger border-primary text-primary-800 btn-icon deletequalification">
+                                <i class="icon-trash-alt"></i>
+                            </a>
+                        </td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+    <button id="btnEditQualificationSave" type="button" class="btn btn-success">Save</button>
+    <button type="button" class="btn btn-warning">Cancel</button>
+</form>
+
+

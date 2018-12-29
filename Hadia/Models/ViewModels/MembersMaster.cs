@@ -13,6 +13,8 @@ namespace Hadia.Models.ViewModels
         public int? ChapterId { get; set; }
         public int? BatchId { get; set; }
         public string Approval { get; set; }
+        public string Name { get; set; }
+
         public SelectList ChapterList { get; set; }
         public SelectList BatchList { get; set; }
         public string SortOrder { get; set; }

@@ -5,6 +5,7 @@
 
 }
 <div class="content">
+    <input asp-for="Id" hidden />
     <!-- Inner container -->
     <div class="d-md-flex align-items-md-start">
         <!-- Left sidebar component -->
@@ -92,65 +93,11 @@
                 <div class="card">
                     <div class="card-header header-elements-sm-inline">
                         <h6 class="card-title">Profile</h6>
+                       
                     </div>
                    
-                    <div class="card-body">
-                        <dl class="row">
-                            <dt class="col-sm-3">
-                                Member Name:
-                            </dt>
-                            <dd class="col-sm-9">
-                                @Html.DisplayFor(model => model.Name)
-                            </dd>
-                            <dt class="col-sm-3">
-                                Batch Name:
-                            </dt>
-                            <dd class="col-sm-9">
-                                @Html.DisplayFor(model => model.BatchName)
-                            </dd>
-                            <dt class="col-sm-3">
-                                Chapter Name:
-                            </dt>
-                            <dd class="col-sm-9">
-                                @Html.DisplayFor(model => model.ChapterName)
-                            </dd>
-                            <dt class="col-sm-3">
-                                Contact Number:
-                            </dt>
-                            <dd class="col-sm-9">
-                                @Html.DisplayFor(model => model.Phone)
-                            </dd>
-                            <dt class="col-sm-3">
-                                Present Address:
-                            </dt>
-                            <dd class="col-sm-9">
-                                <p>@Html.DisplayFor(model => model.PresentAddress)</p>
-                            </dd>
-                            <dt class="col-sm-3">
-                                Permanant Address:
-                            </dt>
-                            <dd class="col-sm-9">
-                                <p> @Html.DisplayFor(model => model.PermanentAddress)</p>
-                            </dd>
-                            <dt class="col-sm-3">
-                                UG College:
-                            </dt>
-                            <dd class="col-sm-9">
-                                @Html.DisplayFor(model => model.UgCollegeName)
-                            </dd>
-                            <dt class="col-sm-3">
-                                Date of Birth:
-                            </dt>
-                            <dd class="col-sm-9">
-                                @Model.DateOfBirth?.ToString("MMM/dd/yyyy")
-                            </dd>
-                            <dt class="col-sm-3">
-                                Email:
-                            </dt>
-                            <dd class="col-sm-9">
-                                @Html.DisplayFor(model => model.Email)
-                            </dd>
-                        </dl>
+                    <div class="card-body" id="profileDiv">
+                        @{await Html.RenderPartialAsync("_ProfileView"); }
                     </div>
                 </div>
             </div>
@@ -160,51 +107,10 @@
                     <div class="card-header header-elements-sm-inline">
                         <h6 class="card-title">Education</h6>
                     </div>
-                    <div class="card-body">
-                            <table class="table table-framed">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            Sn
-                                        </th>
-                                        <th>
-
-                                            Degree
-                                        </th>
-                                        <th>
-                                            Rank
-                                        </th>
-                                        <th>
-                                            University
-                                        </th>
-                                        <th>
-
-                                            Pass Out Year
-                                        </th>
-                                        <th>
-                                            Specialization
-                                        </th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @{ int SNo = 0; }
-                                    @foreach (var edu in Model.EducationDetails)
-                                    {
-                                        <div>
-                                            <tr>
-                                                <td> @(SNo += 1)</td>
-                                                <td>@Html.DisplayFor(x => edu.Qualification.DegreeName)</td>
-                                                <td>@Html.DisplayFor(x => edu.Qualification.Rank)</td>
-                                                <td>@Html.DisplayFor(x => edu.University.UniversityName)</td>
-                                                <td>@Html.DisplayFor(x => edu.PassoutYear.Year)</td>
-                                                <td>@Html.DisplayFor(x => edu.Specialization)</td>
-                                            </tr>
-                                        </div>
-                                    }
-                                </tbody>
-                            </table>               
+                    <div class="card-body" id="EducationDiv">
+                        @{await Html.RenderPartialAsync("_EduQualificationView"); }
                     </div>
+                    
 
                 </div>
             </div>
@@ -265,6 +171,11 @@
                                             <td>@Html.DisplayFor(x => Kid.KidName)</td>
                                             <td>@Html.DisplayFor(x => Kid.Age)</td>
                                             <td>@Html.DisplayFor(x => Kid.Gender)</td>
+                                            <td>
+                                                <a asp-action="EditFamily" asp-route-id="@Model.Id" class="btn btn-outline bg-primary border-primary text-primary-800 btn-icon"><i class="icon-compose"></i></a>
+                                                <a asp-action="DeleteFamily" asp-route-id="@Model.Id" class="btn btn-outline bg-danger border-primary text-primary-800 btn-icon confirm"><i class="icon-trash-alt"></i></a>
+
+                                            </td>
                                         </tr>
                                     </div>
                                 }
@@ -312,7 +223,7 @@
                                 @{ int SN = 0; }
                                 @foreach (var Work in Model.WorkDetails)
                                 {
-                                    <div>
+
                                         <tr>
 
                                             <td> @(SN += 1)</td>
@@ -322,10 +233,12 @@
                                             <td>@Html.DisplayFor(x => Work.JobTitle)</td>
                                             <td>@Work.DateForm.ToString("MMM/dd/yyyy")</td>
                                             <td>@Work.DateUpto?.ToString("MMM/dd/yyyy")</td>
+                                            <td>
+                                                <a asp-action="EditWorkDetails" asp-route-id="@Model.Id" class="btn btn-outline bg-primary border-primary text-primary-800 btn-icon"><i class="icon-compose"></i></a>
+                                                <a asp-action="DeleteWorkDetails" asp-route-id="@Model.Id" class="btn btn-outline bg-danger border-primary text-primary-800 btn-icon confirm"><i class="icon-trash-alt"></i></a>
+
+                                            </td>
                                         </tr>
-                                    </div>
-
-
                                 }
                             </tbody>
                         </table>
@@ -346,3 +259,42 @@
         <!-- /inner container -->
     </div>
 </div>
+
+<script>
+    
+    $(document).on('click', '#BtnEditprofile',function () {
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("EditProfile", new {id=Model.Id})',
+            success: function (data) {
+                $("#profileDiv").html(data);
+            }
+        })
+    });
+    $(document).on('click', '#btnProfileSave', function () {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("EditProfile")',
+            data: $("#editProfileform").serialize(),
+            success: function (data) {
+                $("#profileDiv").html(data);
+            }
+        });
+    });
+    $(document).on('click', '#editqualification', function () {
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("EditEducationalQualif", new { id = Model.Id })',
+            success: function (data) {
+                $("#EducationDiv").html(data);
+            }
+        });
+    });
+    $(document).on('click', '.deletequalification', function () {
+        $(this).closest('tr').find('input:hidden').val('D');
+        $(this).closest('tr').hide();
+    });
+    
+    
+   
+</script>
