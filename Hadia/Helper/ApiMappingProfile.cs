@@ -46,7 +46,9 @@ namespace Hadia.Helper
             CreateMap<Mem_Kid,KidsDto>();
             CreateMap<KidsDto,Mem_Kid>()
              .ForMember(dest => dest.Age,opt => opt.MapFrom(src => new DateTime(DateTime.Now.Year - src.Age??1,1,1)));
-               
+
+            CreateMap<Post_Category, PostCategoryDto>();
+
         }
     }
 }
