@@ -93,13 +93,12 @@
                 <div class="card">
                     <div class="card-header header-elements-sm-inline">
                         <h6 class="card-title">Profile</h6>
-                        @*<button>Edit</button>*@
+                       
                     </div>
                    
                     <div class="card-body" id="profileDiv">
                         @{await Html.RenderPartialAsync("_ProfileView"); }
-                         <a id="editprofile" class="btn btn-outline bg-primary border-primary text-primary-800 btn-icon"><i class="icon-compose"></i></a>
-                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -110,7 +109,6 @@
                     </div>
                     <div class="card-body" id="EducationDiv">
                         @{await Html.RenderPartialAsync("_EduQualificationView"); }
-                        <a id="editqualification" class="btn btn-outline bg-primary border-primary text-primary-800 btn-icon"><i class="icon-compose"></i></a>
                     </div>
                     
 
@@ -225,7 +223,7 @@
                                 @{ int SN = 0; }
                                 @foreach (var Work in Model.WorkDetails)
                                 {
-                                    <div>
+
                                         <tr>
 
                                             <td> @(SN += 1)</td>
@@ -241,9 +239,6 @@
 
                                             </td>
                                         </tr>
-                                    </div>
-
-
                                 }
                             </tbody>
                         </table>
@@ -266,15 +261,40 @@
 </div>
 
 <script>
-    $("#editprofile").click(function () {
-      
+    
+    $(document).on('click', '#BtnEditprofile',function () {
         $.ajax({
             type: "GET",
             url: '@Url.Action("EditProfile", new {id=Model.Id})',
             success: function (data) {
-                console.log('asd');
                 $("#profileDiv").html(data);
             }
         })
     });
+    $(document).on('click', '#btnProfileSave', function () {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("EditProfile")',
+            data: $("#editProfileform").serialize(),
+            success: function (data) {
+                $("#profileDiv").html(data);
+            }
+        });
+    });
+    $(document).on('click', '#editqualification', function () {
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("EditEducationalQualif", new { id = Model.Id })',
+            success: function (data) {
+                $("#EducationDiv").html(data);
+            }
+        });
+    });
+    $(document).on('click', '.deletequalification', function () {
+        $(this).closest('tr').find('input:hidden').val('D');
+        $(this).closest('tr').hide();
+    });
+    
+    
+   
 </script>

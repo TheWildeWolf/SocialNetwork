@@ -41,6 +41,14 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
+    },
+    "IIS Local": {
+      "commandName": "IIS",
+      "workingDirectory": "E:\\Hadia New\\Hadia\\Hadia",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
     }
   }
 }
