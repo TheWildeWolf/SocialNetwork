@@ -4,14 +4,16 @@ using Hadia.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Hadia.Migrations
 {
     [DbContext(typeof(HadiaContext))]
-    partial class HadiaContextModelSnapshot : ModelSnapshot
+    [Migration("20190103084539_CreatePostCommentViewTable")]
+    partial class CreatePostCommentViewTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -859,8 +861,6 @@ namespace Hadia.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("MasterId");
-
-                    b.HasIndex("MemberId");
 
                     b.HasIndex("PostId");
 
@@ -1896,11 +1896,6 @@ namespace Hadia.Migrations
                     b.HasOne("Hadia.Models.DomainModels.Post_Comment")
                         .WithMany("PostComments")
                         .HasForeignKey("MasterId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Hadia.Models.DomainModels.Mem_Master", "Createdby")
-                        .WithMany("PostComments")
-                        .HasForeignKey("MemberId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Hadia.Models.DomainModels.Post_Master", "Master")

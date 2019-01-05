@@ -58,7 +58,11 @@
     <Compile Include="Areas\Member\Controllers\StateMasterController.cs" />
     <Compile Include="Areas\Member\Controllers\UgCollegeController.cs" />
     <Compile Include="Areas\Member\Controllers\UniversityMasterController.cs" />
+    <Compile Include="Areas\Post\Apis\CommentController.cs" />
+    <Compile Include="Areas\Post\Apis\DummyController.cs" />
+    <Compile Include="Areas\Post\Apis\FeedController.cs" />
     <Compile Include="Areas\Post\Apis\PostController.cs" />
+    <Compile Include="Areas\Post\Apis\TimelineController.cs" />
     <Compile Include="Areas\Post\Controllers\BasePostController.cs" />
     <Compile Include="Areas\Post\Controllers\BatchController.cs" />
     <Compile Include="Areas\Post\Controllers\ChapterController.cs" />
@@ -101,8 +105,11 @@
     <Folder Include="Areas\Login\Models\" />
     <Folder Include="Areas\Login\Views\" />
     <Folder Include="Areas\Member\Views\Shared\" />
+    <Folder Include="Core\" />
     <Folder Include="wwwroot\ChapterImages\" />
     <Content Remove="wwwroot\ChapterImages\**" />
+    <Folder Include="wwwroot\Media\Images\" />
+    <Folder Include="wwwroot\Media\Voice\" />
   </ItemGroup>
 
   <ItemGroup>

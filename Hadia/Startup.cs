@@ -51,6 +51,7 @@ namespace Hadia
                 op.UseSqlServer(Configuration.GetConnectionString(DEV_CONNECTION_STRING)));
             services.AddAutoMapper();
             //AuthCoockie
+            services.AddHttpContextAccessor();
             services.AddSwaggerGen(c =>
                 {
                     c.SwaggerDoc("v1", new Info { Title = "Hadia Api", Version = "v1" });
@@ -60,7 +61,7 @@ namespace Hadia
                 {
                     options.AccessDeniedPath = "";
                     options.LoginPath = "/Auth/Login";
-                    
+
                 }).AddJwtBearer(options =>
                 {
                     options.TokenValidationParameters = new TokenValidationParameters
@@ -71,7 +72,9 @@ namespace Hadia
                         ValidateIssuer = false,
                         ValidateAudience = false
                     };
-                }); 
+                });
+            services.AddScoped<ActionFilter>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -106,11 +109,36 @@ namespace Hadia
             {
                 c.SwaggerEndpoint("/Hadia/swagger/v1/swagger.json", "SeLIk Here Darling");
             });
-            app.UseDirectoryBrowser(new DirectoryBrowserOptions()
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot", "Media", "Images")),
+                RequestPath = "/Images"
+            });
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot", "Media", "Voice")),
+                RequestPath = "/voice"
+            });
+            app.UseDirectoryBrowser(new DirectoryBrowserOptions
             {
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot", "ChapterImages")),
                 RequestPath = new PathString("/ChapterImages")
+               
             });
+            //app.UseDirectoryBrowser(new DirectoryBrowserOptions
+            //{
+            //    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot", "Media","Voice")),
+            //    RequestPath = new PathString("/Voice")
+
+            //});
+            //app.UseDirectoryBrowser(new DirectoryBrowserOptions
+            //{
+            //    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot", "Media", "Images")),
+            //    RequestPath = "/Images"
+
+            //});
 
             app.UseMvc(routes =>
             {

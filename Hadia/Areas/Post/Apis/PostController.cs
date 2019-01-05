@@ -1,50 +1,60 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Hadia.Controllers;
 using Hadia.Data;
 using Hadia.Models.DomainModels;
-using Hadia.Models.Dtos;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Hadia.Areas.Post.Apis
 {
+   
     public class PostController : BaseApiController
     {
-        private HadiaContext _db;
-        private IMapper _mapper;
-
-        public PostController(HadiaContext db, IMapper mapper)
+        private readonly HadiaContext _db;
+        private readonly IMapper _mapper;
+        private readonly IHostingEnvironment _hostingEnvironment;
+        public PostController(HadiaContext db, IMapper mapper, IHostingEnvironment hostingEnvironment)
         {
             _db = db;
             _mapper = mapper;
+            _hostingEnvironment = hostingEnvironment;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<PostCategoryDto>> Category()
+        public async Task<IActionResult> Like(int id)
         {
-            var listOfData = await _db.Post_Categories
-                .Select(x=> _mapper.Map<PostCategoryDto>(x)).ToListAsync();
-            return Ok(listOfData);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Create(CreatePostDto postDto)
-        {
-            
-            var userid = Convert.ToInt32(User.FindFirst(x => x.ValueType == ClaimTypes.NameIdentifier).Value);
-            await _db.Post_Masters.AddAsync(new Post_Master
+            if (!_db.Post_Likes.Any(x => x.PostId == id && x.MemberId == id))
             {
-                CDate = DateTime.Now,
-                CategoryId = postDto.CategoryId,
-                OpnedId = userid
-                
-
-            });
-            return Ok();
+                await _db.Post_Likes.AddAsync(new Post_Like
+                {
+                    CDate = DateTime.Now,
+                    Like = true,
+                    PostId = id,
+                    MemberId = UserId
+                });
+            }
+            else
+            {
+                var edit = await _db.Post_Likes
+                    .SingleOrDefaultAsync(x => x.PostId == id && x.MemberId == UserId);
+                edit.Like = !edit.Like;
+                _db.Update(edit);
+            }
+            try
+            {
+                await _db.SaveChangesAsync();
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
+
     }
 }

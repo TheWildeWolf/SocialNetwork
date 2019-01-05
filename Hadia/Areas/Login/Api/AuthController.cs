@@ -28,25 +28,24 @@ namespace Hadia.Areas.Login.Api
             _authServive =new AuthService(context);
         }
 
-        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Get()
         {
             /*
              * test method to check token auth
              */
-            await _db.Mem_Masters.AddAsync(new Mem_Master
-            {
-                CDate = DateTime.Now
-            });
-            try
-            {
-                await _db.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            //await _db.Mem_Masters.AddAsync(new Mem_Master
+            //{
+            //    CDate = DateTime.Now
+            //});
+            //try
+            //{
+            //    await _db.SaveChangesAsync();
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
 
             return Ok();
         }

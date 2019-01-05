@@ -4,6 +4,7 @@
     ViewData["Description"] = "Member Detail";
 
 }
+
 <div class="content">
     <input asp-for="Id" hidden />
     <!-- Inner container -->
@@ -260,18 +261,16 @@
     </div>
 </div>
 
+@section Scripts
+{
 <script>
-    
-    $(document).on('click', '#BtnEditprofile',function () {
-        $.ajax({
-            type: "GET",
-            url: '@Url.Action("EditProfile", new {id=Model.Id})',
-            success: function (data) {
-                $("#profileDiv").html(data);
-            }
-        })
+
+    $(document).on('click', '#BtnEditprofile', function () {
+        doAjax('@Url.Action("EditProfile", new { id = Model.Id })', 'profileDiv', HMethod.GET);
     });
     $(document).on('click', '#btnProfileSave', function () {
+
+        doAjax('@Url.Action("EditProfile")', 'profileDiv', HMethod.POST);
         $.ajax({
             type: "POST",
             url: '@Url.Action("EditProfile")',
@@ -291,10 +290,43 @@
         });
     });
     $(document).on('click', '.deletequalification', function () {
-        $(this).closest('tr').find('input:hidden').val('D');
+        var id = $(this).attr('data-id');
+        $(this).closest('tr').find('#Qualification_' + id + '__Status').val('D');
         $(this).closest('tr').hide();
     });
-    
-    
-   
+
+
+
+    function doAjax(url, partialDiv, method,form = '') {
+        switch (method) {
+        case 1:
+            $.ajax({
+                type: "GET",
+                url: '' + url+'',
+                success: function (data) {
+                    $("#" + partialDiv+"").html(data);
+                }
+            });
+                break;
+            case 2:
+                $.ajax({
+                    type: "POST",
+                    url: '' + url+'',
+                    data: $("#" + form+"").serialize(),
+                    success: function (data) {
+                        $("#" + partialDiv + "").html(data);
+                    }
+                });
+                break;
+            default:
+                break;
+        }
+
+    }
+    var HMethod = {
+        GET: 1,
+        POST: 2
+    };
+
 </script>
+}

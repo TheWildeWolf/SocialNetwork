@@ -12,10 +12,21 @@ namespace Hadia.Data.Configs
                 .WithMany(x => x.DeletedComments)
                 .HasForeignKey(x => x.RemovedId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
+
             builder.HasOne(x => x.Master)
                 .WithMany(x => x.Comments)
                 .HasForeignKey(x => x.PostId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(x => x.Createdby)
+                .WithMany(x => x.PostComments)
+                .HasForeignKey(x => x.MemberId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasMany(x => x.PostComments)
+                .WithOne()
+                .HasForeignKey(x => x.MasterId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

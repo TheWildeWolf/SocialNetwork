@@ -263,3 +263,7 @@ Hadia/wwwroot/old.zip
 Hadia/Views/Shared/_Layout - Copy.cshtml
 
 Hadia/wwwroot/global_assets/js/plugins/notifications/alertDemo.js
+
+Hadia/wwwroot/Media/Images/*
+Hadia/wwwroot/Media/Voice/*
+Hadia/wwwroot/ChapterImages/*

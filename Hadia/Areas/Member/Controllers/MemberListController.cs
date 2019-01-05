@@ -152,7 +152,7 @@ namespace Hadia.Areas.Member.Controllers
             return PartialView("_ProfileEdit",profileViewModel);
         }
 
-
+        [HttpGet]
         public async Task<IActionResult> EditEducationalQualif(int? id)
         {
             var list = await _db.Mem_EducationDetails
@@ -175,15 +175,22 @@ namespace Hadia.Areas.Member.Controllers
             var qualificationSelect = new SelectList(await _db.Mem_EducationalQualifications.ToListAsync(), "Id", "DegreeName");
 
 
-            var Editmaster = new EducationQualifictaionEditMasterViewModel
+            var editmaster = new EducationQualifictaionEditMasterViewModel
             {
                 Qualification = list,
                 QualificationList = qualificationSelect,
                 UniversityList = universitySelect
 
             };
-            return PartialView("_EditEducationalQualif", Editmaster);
+            return PartialView("_EditEducationalQualif", editmaster);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> EditEducationalQualif(EducationQualifictaionEditMasterViewModel master)
+        {
+            return Ok();
+        }
+
         public async Task<IActionResult> DeleteEducationalQualif(int? id)
         {
             return View();

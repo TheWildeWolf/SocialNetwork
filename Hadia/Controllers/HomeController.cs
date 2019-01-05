@@ -21,7 +21,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 namespace Hadia.Controllers
 {
     /*
-     * This is a Democontroller for Test and development
+     * This is a Controller for Test and development
      */
     [Authorize(AuthenticationSchemes=CookieAuthenticationDefaults.AuthenticationScheme)]
     public class HomeController : Controller

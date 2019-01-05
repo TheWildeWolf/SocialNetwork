@@ -31,7 +31,7 @@
                 <input asp-for="Specialization" class="form-control" />
             </dd>
         </dl>
-        <a id="btnQuallificationAdd" class="btn btn-success">Add</a>
+        <button id="btnQuallificationAdd" class="btn btn-success">Add<span class="fa fa-plus"></span></button>
         <table class="table table-framed">
             <thead>
                 <tr>
@@ -57,19 +57,19 @@
             </thead>
             <tbody>
                 @{int SNo = 0; }
-                @foreach (var edu in Model.Qualification)
+                @for(int i =0;i< Model.Qualification.Count;i++)
                 {
                     <tr>
                         <td>
-                            @Html.HiddenFor(x => edu.Status)
+                            @Html.HiddenFor(x => Model.Qualification[i].Status ,new {@class="qstatus"})
                             @(SNo += 1)
                         </td>
-                        <td>@Html.DisplayFor(x => edu.QualificationName)</td>
-                        <td>@Html.DisplayFor(x => edu.UniversityName)</td>
-                        <td>@Html.DisplayFor(x => edu.PassoutYear.Year)</td>
-                        <td>@Html.DisplayFor(x => edu.Specialization)</td>
+                        <td>@Html.DisplayFor(x => Model.Qualification[i].QualificationName)</td>
+                        <td>@Html.DisplayFor(x => Model.Qualification[i].UniversityName)</td>
+                        <td>@Html.DisplayFor(x => Model.Qualification[i].PassoutYear.Year)</td>
+                        <td>@Html.DisplayFor(x => Model.Qualification[i].Specialization)</td>
                         <td>
-                            <a class="btn btn-outline bg-danger border-primary text-primary-800 btn-icon deletequalification">
+                            <a data-id="@i" class="btn btn-outline bg-danger border-primary text-primary-800 btn-icon deletequalification">
                                 <i class="icon-trash-alt"></i>
                             </a>
                         </td>
