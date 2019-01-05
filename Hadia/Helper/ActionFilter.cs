@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Hadia.Helper
 {
     /*
-     * this is Hadia Action filter for checking anything before hitting
+     * this is Action filter for checking anything before hitting
      * an action or after
      *
      */
@@ -24,15 +24,19 @@ namespace Hadia.Helper
         }
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            
-            var user =context.HttpContext.User.FindFirst(x => x.Type == ClaimTypes.Name).Value;
-            var data = await _db.Mem_Masters.FindAsync(12);
-            //var userSetting =await _db.Database.ExecuteSqlCommandAsync("select");
-            //_db.Database.BeginTransaction();
-            //_db.Database.
-            
-            if(user != "")
+            #region Checking Token Key with database key
+            var UserId = Convert.ToInt32(context.HttpContext.User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value);
+            var TokenSid = context.HttpContext.User.FindFirst(x => x.Type == ClaimTypes.Sid).Value;
+            var CurrentSid = await _db.Sett_LoginLogs
+                .OrderByDescending(x => x.LoginTime)
+                .Take(1)
+                .SingleOrDefaultAsync(x => x.MemberId == UserId);
+
+
+            if (!CurrentSid.KeyValue.Equals(TokenSid))
                 context.Result = new UnauthorizedResult();
+            #endregion
+
         }
     }
 }

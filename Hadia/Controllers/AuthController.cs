@@ -54,7 +54,7 @@ namespace Hadia.Controllers
                 claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var authProperties = new AuthenticationProperties
             {
-                //AllowRefresh = <bool>,
+                AllowRefresh = true,
                 // Refreshing the authentication session should be allowed.
                 ExpiresUtc = DateTimeOffset.UtcNow.AddHours(4),
                 // The time at which the authentication ticket expires. A 
@@ -66,11 +66,12 @@ namespace Hadia.Controllers
                 // ExpireTimeSpan option of CookieAuthenticationOptions 
                 // set with AddCookie. Also required when setting 
                 // ExpiresUtc.
-                //IssuedUtc = <DateTimeOffset>,
+                IssuedUtc = DateTimeOffset.UtcNow
                 // The time at which the authentication ticket was issued.
                 //RedirectUri = <string>
                 // The full path or absolute URI to be used as an http 
                 // redirect response value.
+                
             };
 
             await HttpContext.SignInAsync(

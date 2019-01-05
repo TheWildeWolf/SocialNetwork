@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Hadia.Core;
 using Hadia.Data;
 using Hadia.Helper;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -73,7 +74,9 @@ namespace Hadia
                         ValidateAudience = false
                     };
                 });
+            //Injections
             services.AddScoped<ActionFilter>();
+            services.AddScoped<IAuthService,AuthService>();
 
         }
 
@@ -82,7 +85,20 @@ namespace Hadia
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                //app.UseDeveloperExceptionPage();
+                app.UseExceptionHandler(builder =>
+                {
+                    builder.Run(async context =>
+                    {
+                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                        var error = context.Features.Get<IExceptionHandlerFeature>();
+                        if (error != null)
+                        {
+                            await context.ShowApplicationError(error.Error.Message, error.Error.InnerException.Message);
+                        }
+                    });
+                });
+               
             }
             else
             {
@@ -114,6 +130,7 @@ namespace Hadia
                 FileProvider = new PhysicalFileProvider(
                     Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot", "Media", "Images")),
                 RequestPath = "/Images"
+                
             });
             app.UseStaticFiles(new StaticFileOptions
             {
@@ -127,19 +144,6 @@ namespace Hadia
                 RequestPath = new PathString("/ChapterImages")
                
             });
-            //app.UseDirectoryBrowser(new DirectoryBrowserOptions
-            //{
-            //    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot", "Media","Voice")),
-            //    RequestPath = new PathString("/Voice")
-
-            //});
-            //app.UseDirectoryBrowser(new DirectoryBrowserOptions
-            //{
-            //    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot", "Media", "Images")),
-            //    RequestPath = "/Images"
-
-            //});
-
             app.UseMvc(routes =>
             {
                 //{ area: exists}

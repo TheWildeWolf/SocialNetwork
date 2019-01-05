@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Hadia.Core;
 using Hadia.Models.DomainModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace Hadia.Data
 {
-    public class AuthService
+    public class AuthService : IAuthService
     {
         private readonly HadiaContext _db;
         public AuthService(HadiaContext context)

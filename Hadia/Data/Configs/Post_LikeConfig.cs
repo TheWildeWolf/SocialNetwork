@@ -16,6 +16,8 @@ namespace Hadia.Data.Configs
                 .WithMany(x => x.Likes)
                 .HasForeignKey(x => x.PostId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasIndex(x => new {x.MemberId, x.PostId}).IsUnique();
         }
     }
 

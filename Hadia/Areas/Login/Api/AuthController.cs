@@ -5,11 +5,13 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Hadia.Controllers;
+using Hadia.Core;
 using Hadia.Data;
 using Hadia.Models.DomainModels;
 using Hadia.Models.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
@@ -20,12 +22,12 @@ namespace Hadia.Areas.Login.Api
     {
         private HadiaContext _db;
         private IConfiguration _config;
-        private AuthService _authServive;
-        public LoginController(HadiaContext context,IConfiguration config)
+        private IAuthService _authServive;
+        public LoginController(HadiaContext context,IConfiguration config, IAuthService authServive)
         {
             _db = context;
             _config = config;
-            _authServive =new AuthService(context);
+            _authServive = authServive;
         }
 
         [HttpGet]
@@ -61,18 +63,21 @@ namespace Hadia.Areas.Login.Api
 
             if (!user.IsVarified)
                 return Unauthorized(new { error = "Your Account Not Approved." });
-
+            var ugCollege = await _db.Mem_UgColleges.FirstOrDefaultAsync(x => x.Id == user.UgCollageId);
+            var key = GenerateId();
             var loginSuccess = new LoginSuccessDto
             {
                 Id = user.Id,
                 Name = user.Name,
-                Token = GenerateJwtToken(user)
+                Token = GenerateJwtToken(user, key),
+                UgCollege = ugCollege.UgCollegeName
+
             };
             await _db.Sett_LoginLogs.AddAsync(new Sett_LoginLog
             {
                 MemberId = user.Id,
                 LoginTime = DateTime.Now,
-                KeyValue = ""
+                KeyValue = key
             });
             await _db.Sett_DeviceInfoLogs.AddAsync(new Sett_DeviceInfoLog
             {
@@ -92,13 +97,14 @@ namespace Hadia.Areas.Login.Api
             return Ok(loginSuccess);
         }
 
-        private string GenerateJwtToken(Mem_Master user)
+        private string GenerateJwtToken(Mem_Master user,string uid)
         {
             
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.Name)
+                new Claim(ClaimTypes.Name, user.Name),
+                new Claim(ClaimTypes.Sid, uid)
             };
 
             // var roles = await _userManager.GetRolesAsync(user);
@@ -125,6 +131,11 @@ namespace Hadia.Areas.Login.Api
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             return tokenHandler.WriteToken(token);
+        }
+
+        public string GenerateId()
+        {
+            return Guid.NewGuid().ToString("N");
         }
     }
 }

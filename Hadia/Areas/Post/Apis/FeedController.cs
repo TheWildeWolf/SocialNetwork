@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Hadia.Controllers;
 using Hadia.Data;
 using Hadia.Models.Dtos;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,12 +15,10 @@ namespace Hadia.Areas.Post.Apis
     {
         private readonly HadiaContext _db;
         private readonly IMapper _mapper;
-        private readonly IHostingEnvironment _hostingEnvironment;
-        public FeedController(HadiaContext db, IMapper mapper, IHostingEnvironment hostingEnvironment)
+        public FeedController(HadiaContext db, IMapper mapper)
         {
             _db = db;
             _mapper = mapper;
-            _hostingEnvironment = hostingEnvironment;
         }
         [HttpGet]
         public async Task<ActionResult<IEnumerable<FeedDto>>> Get()
@@ -36,12 +31,14 @@ namespace Hadia.Areas.Post.Apis
                 .Where(x => x.GroupId == null || involvedGroups.Any(s => s == x.GroupId))
                 .OrderByDescending(x=>x.CDate)
                 .Include(x => x.PostImages)
+                .Take(5)
                 .Select( n=>_mapper.Map<FeedDto>(n))
-                .Take(10).ToListAsync();
+                .ToListAsync();
             return Ok(listOfTimeLine);
         }
 
-        public async Task<ActionResult<IEnumerable<FeedDto>>> Get(int pageNumber)
+        //[HttpGet]
+        public async Task<ActionResult<IEnumerable<FeedDto>>> GetA(int pageNumber=1)
         {
             var involvedGroups = await _db.Post_GroupMembers
                 .Where(s => s.IsActive && s.MemberId == UserId)
@@ -52,7 +49,7 @@ namespace Hadia.Areas.Post.Apis
                 .OrderByDescending(x => x.CDate)
                 .Include(x => x.PostImages)
                 .Select(n => _mapper.Map<FeedDto>(n))
-                .Skip(10 * pageNumber).Take(10).ToListAsync();
+                .Skip(5 * pageNumber).Take(5).ToListAsync();
             return listOfTimeLine;
         }
     }

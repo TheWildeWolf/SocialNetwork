@@ -105,7 +105,6 @@
     <Folder Include="Areas\Login\Models\" />
     <Folder Include="Areas\Login\Views\" />
     <Folder Include="Areas\Member\Views\Shared\" />
-    <Folder Include="Core\" />
     <Folder Include="wwwroot\ChapterImages\" />
     <Content Remove="wwwroot\ChapterImages\**" />
     <Folder Include="wwwroot\Media\Images\" />
