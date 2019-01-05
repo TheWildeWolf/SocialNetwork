@@ -66,31 +66,44 @@ namespace Hadia.Helper
             .FirstOrDefault().GroupMaster.Id));
             CreateMap<MemberViewModel, Mem_Master>();
 
-           CreateMap<Mem_Master, MemberDetailsViewModel>()
-          .ForMember(dest => dest.UgCollegeName, o => o.MapFrom(s => s.UgCollege.UgCollegeName))
-          .ForMember(dest => dest.BatchName, o => o.MapFrom(s => s.MainGroup.GroupName))
-          .ForMember(dest => dest.DistrictName, o => o.MapFrom(s => s.District.DistrictName))
-          .ForMember(dest => dest.QualificationName, o => o.MapFrom(s => s.SpouseEducation.QualificationName))
-          .ForMember(dest => dest.ChapterName, o => o.MapFrom(s => s.MembershipInGroups
-          .Where(x => x.GroupMaster.Type == GroupType.Chapter).OrderByDescending(x => x.GroupMaster.FormedOn)
-          .FirstOrDefault().GroupMaster.GroupName))
-          .ForMember(dest => dest.ChapterId, o => o.MapFrom(s => s.MembershipInGroups
-          .Where(x => x.GroupMaster.Type == GroupType.Chapter).OrderByDescending(x => x.GroupMaster.FormedOn)
-          .FirstOrDefault().GroupMaster.Id))
-          .ForMember(des => des.SpouseAge, o => o.MapFrom(s => s.SpouseAge != null ? DateTime.Now.Year - s.SpouseAge.Value.Year : 0));
+            CreateMap<Mem_Master, MemberDetailsViewModel>()
+           .ForMember(dest => dest.UgCollegeName, o => o.MapFrom(s => s.UgCollege.UgCollegeName))
+           .ForMember(dest => dest.BatchName, o => o.MapFrom(s => s.MainGroup.GroupName))
+           .ForMember(dest => dest.DistrictName, o => o.MapFrom(s => s.District.DistrictName))
+           .ForMember(dest => dest.QualificationName, o => o.MapFrom(s => s.SpouseEducation.QualificationName))
+           .ForMember(dest => dest.ChapterName, o => o.MapFrom(s => s.MembershipInGroups
+           .Where(x => x.GroupMaster.Type == GroupType.Chapter).OrderByDescending(x => x.GroupMaster.FormedOn)
+           .FirstOrDefault().GroupMaster.GroupName))
+           .ForMember(dest => dest.ChapterId, o => o.MapFrom(s => s.MembershipInGroups
+           .Where(x => x.GroupMaster.Type == GroupType.Chapter).OrderByDescending(x => x.GroupMaster.FormedOn)
+           .FirstOrDefault().GroupMaster.Id))
+           .ForMember(des => des.SpouseAge, o => o.MapFrom(s => s.SpouseAge != null ? DateTime.Now.Year - s.SpouseAge.Value.Year : 0));
+            CreateMap<MemberDetailsViewModel, Mem_Master>();
 
 
             CreateMap<Mem_Kid, KidViewModel>()
             .ForMember(x => x.Age, o => o.MapFrom(s => s.Age != null ? DateTime.Now.Year - s.Age.Year : 0));
+            //CreateMap<KidViewModel, Mem_Kid>()
+            //.ForMember(x => x.Age, o => o.MapFrom(s => s.Age != null ? DateTime.Now.Year - s.Age.Year : 0));
 
             CreateMap<Mem_Master, ProfileEditViewModel>()
             .ForMember(dest => dest.BatchName, o => o.MapFrom(s => s.MainGroup.GroupName))
             .ForMember(dest => dest.ChapterId, o => o.MapFrom(s => s.MembershipInGroups
             .Where(x => x.GroupMaster.Type == GroupType.Chapter).OrderByDescending(x => x.GroupMaster.FormedOn)
             .FirstOrDefault().GroupMaster.Id));
-
-
             CreateMap<ProfileEditViewModel, Mem_Master>();
+
+            CreateMap<Mem_EducationDetail, EducationQualifictaionEditMasterViewModel>();
+            CreateMap<EducationQualifictaionEditMasterViewModel, Mem_EducationDetail>();
+
+            CreateMap<Mem_Master, SpouseViewModel>()
+            .ForMember(dest => dest.QualificationName, o => o.MapFrom(s => s.SpouseEducation.QualificationName))
+            .ForMember(des => des.SpouseAge, o => o.MapFrom(s => s.SpouseAge != null ? DateTime.Now.Year - s.SpouseAge.Value.Year : 0));
+            CreateMap<SpouseViewModel,Mem_Master>()
+            .ForMember(des => des.SpouseAge, o => o.MapFrom(s => s.SpouseAge != null ? DateTime.Now.AddYears(-s.SpouseAge ?? 0) : (DateTime?)null));
+
+            CreateMap<Mem_WorkDetail, WorkDetailsViewModel>();
+            CreateMap<WorkDetailsViewModel, Mem_WorkDetail>();
         }
     }
 }

@@ -108,11 +108,16 @@
   <ItemGroup>
     <None Include="Areas\Member\Views\MemberList\Details.cshtml" />
     <None Include="Areas\Member\Views\MemberList\_EditEducationalQualif.cshtml" />
-    <None Include="Areas\Member\Views\MemberList\_EditFamily.cshtml" />
+    <None Include="Areas\Member\Views\MemberList\_KidsEdit.cshtml" />
     <None Include="Areas\Member\Views\MemberList\_EditWorkDetails.cshtml" />
     <None Include="Areas\Member\Views\MemberList\_EduQualificationView.cshtml" />
+    <None Include="Areas\Member\Views\MemberList\_KidsView.cshtml" />
     <None Include="Areas\Member\Views\MemberList\_ProfileEdit.cshtml" />
     <None Include="Areas\Member\Views\MemberList\_ProfileView.cshtml" />
+    <None Include="Areas\Member\Views\MemberList\_SpouseEdit.cshtml" />
+    <None Include="Areas\Member\Views\MemberList\_SpouseView.cshtml" />
+    <None Include="Areas\Member\Views\MemberList\_WorkEdit.cshtml" />
+    <None Include="Areas\Member\Views\MemberList\_WorkView.cshtml" />
     <None Include="Areas\Post\Views\Batch\Create.cshtml" />
     <None Include="Areas\Post\Views\Batch\Details.cshtml" />
     <None Include="Areas\Post\Views\Batch\Edit.cshtml" />

@@ -99,7 +99,6 @@ namespace Hadia.Areas.Member.Controllers
                      .ThenInclude(n => n.GroupMaster)
                   .Include(X => X.UgCollege)
                      .FirstOrDefaultAsync(x => x.Id == id);
-            
             var profile = _mapper.Map<ProfileEditViewModel>(data);
             profile.BatchList = 
                 new SelectList(_db.Post_GroupMasters
@@ -138,11 +137,10 @@ namespace Hadia.Areas.Member.Controllers
                     var data = await GetDetail(id);
                     return PartialView("_ProfileView", data);
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (Exception ex)
                 {
                     throw;
                 }
-
             }
             profileViewModel.ChapterList =
              new SelectList(_db.Post_GroupMasters.Where(x => x.Type == GroupType.Chapter)
@@ -152,7 +150,7 @@ namespace Hadia.Areas.Member.Controllers
             return PartialView("_ProfileEdit",profileViewModel);
         }
 
-
+        [HttpGet]
         public async Task<IActionResult> EditEducationalQualif(int? id)
         {
             var list = await _db.Mem_EducationDetails
@@ -160,7 +158,7 @@ namespace Hadia.Areas.Member.Controllers
                            .Include(n => n.University)
                 .Where(x => x.MemberId == id)
                 .Select(q => new EducationQualifictaionEditViewModel
-                {
+                { Id=q.Id,
                     EducationQualificationId = q.EducationQualificationId,
                     PassoutYear =q.PassoutYear,
                     PhdTopic =q.PhdTopic,
@@ -184,23 +182,176 @@ namespace Hadia.Areas.Member.Controllers
             };
             return PartialView("_EditEducationalQualif", Editmaster);
         }
+      
+        [HttpPost]
+        public async Task<IActionResult> AddEducationalQualif(int id, EducationQualifictaionEditMasterViewModel EducationalDetails)
+        {
+           
+            if (ModelState.IsValid)
+            {
+                //var list = await _db.Mem_EducationDetails
+                //           .Include(n => n.Qualification)
+                //           .Include(n => n.University)
+                //.Where(x => x.MemberId == id)
+                //.Select(q => new EducationQualifictaionEditViewModel
+                //{
+                //    EducationQualificationId = q.EducationQualificationId,
+                //    PassoutYear = q.PassoutYear,
+                //    PhdTopic = q.PhdTopic,
+                //    QualificationName = q.Qualification.DegreeName,
+                //    Specialization = q.Specialization,
+                //    Status = "A",
+                //    UniversityId = q.UniversityId,
+                //    UniversityName = q.University.UniversityName
+
+                //}).ToListAsync();
+
+
+                EducationalDetails.Qualification.Add(new EducationQualifictaionEditViewModel {
+                    Id = 0,
+                    EducationQualificationId = EducationalDetails.QualificationId,
+                    PassoutYear = new DateTime(EducationalDetails.PassoutYear, 01, 01),
+                    PhdTopic = EducationalDetails.PhdTopic,
+                    QualificationName = _db.Mem_EducationalQualifications.Find(EducationalDetails.QualificationId).DegreeName,
+                    Specialization = EducationalDetails.Specialization,
+                    Status = "A",
+                    UniversityId = EducationalDetails.UniversityId,
+                    UniversityName = _db.Mem_UniversityMasters.Find(EducationalDetails.UniversityId).UniversityName
+                 
+            });
+
+
+                ModelState.Clear();
+                var universitySelect = new SelectList(await _db.Mem_UniversityMasters.ToListAsync(), "Id", "UniversityName");
+                var qualificationSelect = new SelectList(await _db.Mem_EducationalQualifications.ToListAsync(), "Id", "DegreeName");
+               // EducationalDetails.Qualification = list;
+                EducationalDetails.QualificationList = qualificationSelect;
+                EducationalDetails.UniversityList = universitySelect;
+                //EducationalDetails.PassoutYear = 0;
+                //EducationalDetails.Specialization = null;
+             
+
+            }
+          
+            return PartialView("_EditEducationalQualif", EducationalDetails);
+
+        }
+        public async Task<IActionResult> SaveEducationDetails(int Memid, EducationQualifictaionEditMasterViewModel EducationalDetails)
+        {
+            if (ModelState.IsValid)
+            {
+                //var EduSave = new Mem_EducationDetail();
+                foreach (var item in EducationalDetails.Qualification.Where(x => x.Id == 0))
+                {
+                    await _db.Mem_EducationDetails.AddAsync(new Mem_EducationDetail
+                    {
+                        EducationQualificationId = item.EducationQualificationId,
+                        MemberId = Memid,
+                        UniversityId = item.UniversityId,
+                        PassoutYear = item.PassoutYear,
+                        Specialization = item.Specialization,
+                        CDate = DateTime.Now,
+                    });
+
+                }
+               
+                await _db.SaveChangesAsync();
+            }
+            return PartialView("_EditEducationalQualif", EducationalDetails);
+        }
+
         public async Task<IActionResult> DeleteEducationalQualif(int? id)
         {
             return View();
         }
 
-        public async Task<IActionResult> EditFamily(int? id)
+        [HttpGet]
+        public async Task<IActionResult> EditKids(int? id)
+        {
+            var KidsDetails = await _db.Mem_Kids.Where(x => x.Id == id)
+                 .Select(x => _mapper.Map<KidViewModel>(x)).ToListAsync();
+            //.Select(q => new KidsViewModel
+            ////{
+
+            //    KidName = q.KidName,
+            //    Age = q.Age,
+            //    // Gender = q.Gender,
+            //}).ToListAsync();
+
+            return PartialView("_KidsEdit", KidsDetails);
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditKids(int id, KidsViewModel kidsDetails)
+        {
+            if (ModelState.IsValid)
+            {
+                kidsDetails.KidsList.Add(new KidsListViewModel
+                {
+                    Id = 0,
+                    KidName = kidsDetails.KidName,
+                    Age = kidsDetails.Age,
+                    Gender = kidsDetails.Gender,
+                });
+            }
+            return PartialView("_KidsView", kidsDetails);
+
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditSpouse(int id)
+        {
+            var SpouseDetails = await _db.Mem_Masters.AsNoTracking()
+                 .Include(y => y.SpouseEducation)
+                 .Select(x => _mapper.Map<MemberDetailsViewModel>(x))
+              .FirstOrDefaultAsync(x => x.Id == id);
+            SpouseDetails.SpouseEduList =
+                new SelectList(_db.Mem_SpouseEducationMasters.ToList(), "Id", "QualificationName", SpouseDetails.SpouseEducationId);
+
+            return PartialView("_SpouseEdit", SpouseDetails);
+
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditSpouse(int id,MemberDetailsViewModel details)
+        {
+            var dataInDb = _db.Mem_Masters.Find(id);
+           // var editMaster = _mapper.Map(details, dataInDb);
+            dataInDb.SpouseName = details.SpouseName;
+            dataInDb.SpouseAge = DateTime.Now.AddYears(-details.SpouseAge??0); 
+            dataInDb.SpouseEducationId = details.SpouseEducationId;
+            await _db.SaveChangesAsync();
+            details = await GetDetail(id);
+            return PartialView("_SpouseView", details);
+        }
+            public async Task<IActionResult> DeleteFamily(int? id)
         {
             return View();
         }
-        public async Task<IActionResult> DeleteFamily(int? id)
-        {
-            return View();
-        }
+        [HttpGet]
         public async Task<IActionResult> EditWorkDetails(int? id)
         {
-            return View();
+
+            var EditData = await _db.Mem_WorkDetails.Select(x => _mapper.Map<WorkDetailsViewModel>(x))
+               .FirstOrDefaultAsync(x => x.Id == id);
+            var Countryselctlist = new SelectList(_db.Mem_CountryCodes.ToList(), "Id", "CountryName", EditData.CountryId);
+            EditData.CountryList = Countryselctlist;
+            if (EditData == null)
+                return NotFound();
+            return PartialView("_WorkEdit");
         }
+        [HttpPost]
+        public async Task<IActionResult> EditWorkDetails(int id,WorkDetailsViewModel workView)
+        {
+            if (ModelState.IsValid)
+            {
+                var dataInDb = _db.Mem_WorkDetails.Find(id);
+                var editMaster = _mapper.Map(workView, dataInDb);
+                await _db.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return PartialView("");
+        }
+
         public async Task<IActionResult> DeleteWorkDetails(int? id)
         {
             return View();
@@ -234,7 +385,14 @@ namespace Hadia.Areas.Member.Controllers
                   .ThenInclude(x => x.Country)
               .Select(x => _mapper.Map<MemberDetailsViewModel>(x))
               .FirstOrDefaultAsync(x => x.Id == id);
+            //var KidsDetails = await _db.Mem_Kids.Where(x => x.MemberId == id).Select(q => new KidViewModel
+            //{
+            //    KidName = q.KidName,
+            //    Age = q.Age,
+            //    Gender = q.Gender,
 
+            //});
+            //memberDetails.Kids = KidsDetail;
             return memberDetails;
         }
       

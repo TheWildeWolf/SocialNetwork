@@ -10,7 +10,7 @@ namespace Hadia.Models.ViewModels
     {
         public int QualificationId { get; set; }
         public int UniversityId { get; set; }
-
+        public int MemberId { get; set; }
         public string Specialization { get; set; }
         public string PhdTopic { get; set; }
         public int PassoutYear { get; set; }
@@ -20,8 +20,9 @@ namespace Hadia.Models.ViewModels
     }
     public class EducationQualifictaionEditViewModel
     {
+        public int Id { get; set; }
         public int EducationQualificationId { get; set; }
-
+        public int MemberId { get; set; }
         public string QualificationName { get; set; }
         public int UniversityId { get; set; }
         public string UniversityName { get; set; }
