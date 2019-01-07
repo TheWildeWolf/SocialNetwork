@@ -47,7 +47,12 @@ namespace Hadia
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+                //.AddJsonOptions(opt =>
+                //{
+                //    opt.SerializerSettings.ReferenceLoopHandling =
+                //        Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                //});
             services.AddDbContext<HadiaContext>(op =>
                 op.UseSqlServer(Configuration.GetConnectionString(DEV_CONNECTION_STRING)));
             services.AddAutoMapper();
@@ -75,9 +80,9 @@ namespace Hadia
                     };
                 });
             //Injections
-            services.AddScoped<ActionFilter>();
+            //services.AddScoped<ActionFilter>();
             services.AddScoped<IAuthService,AuthService>();
-
+            //services.AddAutomapperConfiguration(_serviceProvider.GetService<IHttpContextAccessor>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -85,19 +90,7 @@ namespace Hadia
         {
             if (env.IsDevelopment())
             {
-                //app.UseDeveloperExceptionPage();
-                app.UseExceptionHandler(builder =>
-                {
-                    builder.Run(async context =>
-                    {
-                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                        var error = context.Features.Get<IExceptionHandlerFeature>();
-                        if (error != null)
-                        {
-                            await context.ShowApplicationError(error.Error.Message, error.Error.InnerException.Message);
-                        }
-                    });
-                });
+                app.UseDeveloperExceptionPage();
                
             }
             else
@@ -123,14 +116,14 @@ namespace Hadia
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/Hadia/swagger/v1/swagger.json", "SeLIk Here Darling");
+                c.SwaggerEndpoint("/Hadia/swagger/v1/swagger.json", "Hadia Alumni");
+
             });
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(
                     Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot", "Media", "Images")),
                 RequestPath = "/Images"
-                
             });
             app.UseStaticFiles(new StaticFileOptions
             {
@@ -138,12 +131,19 @@ namespace Hadia
                     Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot", "Media", "Voice")),
                 RequestPath = "/voice"
             });
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot", "Media", "ProfileImage")),
+                RequestPath = "/Profile"
+            });
             app.UseDirectoryBrowser(new DirectoryBrowserOptions
             {
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot", "ChapterImages")),
                 RequestPath = new PathString("/ChapterImages")
                
             });
+
             app.UseMvc(routes =>
             {
                 //{ area: exists}

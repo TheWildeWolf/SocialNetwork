@@ -45,6 +45,7 @@
 
   <ItemGroup>
     <Compile Include="Areas\Login\Api\AuthController.cs" />
+    <Compile Include="Areas\Member\Apis\ProfileController.cs" />
     <Compile Include="Areas\Member\Controllers\BaseMemberController.cs" />
     <Compile Include="Areas\Member\Controllers\CountryController.cs" />
     <Compile Include="Areas\Member\Controllers\DistrictMasterController.cs" />
@@ -108,6 +109,7 @@
     <Folder Include="wwwroot\ChapterImages\" />
     <Content Remove="wwwroot\ChapterImages\**" />
     <Folder Include="wwwroot\Media\Images\" />
+    <Folder Include="wwwroot\Media\ProfileImage\" />
     <Folder Include="wwwroot\Media\Voice\" />
   </ItemGroup>
 

@@ -3,6 +3,7 @@
  using System.Linq;
  using System.Text.RegularExpressions;
  using System.Threading.Tasks;
+ using AutoMapper;
  using Hadia.Data;
  using Hadia.Models.DomainModels;
  using Microsoft.AspNetCore.Diagnostics;
@@ -10,6 +11,7 @@
  using Microsoft.AspNetCore.Http;
  using Microsoft.AspNetCore.Mvc.Rendering;
  using Microsoft.AspNetCore.Mvc.ViewFeatures;
+ using Microsoft.Extensions.DependencyInjection;
  using Newtonsoft.Json;
 
 namespace Hadia.Helper
@@ -120,5 +122,6 @@ namespace Hadia.Helper
         {
             return dateTime.ToString("yyyyMMddHHmmssfff");
         }
+
     }
 }

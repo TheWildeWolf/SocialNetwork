@@ -20,6 +20,7 @@ namespace Hadia.Areas.Post.Apis
         private readonly HadiaContext _db;
         private readonly IMapper _mapper;
         private readonly IHostingEnvironment _hostingEnvironment;
+
         public TimelineController(HadiaContext db, IMapper mapper, IHostingEnvironment hostingEnvironment)
         {
             _db = db;
@@ -85,6 +86,7 @@ namespace Hadia.Areas.Post.Apis
                 Voice = voicePath.FileName,
                 PostImages = postedImages,
                 Topic = postDto.Topic,
+                Status = PostStatus.Active,
                 DonationType = postDto.DonationType ??  DonationType.None
             });
             try
@@ -106,6 +108,8 @@ namespace Hadia.Areas.Post.Apis
                 .ToListAsync();
             return Ok(listOfTimeLine);
         }
+
+        [ApiExplorerSettings(IgnoreApi = true)]
         private FileDetail FileDetail(string path,string fileName)
         {
             return new FileDetail

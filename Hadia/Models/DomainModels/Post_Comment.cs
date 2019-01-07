@@ -6,7 +6,7 @@ namespace Hadia.Models.DomainModels
     public class Post_Comment
     {
         public int Id { get; set; }
-        public int PostId { get; set; }
+        public int? PostId { get; set; }
         public int MemberId { get; set; }
         public string Comment { get; set; }
         public CommentStatus Status { get; set; }

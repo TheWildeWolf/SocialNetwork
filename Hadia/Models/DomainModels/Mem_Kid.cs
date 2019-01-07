@@ -13,6 +13,7 @@ namespace Hadia.Models.DomainModels
 
         public Mem_Master Member { get; set; }
     }
+
     public enum GenderType : byte
     {
         Male = 1,

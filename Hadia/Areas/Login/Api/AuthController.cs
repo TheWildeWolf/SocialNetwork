@@ -31,7 +31,7 @@ namespace Hadia.Areas.Login.Api
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public IActionResult Get()
         {
             /*
              * test method to check token auth
@@ -56,6 +56,9 @@ namespace Hadia.Areas.Login.Api
         [HttpPost]
         public async Task<ActionResult<LoginSuccessDto>> Login(LoginDto logindata)
         {
+            if(!await _authServive.UserExists(logindata.Username))
+                return Unauthorized(new { error = "User not exist!" });
+
             var user = await _authServive.Login(username: logindata.Username, password: logindata.Password);
 
             if (user == null)

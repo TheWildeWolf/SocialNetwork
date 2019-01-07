@@ -18,7 +18,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Hadia.Areas.Member.Controllers
 {
-    [Produces("application/json")]
+    //[Produces("application/json")]
     //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]/[action]")]
     [ApiController]

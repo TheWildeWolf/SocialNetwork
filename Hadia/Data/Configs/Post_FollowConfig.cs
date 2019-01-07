@@ -12,10 +12,13 @@ namespace Hadia.Data.Configs
                 .WithMany(x => x.Followers)
                 .HasForeignKey(x => x.MemberId)
                 .OnDelete(DeleteBehavior.Restrict);
+
             builder.HasOne(x => x.Member)
                 .WithMany(x => x.FollowedPosts)
                 .HasForeignKey(x => x.MemberId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasIndex(x => new {x.MemberId, x.PostId}).IsUnique();
 
         }
     }

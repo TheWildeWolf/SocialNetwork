@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Hadia.Areas.Member.Apis
 {
 
-    [Produces("application/json")]
+    //[Produces("application/json")]
     //[Authorize]
     //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]/[action]")]

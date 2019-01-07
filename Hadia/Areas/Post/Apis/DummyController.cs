@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Hadia.Areas.Post.Apis
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     [Route("api/[controller]")]
     [ApiController]
     public class DummyController : ControllerBase

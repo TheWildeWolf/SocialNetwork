@@ -9,6 +9,8 @@ namespace Hadia.Models.Dtos
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public bool IsFollowed { get; set; }
+        public bool IsLike { get; set; }
         public string ProfilePic { get; set; }
         public string Date { get; set; }
         public string Topic { get; set; }
@@ -17,5 +19,6 @@ namespace Hadia.Models.Dtos
         public string Voice { get; set; }
         public int Likes { get; set; }
         public int Comments { get; set; }
+        public int NewComments { get; set; }
     }
 }
