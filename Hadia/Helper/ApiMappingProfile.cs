@@ -27,14 +27,10 @@ namespace Hadia.Helper
             CreateMap<Mem_EducationalQualificationMaster,EducationQualificationDto>()
                 .ForMember(dest => dest.Name, o => o.MapFrom(s => s.DegreeName));
             CreateMap<EducationQualificationDto,Mem_EducationalQualificationMaster>();
-                        
-
-
             
             CreateMap<Mem_JobCategoryMaster,JobCategoryDto>();
             CreateMap<JobCategoryDto,Mem_JobCategoryMaster>();
 
-            
             CreateMap<Mem_CountryCode,CountryDto>();
             CreateMap<CountryDto,Mem_CountryCode>();
 
@@ -49,6 +45,11 @@ namespace Hadia.Helper
             CreateMap<Mem_Kid,KidsDto>()
                 .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender))
                 .ForMember(dest => dest.Age, opt => opt.MapFrom(src => DateTime.Now.Year - src.Age.Year));
+
+            CreateMap<Mem_Kid, KidViewDto>()
+                .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender))
+                .ForMember(dest => dest.Age, opt => opt.MapFrom(src => DateTime.Now.Year - src.Age.Year));
+
             CreateMap<KidsDto, Mem_Kid>()
                 .ForMember(dest => dest.Age,
                     opt => opt.MapFrom(src => new DateTime(DateTime.Now.Year - src.Age ?? 1, 1, 1)));
@@ -109,6 +110,8 @@ namespace Hadia.Helper
                 .ForMember(dest => dest.UgCollegeName, o => o.MapFrom(s => s.UgCollege.UgCollegeName))
                 .ForMember(dest => dest.ProfilePic, o => o.MapFrom(s => GetProfilePic(s.Photos.FirstOrDefault(x=>x.IsActive).Image)))
                 .ForMember(dest => dest.BatchName, o => o.MapFrom(s => s.MainGroup.GroupName))
+                .ForMember(dest => dest.DateOfBirth, o => o.MapFrom(s => s.DateOfBirth.ToString("dd-MMM-yyyy")))
+                .ForMember(dest => dest.MaritalStatus, o => o.MapFrom(s => s.MaritalStatus))
                 .ForMember(dest => dest.DistrictName, o => o.MapFrom(s => s.District.DistrictName))
                 .ForMember(dest => dest.QualificationName, o => o.MapFrom(s => s.SpouseEducation.QualificationName))
                 .ForMember(dest => dest.ChapterName, o => o.MapFrom(s => s.MembershipInGroups
@@ -118,9 +121,15 @@ namespace Hadia.Helper
 
             CreateMap<Mem_EducationDetail, EducationDetailDto>()
                 .ForMember(dest => dest.Qualification, o => o.MapFrom(s => s.Qualification.DegreeName))
+                .ForMember(dest => dest.PassoutYear, o => o.MapFrom(s => s.PassoutYear.Year))
                 .ForMember(dest => dest.University, o => o.MapFrom(s => s.University.UniversityName));
 
+            CreateMap<Mem_ProjectWork, ProjectViewDto>();
+            CreateMap<ProjectViewDto, Mem_ProjectWork>();
+
             CreateMap<Mem_WorkDetail, WorkDetailDto>()
+                .ForMember(dest => dest.DateForm, o => o.MapFrom(s => s.DateForm.ToString("dd-MMM-yyyy")))
+                .ForMember(dest => dest.DateUpto, o => o.MapFrom(s => s.DateUpto == null ? "" : s.DateUpto.Value.ToString("dd-MMM-yyyy")))
                 .ForMember(dest => dest.Country, o => o.MapFrom(s => s.Country.CountryName))
                 .ForMember(dest => dest.JobCategory, o => o.MapFrom(s => s.CategoryMaster.CategoryName));
         }

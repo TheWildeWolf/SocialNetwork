@@ -12,7 +12,7 @@ namespace Hadia.Models.Dtos
         public string Country { get; set; }
         public string JobTitle { get; set; }
         public string JobCategory { get; set; }
-        public DateTime DateForm { get; set; }
-        public DateTime? DateUpto { get; set; }
+        public string DateForm { get; set; }
+        public string DateUpto { get; set; }
     }
 }

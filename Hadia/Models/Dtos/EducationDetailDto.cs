@@ -9,7 +9,7 @@ namespace Hadia.Models.Dtos
     {
         public string Qualification { get; set; }
         public string University { get; set; }
-        public DateTime PassoutYear { get; set; }
+        public int PassoutYear { get; set; }
         public string Specialization { get; set; }
         public string PhdTopic { get; set; }
     }

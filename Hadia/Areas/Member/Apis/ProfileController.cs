@@ -35,6 +35,7 @@ namespace Hadia.Areas.Member.Apis
                 .Include(x => x.UgCollege)
                 .Include(x => x.Photos)
                 .Include(x => x.MainGroup)
+                .Include(x=>x.Projects)
                 .Include(x => x.MembershipInGroups)
                     .ThenInclude(n => n.GroupMaster)
                 .Include(x => x.District)

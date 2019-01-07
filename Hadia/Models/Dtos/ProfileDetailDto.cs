@@ -18,11 +18,11 @@ namespace Hadia.Models.Dtos
         public string AdNo { get; set; }
         public string PresentAddress { get; set; }
         public string PermanentAddress { get; set; }
-        public MaritalStatus? MaritalStatus { get; set; }
+        public string MaritalStatus { get; set; }
         public string SpouseName { get; set; }
         public int? SpouseAge { get; set; }
         public string QualificationName { get; set; }
-        public DateTime? DateOfBirth { get; set; }
+        public string DateOfBirth { get; set; }
         public string DistrictName { get; set; }
         public string BatchName { get; set; }
         public string Email { get; set; }
@@ -39,15 +39,17 @@ namespace Hadia.Models.Dtos
         public string JobTitle { get; set; }
         public DateTime? DateFrom { get; set; }
         public DateTime? DateUpto { get; set; }
-        public List<KidsDto> Kids { get; set; }
+        public List<KidViewDto> Kids { get; set; }
+        public List<ProjectViewDto> Projects { get; set; }
         public List<EducationDetailDto> EducationDetails { get; set; }
         public List<WorkDetailDto> WorkDetails { get; set; }
 
     }
-    public class KidDto
+    public class KidViewDto
     {
         public string KidName { get; set; }
         public int Age { get; set; }
         public string Gender { get; set; }
+
     }
 }
