@@ -65,13 +65,19 @@ namespace Hadia.Areas.Member.Apis
                         using (var fileStream = new FileStream(filePath, FileMode.Create))
                         {
                             await profilepic.Image.CopyToAsync(fileStream);
+                            var photos = await _db.Mem_Photos.Where(x => x.MemberId == UserId).ToListAsync();
+                            foreach (var memPhoto in photos)
+                            {
+                                memPhoto.IsActive = false;
+                            }
                             await _db.Mem_Photos.AddAsync(new Mem_Photo
                             {
                                 Image = imageName,
                                 CDate = DateTime.UtcNow,
-                                IsActive = false,
+                                IsActive = true,
                                 MemberId = UserId
                             });
+                            _db.UpdateRange(photos);
                         }
                 try
                 {

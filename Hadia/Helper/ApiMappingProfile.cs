@@ -64,6 +64,8 @@ namespace Hadia.Helper
                     from.MapFrom(src => src.Date.ToStringDate()))
                 .ForMember(dest => dest.ProfilePhoto, from =>
                     from.MapFrom(src => "/Profile/"+src.Createdby.Photos.Single(x=>x.IsActive).Image))
+                .ForMember(dest => dest.Replies, from =>
+                    from.MapFrom(src => src.PostComments))
                 .ForMember(dest => dest.Comment, from =>
                     from.MapFrom(src => GetUrl(src.Type, src.Comment)));
 

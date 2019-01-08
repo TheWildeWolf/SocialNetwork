@@ -86,18 +86,19 @@ namespace Hadia.Areas.Post.Apis
                 PostId = commentDto.MasterId,
                 MemberId = UserId,
                 Type = commentDto.Type,
-                Date =  DateTime.UtcNow
+                Date =  DateTime.UtcNow,
+                
             };
+            newComment.Views =new List<Post_CommentView>();
             var commentView = new Post_CommentView
             {
                 CDate = DateTime.UtcNow,
                 IsRead = false,
                 MemberId = postMaster.OpnedId,
-                CommentId = newComment.Id
-
             };
+            newComment.Views.Add(commentView);
             await _db.Post_Comments.AddAsync(newComment);
-            //await _db.Post_CommentViews.AddAsync(commentView);
+           
             try
             {
                 await _db.SaveChangesAsync();
@@ -188,7 +189,6 @@ namespace Hadia.Areas.Post.Apis
                                        .Include(x => x.PostComments)
                                             .ThenInclude(x=>x.Createdby)
                                        .Where(x => x.PostId == id)
-                                       .OrderByDescending(x=>x.Date)
                                             .Select(x=> _mapper.Map<CommentViewDto>(x))
                                        .ToListAsync();
             return Ok(listOfComments);
