@@ -60,14 +60,18 @@ namespace Hadia.Helper
             CreateMap<Post_Comment, CommentViewDto>()
                 .ForMember(dest => dest.Name, from =>
                     from.MapFrom(src => src.Createdby.Name))
-                .ForMember(dest => dest.Text, from =>
-                    from.MapFrom(src => GetUrl(src.Type, src.Comment, src.Date)));
+                .ForMember(dest => dest.Ago, from =>
+                    from.MapFrom(src => src.Date.ToStringDate()))
+                .ForMember(dest => dest.ProfilePhoto, from =>
+                    from.MapFrom(src => "/Profile/"+src.Createdby.Photos.Single(x=>x.IsActive).Image))
+                .ForMember(dest => dest.Comment, from =>
+                    from.MapFrom(src => GetUrl(src.Type, src.Comment)));
 
             CreateMap<Post_Comment, CommentReplayDto>()
                 .ForMember(dest => dest.Name, from =>
                     from.MapFrom(src => src.Createdby.Name))
                 .ForMember(dest => dest.Text, from =>
-                    from.MapFrom(src => GetUrl(src.Type, src.Comment, src.Date)));
+                    from.MapFrom(src => GetUrl(src.Type, src.Comment)));
 
             //CreateMap<Post_Master, TimelineViewDto>()
             //    .ForMember(dest => dest.Images, from =>
@@ -91,8 +95,8 @@ namespace Hadia.Helper
                 .ForMember(dest => dest.Comments, from =>
                     from.MapFrom(src => src.Comments.Count))
                 .ForMember(dest => dest.NewComments, from =>
-                    from.MapFrom(src => src.Comments
-                        .Count(x=>x.Views.Any(n=>n.IsRead && n.MemberId == src.OpnedId))))
+                    from.MapFrom((src, dest, destMember, context) => src.Comments
+                        .Count(x => x.Views.Any() && x.Views.Any(n => !n.IsRead && n.MemberId == Convert.ToInt32(context.Items["UserId"])))))
                 .ForMember(dest => dest.Date, from =>
                     from.MapFrom(src => src.CDate.ToString("yyyy-MM-dd hh:mm:ss tt")))
                 .ForMember(dest => dest.Voice, from =>
@@ -132,6 +136,9 @@ namespace Hadia.Helper
                 .ForMember(dest => dest.DateUpto, o => o.MapFrom(s => s.DateUpto == null ? "" : s.DateUpto.Value.ToString("dd-MMM-yyyy")))
                 .ForMember(dest => dest.Country, o => o.MapFrom(s => s.Country.CountryName))
                 .ForMember(dest => dest.JobCategory, o => o.MapFrom(s => s.CategoryMaster.CategoryName));
+
+            CreateMap<Mem_Photo,MemberPhotoDto>();
+
         }
 
 
@@ -144,15 +151,14 @@ namespace Hadia.Helper
 
         private string GetProfilePic(string url) => $"/Profile/{url}";
 
-        private string GetUrl(CommentType commentType,string src,DateTime date)
+        private string GetUrl(CommentType commentType,string src)
         {
-            var folderName = date.ToString("yyyy-MM-dd");
             switch (commentType)
             {
                 case CommentType.Image:
-                    return $"/Images/{folderName}/{src}";
+                    return $"/Images/{src}";
                 case CommentType.Voice:
-                    return $"/Voice/{folderName}/{src}";
+                    return $"/Voice/{src}";
                 default:
                     return src;
             }

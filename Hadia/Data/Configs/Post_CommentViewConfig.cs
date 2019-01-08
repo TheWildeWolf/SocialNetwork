@@ -14,11 +14,14 @@ namespace Hadia.Data.Configs
         {
             builder.HasOne(x => x.Member)
                 .WithMany(x => x.ViewedComments)
-                .HasForeignKey(x => x.MemberId);
+                .HasForeignKey(x => x.MemberId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(x => x.Comment)
                 .WithMany(x => x.Views)
-                .HasForeignKey(x => x.CommentId);
+                .HasForeignKey(x => x.CommentId)
+                .OnDelete(DeleteBehavior.Restrict);
+                
         }
     }
 }

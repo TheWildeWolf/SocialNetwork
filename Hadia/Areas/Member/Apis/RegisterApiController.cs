@@ -91,12 +91,12 @@ namespace Hadia.Areas.Member.Controllers
                 _authServive.CreatePasswordHash(registration.Password,out passwordHash,out passwordSalt);
                 model.PasswordHash = passwordHash;
                 model.PasswordSalt = passwordSalt;
-                model.CDate = DateTime.Now;
+                model.CDate = DateTime.UtcNow;
                 await _db.Mem_Masters.AddAsync(model);
                 await _db.Post_GroupMembers.AddAsync(new Post_GroupMember
                 {
                     GroupId = registration.ChapterId,
-                    CDate = DateTime.Now,
+                    CDate = DateTime.UtcNow,
                     IsActive = true,
                     MemberId = model.Id,
                     IsGroupAdmin = false,
@@ -144,7 +144,7 @@ namespace Hadia.Areas.Member.Controllers
             foreach(var edu in registerEducation.Qualifications)
             {
                await _db.Mem_EducationDetails.AddAsync(new Mem_EducationDetail{
-                   CDate =DateTime.Now,
+                   CDate =DateTime.UtcNow,
                    EducationQualificationId =edu.QualificationId,
                    MemberId = userId,
                    PassoutYear = new DateTime(edu.PassoutYear,1,1),
@@ -201,7 +201,7 @@ namespace Hadia.Areas.Member.Controllers
              var joblis = _mapper.Map<IEnumerable<Mem_WorkDetail>>(jobs);
               foreach (var job in joblis)
              {
-                job.CDate = DateTime.Now;
+                job.CDate = DateTime.UtcNow;
                 job.MemberId = userId;
              }
              await _db.AddRangeAsync(joblis);
@@ -237,7 +237,7 @@ namespace Hadia.Areas.Member.Controllers
                     var kids = _mapper.Map<IEnumerable<Mem_Kid>>(family.Children);
                     foreach (var kid in kids)
                     {
-                        kid.CDate = DateTime.Now;
+                        kid.CDate = DateTime.UtcNow;
                         kid.MemberId = family.UserId;
                     }
                   await _db.Mem_Kids.AddRangeAsync(kids);

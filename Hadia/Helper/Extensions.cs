@@ -123,5 +123,10 @@ namespace Hadia.Helper
             return dateTime.ToString("yyyyMMddHHmmssfff");
         }
 
+        public static string ToStringDate(this DateTime dateTime)
+        {
+            return dateTime.ToString("yyyy-MM-dd hh:mm:ss tt");
+        }
+
     }
 }

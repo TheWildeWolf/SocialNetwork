@@ -37,6 +37,8 @@
     <Compile Remove="Migrations\20181218052750_Test.Designer.cs" />
     <Compile Remove="Migrations\20181222092748_ChangeCascadeInMastersToMemMaster.cs" />
     <Compile Remove="Migrations\20181222092748_ChangeCascadeInMastersToMemMaster.Designer.cs" />
+    <Compile Remove="Migrations\20190108102842_latest.cs" />
+    <Compile Remove="Migrations\20190108102842_latest.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

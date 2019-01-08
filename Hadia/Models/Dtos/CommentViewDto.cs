@@ -8,11 +8,12 @@ namespace Hadia.Models.Dtos
 {
     public class CommentViewDto
     {
+        public int Id { get; set; }
         public CommentType Type { get; set; }
         public string Name { get; set; }
-        public string Text { get; set; }
-        public string ImageUrl { get; set; }
-        public string VoiceUrl { get; set; }
-        public ICollection<CommentReplayDto> Replays { get; set; }
+        public string Comment { get; set; }
+        public string ProfilePhoto { get; set; }
+        public string Ago { get; set; }
+        public List<CommentViewDto> Replies { get; set; }
     }
 }

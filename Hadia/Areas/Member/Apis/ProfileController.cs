@@ -8,7 +8,6 @@ using Hadia.Controllers;
 using Hadia.Data;
 using Hadia.Models.DomainModels;
 using Hadia.Models.Dtos;
-using Hadia.Models.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -66,11 +65,11 @@ namespace Hadia.Areas.Member.Apis
                         using (var fileStream = new FileStream(filePath, FileMode.Create))
                         {
                             await profilepic.Image.CopyToAsync(fileStream);
-                            _db.Mem_Photos.Add(new Mem_Photo
+                            await _db.Mem_Photos.AddAsync(new Mem_Photo
                             {
                                 Image = imageName,
-                                CDate = DateTime.Now,
-                                IsActive = true,
+                                CDate = DateTime.UtcNow,
+                                IsActive = false,
                                 MemberId = UserId
                             });
                         }
@@ -89,9 +88,30 @@ namespace Hadia.Areas.Member.Apis
         }
 
         [HttpGet]
+        public async Task<IActionResult> GetImages()
+        {
+            var listOfImages = await _db.Mem_Photos
+                .Where(x => x.MemberId == UserId)
+                .Select(x => _mapper.Map<MemberPhotoDto>(x)).ToListAsync();
+            return Ok(listOfImages);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SetActive(int id)
+        {
+            var listOfImages = await _db.Mem_Photos.Where(x => x.MemberId == UserId).ToListAsync();
+            foreach (var photo in listOfImages)
+             photo.IsActive = photo.Id == id;
+
+            _db.UpdateRange(listOfImages);
+            await _db.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpGet]
         public async Task<IActionResult> ProfilePic()
         {
-            var url = await _db.Mem_Photos.SingleOrDefaultAsync(x => x.MemberId == UserId);
+            var url = await _db.Mem_Photos.SingleOrDefaultAsync(x => x.MemberId == UserId && x.IsActive);
 
             return Ok("/Profile/"+url.Image);
         }

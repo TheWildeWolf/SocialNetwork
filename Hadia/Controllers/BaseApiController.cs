@@ -21,7 +21,11 @@ namespace Hadia.Controllers
     public class BaseApiController : ControllerBase
     {
         public int UserId => GetUserId();
-
+        public string UserName => GetUsername();
+        private string GetUsername()
+        {
+            return User.FindFirst(ClaimTypes.Name).Value;
+        }
         private int GetUserId()
         {
            return Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);

@@ -24,7 +24,14 @@ namespace Hadia.Areas.Post.Apis
             _db = db;
             _mapper = mapper;
         }
-        [HttpGet]
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> View(int id)
+        {
+            return Ok();
+        }
+
+        [HttpGet("{id}")]
         public async Task<IActionResult> Like(int id)
         {
             bool isLike;
@@ -63,7 +70,7 @@ namespace Hadia.Areas.Post.Apis
             }
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<IActionResult> Follow(int id)
         {
             bool isFollowed;

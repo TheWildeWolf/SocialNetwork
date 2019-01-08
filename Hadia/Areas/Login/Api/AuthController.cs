@@ -79,13 +79,13 @@ namespace Hadia.Areas.Login.Api
             await _db.Sett_LoginLogs.AddAsync(new Sett_LoginLog
             {
                 MemberId = user.Id,
-                LoginTime = DateTime.Now,
+                LoginTime = DateTime.UtcNow,
                 KeyValue = key
             });
             await _db.Sett_DeviceInfoLogs.AddAsync(new Sett_DeviceInfoLog
             {
                 MemberId = user.Id,
-                CDate = DateTime.Now,
+                CDate = DateTime.UtcNow,
                 DeviceKey = logindata.DeviceKey
 
             });
@@ -125,7 +125,7 @@ namespace Hadia.Areas.Login.Api
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(1),
+                Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = credentials
             };
 

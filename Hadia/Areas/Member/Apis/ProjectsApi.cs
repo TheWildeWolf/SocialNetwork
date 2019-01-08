@@ -36,7 +36,7 @@ namespace Hadia.Areas.Member.Controllers
         public async Task<IActionResult> Create(ProjectworkDto project)
         {
             await _db.Mem_ProjectWorks.AddAsync(new Mem_ProjectWork {
-                CDate =DateTime.Now,
+                CDate =DateTime.UtcNow,
                 Description = project.Description,
                 MemberId =project.UserId,
                 ProjectTitle = project.ProjectTitle

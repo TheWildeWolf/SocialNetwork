@@ -149,14 +149,14 @@ namespace Hadia.Controllers
                 {
                     AdNo = "000",
                     Name = "Administrator",
-                    DateOfBirth = DateTime.Now,
+                    DateOfBirth = DateTime.UtcNow,
                     IsGroupAdmin = false,
                     IsVarified = false,
                     PasswordSalt = passsalt,
                     PasswordHash = passhash,
                     CountryCode = "91",
                     Phone = "001",
-                    CDate = DateTime.Now,
+                    CDate = DateTime.UtcNow,
                     Email = "Admin"
 
 

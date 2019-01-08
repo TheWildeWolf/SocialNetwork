@@ -38,10 +38,9 @@ namespace Hadia.Areas.Post.Apis
                     .Include(x=>x.OpendBy)
                     .Include(x=>x.Followers)
                     .Include(x => x.Likes)
-                    .Include(x => x.Comments)
                     .Include(x => x.PostImages)
                     .Include(x => x.Comments)
-                    .ThenInclude(x => x.Views)
+                        .ThenInclude(x => x.Views)
                     .Select(n => _mapper.Map<FeedDto>(n, opt => opt.Items.Add("UserId",UserId) ))
                     .Skip(offset).Take(5)
                     .ToListAsync();

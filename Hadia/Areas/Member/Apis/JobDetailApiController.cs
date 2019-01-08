@@ -36,7 +36,7 @@ namespace Hadia.Areas.Member.Controllers
         public async Task<IActionResult> Create(JobdetailDto jobDetail)
         {
             await _db.Mem_WorkDetails.AddAsync(new Mem_WorkDetail{
-                CDate = DateTime.Now,
+                CDate = DateTime.UtcNow,
                 CompanyName =jobDetail.CompanyName,
                 CountryId =jobDetail.CountryId,
                 DateForm =jobDetail.DateForm,
