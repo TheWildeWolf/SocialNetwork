@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using Hadia.Areas.Login.Models;
 using Hadia.Models.DomainModels;
 using Hadia.Models.Dtos;
 
@@ -12,6 +13,7 @@ namespace Hadia.Helper
 
         public ApiMappingProfile()
         {
+            
             CreateMap<Mem_UgColleges, UgCollageDto>();
             CreateMap<Mem_StateMaster,StateDto>();
 
@@ -63,7 +65,7 @@ namespace Hadia.Helper
                 .ForMember(dest => dest.Ago, from =>
                     from.MapFrom(src => src.Date.ToStringDate()))
                 .ForMember(dest => dest.ProfilePhoto, from =>
-                    from.MapFrom(src => "/Profile/"+src.Createdby.Photos.Single(x=>x.IsActive).Image))
+                    from.MapFrom(src => src.Createdby.Photos != null && src.Createdby.Photos.Any() ? "/Profile/" +src.Createdby.Photos.Single(x=>x.IsActive).Image :""))
                 .ForMember(dest => dest.Replies, from =>
                     from.MapFrom(src => src.PostComments))
                 .ForMember(dest => dest.Comment, from =>
@@ -140,7 +142,27 @@ namespace Hadia.Helper
                 .ForMember(dest => dest.JobCategory, o => o.MapFrom(s => s.CategoryMaster.CategoryName));
 
             CreateMap<Mem_Photo,MemberPhotoDto>();
+            //Data Fetch Mappers
+            CreateMap<Post_Comment, DataCommentDto>();
+            CreateMap<Post_Like, DataLikeDto>();
+            CreateMap<Post_Image, DataPostImageDto>()
+                .ForMember(dest => dest.ImageOnline, o => o.MapFrom(x => GetUrl(CommentType.Image, x.Image)));
 
+            CreateMap<Mem_Master, DataMemberDto>()
+                .ForMember(dest => dest.Photo,
+                    o => o.MapFrom(x => (x.Photos.Any() && x.Photos != null) ? GetProfilePic(x.Photos.Single(p => p.IsActive).Image) : null))
+                .ForMember(dest => dest.BatchId, o=> o.MapFrom(x=> x.GroupId));
+
+            CreateMap<Post_Master, DataPostDto>()
+                //.ForMember(dest => dest.Following, from =>
+                //    from.MapFrom((src, dest, destMember, context) =>
+                //        src.Followers.Any(x => x.MemberId == Convert.ToInt32(context.Items["UserId"]))
+                //        && src.Followers.Single(x => x.MemberId == Convert.ToInt32(context.Items["UserId"])).Follow))
+                .ForMember(dest => dest.VoiceOnline, o => o.MapFrom(x => x.Voice == null ? null : GetVoice(x.Voice)))
+                //.ForMember(dest => dest.PostImages, o => o.MapFrom(x => x.PostImages))
+                .ForMember(dest => dest.Type, o => o.MapFrom(x => x.CategoryId))
+                .ForMember(dest => dest.MemberId, o => o.MapFrom(x => x.OpnedId))
+                .ForMember(dest => dest.Date, o => o.MapFrom(x => x.CDate.ToString("yyyy-MM-dd hh:mm:ss tt")));
         }
 
 

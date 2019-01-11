@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -25,18 +26,18 @@ namespace Hadia.Helper
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             #region Checking Token Key with database key
-            var UserId = Convert.ToInt32(context.HttpContext.User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value);
-            var TokenSid = context.HttpContext.User.FindFirst(x => x.Type == ClaimTypes.Sid).Value;
-            var CurrentSid = await _db.Sett_LoginLogs
+            var userId = Convert.ToInt32(context.HttpContext.User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value);
+            var tokenSid = context.HttpContext.User.FindFirst(x => x.Type == ClaimTypes.Sid).Value;
+            var currentSid = await _db.Sett_LoginLogs
                 .OrderByDescending(x => x.LoginTime)
                 .Take(1)
-                .SingleOrDefaultAsync(x => x.MemberId == UserId);
-
-
-            if (!CurrentSid.KeyValue.Equals(TokenSid))
+                .SingleOrDefaultAsync(x => x.MemberId == userId);
+            var isVerified = _db.Mem_Masters.FromSql($"select IsActive from Mem_Masters where Id=@id",
+                new SqlParameter("@id", userId)
+                ).Single().IsVarified;
+            if (!currentSid.KeyValue.Equals(tokenSid) || !isVerified)
                 context.Result = new UnauthorizedResult();
             #endregion
-
         }
     }
 }

@@ -36,6 +36,8 @@ namespace Hadia.Models.DomainModels
 
         public bool IsVarified { get; set; }
 
+        public DateTime? SyncTime { get; set; }
+
         public int? VarifiedBy { get; set; }
         public DateTime? VarifiedDate { get; set; }
 

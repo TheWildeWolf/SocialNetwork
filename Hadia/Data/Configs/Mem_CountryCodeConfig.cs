@@ -16,7 +16,11 @@ namespace Hadia.Data.Configs
             builder.HasMany(x => x.UniversityMasters)
                 .WithOne(x => x.Country)
                 .HasForeignKey(x => x.CountryId)
-             .OnDelete(DeleteBehavior.Restrict); 
+             .OnDelete(DeleteBehavior.Restrict);
+            builder.Property(x => x.Long).HasColumnType("decimal(18, 2)");
+            builder.Property(x => x.Lat).HasColumnType("decimal(18, 2)");
+
+
         }
     }
 }

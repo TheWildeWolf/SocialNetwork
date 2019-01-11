@@ -18,9 +18,9 @@ namespace Hadia.Areas.Post.Apis
 {
     public class CommentController : BaseApiController
     {
-        private HadiaContext _db;
+        private readonly HadiaContext _db;
         private readonly IHostingEnvironment _hostingEnvironment;
-        private IMapper _mapper;
+        private readonly IMapper _mapper;
 
 
         public CommentController(HadiaContext db, IHostingEnvironment hostingEnvironment, IMapper mapper)
@@ -79,22 +79,21 @@ namespace Hadia.Areas.Post.Apis
             var postMaster = await _db.Post_Masters
                 .Include(x=>x.PostImages)
                 .SingleOrDefaultAsync(x=>x.Id ==commentDto.MasterId);
-           
+
             var newComment = new Post_Comment
             {
                 Comment = commentDto.Comment,
                 PostId = commentDto.MasterId,
                 MemberId = UserId,
                 Type = commentDto.Type,
-                Date =  DateTime.UtcNow,
-                
+                Date = DateTime.UtcNow,
+                Views = new List<Post_CommentView>()
             };
-            newComment.Views =new List<Post_CommentView>();
             var commentView = new Post_CommentView
             {
                 CDate = DateTime.UtcNow,
                 IsRead = false,
-                MemberId = postMaster.OpnedId,
+                MemberId = postMaster.OpnedId
             };
             newComment.Views.Add(commentView);
             await _db.Post_Comments.AddAsync(newComment);
@@ -183,15 +182,24 @@ namespace Hadia.Areas.Post.Apis
         [HttpGet("/api/comments/{id}")]
         public async Task<IActionResult> All(int id)
         {
-            var listOfComments = await _db.Post_Comments
-                                       .Include(x=>x.Createdby)
-                                            .ThenInclude(x=>x.Photos) 
-                                       .Include(x => x.PostComments)
-                                            .ThenInclude(x=>x.Createdby)
-                                       .Where(x => x.PostId == id)
-                                            .Select(x=> _mapper.Map<CommentViewDto>(x))
-                                       .ToListAsync();
-            return Ok(listOfComments);
+            try
+            {
+                var listOfComments = await _db.Post_Comments
+                    .Include(x => x.Createdby)
+                    .ThenInclude(x => x.Photos)
+                    .Include(x => x.PostComments)
+                    .ThenInclude(x => x.Createdby)
+                    .Where(x => x.PostId == id)
+                    .Select(x => _mapper.Map<CommentViewDto>(x))
+                    .ToListAsync();
+                return Ok(listOfComments);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
         }
 
         private FileDetail FileDetail(string path, string fileName)

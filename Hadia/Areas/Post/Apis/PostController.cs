@@ -103,5 +103,23 @@ namespace Hadia.Areas.Post.Apis
             }
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> ViewComments(int id)
+        {
+            var data = await _db.Post_Comments
+                .Include(x => x.Views)
+                .Where(x => x.PostId == id).SelectMany(x=> x.Views ).ToListAsync();
+            data = data.Select(x =>
+            {
+                x.IsRead = true;
+                return x;
+            }).ToList();
+
+            _db.UpdateRange(data);
+            await _db.SaveChangesAsync();
+            return Ok();
+
+        }
+
     }
 }

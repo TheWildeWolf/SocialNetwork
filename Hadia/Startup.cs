@@ -82,7 +82,7 @@ namespace Hadia
             //Injections
             //services.AddScoped<ActionFilter>();
             services.AddScoped<IAuthService,AuthService>();
-            //services.AddAutomapperConfiguration(_serviceProvider.GetService<IHttpContextAccessor>());
+            services.AddScoped<IDataFetcher, DataFetcher>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -146,14 +146,14 @@ namespace Hadia
 
             app.UseMvc(routes =>
             {
-                //{ area: exists}
+                //{ area: exists} {area=member}/{controller=memberlist}/{action=Index}/{id?}
                 routes.MapRoute(
                     name: "area",
                     template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
                 routes.MapRoute(
                         name: "default",
-                        template: "{area=member}/{controller=memberlist}/{action=Index}/{id?}");
+                        template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
