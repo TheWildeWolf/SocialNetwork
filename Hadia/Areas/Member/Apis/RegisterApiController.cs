@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Hadia.Concrete;
 using Hadia.Data;
 using Hadia.Models.DomainModels;
 using Hadia.Models.Dtos;

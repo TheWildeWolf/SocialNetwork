@@ -6,12 +6,17 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Hadia.Controllers;
 using Hadia.Data;
+using Hadia.Models;
 using Hadia.Models.DomainModels;
 using Hadia.Models.Dtos;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Jpeg;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
 
 namespace Hadia.Areas.Member.Apis
 {
@@ -56,40 +61,65 @@ namespace Hadia.Areas.Member.Apis
         [HttpPost]
         public async Task<IActionResult> AddPhoto([FromForm]ProfilePicDto profilepic)
         {
-            if (profilepic.Image != null )
+
+            if (profilepic.Image != null)
             {
-                        string extension = Path.GetExtension(profilepic.Image.FileName);
-                        var imageName = DateTime.Now.ToFileTime() + "_" + UserId + extension;
-                        var dir = Path.Combine(_hostingEnvironment.WebRootPath, "Media/ProfileImage/");
-                        var filePath = Path.Combine(dir, imageName); 
-                        using (var fileStream = new FileStream(filePath, FileMode.Create))
+                string extension = Path.GetExtension(profilepic.Image.FileName);
+                var imageName = DateTime.Now.ToFileTime() + "_" + UserId + extension;
+                var dir = Path.Combine(_hostingEnvironment.WebRootPath, HadiaPaths.ProfileImage);
+                var thumbDir = Path.Combine(_hostingEnvironment.WebRootPath, HadiaPaths.ProfileThumb);
+                var thumbName = Path.Combine(thumbDir, imageName);
+                var filePath = Path.Combine(dir, imageName);
+
+                using (Stream imgStream = new MemoryStream())
+                {
+                    await profilepic.Image.CopyToAsync(imgStream);
+                    if (!Directory.Exists(thumbDir))
+                        Directory.CreateDirectory(thumbDir);
+
+                    using (var thumbStream = new FileStream(thumbName, FileMode.Create))
+                    {
+                        using (var bitmap = Image.Load(imgStream,new JpegDecoder()))
                         {
-                            await profilepic.Image.CopyToAsync(fileStream);
-                            var photos = await _db.Mem_Photos.Where(x => x.MemberId == UserId).ToListAsync();
-                            foreach (var memPhoto in photos)
-                            {
-                                memPhoto.IsActive = false;
-                            }
-                            await _db.Mem_Photos.AddAsync(new Mem_Photo
-                            {
-                                Image = imageName,
-                                CDate = DateTime.UtcNow,
-                                IsActive = true,
-                                MemberId = UserId
-                            });
-                            _db.UpdateRange(photos);
+                            bitmap.Mutate(c => c.Resize(100, 100));
+                            bitmap.Save(thumbStream, ImageFormats.Jpeg);
                         }
+                    }
+                }
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+
+                    await profilepic.Image.CopyToAsync(fileStream);
+                    var photos = await _db.Mem_Photos.Where(x => x.MemberId == UserId).ToListAsync();
+                    foreach (var memPhoto in photos)
+                    {
+                        memPhoto.IsActive = false;
+                    }
+
+                    await _db.Mem_Photos.AddAsync(new Mem_Photo
+                    {
+                        Image = imageName,
+                        CDate = DateTime.UtcNow,
+                        IsActive = true,
+                        MemberId = UserId
+                    });
+                    _db.UpdateRange(photos);
+                }
+
+
                 try
                 {
                     await _db.SaveChangesAsync();
                 }
                 catch (Exception e)
                 {
-                   
+
                     throw e;
                 }
-              
+
             }
+
             return Ok();
         }
 

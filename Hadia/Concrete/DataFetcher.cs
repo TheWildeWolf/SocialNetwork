@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Hadia.Areas.Login.Models;
 using Hadia.Core;
+using Hadia.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Hadia.Data
+namespace Hadia.Concrete
 {
     public class DataFetcher :IDataFetcher
     {
@@ -31,10 +32,9 @@ namespace Hadia.Data
 
         public async Task<List<DataMemberDto>> GetMembers()
         {
-             return await _db.Mem_Masters.AsNoTracking()
+            return await _db.Mem_Masters.AsNoTracking()
                  .AsNoTracking()
                  .Include(x=> x.Photos)
-                   //.Where(x=>x.CDate > SyncTime)
                    .Select(x => _mapper.Map<DataMemberDto>(x))
                    .ToListAsync();
             
@@ -44,9 +44,8 @@ namespace Hadia.Data
         { 
                 return await _db.Post_Masters
                     .AsNoTracking()
-                    //.Include(x=> x.PostImages)
                     .Where(x => x.CDate > SyncTime)
-                    .Select(x => _mapper.Map<DataPostDto>(x))
+                    .Select(x => _mapper.Map<DataPostDto>(x, opt => opt.Items.Add("UserId", UserId)))
                     .ToListAsync();
         }
 
@@ -63,6 +62,7 @@ namespace Hadia.Data
         public async Task<List<DataLikeDto>> GetLikes()
         {
             return await _db.Post_Likes
+                .AsNoTracking()
                 .Where(x=>x.CDate > SyncTime)
                 .Select(x => _mapper.Map<DataLikeDto>(x))
                 .ToListAsync();
@@ -71,6 +71,8 @@ namespace Hadia.Data
         public async Task<List<DataCommentDto>> GetComments()
         {
                 return await _db.Post_Comments
+                    .AsNoTracking()
+                    .Include(x=>x.Views) 
                     .Where(x => x.Date > SyncTime)
                     .Select(x => _mapper.Map<DataCommentDto>(x))
                     .ToListAsync();

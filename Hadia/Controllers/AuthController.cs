@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Hadia.Concrete;
+using Hadia.Core;
 using Hadia.Data;
 using Hadia.Helper;
 using Hadia.Models.DomainModels;
@@ -20,12 +22,12 @@ namespace Hadia.Controllers
     [Route("[controller]/[action]")]
     public class AuthController : Controller
     {
-        private AuthService _auth;
+        private IAuthService _auth;
         private readonly HadiaContext _db;
-        public AuthController( HadiaContext context)
+        public AuthController( HadiaContext context, IAuthService auth)
         {
             _db = context;
-            _auth =new AuthService(context);
+            _auth = auth;
         }
         [AllowAnonymous]
         [HttpGet]
@@ -101,36 +103,19 @@ namespace Hadia.Controllers
         {
             var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var user =await _db.Mem_Masters.FindAsync(userId);
-            byte[] passwordHash, passwordSalt;
             if (user == null)
             {
                 return Unauthorized();
             }
-
-            if (!_auth.VerifyPasswordHash(authSettings.CurrentPassword, user.PasswordHash, user.PasswordSalt))
-                return Unauthorized();
-
             if (!authSettings.NewPassword.Equals(authSettings.ConfirmPassword))
             {
                 ModelState.AddModelError("ConfirmPassword","Not equal");
                 TempData["message"] = Notifications.ErrorNotify("Please check Confirm password.");
-
                 return View(authSettings);
-
             }
-
-            _auth.CreatePasswordHash(authSettings.NewPassword,out passwordHash,out passwordSalt);
-            user.PasswordHash = passwordHash;
-            user.PasswordSalt = passwordSalt;
-            _db.Update(user);
-            try
+            if(await _auth.Update(user, authSettings.CurrentPassword, authSettings.NewPassword))
             {
-                await _db.SaveChangesAsync();
                 TempData["message"] = Notifications.SuccessNotify("Password Changed");
-            }
-            catch (Exception e)
-            { 
-                throw e;
             }
             return View();
         }
@@ -141,28 +126,28 @@ namespace Hadia.Controllers
         {
             if (!_db.Mem_Masters.Any())
             {
-                byte[] passhash;
-                byte[] passsalt;
+                //byte[] passhash;
+                //byte[] passsalt;
 
-                _auth.CreatePasswordHash("hadia@123", out passhash, out passsalt);
-                var newMem = new Mem_Master
-                {
-                    AdNo = "000",
-                    Name = "Administrator",
-                    DateOfBirth = DateTime.UtcNow,
-                    IsGroupAdmin = false,
-                    IsVarified = false,
-                    PasswordSalt = passsalt,
-                    PasswordHash = passhash,
-                    CountryCode = "91",
-                    Phone = "001",
-                    CDate = DateTime.UtcNow,
-                    Email = "Admin"
+                //_auth.CreatePasswordHash("hadia@123", out passhash, out passsalt);
+                //var newMem = new Mem_Master
+                //{
+                //    AdNo = "000",
+                //    Name = "Administrator",
+                //    DateOfBirth = DateTime.UtcNow,
+                //    IsGroupAdmin = false,
+                //    IsVarified = false,
+                //    PasswordSalt = passsalt,
+                //    PasswordHash = passhash,
+                //    CountryCode = "91",
+                //    Phone = "001",
+                //    CDate = DateTime.UtcNow,
+                //    Email = "Admin"
 
 
-                };
-                await _db.Mem_Masters.AddAsync(newMem);
-                await _db.SaveChangesAsync();
+                //};
+                //await _db.Mem_Masters.AddAsync(newMem);
+                //await _db.SaveChangesAsync();
             }
 
             return RedirectToAction("Login");

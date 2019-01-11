@@ -18,15 +18,13 @@ namespace Hadia.Areas.Post.Apis
     public class PostController : BaseApiController
     {
         private readonly HadiaContext _db;
-        private readonly IMapper _mapper;
-        public PostController(HadiaContext db, IMapper mapper)
+        public PostController(HadiaContext db)
         {
             _db = db;
-            _mapper = mapper;
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> View(int id)
+        public IActionResult View(int id)
         {
             return Ok();
         }

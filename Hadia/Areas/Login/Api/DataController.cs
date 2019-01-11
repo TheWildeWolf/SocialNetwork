@@ -25,15 +25,12 @@ namespace Hadia.Areas.Login.Api
         {
             _dataFetcher.UserId = UserId;
             await _dataFetcher.GetSyncTime();
-
             DataMainDto dataMaster =new DataMainDto();
             dataMaster.members = await _dataFetcher.GetMembers();
             dataMaster.posts = await _dataFetcher.GetPosts();
             dataMaster.postImages = await _dataFetcher.GetPostImages();
             dataMaster.comments = await _dataFetcher.GetComments();
             dataMaster.likes = await _dataFetcher.GetLikes();
-
-
             return Ok(dataMaster);
         }
     }

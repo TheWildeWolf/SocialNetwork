@@ -13,6 +13,7 @@ using Hadia.Data;
 using Microsoft.AspNetCore.Authorization;
 using System.Runtime.Serialization.Json;
 using System.Text;
+using Hadia.Concrete;
 using Hadia.Helper;
 using Hadia.Models.DomainModels;
 using Hadia.Models.ViewModels;

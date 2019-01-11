@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Hadia.Core;
+using Hadia.Data;
 using Hadia.Models.DomainModels;
 using Microsoft.EntityFrameworkCore;
 
-namespace Hadia.Data
+namespace Hadia.Concrete
 {
     public class AuthService : IAuthService
     {
@@ -23,6 +22,34 @@ namespace Hadia.Data
 
             return false;
         }
+
+        public async Task<bool> Update(Mem_Master User, string password, string newPassword = null)
+        {
+
+            if (!VerifyPasswordHash(password, User.PasswordHash, User.PasswordSalt))
+                        return false;
+
+            if (newPassword != null)
+            {
+                CreatePasswordHash(newPassword, out var passwordHash, out var passwordSalt);
+                User.PasswordHash = passwordHash;
+                User.PasswordSalt = passwordSalt;
+            }
+
+            _db.Update(User);
+            try
+            {
+                await _db.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+        }
+
+
         public async Task<Mem_Master> Login(string username, string password)
         {
             var user = await _db.Mem_Masters.FirstOrDefaultAsync(x => x.Email == username);

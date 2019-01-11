@@ -15,7 +15,6 @@ namespace Hadia.Areas.Login.Models
         public bool Following { get; set; }
         public int Type { get; set; }
         public int? GroupId { get; set; }
-        public List<DataPostImageDto> PostImages { get; set; }
     }
 
 }

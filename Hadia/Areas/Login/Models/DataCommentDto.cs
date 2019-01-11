@@ -9,8 +9,8 @@
         public string ImageOnline { get; set; }
         public int ParentId { get; set; }
 
-        public string date { get; set; }
-        public bool read { get; set; }
+        public string Date { get; set; }
+        public bool Read { get; set; }
     }
 
 }

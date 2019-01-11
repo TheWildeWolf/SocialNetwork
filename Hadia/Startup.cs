@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Hadia.Concrete;
 using Hadia.Core;
 using Hadia.Data;
 using Hadia.Helper;
