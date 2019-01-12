@@ -24,7 +24,7 @@
                 <th>
                     Date Upto
                 </th>
-
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -42,9 +42,8 @@
                     <td>@Work.DateForm.ToString("MMM/dd/yyyy")</td>
                     <td>@Work.DateUpto?.ToString("MMM/dd/yyyy")</td>
                     <td>
-                        <a asp-action="EditWorkDetails" asp-route-id="@Model.Id" class="btn btn-outline bg-primary border-primary text-primary-800 btn-icon"><i class="icon-compose"></i></a>
-                        <a asp-action="DeleteWorkDetails" asp-route-id="@Model.Id" class="btn btn-outline bg-danger border-primary text-primary-800 btn-icon confirm"><i class="icon-trash-alt"></i></a>
-
+                        <a itemid="@Work.Id" class="btn btn-outline bg-primary border-primary text-primary-800 btn-icon btnEditWork"><i class="icon-compose"></i></a>
+                        @*<a asp-action="DeleteWorkDetails" asp-route-id="@Model.Id" class="btn btn-outline bg-danger border-primary text-primary-800 btn-icon confirm"><i class="icon-trash-alt"></i></a>*@
                     </td>
                 </tr>
             }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -56,13 +57,20 @@ namespace Hadia.Models.ViewModels
         public ICollection<Mem_EducationalQualificationMaster> EducationalQualificationMasters { get; set; }
         public ICollection<Mem_WorkDetail> WorkDetails { get; set; }
         public ICollection<Mem_CountryCode> Country { get; set; }
+        public ICollection<Mem_ProjectWork> ProjectWorks { get; set; }
     }
    
     public class KidViewModel
     {
         public int Id { get; set; }
+       
+        [Required(ErrorMessage = "Kid Name Required")]
         public string KidName { get; set; }
+        [Required(ErrorMessage = "Age Required")]
         public int Age { get; set; }
+       
         public GenderType Gender { get; set; }
     }
+    
+
 }

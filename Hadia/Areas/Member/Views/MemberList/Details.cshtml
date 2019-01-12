@@ -2,10 +2,11 @@
 @{
     ViewData["Title"] = "Member";
     ViewData["Description"] = "Member Detail";
-
 }
 <div class="content">
     <input asp-for="Id" hidden />
+    @*@ViewBag.MemberId=@Model.Id*@
+    
     <!-- Inner container -->
     <div class="d-md-flex align-items-md-start">
         <!-- Left sidebar component -->
@@ -68,6 +69,7 @@
                                     <i class="icon-puzzle3"></i>
                                     Projects
                                 </a>
+                                
                             </li>
                             <li class="nav-item-divider"></li>
                             <li class="nav-item" style="text-align:center">
@@ -137,18 +139,21 @@
 
             </div>
             <div class="tab-pane fade" id="work">
-                <div class="card-body" id="WorkDiv">
+                <div class="card-header header-elements-sm-inline">
+                    <h6 class="card-title">Work Details</h6>
+                </div>
+                <div class="card" id="WorkDiv">
                     @{ await Html.RenderPartialAsync("_WorkView");}
                 </div>
             </div>
             <div class="tab-pane fade" id="projects">
-                    <div class="card">
-                        <div class="card-header header-elements-sm-inline">
-                            <h6 class="card-title">Projects</h6>
-                        </div>
-                        <div class="card-body">
-                        </div>
-                   </div>
+                <div class="card-header header-elements-sm-inline">
+                    <h6 class="card-title">Projects</h6>
+                </div>
+                <div class="card" id="ProjectDiv">
+                    @{ await Html.RenderPartialAsync("_ProjectView");}
+
+                </div>
             </div>
             <!-- /right content -->
         </div>
@@ -160,13 +165,13 @@
     //Profile Edit
     $(document).on('click', '#BtnEditprofile',function () {
         $.ajax({
-            
+
             type: "GET",
             url: '@Url.Action("EditProfile", new {id=Model.Id})',
             success: function (data) {
                 $("#profileDiv").html(data);
             }
-           
+
         })
     });
     $(document).on('click', '#btnProfileSave', function () {
@@ -178,14 +183,15 @@
                 $("#profileDiv").html(data);
             }
         });
-    }); 
+    });
 
 
     //Education Details Edit
-    $(document).on('click', '#btnEditqualification', function () {
+    $(document).on('click', '.btnEditqualification', function () {
+        var Eduid = $(this).attr('itemid');
         $.ajax({
             type: "GET",
-            url: '@Url.Action("EditEducationalQualif", new { id = Model.Id })',
+            url: '@Url.Action("EditEducationalQualif")?id=' + Eduid,
             success: function (data) {
                 $("#EducationDiv").html(data);
             }
@@ -204,7 +210,7 @@
     $(document).on('click', '#btnSaveEditQualification', function () {
         $.ajax({
             type: "Post",
-            url: '@Url.Action("SaveEducationDetails", new { Memid = Model.Id})',
+            url: '@Url.Action("EditEducationalQualif")',
             data: $("#educationQualificationform").serialize(),
             success: function (data) {
                 $("#EducationDiv").html(data);
@@ -214,22 +220,62 @@
 
 
     //Family Edit- Kids
-    $(document).on('click', '#btnEditKids', function () {
+    $(document).on('click', '.btnEditKids', function () {
+        var Kidid = $(this).attr('itemid');
         $.ajax({
             type: "GET",
-            url: '@Url.Action("ViewKids", new { id = Model.Id })',
+            url: '@Url.Action("EditKids")?id=' + Kidid,
             success: function (data) {
                 $("#KidsDiv").html(data);
             }
         });
     });
-    $(document).on('click', '#btnAddKids', function () {
+     $(document).on('click', '#btnCancelKids', function () {
+
         $.ajax({
             type: "Post",
-            url: '@Url.Action("AddKids", new { id = Model.Id})',
+            url: '@Url.Action("KidsList", new { id = Model.Id})',
             data: $("#Familyform").serialize(),
             success: function (data) {
-                $("#KidsDivEdit").html(data);
+                $("#KidsDiv").html(data);
+            }
+        });
+    });
+
+
+    $(document).on('click', '#btnSaveKids', function () {
+
+        $.ajax({
+            type: "Post",
+            url: '@Url.Action("EditKids")',
+           
+            data: $("#Familyform").serialize(),
+            success: function (data) {
+                $("#KidsDiv").html(data);
+            }
+        });
+    });
+    $(document).on('click', '#btnKidsAdd', function () {
+       
+        $.ajax({
+            type: "Get",
+            url: '@Url.Action("CreateKids")',
+           
+            data: $("#Kidform").serialize(),
+            success: function (data) {
+                $("#KidsDiv").html(data);
+            }
+        });
+    });
+
+    $(document).on('click', '#btnAddKids', function () {
+
+        $.ajax({
+            type: "Post",
+            url: '@Url.Action("CreateKids", new { Mid = Model.Id })',
+            data: $("#Kidform").serialize(),
+            success: function (data) {
+                $("#KidsDiv").html(data);
             }
         });
     });
@@ -258,11 +304,36 @@
         });
     });
 
+    //Work Details
+
+      $(document).on('click', '.btnEditWork', function () {
+        var Workid = $(this).attr('itemid');
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("EditWork")?id=' + Workid,
+            success: function (data) {
+                $("#WorkDiv").html(data);
+            }
+        });
+    });
+    $(document).on('click', '#btnWorkSave', function () {
+
+        $.ajax({
+            type: "Post",
+            url: '@Url.Action("EditWork")',
+            data: $("#editWorkform").serialize(),
+            success: function (data) {
+                $("#WorkDiv").html(data);
+            }
+        });
+    });
+
+
     $(document).on('click', '.deletequalification', function () {
         $(this).closest('tr').find('input:hidden').val('D');
         $(this).closest('tr').hide();
     });
-    
-    
-   
+
+
+
 </script>

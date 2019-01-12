@@ -10,7 +10,7 @@ namespace Hadia.Models.ViewModels
     public class WorkDetailsViewModel
     {
         public int Id { get; set; }
-        public int MemberId { get; set; }
+        //public int MemberId { get; set; }
         public string CompanyName { get; set; }
         public string Location { get; set; }
         public int CountryId { get; set; }
@@ -21,7 +21,6 @@ namespace Hadia.Models.ViewModels
         public DateTime DateForm { get; set; }
         public DateTime? DateUpto { get; set; }
 
-        public Mem_Master Member { get; set; }
         public Mem_CountryCode Country { get; set; }
 
 

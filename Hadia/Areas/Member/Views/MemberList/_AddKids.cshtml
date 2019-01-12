@@ -1,0 +1,36 @@
+﻿@using Hadia.Models.DomainModels
+@model Hadia.Models.ViewModels.KidViewModel
+
+<form id="Kidform">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">
+                Kid's Name:
+            </dt>
+            <dd class="col-sm-9">
+                <input asp-for=KidName class="form-control" />
+            </dd>
+
+           
+
+
+            <dt class="col-sm-3">
+                Age:
+            </dt>
+            <dd class="col-sm-9">
+                <input asp-for=Age class="form-control" />
+            </dd>
+            <dt class="col-sm-3">
+                Gender:
+            </dt>
+            <dd class="form-group">
+                @Html.RadioButtonFor(m => m.Gender, GenderType.Male, new { id = GenderType.Male })
+                @Html.Label("male", "Male")
+                @Html.RadioButtonFor(m => m.Gender, GenderType.Female, new { id = GenderType.Female })
+                @Html.Label("female", "Female")
+            </dd>
+</div>
+    <button id="btnAddKids" type="button" class="btn btn-success">Save</button>
+    <button id="btnCancelKids" type="button" class="btn btn-success">Cancel</button>
+
+</form>

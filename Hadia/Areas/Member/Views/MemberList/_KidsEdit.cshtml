@@ -1,4 +1,5 @@
-﻿@model Hadia.Models.ViewModels.KidViewModel
+﻿@using Hadia.Models.DomainModels
+@model Hadia.Models.ViewModels.KidViewModel
 
 <form id="Familyform">
     <div class="card-body">
@@ -7,24 +8,27 @@
                 Kid's Name:
             </dt>
             <dd class="col-sm-9">
-                <input asp-for=KidName class="form-control"/>
+                <input asp-for=KidName class="form-control" />
             </dd>
 
-            @*<input type="hidden" asp-for="MemberId"/>*@
+            <input type="hidden" asp-for="Id"/>
 
 
             <dt class="col-sm-3">
                 Age:
             </dt>
             <dd class="col-sm-9">
-                <input asp-for=Age class="form-control" />
+                <input asp-for=Age class="form-control"/>
             </dd>
             <dt class="col-sm-3">
                 Gender:
             </dt>
             <dd class="form-group">
-                @*<label asp-for=@Model.Gender class="control-label"></label>
-                <select asp-for=@Model.Gender class="form-control"></select>*@
+                @Html.RadioButtonFor(m => m.Gender, GenderType.Male, new { id = GenderType.Male })
+                @Html.Label("male", "Male")
+
+                @Html.RadioButtonFor(m => m.Gender, GenderType.Female, new { id = GenderType.Female })
+                @Html.Label("female", "Female")
 
             </dd>
 
@@ -32,54 +36,55 @@
 
         </dl>
         @*<table class="table table-framed">
-            <thead>
-                <tr>
-                    <th>
-                        Sn
-                    </th>
-                    <th>
+                <thead>
+                    <tr>
+                        <th>
+                            Sn
+                        </th>
+                        <th>
 
-                        Kid's Name
-                    </th>
-                    <th>
-                        Age
-                    </th>
-                    <th>
+                            Kid's Name
+                        </th>
+                        <th>
+                            Age
+                        </th>
+                        <th>
 
-                        Gender
-                    </th>
+                            Gender
+                        </th>
 
 
-                </tr>
-            </thead>
-            <tbody>
-                    @{int SNo = 0; }
-                    @for (int i = 0; i < Model.KidsList.Count(); i++)
-                    {
-                        <tr>
-                            <td>
-                                @Html.HiddenFor(x => Model.KidsList[i].Id)
-                                @Html.HiddenFor(x => Model.KidsList[i].KidName)
-                                @Html.HiddenFor(x => Model.KidsList[i].Age)
-                                @Html.HiddenFor(x => Model.KidsList[i].Gender)
-                                @(SNo += 1)
-                            </td>
-                            <td>@Html.DisplayFor(x => Model.KidsList[i].KidName)</td>
-                            <td>@Html.DisplayFor(x => Model.KidsList[i].Age)</td>
-                            <td>@Html.DisplayFor(x => Model.KidsList[i].Gender)</td>
-                            <td>
-                                <a class="btn btn-outline bg-danger border-primary text-primary-800 btn-icon deletequalification">
-                                    <i class="icon-trash-alt"></i>
-                                </a>
-                            </td>
-                        </tr>
+                    </tr>
+                </thead>
+                <tbody>
+                        @{int SNo = 0; }
+                        @for (int i = 0; i < Model.KidsList.Count(); i++)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.HiddenFor(x => Model.KidsList[i].Id)
+                                    @Html.HiddenFor(x => Model.KidsList[i].KidName)
+                                    @Html.HiddenFor(x => Model.KidsList[i].Age)
+                                    @Html.HiddenFor(x => Model.KidsList[i].Gender)
+                                    @(SNo += 1)
+                                </td>
+                                <td>@Html.DisplayFor(x => Model.KidsList[i].KidName)</td>
+                                <td>@Html.DisplayFor(x => Model.KidsList[i].Age)</td>
+                                <td>@Html.DisplayFor(x => Model.KidsList[i].Gender)</td>
+                                <td>
+                                    <a class="btn btn-outline bg-danger border-primary text-primary-800 btn-icon deletequalification">
+                                        <i class="icon-trash-alt"></i>
+                                    </a>
+                                </td>
+                            </tr>
 
-                    }
-                </tbody>
-        </table>*@
+                        }
+                    </tbody>
+            </table>*@
 
     </div>
     <button id="btnSaveKids" type="button" class="btn btn-success">Save</button>
-    <button type="button" class="btn btn-warning">Cancel</button>
+    <button id="btnCancelKids" type="button" class="btn btn-success">Cancel</button>
+
 </form>
 

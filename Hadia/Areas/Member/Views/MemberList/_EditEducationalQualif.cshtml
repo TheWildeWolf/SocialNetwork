@@ -1,12 +1,13 @@
-﻿@model Hadia.Models.ViewModels.EducationQualifictaionEditMasterViewModel
+﻿@model Hadia.Models.ViewModels.EducationQualifictaionEditViewModel
 <form id="educationQualificationform">
     <div class="card-body">
         <dl class="row">
+            <input type="hidden" asp-for="Id" />
             <dt class="col-sm-3">
                 Qualification:
             </dt>
             <dd class="col-sm-9">
-                <select asp-for="QualificationId" asp-items="Model.QualificationList" class="form-control">
+                <select asp-for="EducationQualificationId" asp-items="Model.QualificationList" class="form-control">
                     <option>--Select Qualification--</option>
                 </select>
             </dd>
@@ -22,7 +23,7 @@
                 Passout Year:
             </dt>
             <dd class="col-sm-9">
-                <input asp-for="PassoutYear" class="form-control" />
+                <input asp-for="PassoutYear.Year" class="form-control" />
             </dd>
             <dt class="col-sm-3">
                 Specialization:
@@ -31,8 +32,8 @@
                 <input asp-for="Specialization" class="form-control" />
             </dd>
         </dl>
-        <a id="btnAddQuallification" class="btn btn-success">Add</a>
-        <table class="table table-framed">
+        @*<a id="btnAddQuallification" class="btn btn-success">Add</a>*@
+        @*<table class="table table-framed">
             <thead>
                 <tr>
                     <th>
@@ -85,7 +86,7 @@
 
                 }
             </tbody>
-        </table>
+        </table>*@
     </div>
     <button id="btnSaveEditQualification" type="button" class="btn btn-success">Save</button>
     <button type="button" class="btn btn-warning">Cancel</button>

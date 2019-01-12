@@ -39,7 +39,8 @@
                     <td>@Html.DisplayFor(x => edu.PassoutYear.Year)</td>
                     <td>@Html.DisplayFor(x => edu.Specialization)</td>
                     <td>
-                        <a asp-action="DeleteEducationalQualif" asp-route-id="@edu.Id" class="btn btn-outline bg-danger border-primary text-primary-800 btn-icon confirm"><i class="icon-trash-alt"></i></a>
+                        @*<a asp-action="DeleteEducationalQualif" asp-route-id="@edu.Id" class="btn btn-outline bg-danger border-primary text-primary-800 btn-icon confirm"><i class="icon-trash-alt"></i></a>*@
+                        <a itemid="@edu.Id" class="btn btn-outline bg-primary border-primary text-primary-800 btn-icon btnEditqualification"><i class="icon-compose"></i></a>
 
                     </td>
                 </tr>
@@ -48,4 +49,3 @@
         </tbody>
     </table>
 </div>
-<a id="btnEditqualification" class="btn btn-outline bg-primary border-primary text-primary-800 btn-icon"><i class="icon-compose"></i></a>

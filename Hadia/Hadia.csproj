@@ -107,6 +107,7 @@
 
   <ItemGroup>
     <None Include="Areas\Member\Views\MemberList\Details.cshtml" />
+    <None Include="Areas\Member\Views\MemberList\_AddKids.cshtml" />
     <None Include="Areas\Member\Views\MemberList\_EditEducationalQualif.cshtml" />
     <None Include="Areas\Member\Views\MemberList\_KidsEdit.cshtml" />
     <None Include="Areas\Member\Views\MemberList\_EditWorkDetails.cshtml" />
@@ -114,6 +115,7 @@
     <None Include="Areas\Member\Views\MemberList\_KidsView.cshtml" />
     <None Include="Areas\Member\Views\MemberList\_ProfileEdit.cshtml" />
     <None Include="Areas\Member\Views\MemberList\_ProfileView.cshtml" />
+    <None Include="Areas\Member\Views\MemberList\_ProjectView.cshtml" />
     <None Include="Areas\Member\Views\MemberList\_SpouseEdit.cshtml" />
     <None Include="Areas\Member\Views\MemberList\_SpouseView.cshtml" />
     <None Include="Areas\Member\Views\MemberList\_WorkEdit.cshtml" />

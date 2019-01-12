@@ -83,8 +83,11 @@ namespace Hadia.Helper
 
             CreateMap<Mem_Kid, KidViewModel>()
             .ForMember(x => x.Age, o => o.MapFrom(s => s.Age != null ? DateTime.Now.Year - s.Age.Year : 0));
-            //CreateMap<KidViewModel, Mem_Kid>()
-            //.ForMember(x => x.Age, o => o.MapFrom(s => s.Age != null ? DateTime.Now.Year - s.Age.Year : 0));
+            CreateMap<KidViewModel, Mem_Kid>()
+            .ForMember(x => x.Age, o => o.MapFrom(s => DateTime.Now.AddYears(-s.Age)));
+
+            CreateMap<Mem_Kid, KidsViewModel>()
+            .ForMember(x => x.Age, o => o.MapFrom(s => s.Age != null ? DateTime.Now.Year - s.Age.Year : 0));
 
             CreateMap<Mem_Master, ProfileEditViewModel>()
             .ForMember(dest => dest.BatchName, o => o.MapFrom(s => s.MainGroup.GroupName))
@@ -93,8 +96,8 @@ namespace Hadia.Helper
             .FirstOrDefault().GroupMaster.Id));
             CreateMap<ProfileEditViewModel, Mem_Master>();
 
-            CreateMap<Mem_EducationDetail, EducationQualifictaionEditMasterViewModel>();
-            CreateMap<EducationQualifictaionEditMasterViewModel, Mem_EducationDetail>();
+            CreateMap<Mem_EducationDetail, EducationQualifictaionEditViewModel>();
+            CreateMap<EducationQualifictaionEditViewModel, Mem_EducationDetail>();
 
             CreateMap<Mem_Master, SpouseViewModel>()
             .ForMember(dest => dest.QualificationName, o => o.MapFrom(s => s.SpouseEducation.QualificationName))
