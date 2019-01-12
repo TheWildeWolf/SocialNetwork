@@ -9,7 +9,7 @@ namespace Hadia.Models.DomainModels
         public string Voice { get; set; }
         public string Topic { get; set; }
         public int OpnedId { get; set; }
-        public int GroupId { get; set; }
+        public int? GroupId { get; set; }
         public PostStatus Status { get; set; }
         public int CategoryId { get; set; }
         public DonationType DonationType { get; set; }
@@ -45,6 +45,7 @@ namespace Hadia.Models.DomainModels
 
     public enum DonationType : byte
     {
+        None = 0,
         Amount = 1,
         Quantity = 2
     }

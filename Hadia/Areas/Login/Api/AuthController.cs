@@ -5,11 +5,13 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Hadia.Controllers;
+using Hadia.Core;
 using Hadia.Data;
 using Hadia.Models.DomainModels;
 using Hadia.Models.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
@@ -20,33 +22,32 @@ namespace Hadia.Areas.Login.Api
     {
         private HadiaContext _db;
         private IConfiguration _config;
-        private AuthService _authServive;
-        public LoginController(HadiaContext context,IConfiguration config)
+        private IAuthService _authServive;
+        public LoginController(HadiaContext context,IConfiguration config, IAuthService authServive)
         {
             _db = context;
             _config = config;
-            _authServive =new AuthService(context);
+            _authServive = authServive;
         }
 
-        [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public IActionResult Get()
         {
             /*
              * test method to check token auth
              */
-            await _db.Mem_Masters.AddAsync(new Mem_Master
-            {
-                CDate = DateTime.Now
-            });
-            try
-            {
-                await _db.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            //await _db.Mem_Masters.AddAsync(new Mem_Master
+            //{
+            //    CDate = DateTime.Now
+            //});
+            //try
+            //{
+            //    await _db.SaveChangesAsync();
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
 
             return Ok();
         }
@@ -55,26 +56,36 @@ namespace Hadia.Areas.Login.Api
         [HttpPost]
         public async Task<ActionResult<LoginSuccessDto>> Login(LoginDto logindata)
         {
-           var user = await _authServive.Login(username: logindata.Username, password: logindata.Password);
-            if (user == null)
-                return Unauthorized(new {error = "Username or Password is incorrect"});
+            if(!await _authServive.UserExists(logindata.Username))
+                return Unauthorized(new { error = "User not exist!" });
 
+            var user = await _authServive.Login(username: logindata.Username, password: logindata.Password);
+
+            if (user == null)
+                return Unauthorized(new {error = "Username or Password is incorrect" });
+
+            if (!user.IsVarified)
+                return Unauthorized(new { error = "Your Account Not Approved." });
+            var ugCollege = await _db.Mem_UgColleges.FirstOrDefaultAsync(x => x.Id == user.UgCollageId);
+            var key = GenerateId();
             var loginSuccess = new LoginSuccessDto
             {
                 Id = user.Id,
                 Name = user.Name,
-                Token = GenerateJwtToken(user)
+                Token = GenerateJwtToken(user, key),
+                UgCollege = ugCollege.UgCollegeName
+
             };
             await _db.Sett_LoginLogs.AddAsync(new Sett_LoginLog
             {
                 MemberId = user.Id,
-                LoginTime = DateTime.Now,
-                KeyValue = ""
+                LoginTime = DateTime.UtcNow,
+                KeyValue = key
             });
             await _db.Sett_DeviceInfoLogs.AddAsync(new Sett_DeviceInfoLog
             {
                 MemberId = user.Id,
-                CDate = DateTime.Now,
+                CDate = DateTime.UtcNow,
                 DeviceKey = logindata.DeviceKey
 
             });
@@ -89,13 +100,14 @@ namespace Hadia.Areas.Login.Api
             return Ok(loginSuccess);
         }
 
-        private string GenerateJwtToken(Mem_Master user)
+        private string GenerateJwtToken(Mem_Master user,string uid)
         {
             
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.Name)
+                new Claim(ClaimTypes.Name, user.Name),
+                new Claim(ClaimTypes.Sid, uid)
             };
 
             // var roles = await _userManager.GetRolesAsync(user);
@@ -113,7 +125,7 @@ namespace Hadia.Areas.Login.Api
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(1),
+                Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = credentials
             };
 
@@ -122,6 +134,11 @@ namespace Hadia.Areas.Login.Api
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             return tokenHandler.WriteToken(token);
+        }
+
+        public string GenerateId()
+        {
+            return Guid.NewGuid().ToString("N");
         }
     }
 }

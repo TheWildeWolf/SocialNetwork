@@ -6,6 +6,8 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Hadia.Concrete;
+using Hadia.Core;
 using Hadia.Data;
 using Hadia.Helper;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -46,11 +48,17 @@ namespace Hadia
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+                //.AddJsonOptions(opt =>
+                //{
+                //    opt.SerializerSettings.ReferenceLoopHandling =
+                //        Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                //});
             services.AddDbContext<HadiaContext>(op =>
                 op.UseSqlServer(Configuration.GetConnectionString(DEV_CONNECTION_STRING)));
             services.AddAutoMapper();
             //AuthCoockie
+            services.AddHttpContextAccessor();
             services.AddSwaggerGen(c =>
                 {
                     c.SwaggerDoc("v1", new Info { Title = "Hadia Api", Version = "v1" });
@@ -60,7 +68,7 @@ namespace Hadia
                 {
                     options.AccessDeniedPath = "";
                     options.LoginPath = "/Auth/Login";
-                    
+
                 }).AddJwtBearer(options =>
                 {
                     options.TokenValidationParameters = new TokenValidationParameters
@@ -71,7 +79,11 @@ namespace Hadia
                         ValidateIssuer = false,
                         ValidateAudience = false
                     };
-                }); 
+                });
+            //Injections
+            //services.AddScoped<ActionFilter>();
+            services.AddScoped<IAuthService,AuthService>();
+            services.AddScoped<IDataFetcher, DataFetcher>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -80,6 +92,7 @@ namespace Hadia
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+               
             }
             else
             {
@@ -104,24 +117,44 @@ namespace Hadia
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/Hadia/swagger/v1/swagger.json", "SeLIk Here Darling");
+                c.SwaggerEndpoint("/Hadia/swagger/v1/swagger.json", "Hadia Alumni");
+
             });
-            app.UseDirectoryBrowser(new DirectoryBrowserOptions()
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot", "Media", "Images")),
+                RequestPath = "/Images"
+            });
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot", "Media", "Voice")),
+                RequestPath = "/voice"
+            });
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot", "Media", "ProfileImage")),
+                RequestPath = "/Profile"
+            });
+            app.UseDirectoryBrowser(new DirectoryBrowserOptions
             {
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot", "ChapterImages")),
                 RequestPath = new PathString("/ChapterImages")
+               
             });
 
             app.UseMvc(routes =>
             {
-                //{ area: exists}
+                //{ area: exists} {area=member}/{controller=memberlist}/{action=Index}/{id?}
                 routes.MapRoute(
                     name: "area",
                     template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
                 routes.MapRoute(
                         name: "default",
-                        template: "{area=member}/{controller=memberlist}/{action=Index}/{id?}");
+                        template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

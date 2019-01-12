@@ -288,6 +288,12 @@ namespace Hadia.Migrations
 
                     b.Property<string>("CountryName");
 
+                    b.Property<decimal?>("Lat")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal?>("Long")
+                        .HasColumnType("decimal(18, 2)");
+
                     b.Property<string>("TimeZone");
 
                     b.HasKey("Id");
@@ -500,6 +506,8 @@ namespace Hadia.Migrations
 
                     b.Property<string>("SpouseName")
                         .HasMaxLength(128);
+
+                    b.Property<DateTime?>("SyncTime");
 
                     b.Property<int>("UgCollageId");
 
@@ -842,11 +850,15 @@ namespace Hadia.Migrations
 
                     b.Property<string>("Comment");
 
+                    b.Property<DateTime>("Date");
+
                     b.Property<DateTime?>("DeletedAt");
+
+                    b.Property<int?>("MasterId");
 
                     b.Property<int>("MemberId");
 
-                    b.Property<int>("PostId");
+                    b.Property<int?>("PostId");
 
                     b.Property<int?>("RemovedId");
 
@@ -855,6 +867,10 @@ namespace Hadia.Migrations
                     b.Property<byte>("Type");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MasterId");
+
+                    b.HasIndex("MemberId");
 
                     b.HasIndex("PostId");
 
@@ -878,6 +894,29 @@ namespace Hadia.Migrations
                     b.HasIndex("CommentId");
 
                     b.ToTable("Post_CommentEdits");
+                });
+
+            modelBuilder.Entity("Hadia.Models.DomainModels.Post_CommentView", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CDate");
+
+                    b.Property<int>("CommentId");
+
+                    b.Property<bool>("IsRead");
+
+                    b.Property<int>("MemberId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CommentId");
+
+                    b.HasIndex("MemberId");
+
+                    b.ToTable("Post_CommentViews");
                 });
 
             modelBuilder.Entity("Hadia.Models.DomainModels.Post_CommentsLike", b =>
@@ -980,7 +1019,8 @@ namespace Hadia.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MemberId");
+                    b.HasIndex("MemberId", "PostId")
+                        .IsUnique();
 
                     b.ToTable("Post_Followers");
                 });
@@ -1140,9 +1180,10 @@ namespace Hadia.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MemberId");
-
                     b.HasIndex("PostId");
+
+                    b.HasIndex("MemberId", "PostId")
+                        .IsUnique();
 
                     b.ToTable("Post_Likes");
                 });
@@ -1165,7 +1206,7 @@ namespace Hadia.Migrations
 
                     b.Property<byte>("DonationType");
 
-                    b.Property<int>("GroupId");
+                    b.Property<int?>("GroupId");
 
                     b.Property<int>("OpnedId");
 
@@ -1247,6 +1288,8 @@ namespace Hadia.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("CDate");
+
+                    b.Property<bool>("IsRead");
 
                     b.Property<int>("MemberId");
 
@@ -1862,10 +1905,20 @@ namespace Hadia.Migrations
 
             modelBuilder.Entity("Hadia.Models.DomainModels.Post_Comment", b =>
                 {
+                    b.HasOne("Hadia.Models.DomainModels.Post_Comment")
+                        .WithMany("PostComments")
+                        .HasForeignKey("MasterId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Hadia.Models.DomainModels.Mem_Master", "Createdby")
+                        .WithMany("PostComments")
+                        .HasForeignKey("MemberId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("Hadia.Models.DomainModels.Post_Master", "Master")
                         .WithMany("Comments")
                         .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Hadia.Models.DomainModels.Mem_Master", "DeletedBy")
                         .WithMany("DeletedComments")
@@ -1877,6 +1930,19 @@ namespace Hadia.Migrations
                     b.HasOne("Hadia.Models.DomainModels.Post_Comment", "PostComment")
                         .WithMany("Edits")
                         .HasForeignKey("CommentId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("Hadia.Models.DomainModels.Post_CommentView", b =>
+                {
+                    b.HasOne("Hadia.Models.DomainModels.Post_Comment", "Comment")
+                        .WithMany("Views")
+                        .HasForeignKey("CommentId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Hadia.Models.DomainModels.Mem_Master", "Member")
+                        .WithMany("ViewedComments")
+                        .HasForeignKey("MemberId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

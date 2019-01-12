@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace Hadia.Models.DomainModels
 {
@@ -13,9 +14,12 @@ namespace Hadia.Models.DomainModels
 
         public Mem_Master Member { get; set; }
     }
+
     public enum GenderType : byte
     {
+        [DisplayName("Male")]
         Male = 1,
+        [DisplayName("Male")]
         Female = 2
     }
 

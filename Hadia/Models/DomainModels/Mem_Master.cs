@@ -36,6 +36,8 @@ namespace Hadia.Models.DomainModels
 
         public bool IsVarified { get; set; }
 
+        public DateTime? SyncTime { get; set; }
+
         public int? VarifiedBy { get; set; }
         public DateTime? VarifiedDate { get; set; }
 
@@ -52,8 +54,10 @@ namespace Hadia.Models.DomainModels
         public Mem_SpouseEducationMaster SpouseEducation { get; set; }
         public Post_GroupMaster MainGroup { get; set; }
 
+        public ICollection<Post_Comment> PostComments { get; set; } 
         public ICollection<Post_GroupMember> MembershipInGroups { get; set; }
 
+        public ICollection<Post_CommentView> ViewedComments { get; set; }
         public ICollection<Mem_Master> VarifiedMembers { get; set; }
         public ICollection<Mem_EducationalQualificationMaster> EducationalQualificationMasters { get; set; }
         public ICollection<Mem_SpouseEducationMaster> SpouseEducationMasters { get; set; }

@@ -49,6 +49,7 @@ namespace Hadia.Data
         public DbSet<Res_Master> Res_Masters { get; set; }
         public DbSet<Res_Views>Res_Views  { get; set; }
         public DbSet<Post_Comment> Post_Comments { get; set; }
+        public DbSet<Post_CommentView> Post_CommentViews { get; set; }
         public DbSet<Post_Like> Post_Likes { get; set; }
         public DbSet<Post_CommentsLike> Post_CommentsLikes { get; set; }
         public DbSet<Post_ReportReason> Post_ReportReasons { get; set; }

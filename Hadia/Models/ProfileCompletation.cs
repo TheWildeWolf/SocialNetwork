@@ -1,6 +1,6 @@
 namespace Hadia.Models
 {
-    public class ProfileCompletation
+    public class ProfileCompletion
     {
         public string Field { get; set; }
         public int Point{ get; set; }

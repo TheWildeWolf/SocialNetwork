@@ -3,6 +3,7 @@
     ViewData["Title"] = "Member";
     ViewData["Description"] = "Member Detail";
 }
+
 <div class="content">
     <input asp-for="Id" hidden />
     @*@ViewBag.MemberId=@Model.Id*@
@@ -161,6 +162,8 @@
     </div>
 </div>
 
+@section Scripts
+{
 <script>
     //Profile Edit
     $(document).on('click', '#BtnEditprofile',function () {
@@ -175,6 +178,8 @@
         })
     });
     $(document).on('click', '#btnProfileSave', function () {
+
+        doAjax('@Url.Action("EditProfile")', 'profileDiv', HMethod.POST);
         $.ajax({
             type: "POST",
             url: '@Url.Action("EditProfile")',
@@ -330,7 +335,8 @@
 
 
     $(document).on('click', '.deletequalification', function () {
-        $(this).closest('tr').find('input:hidden').val('D');
+        var id = $(this).attr('data-id');
+        $(this).closest('tr').find('#Qualification_' + id + '__Status').val('D');
         $(this).closest('tr').hide();
     });
 

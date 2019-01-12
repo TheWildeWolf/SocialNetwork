@@ -11,6 +11,8 @@ namespace Hadia.Models.DomainModels
         public string CountryName { get; set; }
         public string CountryCode { get; set; }
         public string  TimeZone  { get; set; }
+        public decimal? Lat { get; set; }
+        public decimal? Long { get; set; }
         public DateTime  CDate { get; set; }
 
         public ICollection<Mem_UniversityMaster> UniversityMasters { get; set; }
