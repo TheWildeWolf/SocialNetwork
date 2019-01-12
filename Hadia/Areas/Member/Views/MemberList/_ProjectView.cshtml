@@ -1,35 +1,47 @@
 ﻿@model Hadia.Models.ViewModels.MemberDetailsViewModel
 <div class="card-body">
-    <table class="table table-framed">
-<thead>
-    <tr>
-        Sn
-        </tr>
-    <tr>
-        Project Title
-        </tr>
-    <tr>
-        Description
-        </tr>
-
-    </thead>
-        @{ int Sn = 0;}
-        @foreach(var item in Model.ProjectWorks)
-        {
+    <table  class="table table-framed">
+        <thead>
             <tr>
-                <td>
-                    @(Sn +=1)
-                </td>
-                <td>
-                    @Html.DisplayFor(x=>item.ProjectTitle)
-                </td>
-                <td>
-                    @Html.DisplayFor(x=>item.Description)
-                </td>
-
+                <th>
+                    Sn
+                </th>
+                <th>
+                    Project Title
+                </th>
+                <th>
+                    Description
+                </th>
             </tr>
+        </thead>
+
+        @{ int Sn = 0;}
+        @{ if (Model.Projects == null)
+            {
+                <tr> <td colspan="3">No Projects</td></tr>
+            }
+            else
+            {
+
+                foreach (var item in Model.Projects)
+                {
+                    <tr>
+                        <td>
+                            @(Sn += 1)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(x => item.ProjectTitle)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(x => item.Description)
+                        </td>
+
+                    </tr>
+                }
+            }
+
+
         }
-<tbody>
-    </tbody>
-</table>
+        <tbody></tbody>
+    </table>
 </div>

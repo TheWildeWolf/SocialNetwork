@@ -7,7 +7,7 @@
 <div class="content">
     <input asp-for="Id" hidden />
     @*@ViewBag.MemberId=@Model.Id*@
-    
+
     <!-- Inner container -->
     <div class="d-md-flex align-items-md-start">
         <!-- Left sidebar component -->
@@ -21,21 +21,21 @@
                         <div class="card-img-actions d-inline-block mb-3">
                             <img class="img-fluid rounded-circle" src="~/global_assets/images/placeholders/placeholder.jpg" width="170" height="170" alt="">
                             @*<div class="card-img-actions-overlay rounded-circle">
-                                <a href="#" class="btn btn-outline bg-white text-white border-white border-2 btn-icon rounded-round">
-                                    <i class="icon-plus3"></i>
-                                </a>
-                                <a href="#" class="btn btn-outline bg-white text-white border-white border-2 btn-icon rounded-round ml-2">
-                                    <i class="icon-link"></i>
-                                </a>
-                            </div>*@
+                                    <a href="#" class="btn btn-outline bg-white text-white border-white border-2 btn-icon rounded-round">
+                                        <i class="icon-plus3"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-outline bg-white text-white border-white border-2 btn-icon rounded-round ml-2">
+                                        <i class="icon-link"></i>
+                                    </a>
+                                </div>*@
                         </div>
                         <h6 class="font-weight-semibold mb-0">@Html.DisplayFor(model => model.Name)</h6>
                         <span class="d-block opacity-75">@Html.DisplayFor(model => model.UgCollegeName)</span>
                         @*<div class="list-icons list-icons-extended mt-3">
-                            <a href="#" class="list-icons-item text-white" data-popup="tooltip" title="" data-container="body" data-original-title="Google Drive"><i class="icon-google-drive"></i></a>
-                            <a href="#" class="list-icons-item text-white" data-popup="tooltip" title="" data-container="body" data-original-title="Twitter"><i class="icon-twitter"></i></a>
-                            <a href="#" class="list-icons-item text-white" data-popup="tooltip" title="" data-container="body" data-original-title="Github"><i class="icon-github"></i></a>
-                        </div>*@
+                                <a href="#" class="list-icons-item text-white" data-popup="tooltip" title="" data-container="body" data-original-title="Google Drive"><i class="icon-google-drive"></i></a>
+                                <a href="#" class="list-icons-item text-white" data-popup="tooltip" title="" data-container="body" data-original-title="Twitter"><i class="icon-twitter"></i></a>
+                                <a href="#" class="list-icons-item text-white" data-popup="tooltip" title="" data-container="body" data-original-title="Github"><i class="icon-github"></i></a>
+                            </div>*@
                     </div>
                     <div class="card-body p-0">
                         <ul class="nav nav-sidebar mb-2">
@@ -70,7 +70,7 @@
                                     <i class="icon-puzzle3"></i>
                                     Projects
                                 </a>
-                                
+
                             </li>
                             <li class="nav-item-divider"></li>
                             <li class="nav-item" style="text-align:center">
@@ -96,9 +96,9 @@
                 <div class="card">
                     <div class="card-header header-elements-sm-inline">
                         <h6 class="card-title">Profile</h6>
-                       
+
                     </div>
-                   
+
                     <div class="card-body" id="profileDiv">
                         @{await Html.RenderPartialAsync("_ProfileView"); }
                     </div>
@@ -113,7 +113,7 @@
                     <div class="card-body" id="EducationDiv">
                         @{await Html.RenderPartialAsync("_EduQualificationView"); }
                     </div>
-                    
+
 
                 </div>
             </div>
@@ -125,14 +125,14 @@
                     <div class="card-body" id="SpouseDiv">
                         @{ await Html.RenderPartialAsync("_SpouseView");}
                     </div>
-                   
+
 
                     <div class="card-body" id="KidsDiv">
                         @{ await Html.RenderPartialAsync("_KidsView");}
                     </div>
-                 
+
                 </div>
-               
+
                 <div class="card-body" id="KidsDivEdit">
                     @*@{ await Html.RenderPartialAsync("_KidsEdit");}*@
                 </div>
@@ -144,7 +144,9 @@
                     <h6 class="card-title">Work Details</h6>
                 </div>
                 <div class="card" id="WorkDiv">
-                    @{ await Html.RenderPartialAsync("_WorkView");}
+                    @{
+                        await Html.RenderPartialAsync("_WorkView");
+                     }
                 </div>
             </div>
             <div class="tab-pane fade" id="projects">
@@ -152,8 +154,9 @@
                     <h6 class="card-title">Projects</h6>
                 </div>
                 <div class="card" id="ProjectDiv">
-                    @{ await Html.RenderPartialAsync("_ProjectView");}
-
+                    @{
+                        await Html.RenderPartialAsync("_ProjectView");
+                     }
                 </div>
             </div>
             <!-- /right content -->
@@ -163,8 +166,8 @@
 </div>
 
 @section Scripts
-{
-<script>
+    {
+    <script>
     //Profile Edit
     $(document).on('click', '#BtnEditprofile',function () {
         $.ajax({
@@ -174,7 +177,6 @@
             success: function (data) {
                 $("#profileDiv").html(data);
             }
-
         })
     });
     $(document).on('click', '#btnProfileSave', function () {
@@ -253,7 +255,7 @@
         $.ajax({
             type: "Post",
             url: '@Url.Action("EditKids")',
-           
+
             data: $("#Familyform").serialize(),
             success: function (data) {
                 $("#KidsDiv").html(data);
@@ -261,11 +263,11 @@
         });
     });
     $(document).on('click', '#btnKidsAdd', function () {
-       
+
         $.ajax({
             type: "Get",
             url: '@Url.Action("CreateKids")',
-           
+
             data: $("#Kidform").serialize(),
             success: function (data) {
                 $("#KidsDiv").html(data);
@@ -342,4 +344,5 @@
 
 
 
-</script>
+    </script>
+}

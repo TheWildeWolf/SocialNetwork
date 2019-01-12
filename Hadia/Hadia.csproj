@@ -122,8 +122,11 @@
     <Folder Include="wwwroot\ChapterImages\" />
     <File Include="wwwroot\ChapterImages\**" />
     <Folder Include="wwwroot\Media\Images\" />
+    <Folder Include="wwwroot\Media\Images\" />
+    <Folder Include="wwwroot\Media\Voice\" />
     <Folder Include="wwwroot\Media\ProfileImage\" />
     <Folder Include="wwwroot\Media\Voice\" />
+    <Folder Include="wwwroot\ChapterImages\" />
   </ItemGroup>
 
   <ItemGroup>

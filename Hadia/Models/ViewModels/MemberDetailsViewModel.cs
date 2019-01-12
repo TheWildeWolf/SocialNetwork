@@ -57,7 +57,7 @@ namespace Hadia.Models.ViewModels
         public ICollection<Mem_EducationalQualificationMaster> EducationalQualificationMasters { get; set; }
         public ICollection<Mem_WorkDetail> WorkDetails { get; set; }
         public ICollection<Mem_CountryCode> Country { get; set; }
-        public ICollection<Mem_ProjectWork> ProjectWorks { get; set; }
+        public ICollection<Mem_ProjectWork> Projects { get; set; }
     }
    
     public class KidViewModel

@@ -443,6 +443,7 @@ namespace Hadia.Areas.Member.Controllers
                   .ThenInclude(x => x.University)
               .Include(x => x.WorkDetails)//
                   .ThenInclude(x => x.Country)
+               .Include(X=>X.Projects)
               .Select(x => _mapper.Map<MemberDetailsViewModel>(x))
               .FirstOrDefaultAsync(x => x.Id == id);
             return memberDetails;
@@ -450,7 +451,7 @@ namespace Hadia.Areas.Member.Controllers
         public async Task<IActionResult>Project(int id)
         {
             var ProjectDetails = await _db.Mem_ProjectWorks.ToListAsync();
-            return View();
+            return PartialView("_ProjectView",ProjectDetails);
         }
       
     }
