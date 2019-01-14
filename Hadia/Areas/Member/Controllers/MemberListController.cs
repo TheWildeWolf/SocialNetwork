@@ -298,7 +298,8 @@ namespace Hadia.Areas.Member.Controllers
                 var dataInDb = _db.Mem_Kids.Find(id);
                 var editMaster = _mapper.Map(kidsDetails, dataInDb);
                 await _db.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var member = await GetDetail(editMaster.MemberId);
+                return PartialView("_KidsView",member);
             }
             return PartialView("_KidsView", kidsDetails);
         }
@@ -322,25 +323,21 @@ namespace Hadia.Areas.Member.Controllers
                 await _db.Mem_Kids.AddAsync(newKid);
                 await _db.SaveChangesAsync();
                 TempData["message"] = Notifications.SuccessNotify("New Kid Added!");
+                var member =await GetDetail(Mid);
+                return PartialView("_KidsView", member);
             }
-            return PartialView("_KidsView", kidView);
+            return PartialView("_AddKids", kidView);
         }
-        
-
-
-        [HttpGet]
+         [HttpGet]
         public async Task<IActionResult> EditSpouse(int id)
         {
-            var SpouseDetails = await _db.Mem_Masters.AsNoTracking()
+             var SpouseDetails = await _db.Mem_Masters.AsNoTracking()
                  .Include(y => y.SpouseEducation)
                  .Select(x => _mapper.Map<MemberDetailsViewModel>(x))
-              .FirstOrDefaultAsync(x => x.Id == id);
-            SpouseDetails.SpouseEduList =
+                 .FirstOrDefaultAsync(x => x.Id == id);
+             SpouseDetails.SpouseEduList =
                 new SelectList(_db.Mem_SpouseEducationMasters.ToList(), "Id", "QualificationName", SpouseDetails.SpouseEducationId);
-
             return PartialView("_SpouseEdit", SpouseDetails);
-
-
         }
         [HttpPost]
         public async Task<IActionResult> EditSpouse(int id,MemberDetailsViewModel details)
