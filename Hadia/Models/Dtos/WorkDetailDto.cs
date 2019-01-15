@@ -7,6 +7,7 @@ namespace Hadia.Models.Dtos
 {
     public class WorkDetailDto
     {
+        public int Id { get; set; }
         public string CompanyName { get; set; }
         public string Location { get; set; }
         public string Country { get; set; }

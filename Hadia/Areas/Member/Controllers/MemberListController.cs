@@ -217,6 +217,7 @@ namespace Hadia.Areas.Member.Controllers
         {
             var editData = await _db.Mem_Masters.FirstOrDefaultAsync(x => x.Id == id);
             editData.IsVarified = isActive;
+            editData.VarifiedDate = DateTime.UtcNow;
             await _db.SaveChangesAsync();
             TempData["message"] = Notifications.NormalNotify(isActive ? "Approved " + editData.Name +" Successfully.": "Approval of " +editData.Name+" Cancelled.");
             return RedirectToAction("Index");

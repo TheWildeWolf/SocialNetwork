@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +24,10 @@ namespace Hadia.Areas.Login.Api
         private HadiaContext _db;
         private IConfiguration _config;
         private IAuthService _authServive;
-        public LoginController(HadiaContext context,IConfiguration config, IAuthService authServive)
+        public LoginController(
+            HadiaContext context,
+            IConfiguration config,
+            IAuthService authServive)
         {
             _db = context;
             _config = config;
@@ -65,7 +69,7 @@ namespace Hadia.Areas.Login.Api
                 return Unauthorized(new {error = "Username or Password is incorrect" });
 
             if (!user.IsVarified)
-                return Unauthorized(new { error = "Your Account Not Approved." });
+                return Unauthorized(new { error = "Your Account Not Yet Approved, Please Contact Admin Panel For More Info.." });
             var ugCollege = await _db.Mem_UgColleges.FirstOrDefaultAsync(x => x.Id == user.UgCollageId);
             var key = GenerateId();
             var loginSuccess = new LoginSuccessDto
@@ -73,7 +77,10 @@ namespace Hadia.Areas.Login.Api
                 Id = user.Id,
                 Name = user.Name,
                 Token = GenerateJwtToken(user, key),
-                UgCollege = ugCollege.UgCollegeName
+                UgCollege = ugCollege.UgCollegeName,
+                BatchId = user.GroupId,
+                ChapterId = (_db.Post_GroupMembers.FirstOrDefault(x=> x.MemberId == user.Id && x.IsActive && x.GroupMaster.Type == GroupType.Chapter)??new Post_GroupMember()).GroupId,
+                Photo = (_db.Mem_Photos.FirstOrDefault(s => s.MemberId == user.Id && s.IsActive)?? new Mem_Photo()).Image
 
             };
             await _db.Sett_LoginLogs.AddAsync(new Sett_LoginLog

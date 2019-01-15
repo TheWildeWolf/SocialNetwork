@@ -42,7 +42,7 @@ namespace Hadia.Areas.Member.Apis
                 .Include(x=>x.Projects)
                 .Include(x => x.MembershipInGroups)
                     .ThenInclude(n => n.GroupMaster)
-                .Include(x => x.District)
+                .Include(x => x.District).ThenInclude(x=> x.State)
                 .Include(y => y.Kids)
                 .Include(y => y.SpouseEducation)
                 .Include(x => x.EducationDetails)
@@ -58,6 +58,44 @@ namespace Hadia.Areas.Member.Apis
 
             return Ok(memberDetails);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(ProfileSaveDto profile)
+        {
+            var userInDb = await _db.Mem_Masters
+                                .Include(x=>x.MembershipInGroups)
+                                        .ThenInclude(x=>x.GroupMaster)
+                                .SingleOrDefaultAsync(x=>x.Id==profile.Id);
+            var editUser = _mapper.Map(profile, userInDb);
+            if (userInDb.MembershipInGroups.All(x => x.GroupId != profile.ChapterId))
+            {
+                 userInDb.MembershipInGroups.ToList().ForEach(x => x.IsActive = true);
+                var oldChapters = userInDb.MembershipInGroups.ToList();
+                await _db.Post_GroupMembers.AddAsync(new Post_GroupMember
+                {
+                    AddedBy = UserId,
+                    CDate = DateTime.UtcNow,
+                    GroupId = profile.ChapterId,
+                    IsActive = true,
+                    IsGroupAdmin = false,
+                    MemberId = UserId
+                });
+                _db.UpdateRange(oldChapters);
+            }
+          
+            editUser.MDate = DateTime.UtcNow;
+            _db.Update(editUser);
+            try
+            {
+                await _db.SaveChangesAsync();
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddPhoto([FromForm]ProfilePicDto profilepic)
         {

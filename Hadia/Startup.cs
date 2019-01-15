@@ -96,21 +96,22 @@ namespace Hadia
             }
             else
             {
-                app.UseExceptionHandler(builder =>
-                {
-                    builder.Run(async context =>
-                    {
-                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                        var error = context.Features.Get<IExceptionHandlerFeature>();
-                        if (error != null)
-                        {
-                           await context.ShowApplicationError(error.Error.Message, error.Error.InnerException.Message);
-                        }
-                    });
-                });
+                app.UseDeveloperExceptionPage();
+                //app.UseExceptionHandler(builder =>
+                //{
+                //    builder.Run(async context =>
+                //    {
+                //        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                //        var error = context.Features.Get<IExceptionHandlerFeature>();
+                //        if (error != null)
+                //        {
+                //           await context.ShowApplicationError(error.Error.Message, error.Error.InnerException?.Message);
+                //        }
+                //    });
+                //});
                 app.UseHsts();
             }
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseAuthentication();

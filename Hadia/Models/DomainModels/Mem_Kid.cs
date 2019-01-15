@@ -11,7 +11,6 @@ namespace Hadia.Models.DomainModels
         public DateTime Age { get; set; }
         public GenderType Gender { get; set; }
         public DateTime CDate { get; set; }
-
         public Mem_Master Member { get; set; }
     }
 
@@ -19,7 +18,7 @@ namespace Hadia.Models.DomainModels
     {
         [DisplayName("Male")]
         Male = 1,
-        [DisplayName("Male")]
+        [DisplayName("Female")]
         Female = 2
     }
 

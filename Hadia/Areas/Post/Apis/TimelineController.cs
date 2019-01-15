@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Hadia.Areas.Login.Models;
 using Hadia.Controllers;
 using Hadia.Data;
 using Hadia.Models;
@@ -78,27 +79,37 @@ namespace Hadia.Areas.Post.Apis
                     await postDto.Voice.CopyToAsync(fileStream);
                 }
             }
-            await _db.Post_Masters.AddAsync(new Post_Master
+
+            var newPost = new Post_Master
             {
-                CDate = DateTime.UtcNow, 
+                CDate = DateTime.UtcNow,
                 CategoryId = postDto.CategoryId,
                 OpnedId = userid,
                 Voice = voicePath.FileName,
-                PostImages = postedImages,
+                PostImages = postedImages.Any() ? postedImages : null,
                 Topic = postDto.Topic,
                 Status = PostStatus.Active,
-                DonationType = postDto.DonationType ??  DonationType.None
-            });
+                GroupId = postDto.GroupId,
+                DonationType = postDto.DonationType ?? DonationType.None
+            };
+            await _db.Post_Masters.AddAsync(newPost);
             try
             {
                 await _db.SaveChangesAsync();
-                return Ok();
+                var returnData = await _db.Post_Masters
+                    .Include(x=>x.PostImages)
+                    .Where(x => x.Id == newPost.Id)
+                    .Select(x => _mapper.Map<DataPostDto>(x))
+                    .Take(1)
+                    .SingleOrDefaultAsync();
+                return Ok(returnData);
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
+
         [HttpGet]
         public async Task<IActionResult> MyTimeLine()
         {

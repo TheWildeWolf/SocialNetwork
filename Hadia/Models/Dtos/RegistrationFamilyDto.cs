@@ -17,6 +17,7 @@ namespace Hadia.Models.Dtos
 
     public class KidsDto
     {
+        public int Id { get; set; }
         public string KidName { get; set; }
         public int? Age { get; set; }
         public GenderType Gender { get; set; }

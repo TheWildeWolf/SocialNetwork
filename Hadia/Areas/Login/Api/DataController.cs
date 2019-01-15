@@ -31,6 +31,7 @@ namespace Hadia.Areas.Login.Api
             dataMaster.postImages = await _dataFetcher.GetPostImages();
             dataMaster.comments = await _dataFetcher.GetComments();
             dataMaster.likes = await _dataFetcher.GetLikes();
+            await _dataFetcher.SaveSyncTimeAsync();
             return Ok(dataMaster);
         }
     }

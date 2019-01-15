@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Hadia.Areas.Login.Models;
 using Hadia.Models.DomainModels;
+using Hadia.Models.Dtos;
 
 namespace Hadia.Core
 {

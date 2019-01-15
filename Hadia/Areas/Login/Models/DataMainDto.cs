@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Hadia.Models.Dtos;
 
 namespace Hadia.Areas.Login.Models
 {
