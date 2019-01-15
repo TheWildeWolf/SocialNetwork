@@ -78,7 +78,7 @@ namespace Hadia.Areas.Member.Controllers
                 .FirstOrDefaultAsync(x => x.Id == id);
             if (EditData == null)
                 return NotFound();
-            await _db.SaveChangesAsync();
+           
             return View(EditData);
         }
         [HttpPost]

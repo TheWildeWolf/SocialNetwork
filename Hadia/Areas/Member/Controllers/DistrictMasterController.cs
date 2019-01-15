@@ -75,7 +75,7 @@ namespace Hadia.Areas.Member.Controllers
 
         }
         [HttpGet]
-        public async Task<IActionResult> Edit(int ?id)
+        public async Task<IActionResult> Edit(int?id)
         {
 
             var EditData = await _db.Mem_DistrictMasters.Select(x => _mapper.Map<DistrictMasterViewModel>(x))
@@ -85,8 +85,6 @@ namespace Hadia.Areas.Member.Controllers
             if (EditData == null)
                 return NotFound();
             return View(EditData);
-
-           
         }
         [HttpPost]
         public async Task<IActionResult> Edit(int id,DistrictMasterViewModel districtMaster)

@@ -1,0 +1,23 @@
+﻿
+@model Hadia.Models.ViewModels.MemberDetailsViewModel
+<dl class="row">
+    <dt class="col-md-2">
+        Spouse Name:
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.SpouseName)
+    </dd>
+    <dt class="col-md-2">
+        Age:
+    </dt>
+    <dd class="col-md-2">
+        @Html.DisplayFor(model => model.SpouseAge)
+    </dd>
+    <dt class="col-md-2">
+        Spouse Education:
+    </dt>
+    <dd class="col-md-2">
+        @Html.DisplayFor(model => model.QualificationName)
+    </dd>
+</dl>
+<a id="btnEditSpouse" class="btn btn-outline bg-primary border-primary text-primary-800 btn-icon"><i class="icon-compose"></i></a>

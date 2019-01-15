@@ -1,0 +1,48 @@
+﻿@model Hadia.Models.ViewModels.WorkDetailsViewModel
+<form id="editWorkform">
+    <div class="card-body">
+        <dl class="row">
+            <input type="hidden" asp-for="Id" />
+            <dt class="col-sm-3">
+                Company Name:
+            </dt>
+            <dd class="col-sm-9">
+                <input asp-for="CompanyName" class="form-control" />
+            </dd>
+            <dt class="col-sm-3">
+                Location:
+            </dt>
+            <dd class="col-sm-9">
+                <input asp-for="Location" class="form-control" />
+            </dd>
+            <dt class="col-sm-3">
+                Country:
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DropDownListFor(x => x.CountryId, Model.CountryList, "--Select A Country --", new { @class = "form-control" })
+                <span asp-validation-for="CountryId" class=" text-danger"></span>
+            </dd>
+            <dt class="col-sm-3">
+                Job Title:
+            </dt>
+            <dd class="col-sm-9">
+                <input asp-for="JobTitle" class="form-control" />
+            </dd>
+            <dt class="col-sm-3">
+                Date From:
+            </dt>
+            <dd class="col-sm-9">
+
+                <input asp-for="DateForm" class="form-control daterange-single" type="date" />
+            </dd>
+            <dt class=" col-sm-3">
+                Date Upto:
+            </dt>
+            <dd class="col-sm-9">
+                <input asp-for="DateUpto" class="form-control" type="date" />
+                @*<input asp-for="DateUpto" class="form-control daterange-single" type="date" />*@
+            </dd>
+        </dl>
+    </div>
+        <button type="button" id="btnWorkSave" class="btn btn-success">Save</button>
+</form>

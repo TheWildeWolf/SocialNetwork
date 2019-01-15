@@ -75,8 +75,7 @@ namespace Hadia.Areas.Member.Controllers
                .FirstOrDefaultAsync(x => x.Id == id);
             if (EditData == null)
                 return NotFound();
-                await  _db.SaveChangesAsync();
-            return View(EditData);
+              return View(EditData);
         }
         [HttpPost]
         public async Task<IActionResult>Edit(int id,SpouseEducationMasterViewModel SpouseEducationMaster)

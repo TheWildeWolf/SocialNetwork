@@ -2,11 +2,12 @@
 @{
     ViewData["Title"] = "Member";
     ViewData["Description"] = "Member Detail";
-
 }
 
 <div class="content">
     <input asp-for="Id" hidden />
+    @*@ViewBag.MemberId=@Model.Id*@
+
     <!-- Inner container -->
     <div class="d-md-flex align-items-md-start">
         <!-- Left sidebar component -->
@@ -20,21 +21,21 @@
                         <div class="card-img-actions d-inline-block mb-3">
                             <img class="img-fluid rounded-circle" src="~/global_assets/images/placeholders/placeholder.jpg" width="170" height="170" alt="">
                             @*<div class="card-img-actions-overlay rounded-circle">
-                                <a href="#" class="btn btn-outline bg-white text-white border-white border-2 btn-icon rounded-round">
-                                    <i class="icon-plus3"></i>
-                                </a>
-                                <a href="#" class="btn btn-outline bg-white text-white border-white border-2 btn-icon rounded-round ml-2">
-                                    <i class="icon-link"></i>
-                                </a>
-                            </div>*@
+                                    <a href="#" class="btn btn-outline bg-white text-white border-white border-2 btn-icon rounded-round">
+                                        <i class="icon-plus3"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-outline bg-white text-white border-white border-2 btn-icon rounded-round ml-2">
+                                        <i class="icon-link"></i>
+                                    </a>
+                                </div>*@
                         </div>
                         <h6 class="font-weight-semibold mb-0">@Html.DisplayFor(model => model.Name)</h6>
                         <span class="d-block opacity-75">@Html.DisplayFor(model => model.UgCollegeName)</span>
                         @*<div class="list-icons list-icons-extended mt-3">
-                            <a href="#" class="list-icons-item text-white" data-popup="tooltip" title="" data-container="body" data-original-title="Google Drive"><i class="icon-google-drive"></i></a>
-                            <a href="#" class="list-icons-item text-white" data-popup="tooltip" title="" data-container="body" data-original-title="Twitter"><i class="icon-twitter"></i></a>
-                            <a href="#" class="list-icons-item text-white" data-popup="tooltip" title="" data-container="body" data-original-title="Github"><i class="icon-github"></i></a>
-                        </div>*@
+                                <a href="#" class="list-icons-item text-white" data-popup="tooltip" title="" data-container="body" data-original-title="Google Drive"><i class="icon-google-drive"></i></a>
+                                <a href="#" class="list-icons-item text-white" data-popup="tooltip" title="" data-container="body" data-original-title="Twitter"><i class="icon-twitter"></i></a>
+                                <a href="#" class="list-icons-item text-white" data-popup="tooltip" title="" data-container="body" data-original-title="Github"><i class="icon-github"></i></a>
+                            </div>*@
                     </div>
                     <div class="card-body p-0">
                         <ul class="nav nav-sidebar mb-2">
@@ -69,6 +70,7 @@
                                     <i class="icon-puzzle3"></i>
                                     Projects
                                 </a>
+
                             </li>
                             <li class="nav-item-divider"></li>
                             <li class="nav-item" style="text-align:center">
@@ -94,9 +96,9 @@
                 <div class="card">
                     <div class="card-header header-elements-sm-inline">
                         <h6 class="card-title">Profile</h6>
-                       
+
                     </div>
-                   
+
                     <div class="card-body" id="profileDiv">
                         @{await Html.RenderPartialAsync("_ProfileView"); }
                     </div>
@@ -111,7 +113,7 @@
                     <div class="card-body" id="EducationDiv">
                         @{await Html.RenderPartialAsync("_EduQualificationView"); }
                     </div>
-                    
+
 
                 </div>
             </div>
@@ -120,140 +122,42 @@
                     <div class="card-header header-elements-sm-inline">
                         <h6 class="card-title">Family</h6>
                     </div>
-                    <div class="card-body">
-                        <dl class="row col-md-12">
-                            <dt class="col-md-2">
-                                Spouse Name:
-                            </dt>
-                            <dd>
-                                @Html.DisplayFor(model => model.SpouseName)
-                            </dd>
-                            <dt class="col-md-2">
-                                Age:
-                            </dt>
-                            <dd class="col-md-2">
-                                @Html.DisplayFor(model => model.SpouseAge)
-                            </dd>
-                            <dt class="col-md-2">
-                                Spouse Education:
-                            </dt>
-                            <dd class="col-md-2">
-                                @Html.DisplayFor(model => model.QualificationName)
-                            </dd>
-                        </dl>
-                        <table class="table table-border-solid">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        Sn
-                                    </th>
-                                    <th>
+                    <div class="card-body" id="SpouseDiv">
+                        @{ await Html.RenderPartialAsync("_SpouseView");}
+                    </div>
 
-                                        Kid's Name
-                                    </th>
-                                    <th>
 
-                                        Age
-                                    </th>
-                                    <th>
-
-                                        Gender
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @{ int SlNo = 0; }
-                                @foreach (var Kid in Model.Kids)
-                                {
-                                    <div>
-                                        <tr>
-
-                                            <td> @(SlNo += 1)</td>
-                                            <td>@Html.DisplayFor(x => Kid.KidName)</td>
-                                            <td>@Html.DisplayFor(x => Kid.Age)</td>
-                                            <td>@Html.DisplayFor(x => Kid.Gender)</td>
-                                            <td>
-                                                <a asp-action="EditFamily" asp-route-id="@Model.Id" class="btn btn-outline bg-primary border-primary text-primary-800 btn-icon"><i class="icon-compose"></i></a>
-                                                <a asp-action="DeleteFamily" asp-route-id="@Model.Id" class="btn btn-outline bg-danger border-primary text-primary-800 btn-icon confirm"><i class="icon-trash-alt"></i></a>
-
-                                            </td>
-                                        </tr>
-                                    </div>
-                                }
-                            </tbody>
-                        </table>
+                    <div class="card-body" id="KidsDiv">
+                        @{ await Html.RenderPartialAsync("_KidsView");}
                     </div>
 
                 </div>
+
+                <div class="card-body" id="KidsDivEdit">
+                    @*@{ await Html.RenderPartialAsync("_KidsEdit");}*@
+                </div>
+
+
             </div>
             <div class="tab-pane fade" id="work">
-                <div class="card">
-                    <div class="card-header header-elements-sm-inline">
-                        <h6 class="card-title">Work</h6>
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-border-solid">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        Sn
-                                    </th>
-                                    <th>
-
-                                        Company Name
-                                    </th>
-                                    <th>
-                                        Location
-                                    </th>
-                                    <th>
-                                        Country
-                                    </th>
-                                    <th>
-
-                                        Job Title
-                                    </th>
-                                    <th>
-                                        Date From
-                                    </th>
-                                    <th>
-                                        Date Upto
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @{ int SN = 0; }
-                                @foreach (var Work in Model.WorkDetails)
-                                {
-
-                                        <tr>
-
-                                            <td> @(SN += 1)</td>
-                                            <td>@Html.DisplayFor(x => Work.CompanyName)</td>
-                                            <td>@Html.DisplayFor(x => Work.Location)</td>
-                                            <td>@Html.DisplayFor(x => Work.Country.CountryName)</td>
-                                            <td>@Html.DisplayFor(x => Work.JobTitle)</td>
-                                            <td>@Work.DateForm.ToString("MMM/dd/yyyy")</td>
-                                            <td>@Work.DateUpto?.ToString("MMM/dd/yyyy")</td>
-                                            <td>
-                                                <a asp-action="EditWorkDetails" asp-route-id="@Model.Id" class="btn btn-outline bg-primary border-primary text-primary-800 btn-icon"><i class="icon-compose"></i></a>
-                                                <a asp-action="DeleteWorkDetails" asp-route-id="@Model.Id" class="btn btn-outline bg-danger border-primary text-primary-800 btn-icon confirm"><i class="icon-trash-alt"></i></a>
-
-                                            </td>
-                                        </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="card-header header-elements-sm-inline">
+                    <h6 class="card-title">Work Details</h6>
+                </div>
+                <div class="card" id="WorkDiv">
+                    @{
+                        await Html.RenderPartialAsync("_WorkView");
+                     }
                 </div>
             </div>
             <div class="tab-pane fade" id="projects">
-                    <div class="card">
-                        <div class="card-header header-elements-sm-inline">
-                            <h6 class="card-title">Projects</h6>
-                        </div>
-                        <div class="card-body">
-                        </div>
-                   </div>
+                <div class="card-header header-elements-sm-inline">
+                    <h6 class="card-title">Projects</h6>
+                </div>
+                <div class="card" id="ProjectDiv">
+                    @{
+                        await Html.RenderPartialAsync("_ProjectView");
+                     }
+                </div>
             </div>
             <!-- /right content -->
         </div>
@@ -262,11 +166,18 @@
 </div>
 
 @section Scripts
-{
-<script>
+    {
+    <script>
+    //Profile Edit
+    $(document).on('click', '#BtnEditprofile',function () {
+        $.ajax({
 
-    $(document).on('click', '#BtnEditprofile', function () {
-        doAjax('@Url.Action("EditProfile", new { id = Model.Id })', 'profileDiv', HMethod.GET);
+            type: "GET",
+            url: '@Url.Action("EditProfile", new {id=Model.Id})',
+            success: function (data) {
+                $("#profileDiv").html(data);
+            }
+        })
     });
     $(document).on('click', '#btnProfileSave', function () {
 
@@ -280,15 +191,151 @@
             }
         });
     });
-    $(document).on('click', '#editqualification', function () {
+
+
+    //Education Details Edit
+    $(document).on('click', '.btnEditqualification', function () {
+        var Eduid = $(this).attr('itemid');
         $.ajax({
             type: "GET",
-            url: '@Url.Action("EditEducationalQualif", new { id = Model.Id })',
+            url: '@Url.Action("EditEducationalQualif")?id=' + Eduid,
             success: function (data) {
                 $("#EducationDiv").html(data);
             }
         });
     });
+    $(document).on('click', '#btnAddQuallification', function () {
+        $.ajax({
+            type: "Post",
+            url: '@Url.Action("AddEducationalQualif", new { id = Model.Id})',
+            data: $("#educationQualificationform").serialize(),
+            success: function (data) {
+                $("#EducationDiv").html(data);
+            }
+        });
+    });
+    $(document).on('click', '#btnSaveEditQualification', function () {
+        $.ajax({
+            type: "Post",
+            url: '@Url.Action("EditEducationalQualif")',
+            data: $("#educationQualificationform").serialize(),
+            success: function (data) {
+                $("#EducationDiv").html(data);
+            }
+        });
+    });
+
+
+    //Family Edit- Kids
+    $(document).on('click', '.btnEditKids', function () {
+        var Kidid = $(this).attr('itemid');
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("EditKids")?id=' + Kidid,
+            success: function (data) {
+                $("#KidsDiv").html(data);
+            }
+        });
+    });
+     $(document).on('click', '#btnCancelKids', function () {
+
+        $.ajax({
+            type: "Post",
+            url: '@Url.Action("KidsList", new { id = Model.Id})',
+            data: $("#Familyform").serialize(),
+            success: function (data) {
+                $("#KidsDiv").html(data);
+            }
+        });
+    });
+
+
+    $(document).on('click', '#btnSaveKids', function () {
+
+        $.ajax({
+            type: "Post",
+            url: '@Url.Action("EditKids")',
+
+            data: $("#Familyform").serialize(),
+            success: function (data) {
+                $("#KidsDiv").html(data);
+            }
+        });
+    });
+    $(document).on('click', '#btnKidsAdd', function () {
+
+        $.ajax({
+            type: "Get",
+            url: '@Url.Action("CreateKids")',
+
+            data: $("#Kidform").serialize(),
+            success: function (data) {
+                $("#KidsDiv").html(data);
+            }
+        });
+    });
+
+    $(document).on('click', '#btnAddKids', function () {
+
+        $.ajax({
+            type: "Post",
+            url: '@Url.Action("CreateKids", new { Mid = Model.Id })',
+            data: $("#Kidform").serialize(),
+            success: function (data) {
+                $("#KidsDiv").html(data);
+            }
+        });
+    });
+    //Spouse
+    $(document).on('click', '#btnEditSpouse',function () {
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("EditSpouse", new {id=Model.Id})',
+            success: function (data) {
+                $("#SpouseDiv").html(data);
+            }
+        })
+    });
+      $(document).on('click', '#btnSpouseSave', function () {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("EditSpouse")',
+            data: $("#Familyform").serialize(),
+            success: function (data) {
+                //alert(data);
+                $("#SpouseDiv").html(data);
+            },
+            error: function (e) {
+                alert(JSON.stringify(e));
+            }
+        });
+    });
+
+    //Work Details
+
+      $(document).on('click', '.btnEditWork', function () {
+        var Workid = $(this).attr('itemid');
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("EditWork")?id=' + Workid,
+            success: function (data) {
+                $("#WorkDiv").html(data);
+            }
+        });
+    });
+    $(document).on('click', '#btnWorkSave', function () {
+
+        $.ajax({
+            type: "Post",
+            url: '@Url.Action("EditWork")',
+            data: $("#editWorkform").serialize(),
+            success: function (data) {
+                $("#WorkDiv").html(data);
+            }
+        });
+    });
+
+
     $(document).on('click', '.deletequalification', function () {
         var id = $(this).attr('data-id');
         $(this).closest('tr').find('#Qualification_' + id + '__Status').val('D');
@@ -297,36 +344,5 @@
 
 
 
-    function doAjax(url, partialDiv, method,form = '') {
-        switch (method) {
-        case 1:
-            $.ajax({
-                type: "GET",
-                url: '' + url+'',
-                success: function (data) {
-                    $("#" + partialDiv+"").html(data);
-                }
-            });
-                break;
-            case 2:
-                $.ajax({
-                    type: "POST",
-                    url: '' + url+'',
-                    data: $("#" + form+"").serialize(),
-                    success: function (data) {
-                        $("#" + partialDiv + "").html(data);
-                    }
-                });
-                break;
-            default:
-                break;
-        }
-
-    }
-    var HMethod = {
-        GET: 1,
-        POST: 2
-    };
-
-</script>
+    </script>
 }

@@ -1,0 +1,36 @@
+﻿
+@model Hadia.Models.ViewModels.MemberDetailsViewModel
+
+<form id="Familyform">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">
+                Spouse Name:
+            </dt>
+            <dd class="col-sm-9">
+               <input asp-for="SpouseName" class="form-control" />
+            </dd>
+            <dt class="col-md-2">
+                Age:
+            </dt>
+            <dd class="col-md-2">
+                <input asp-for="SpouseAge" class="form-control" />
+
+            </dd>
+            <dt class="col-md-2">
+                Education:
+            </dt>
+            <dd class="col-md-2">
+                <select asp-for="SpouseEducationId" asp-items="Model.SpouseEduList" class="form-control">
+                    <option>--Select Qualification--</option>
+                </select>
+
+            </dd>
+          
+
+            <input type="hidden" asp-for="Id" />
+           
+        </dl>
+        <button type="button" id="btnSpouseSave" class="btn btn-success">Save</button>
+    </div>
+</form>
