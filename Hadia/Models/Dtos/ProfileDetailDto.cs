@@ -37,7 +37,6 @@ namespace Hadia.Models.Dtos
         public string UniversityName { get; set; }
         public string CompanyName { get; set; }
         public string Location { get; set; }
-        public int CountryId { get; set; }
         public string CountryName { get; set; }
         public string JobTitle { get; set; }
         public DateTime? DateFrom { get; set; }

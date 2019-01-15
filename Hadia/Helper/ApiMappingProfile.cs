@@ -173,7 +173,7 @@ namespace Hadia.Helper
 
             CreateMap<Mem_Master, MemberSearchDto>()
                 .ForMember(dest => dest.Photo,
-                    o => o.MapFrom(x => (x.Photos.Any() && x.Photos != null) ? x.Photos.Single(p => p.IsActive).Image : ""))
+                    o => o.MapFrom(x => x.Photos.Any() && x.Photos != null ? x.Photos.FirstOrDefault(p => p.IsActive).Image : ""))
                 .ForMember(dest => dest.BatchId, o => o.MapFrom(x => x.GroupId))
                 .ForMember(dest => dest.ChapterId, o => o.MapFrom(x => x.MembershipInGroups.FirstOrDefault(s => s.IsActive && s.GroupMaster.Type == GroupType.Chapter).GroupId))
                 .ForMember(dest => dest.BatchName, o => o.MapFrom(x => x.MainGroup.GroupName))

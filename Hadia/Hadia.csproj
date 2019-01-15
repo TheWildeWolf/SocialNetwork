@@ -53,6 +53,8 @@
   <ItemGroup>
     <Compile Include="Areas\Login\Api\AuthController.cs" />
     <Compile Include="Areas\Login\Api\DataController.cs" />
+    <Compile Include="Areas\Login\Api\ResetController.cs" />
+    <Compile Include="Areas\Login\Controllers\ChangePasswordController.cs" />
     <Compile Include="Areas\Login\Models\DataCommentDto.cs" />
     <Compile Include="Areas\Login\Models\DataLikeDto.cs" />
     <Compile Include="Areas\Login\Models\DataMainDto.cs" />
@@ -93,10 +95,6 @@
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Include="Areas\Member\Views\MemberList\_EditEducationalQualif.cshtml">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Include="Areas\Member\Views\MemberList\_EditFamily.cshtml">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
@@ -296,8 +294,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Login\Controllers\" />
-    <Folder Include="Areas\Login\Views\" />
     <Folder Include="Areas\Member\Views\Shared\" />
     <Folder Include="wwwroot\ChapterImages\" />
     <File Include="wwwroot\ChapterImages\**" />
@@ -310,6 +306,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Areas\Login\Views\ChangePassword\Change.cshtml" />
+    <None Include="Areas\Login\Views\ChangePassword\Error.cshtml" />
     <None Include="Areas\Member\Views\MemberList\Details.cshtml" />
     <None Include="Areas\Member\Views\MemberList\_AddKids.cshtml" />
     <None Include="Areas\Member\Views\MemberList\_EditEducationalQualif.cshtml" />

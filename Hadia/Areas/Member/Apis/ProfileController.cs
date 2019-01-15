@@ -33,7 +33,7 @@ namespace Hadia.Areas.Member.Apis
         }
 
         [HttpGet]
-        public async Task<ActionResult<ProfileDetailViewDto>> View()
+        public async Task<ActionResult<ProfileDetailViewDto>> View(int? id)
         {
             var memberDetails = await _db.Mem_Masters.AsNoTracking()
                 .Include(x => x.UgCollege)
@@ -54,7 +54,7 @@ namespace Hadia.Areas.Member.Apis
                 .Include(x => x.WorkDetails)
                     .ThenInclude(x => x.CategoryMaster)
                 .Select(x => _mapper.Map<ProfileDetailViewDto>(x))
-                .FirstOrDefaultAsync(x => x.Id == UserId);
+                .FirstOrDefaultAsync(x => x.Id == (id ?? UserId));
 
             return Ok(memberDetails);
         }

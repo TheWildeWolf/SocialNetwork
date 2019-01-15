@@ -28,26 +28,35 @@ namespace Hadia.Areas.Member.Apis
         [HttpGet("/api/search")]
         public async Task<IActionResult> Search(string name, int batchId=0, int chapterId=0)
         {
-            var members = await _db.Mem_Masters.Where(x=> x.IsVarified)
-                                .AsNoTracking()
-                                .Include(x => x.Photos)
-                                .Include(x=> x.MainGroup)
-                                .Include(x => x.UgCollege)
-                                .Include(s => s.MembershipInGroups)
-                                    .ThenInclude(x => x.GroupMaster)
-                                .Select(x => _mapper.Map<MemberSearchDto>(x))
-                                .ToListAsync();
+            try
+            {
+                var members = await _db.Mem_Masters.Where(x => x.IsVarified)
+                    .AsNoTracking()
+                    .Include(x => x.Photos)
+                    .Include(x => x.MainGroup)
+                    .Include(x => x.UgCollege)
+                    .Include(s => s.MembershipInGroups)
+                    .ThenInclude(x => x.GroupMaster)
+                    .Select(x => _mapper.Map<MemberSearchDto>(x))
+                    .ToListAsync();
 
-            if (batchId != 0)
-                members = members.Where(x => x.BatchId == batchId).ToList();
+                if (batchId != 0)
+                    members = members.Where(x => x.BatchId == batchId).ToList();
 
-            if (chapterId != 0)
-                members = members.Where(x => x.ChapterId == chapterId).ToList();
+                if (chapterId != 0)
+                    members = members.Where(x => x.ChapterId == chapterId).ToList();
 
-            if (!string.IsNullOrEmpty(name))
-                members = members.Where(x => x.Name.ToUpper().Contains(name.ToUpper())).ToList();
+                if (!string.IsNullOrEmpty(name))
+                    members = members.Where(x => x.Name.ToUpper().Contains(name.ToUpper())).ToList();
 
-            return Ok(members);
+                return Ok(members);
+            }
+            catch (Exception e)
+            {
+                
+                throw e;
+            }
+
         }
     }
 }

@@ -55,7 +55,7 @@ namespace Hadia
                 //        Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 //});
             services.AddDbContext<HadiaContext>(op =>
-                op.UseSqlServer(Configuration.GetConnectionString(DEV_CONNECTION_STRING)));
+                op.UseSqlServer(Configuration.GetConnectionString(DEFAULT_CONNECTION_STRING)));
             services.AddAutoMapper();
             //AuthCoockie
             services.AddHttpContextAccessor();
@@ -97,18 +97,18 @@ namespace Hadia
             else
             {
                 app.UseDeveloperExceptionPage();
-                //app.UseExceptionHandler(builder =>
-                //{
-                //    builder.Run(async context =>
-                //    {
-                //        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                //        var error = context.Features.Get<IExceptionHandlerFeature>();
-                //        if (error != null)
-                //        {
-                //           await context.ShowApplicationError(error.Error.Message, error.Error.InnerException?.Message);
-                //        }
-                //    });
-                //});
+                app.UseExceptionHandler(builder =>
+                {
+                    builder.Run(async context =>
+                    {
+                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                        var error = context.Features.Get<IExceptionHandlerFeature>();
+                        if (error != null)
+                        {
+                            await context.ShowApplicationError(error.Error.Message, error.Error.InnerException?.Message);
+                        }
+                    });
+                });
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
@@ -155,7 +155,7 @@ namespace Hadia
 
                 routes.MapRoute(
                         name: "default",
-                        template: "{controller=Home}/{action=Index}/{id?}");
+                        template: "{area=member}/{controller=memberlist}/{action=Index}/{id?}");
             });
         }
     }

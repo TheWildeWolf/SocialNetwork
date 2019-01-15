@@ -107,6 +107,16 @@ namespace Hadia.Areas.Login.Api
             return Ok(loginSuccess);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordDto change)
+        {
+            var user = await _db.Mem_Masters.FindAsync(UserId);
+
+            if (await _authServive.Update(user, change.OldPassword, change.NewPassword))
+                return Ok();
+
+            return Unauthorized();
+        }
         private string GenerateJwtToken(Mem_Master user,string uid)
         {
             
@@ -132,7 +142,6 @@ namespace Hadia.Areas.Login.Api
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = credentials
             };
 

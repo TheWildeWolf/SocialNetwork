@@ -14,19 +14,16 @@ namespace Hadia.Concrete
     public class ResetPassword:IResetPassword
     {
         private readonly HadiaContext _db;
-        private IAuthService _auth;
         private readonly char[] _punctuations = "!@#$%^&*()_-+=[{]};:>|./?".ToCharArray();
-        public ResetPassword(HadiaContext db, IAuthService auth)
+        public ResetPassword(HadiaContext db)
         {
             _db = db;
-            _auth = auth;
         }
         public async Task<bool> ResetAsync (Mem_Master user,string password)
         {
-            var newPassword = Generate(8, 2);
-            await _auth.Update(user, password, newPassword);
-            
-            return true;
+            var key = Generate(8, 2);
+
+            return false;
         }
 
         private void SendMail(string mailId)
@@ -42,15 +39,6 @@ namespace Hadia.Concrete
             mailMessage.IsBodyHtml = true;
             mailMessage.Subject = "subject";
             client.Send(mailMessage);
-        }
-
-        private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
-        {
-            using (var hmac = new HMACSHA512())
-            {
-                passwordSalt = hmac.Key;
-                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-            }
         }
 
         private string Generate(int length, int numberOfNonAlphanumericCharacters)
