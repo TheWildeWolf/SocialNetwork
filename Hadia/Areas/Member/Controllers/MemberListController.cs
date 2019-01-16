@@ -254,8 +254,11 @@ namespace Hadia.Areas.Member.Controllers
                 // EducationalDetails.Qualification = list;
                 var dataInDb = _db.Mem_EducationDetails.Find(id);
                     var editMaster = _mapper.Map(EducationalDetails, dataInDb);
+
                 try
                 {
+                    
+
                     await _db.SaveChangesAsync();
 
                 }
@@ -264,8 +267,11 @@ namespace Hadia.Areas.Member.Controllers
 
                     throw ex;
                 }
-                  
-                }
+                var member =GetDetail(dataInDb.MemberId);
+                return PartialView("_ViewEducationalQualif", member);
+
+            }
+
                
                 return PartialView("_ViewEducationalQualif", EducationalDetails);
         }
