@@ -55,7 +55,7 @@ namespace Hadia
                 //        Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 //});
             services.AddDbContext<HadiaContext>(op =>
-                op.UseSqlServer(Configuration.GetConnectionString(DEFAULT_CONNECTION_STRING)));
+                op.UseSqlServer(Configuration.GetConnectionString(DEV_CONNECTION_STRING)));
             services.AddAutoMapper();
             //AuthCoockie
             services.AddHttpContextAccessor();
@@ -96,7 +96,6 @@ namespace Hadia
             }
             else
             {
-                app.UseDeveloperExceptionPage();
                 app.UseExceptionHandler(builder =>
                 {
                     builder.Run(async context =>
