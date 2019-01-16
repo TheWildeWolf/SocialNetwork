@@ -142,7 +142,8 @@ namespace Hadia.Areas.Login.Api
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                SigningCredentials = credentials
+                SigningCredentials = credentials,
+                Expires = DateTime.UtcNow.AddMonths(6)
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();

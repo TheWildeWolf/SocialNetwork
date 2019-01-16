@@ -60,6 +60,7 @@ namespace Hadia.Areas.Member.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ProjectworkDto project)
         {
+            project.UserId = UserId;
             var projectTodb = _mapper.Map<Mem_ProjectWork>(project);
             projectTodb.CDate = DateTime.UtcNow;
             projectTodb.MemberId = UserId;
@@ -80,6 +81,7 @@ namespace Hadia.Areas.Member.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(ProjectworkDto project)
         {
+            project.UserId = UserId;
             var projectInDb = _db.Mem_ProjectWorks.Find(project.Id);
             if (projectInDb == null || projectInDb.MemberId != UserId)
                 return NotFound();
@@ -101,6 +103,7 @@ namespace Hadia.Areas.Member.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(ProjectworkDto project)
         {
+            project.UserId = UserId;
             var projectInDb = _db.Mem_ProjectWorks.Find(project.Id);
             if (projectInDb == null || projectInDb.MemberId != UserId)
                 return NotFound();

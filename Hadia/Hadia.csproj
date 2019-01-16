@@ -61,6 +61,7 @@
     <Compile Include="Areas\Login\Models\DataMemberDto.cs" />
     <Compile Include="Areas\Login\Models\DataPostDto.cs" />
     <Compile Include="Areas\Login\Models\DataPostImageDto.cs" />
+    <Compile Include="Areas\Login\Models\PasswordViewModel.cs" />
     <Compile Include="Areas\Member\Apis\ChildrenApiController.cs" />
     <Compile Include="Areas\Member\Apis\ProfileController.cs" />
     <Compile Include="Areas\Member\Apis\SearchController.cs" />
@@ -90,6 +91,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Areas\Login\Views\_ViewImports.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Include="Areas\Login\Views\_ViewStart.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Include="Areas\Member\Views\MemberList\Details.cshtml">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <Pack>$(IncludeRazorContentInPack)</Pack>
@@ -307,6 +316,7 @@
 
   <ItemGroup>
     <None Include="Areas\Login\Views\ChangePassword\Change.cshtml" />
+    <None Include="Areas\Login\Views\ChangePassword\Success.cshtml" />
     <None Include="Areas\Login\Views\ChangePassword\Error.cshtml" />
     <None Include="Areas\Member\Views\MemberList\Details.cshtml" />
     <None Include="Areas\Member\Views\MemberList\_AddKids.cshtml" />

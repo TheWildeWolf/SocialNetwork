@@ -75,13 +75,14 @@ namespace Hadia.Areas.Member.Apis
         [HttpPost]
         public async Task<IActionResult> Update(EducationDetailEditDto qualification)
         {
-            var qualificationInDb = _db.Mem_EducationDetails.Find(qualification.Id);
+            try
+            {
+                var qualificationInDb = _db.Mem_EducationDetails.Find(qualification.Id);
             if (qualificationInDb == null || qualificationInDb.MemberId != UserId)
                 return NotFound();
             var qualificationEdited = _mapper.Map(qualification,qualificationInDb);
             _db.Update(qualificationEdited);
-            try
-            {
+
                 await _db.SaveChangesAsync();
                 return Ok(new { success = "Success" });
             }

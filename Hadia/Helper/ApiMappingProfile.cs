@@ -123,6 +123,7 @@ namespace Hadia.Helper
                 .ForMember(dest => dest.BatchName, o => o.MapFrom(s => s.MainGroup.GroupName))
                 .ForMember(dest => dest.DateOfBirth, o => o.MapFrom(s => s.DateOfBirth.ToString("dd-MMM-yyyy")))
                 .ForMember(dest => dest.MaritalStatus, o => o.MapFrom(s => s.MaritalStatus))
+                .ForMember(dest => dest.Projects, o => o.MapFrom(s => s.Projects))
                 .ForMember(dest => dest.DistrictName, o => o.MapFrom(s => s.District.DistrictName))
                 .ForMember(dest => dest.StateName, o => o.MapFrom(s => s.District.State.StateName))
                 .ForMember(dest => dest.QualificationName, o => o.MapFrom(s => s.SpouseEducation.QualificationName))
@@ -137,10 +138,13 @@ namespace Hadia.Helper
                 .ForMember(dest => dest.University, o => o.MapFrom(s => s.University.UniversityName));
             CreateMap<EducationDetailEditDto,Mem_EducationDetail>()
                 .ForMember(dest => dest.EducationQualificationId, o => o.MapFrom(s => s.QualificationId))
-                .ForMember(dest => dest.PassoutYear, o => o.MapFrom(s => new DateTime(DateTime.Now.Year - s.PassoutYear, 1, 1)))
+                .ForMember(dest => dest.PassoutYear, o => o.MapFrom(s => new DateTime(s.PassoutYear, 1, 1)))
                 .ForMember(dest => dest.UniversityId, o => o.MapFrom(s => s.UniversityId));
 
-            CreateMap<Mem_ProjectWork, ProjectViewDto>();
+            CreateMap<Mem_ProjectWork, ProjectViewDto>()
+                .ForMember(dest => dest.Description, o => o.MapFrom(s => s.Description))
+                .ForMember(dest => dest.ProjectTitle, o => o.MapFrom(s => s.ProjectTitle));
+
             CreateMap<ProjectViewDto, Mem_ProjectWork>();
 
             CreateMap<Mem_WorkDetail, WorkDetailDto>()

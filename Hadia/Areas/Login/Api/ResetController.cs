@@ -41,7 +41,7 @@ namespace Hadia.Areas.Login.Api
                 await _db.Sett_Resets.AddAsync(new Sett_Reset
                 {
                     CDate = DateTime.UtcNow,
-                    ExpireDate = DateTime.UtcNow.AddMinutes(10),
+                    ExpireDate = DateTime.UtcNow.AddHours(1),
                     Key = key,
                     MemberId = user.Id
                 });
