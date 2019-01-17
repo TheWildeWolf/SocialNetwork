@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Hadia.Areas.Login.Models;
 using Hadia.Controllers;
+using Hadia.Core;
 using Hadia.Data;
 using Hadia.Helper;
 using Hadia.Models;
@@ -25,7 +26,11 @@ namespace Hadia.Areas.Post.Apis
         private readonly IMapper _mapper;
 
 
-        public CommentController(HadiaContext db, IHostingEnvironment hostingEnvironment, IMapper mapper)
+        public CommentController(
+            HadiaContext db,
+            IHostingEnvironment hostingEnvironment,
+            IMapper mapper,
+            INotification notification)
         {
             _db = db;
             _hostingEnvironment = hostingEnvironment;

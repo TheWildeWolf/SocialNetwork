@@ -117,6 +117,9 @@ namespace Hadia.Helper
 
             CreateMap<ProfileSaveDto, Mem_Master>()
                 .ForMember(dest => dest.MaritalStatus, o => o.MapFrom(s => s.MaritalStatusId));
+
+        
+
             CreateMap<Mem_Master, ProfileDetailViewDto>()
                 .ForMember(dest => dest.UgCollegeName, o => o.MapFrom(s => s.UgCollege.UgCollegeName))
                 .ForMember(dest => dest.ProfilePic, o => o.MapFrom(s => GetProfilePic(s.Photos.FirstOrDefault(x=>x.IsActive).Image)))
@@ -196,6 +199,9 @@ namespace Hadia.Helper
                 .ForMember(dest => dest.Images, o => o.MapFrom(x => x.PostImages))
                 .ForMember(dest => dest.MemberId, o => o.MapFrom(x => x.OpnedId))
                 .ForMember(dest => dest.Date, o => o.MapFrom(x => x.CDate.ToString("yyyy-MM-dd HH:mm:ss")));
+
+            CreateMap<Mem_ProjectWork, ProjectworkDto>();
+            CreateMap<ProjectworkDto,Mem_ProjectWork> ();
         }
 
 

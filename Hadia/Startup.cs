@@ -85,6 +85,7 @@ namespace Hadia
             //services.AddScoped<ActionFilter>();
             services.AddScoped<IAuthService,AuthService>();
             services.AddScoped<IDataFetcher, DataFetcher>();
+            services.AddScoped<INotification, Notification>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

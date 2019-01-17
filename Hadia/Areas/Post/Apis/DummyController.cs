@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Hadia.Core;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,10 +15,19 @@ namespace Hadia.Areas.Post.Apis
     public class DummyController : ControllerBase
     {
         private IHostingEnvironment _hostingEnvironment;
-        public DummyController(IHostingEnvironment hostingEnvironment)
+        private INotification _notification;
+        public DummyController(IHostingEnvironment hostingEnvironment, INotification notification)
         {
             _hostingEnvironment = hostingEnvironment;
+            _notification = notification;
         }
+
+        [HttpGet]
+        public async Task Get()
+        {
+            await _notification.Notify(2, "Test", "Checking");
+        }
+
         [HttpPost]
         public async Task Upload([FromForm]MainForm form)
         {

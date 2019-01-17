@@ -51,7 +51,7 @@ namespace Hadia.Areas.Login.Controllers
         }
 
         [ValidateAntiForgeryToken]
-        [HttpPost]
+        [HttpPost("/Auth/Reset")]
         public async Task<IActionResult> ChangePassword(string key,PasswordViewModel passwordView)
         {
             if (ModelState.IsValid)
@@ -70,7 +70,7 @@ namespace Hadia.Areas.Login.Controllers
                             if (passwordView.NewPassword.Equals(passwordView.ConfirmPassword))
                             {
                                 var member = await _db.Mem_Masters.FindAsync(userId);
-                                 if(await _auth.Update(member,passwordView.NewPassword))
+                                 if(await _auth.ResetPassword(member,passwordView.NewPassword))
                                  {
                                      data.ExpireDate = DateTime.UtcNow;
                                      _db.Update(data);

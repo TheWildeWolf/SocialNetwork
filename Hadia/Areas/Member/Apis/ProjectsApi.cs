@@ -81,14 +81,15 @@ namespace Hadia.Areas.Member.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(ProjectworkDto project)
         {
-            project.UserId = UserId;
-            var projectInDb = _db.Mem_ProjectWorks.Find(project.Id);
-            if (projectInDb == null || projectInDb.MemberId != UserId)
-                return NotFound();
-            var projectEdited = _mapper.Map(project,projectInDb);
-            _db.Update(projectEdited);
             try
             {
+                project.UserId = UserId;
+                var projectInDb = _db.Mem_ProjectWorks.Find(project.Id);
+                if (projectInDb == null || projectInDb.MemberId != UserId)
+                    return NotFound();
+                var projectEdited = _mapper.Map(project, projectInDb);
+                _db.Update(projectEdited);
+
                 await _db.SaveChangesAsync();
                 return Ok(new
                 {

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Hadia.Areas.Login.Models;
 using Hadia.Controllers;
+using Hadia.Core;
 using Hadia.Data;
 using Hadia.Models;
 using Hadia.Models.DomainModels;
@@ -21,12 +22,18 @@ namespace Hadia.Areas.Post.Apis
         private readonly HadiaContext _db;
         private readonly IMapper _mapper;
         private readonly IHostingEnvironment _hostingEnvironment;
+        private INotification _notification;
 
-        public TimelineController(HadiaContext db, IMapper mapper, IHostingEnvironment hostingEnvironment)
+        public TimelineController(
+            HadiaContext db,
+            IMapper mapper, 
+            IHostingEnvironment hostingEnvironment,
+            INotification notification)
         {
             _db = db;
             _mapper = mapper;
             _hostingEnvironment = hostingEnvironment;
+            _notification = notification;
         }
         [HttpGet]
         public async Task<ActionResult<PostCategoryDto>> Category()
@@ -96,18 +103,27 @@ namespace Hadia.Areas.Post.Apis
             try
             {
                 await _db.SaveChangesAsync();
-                var returnData = await _db.Post_Masters
-                    .Include(x=>x.PostImages)
-                    .Where(x => x.Id == newPost.Id)
-                    .Select(x => _mapper.Map<DataPostDto>(x))
-                    .Take(1)
-                    .SingleOrDefaultAsync();
-                return Ok(returnData);
+                try
+                {
+                    var returnData = await _db.Post_Masters
+                        .Include(x => x.PostImages)
+                        .Where(x => x.Id == newPost.Id)
+                        .Select(x => _mapper.Map<DataPostDto>(x))
+                        .Take(1)
+                        .SingleOrDefaultAsync();
+                    return Ok(returnData);
+                }
+                finally
+                {
+                    await _notification.Notify(UserId, "New Post From " + UserName, newPost.Topic);
+                }
+
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+
         }
 
         [HttpGet]

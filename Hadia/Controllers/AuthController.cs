@@ -46,6 +46,12 @@ namespace Hadia.Controllers
                 ModelState.AddModelError("Password","Password or username incorrect.");
                 return View(logindata);
             }
+
+            if (!user.IsGroupAdmin)
+            {
+                ModelState.AddModelError("Password", "You Don't Have access to this area!");
+                return View();
+            }
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.Name),

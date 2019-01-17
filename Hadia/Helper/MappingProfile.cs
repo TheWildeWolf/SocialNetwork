@@ -70,6 +70,7 @@ namespace Hadia.Helper
            .ForMember(dest => dest.UgCollegeName, o => o.MapFrom(s => s.UgCollege.UgCollegeName))
            .ForMember(dest => dest.BatchName, o => o.MapFrom(s => s.MainGroup.GroupName))
            .ForMember(dest => dest.DistrictName, o => o.MapFrom(s => s.District.DistrictName))
+           .ForMember(dest => dest.Photo, o => o.MapFrom(s => s.Photos.Any() && s.Photos != null ? s.Photos.FirstOrDefault(p => p.IsActive).Image : ""))
            .ForMember(dest => dest.QualificationName, o => o.MapFrom(s => s.SpouseEducation.QualificationName))
            .ForMember(dest => dest.ChapterName, o => o.MapFrom(s => s.MembershipInGroups
            .Where(x => x.GroupMaster.Type == GroupType.Chapter).OrderByDescending(x => x.GroupMaster.FormedOn)
@@ -90,7 +91,7 @@ namespace Hadia.Helper
             .ForMember(x => x.Age, o => o.MapFrom(s => s.Age != null ? DateTime.Now.Year - s.Age.Year : 0));
 
             CreateMap<Mem_Master, ProfileEditViewModel>()
-            .ForMember(dest => dest.BatchName, o => o.MapFrom(s => s.MainGroup.GroupName))
+            //.ForMember(dest => dest.BatchName, o => o.MapFrom(s => s.MainGroup.GroupName))
             .ForMember(dest => dest.ChapterId, o => o.MapFrom(s => s.MembershipInGroups
             .Where(x => x.GroupMaster.Type == GroupType.Chapter).OrderByDescending(x => x.GroupMaster.FormedOn)
             .FirstOrDefault().GroupMaster.Id));
