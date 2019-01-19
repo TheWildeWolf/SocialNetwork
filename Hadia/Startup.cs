@@ -98,6 +98,7 @@ namespace Hadia
             }
             else
             {
+                app.UseDeveloperExceptionPage();
                 app.UseExceptionHandler(builder =>
                 {
                     builder.Run(async context =>

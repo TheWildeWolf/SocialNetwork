@@ -47,9 +47,11 @@ namespace Hadia.Concrete
 
             return await _db.Mem_Masters
                         .AsNoTracking()
-                        .Where(x=>x.IsVarified && (x.VarifiedDate > SyncTime 
-                                                   || x.MDate > SyncTime
-                                                   || x.Photos.FirstOrDefault(p=>p.IsActive).CDate > SyncTime))
+                        .Where(x=>x.IsVarified && 
+                                  (x.VarifiedDate > SyncTime 
+                                  || x.MDate > SyncTime
+                                  || x.Photos.FirstOrDefault(p=>p.IsActive).CDate > SyncTime)
+                               )
                         .Include(x=> x.Photos)
                         .Include(s=>s.MembershipInGroups).ThenInclude(x => x.GroupMaster)
                         .Select(x => _mapper.Map<DataMemberDto>(x))
