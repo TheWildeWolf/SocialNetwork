@@ -96,8 +96,10 @@ namespace Hadia.Helper
             .FirstOrDefault().GroupMaster.Id));
             CreateMap<ProfileEditViewModel, Mem_Master>();
 
-            CreateMap<Mem_EducationDetail, EducationQualifictaionEditViewModel>();
-            CreateMap<EducationQualifictaionEditViewModel, Mem_EducationDetail>();
+            CreateMap<Mem_EducationDetail, EducationQualifictaionEditViewModel>()
+                .ForMember(dest => dest.PassoutYear, o => o.MapFrom(s => s.PassoutYear.Year)); 
+            CreateMap<EducationQualifictaionEditViewModel, Mem_EducationDetail>()
+                .ForMember(dest => dest.PassoutYear, o => o.MapFrom(s => new DateTime(s.PassoutYear,1,1)));
 
             CreateMap<Mem_Master, SpouseViewModel>()
             .ForMember(dest => dest.QualificationName, o => o.MapFrom(s => s.SpouseEducation.QualificationName))

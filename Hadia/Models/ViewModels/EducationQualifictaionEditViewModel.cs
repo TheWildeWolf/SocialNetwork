@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -22,12 +23,16 @@ namespace Hadia.Models.ViewModels
     {
         public int Id { get; set; }
         public int EducationQualificationId { get; set; }
-        public int QualificationId { get; set; }
+        //  public int QualificationId { get; set; }
+        [Display(Name = "Qualification")]
+        [Required(ErrorMessage = "Qualification Required")]
         public string QualificationName { get; set; }
+        [Required(ErrorMessage = "Select University")]
         public int UniversityId { get; set; }
         public string UniversityName { get; set; }
-
-        public DateTime PassoutYear { get; set; }
+        [Required(ErrorMessage = "Passout Year Required")]
+        public int PassoutYear { get; set; }
+       
         public string Specialization { get; set; }
         public string PhdTopic { get; set; }
 
