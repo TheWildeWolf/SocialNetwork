@@ -15,6 +15,7 @@ namespace Hadia.Data
     {
         public HadiaContext(DbContextOptions<HadiaContext> options) : base(options)
         {
+
         }
 
         public DbSet<Mem_Master> Mem_Masters { get; set; }
