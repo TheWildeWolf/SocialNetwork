@@ -125,6 +125,7 @@ namespace Hadia.Models.DomainModels
         public ICollection<Com_ExecutiveMember> ExMember { get; set; }
         public ICollection<Com_ExecutiveMember> ExCreatedBy { get; set; }
         public ICollection<Com_ExecutiveMember> ExModifiedBy { get; set; }
+        public ICollection<Sett_Reset> Resets { get; set; }
 
         public ICollection<Post_Follow> FollowedPosts { get; set; }
         public ICollection<Post_Donation> Donations { get; set; }

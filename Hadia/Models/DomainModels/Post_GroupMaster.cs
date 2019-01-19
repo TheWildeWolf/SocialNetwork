@@ -30,9 +30,9 @@ namespace Hadia.Models.DomainModels
 
     public enum GroupType : byte
     {
-        Chapter =1,
-        Group =2,
-        Batch  =3
+        Chapter = 1,
+        Group = 2,
+        Batch  = 3
 
     }
 

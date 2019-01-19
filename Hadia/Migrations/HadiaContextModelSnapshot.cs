@@ -1497,6 +1497,29 @@ namespace Hadia.Migrations
                     b.ToTable("Sett_PrivacySettings");
                 });
 
+            modelBuilder.Entity("Hadia.Models.DomainModels.Sett_Reset", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CDate");
+
+                    b.Property<DateTime>("ExpireDate");
+
+                    b.Property<string>("Key")
+                        .IsRequired()
+                        .HasMaxLength(125);
+
+                    b.Property<int>("MemberId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MemberId");
+
+                    b.ToTable("Sett_Resets");
+                });
+
             modelBuilder.Entity("Hadia.Com_ExecutiveMember", b =>
                 {
                     b.HasOne("Hadia.Models.DomainModels.Mem_Master", "CreatedBy")
@@ -2226,6 +2249,14 @@ namespace Hadia.Migrations
 
                     b.HasOne("Hadia.Models.DomainModels.Mem_Master", "Member")
                         .WithMany("PrivacySettings")
+                        .HasForeignKey("MemberId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("Hadia.Models.DomainModels.Sett_Reset", b =>
+                {
+                    b.HasOne("Hadia.Models.DomainModels.Mem_Master", "Member")
+                        .WithMany("Resets")
                         .HasForeignKey("MemberId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });

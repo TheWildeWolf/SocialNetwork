@@ -10,9 +10,11 @@
         public string Photo
         {
             get => _thumbNail;
-            set => _thumbNail = "/Thumbnail/" + value;
+            set => _thumbNail = string.IsNullOrEmpty(value) ? null : "/Profile/Thumbnail/" + value;
         }
         public int? BatchId { get; set; }
+
+        public int? ChapterId { get; set; }
 
 
     }

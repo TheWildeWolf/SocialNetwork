@@ -77,6 +77,8 @@ namespace Hadia.Data
         public DbSet<Job_Master> Job_Masters { get; set; }
 
         public DbSet<Job_View> Job_Views { get; set; }
+
+        public DbSet<Sett_Reset> Sett_Resets { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //modelBuilder.ApplyConfiguration(new Mem_MasterConfig());

@@ -24,9 +24,11 @@ namespace Hadia.Models.Dtos
         public string QualificationName { get; set; }
         public string DateOfBirth { get; set; }
         public string DistrictName { get; set; }
+        public string StateName { get; set; }
         public string BatchName { get; set; }
         public string Email { get; set; }
-        public bool IsVarified { get; set; }
+        public string CountryCode { get; set; }
+        public bool IsVerified { get; set; }
         public string ChapterName { get; set; }
         public string DegreeName { get; set; }
         public string Rank { get; set; }
@@ -47,6 +49,7 @@ namespace Hadia.Models.Dtos
     }
     public class KidViewDto
     {
+        public int Id { get; set; }
         public string KidName { get; set; }
         public int Age { get; set; }
         public string Gender { get; set; }

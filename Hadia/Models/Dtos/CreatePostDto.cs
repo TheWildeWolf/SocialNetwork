@@ -11,7 +11,6 @@ namespace Hadia.Models.Dtos
 {
     public class CreatePostDto
     {
-        [Required]
         public string Topic { get; set; }
         public int OpenedId { get; set; }
         public DonationType? DonationType { get; set; }
@@ -19,6 +18,7 @@ namespace Hadia.Models.Dtos
         public int CategoryId { get; set; }
         public List<IFormFile> PostImages { get; set; }
         public IFormFile Voice { get; set; }
+        public int? GroupId { get; set; }
     }
 
 

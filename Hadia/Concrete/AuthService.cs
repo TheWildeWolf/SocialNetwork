@@ -49,6 +49,26 @@ namespace Hadia.Concrete
 
         }
 
+        public async Task<bool> ResetPassword(Mem_Master user, string password)
+        {
+            if (password != null)
+            {
+                CreatePasswordHash(password, out var passwordHash, out var passwordSalt);
+                user.PasswordHash = passwordHash;
+                user.PasswordSalt = passwordSalt;
+            }
+            _db.Update(user);
+            try
+            {
+                await _db.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
 
         public async Task<Mem_Master> Login(string username, string password)
         {

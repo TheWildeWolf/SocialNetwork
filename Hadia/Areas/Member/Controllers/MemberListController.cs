@@ -323,6 +323,7 @@ namespace Hadia.Areas.Member.Controllers
         {
             var editData = await _db.Mem_Masters.FirstOrDefaultAsync(x => x.Id == id);
             editData.IsVarified = isActive;
+            editData.VarifiedDate = DateTime.UtcNow;
             await _db.SaveChangesAsync();
             TempData["message"] = Notifications.NormalNotify(isActive ? "Approved " + editData.Name +".": "Approval of " +editData.Name+" Cancelled.");
             return RedirectToAction("Index");
@@ -332,6 +333,7 @@ namespace Hadia.Areas.Member.Controllers
         {
 
             var memberDetails = await _db.Mem_Masters.FindAsync(id);
+            var projects = await _db.Mem_ProjectWorks.Where(x => x.MemberId == id).ToListAsync();
             var KidsDel =await _db.Mem_Kids.Where(x => x.MemberId == id).ToListAsync();
             var EducationDel = await _db.Mem_EducationDetails.Where(x => x.MemberId == id).ToListAsync();
             var WorkDel= await _db.Mem_WorkDetails.Where(x => x.MemberId == id).ToListAsync();
@@ -342,7 +344,6 @@ namespace Hadia.Areas.Member.Controllers
             _db.Mem_EducationDetails.RemoveRange(EducationDel);
             _db.Mem_WorkDetails.RemoveRange(WorkDel);
             _db.Mem_Masters.RemoveRange(memberDetails);
-            _db.Mem_ProjectWorks.RemoveRange(ProjectDel);
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -351,6 +352,7 @@ namespace Hadia.Areas.Member.Controllers
         public async Task<MemberDetailsViewModel> GetDetail(int id)
         {
             var memberDetails = await _db.Mem_Masters.AsNoTracking()
+                .Include(x=>x.Photos)
               .Include(x => x.UgCollege)
               .Include(x => x.MainGroup)
               .Include(x => x.MembershipInGroups)//
@@ -364,7 +366,7 @@ namespace Hadia.Areas.Member.Controllers
                   .ThenInclude(x => x.University)
               .Include(x => x.WorkDetails)//
                   .ThenInclude(x => x.Country)
-               .Include(X=>X.Projects)
+               .Include(x=>x.Projects)
               .Select(x => _mapper.Map<MemberDetailsViewModel>(x))
               .FirstOrDefaultAsync(x => x.Id == id);
             return memberDetails;

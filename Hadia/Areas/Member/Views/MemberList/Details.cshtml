@@ -19,7 +19,7 @@
                     @*background-image: url(http://demo.interface.club/limitless/assets/images/bg.png);*@
                     <div class="card-body bg-indigo-400 text-center card-img-top" style="background-size: contain;">
                         <div class="card-img-actions d-inline-block mb-3">
-                            <img class="img-fluid rounded-circle" src="~/global_assets/images/placeholders/placeholder.jpg" width="170" height="170" alt="">
+                            <img class="img-fluid rounded-circle" src="@Model.Photo" width="170" height="170" alt="">
                             @*<div class="card-img-actions-overlay rounded-circle">
                                     <a href="#" class="btn btn-outline bg-white text-white border-white border-2 btn-icon rounded-round">
                                         <i class="icon-plus3"></i>
@@ -171,17 +171,14 @@
     //Profile Edit
     $(document).on('click', '#BtnEditprofile',function () {
         $.ajax({
-
             type: "GET",
             url: '@Url.Action("EditProfile", new {id=Model.Id})',
-            success: function (data) {
+            success: function(data) {
                 $("#profileDiv").html(data);
             }
-        })
+        });
     });
     $(document).on('click', '#btnProfileSave', function () {
-
-        doAjax('@Url.Action("EditProfile")', 'profileDiv', HMethod.POST);
         $.ajax({
             type: "POST",
             url: '@Url.Action("EditProfile")',

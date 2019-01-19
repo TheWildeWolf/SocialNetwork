@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Hadia.Controllers;
 using Hadia.Data;
 using Hadia.Models.DomainModels;
 using Hadia.Models.Dtos;
@@ -18,11 +19,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Hadia.Areas.Member.Controllers
 {
-    //[Produces("application/json")]
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    [Route("api/[controller]/[action]")]
-    [ApiController]
-    public class ProjectController : ControllerBase
+    public class ProjectController : BaseApiController
     {
          private readonly HadiaContext _db;
         private  IMapper _mapper ;
@@ -32,19 +29,23 @@ namespace Hadia.Areas.Member.Controllers
             _db = context;
          
         }
+
+        [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Create(ProjectworkDto project)
+        public async Task<IActionResult> SignUp(ProjectworkDto project)
         {
-            await _db.Mem_ProjectWorks.AddAsync(new Mem_ProjectWork {
-                CDate =DateTime.UtcNow,
+            await _db.Mem_ProjectWorks.AddAsync(new Mem_ProjectWork
+            {
+                CDate = DateTime.UtcNow,
                 Description = project.Description,
-                MemberId =project.UserId,
+                MemberId = project.UserId,
                 ProjectTitle = project.ProjectTitle
             });
             try
             {
-                await _db.SaveChangesAsync(); 
-                return Ok(new {
+                await _db.SaveChangesAsync();
+                return Ok(new
+                {
                     success = "Success"
                 });
             }
@@ -54,6 +55,72 @@ namespace Hadia.Areas.Member.Controllers
                 throw ex;
             }
 
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(ProjectworkDto project)
+        {
+            project.UserId = UserId;
+            var projectTodb = _mapper.Map<Mem_ProjectWork>(project);
+            projectTodb.CDate = DateTime.UtcNow;
+            projectTodb.MemberId = UserId;
+            await _db.Mem_ProjectWorks.AddAsync(projectTodb);
+            try
+            {
+                await _db.SaveChangesAsync();
+                return Ok(new
+                {
+                    success = "Success"
+                });
+            }
+            catch (System.Exception ex)
+            {
+                throw ex;
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> Update(ProjectworkDto project)
+        {
+            try
+            {
+                project.UserId = UserId;
+                var projectInDb = _db.Mem_ProjectWorks.Find(project.Id);
+                if (projectInDb == null || projectInDb.MemberId != UserId)
+                    return NotFound();
+                var projectEdited = _mapper.Map(project, projectInDb);
+                _db.Update(projectEdited);
+
+                await _db.SaveChangesAsync();
+                return Ok(new
+                {
+                    success = "Success"
+                });
+            }
+            catch (System.Exception ex)
+            {
+                throw ex;
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> Delete(ProjectworkDto project)
+        {
+            project.UserId = UserId;
+            var projectInDb = _db.Mem_ProjectWorks.Find(project.Id);
+            if (projectInDb == null || projectInDb.MemberId != UserId)
+                return NotFound();
+            _db.Entry(projectInDb).State = EntityState.Deleted ;
+            try
+            {
+                await _db.SaveChangesAsync();
+                return Ok(new
+                {
+                    success = "Success"
+                });
+            }
+            catch (System.Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

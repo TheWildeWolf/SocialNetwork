@@ -17,6 +17,14 @@ namespace Hadia.Models.ViewModels
         public int? UgCollageId { get; set; }
         public string UgCollegeName { get; set; }
         public string Phone { get; set; }
+
+        private string _photo;
+
+        public string Photo
+        {
+            get => _photo;
+            set => _photo = string.IsNullOrEmpty(value) ? "/global_assets/images/placeholders/placeholder.jpg" : "/Profile/" + value;
+        }
       //  public string AdNo { get; set; }
         public string PresentAddress { get; set; }
         public string PermanentAddress { get; set; }

@@ -1,0 +1,60 @@
+﻿@using Hadia.Areas.Login.Models
+@model PasswordViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+    <title>Hadia Alumni | Password Change</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 col-xs-12 main">
+                <div class="page-header">
+                    <h1>Change Password</h1>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-md-10 col-md-push-1 col-lg-8 col-lg-push-2 well">
+                        <form id="form" accept-charset="UTF-8" asp-action="ChangePassword" asp-antiforgery="true" autocomplete="on" class="form-horizontal" method="post">
+                            <div class="form-inputs">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3 col-md-4" for="new_password">New Password:*</label>
+                                    <div class="col-sm-9 col-md-8">
+                                        <input asp-for="Key" type="hidden"/>
+                                        <input asp-for="NewPassword" class="form-control" type="password">
+                                        <span asp-validation-for="NewPassword" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3 col-md-4" for="password_confirmation">Confirm Password:*</label>
+                                    <div class="col-sm-9 col-md-8">
+                                        <input asp-for="ConfirmPassword" class="form-control" type="password">
+                                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions text-right">
+                                <input class="btn btn-primary" id="submit" type="submit" value="Change password">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<style>
+    input:invalid {
+        border-color: #bf4040;
+        background: #f2d9d9;
+    }
+</style>
+@{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+ }

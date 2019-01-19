@@ -32,10 +32,10 @@ namespace Hadia.Helper
                 .OrderByDescending(x => x.LoginTime)
                 .Take(1)
                 .SingleOrDefaultAsync(x => x.MemberId == userId);
-            var isVerified = _db.Mem_Masters.FromSql($"select IsActive from Mem_Masters where Id=@id",
-                new SqlParameter("@id", userId)
-                ).Single().IsVarified;
-            if (!currentSid.KeyValue.Equals(tokenSid) || !isVerified)
+            //var isVerified = _db.Mem_Masters.FromSql($"select IsActive from Mem_Masters where Id=@id",
+            //    new SqlParameter("@id", userId)
+            //    ).Single().IsVarified;
+            if (!currentSid.KeyValue.Equals(tokenSid))
                 context.Result = new UnauthorizedResult();
             #endregion
         }

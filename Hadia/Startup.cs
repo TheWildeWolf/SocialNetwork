@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -84,6 +85,7 @@ namespace Hadia
             //services.AddScoped<ActionFilter>();
             services.AddScoped<IAuthService,AuthService>();
             services.AddScoped<IDataFetcher, DataFetcher>();
+            services.AddScoped<INotification, Notification>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -104,13 +106,13 @@ namespace Hadia
                         var error = context.Features.Get<IExceptionHandlerFeature>();
                         if (error != null)
                         {
-                           await context.ShowApplicationError(error.Error.Message, error.Error.InnerException.Message);
+                            await context.ShowApplicationError(error.Error.Message, error.Error.InnerException?.Message);
                         }
                     });
                 });
                 app.UseHsts();
             }
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseAuthentication();
@@ -119,6 +121,10 @@ namespace Hadia
             {
                 c.SwaggerEndpoint("/Hadia/swagger/v1/swagger.json", "Hadia Alumni");
 
+            });
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("en-US")
             });
             app.UseStaticFiles(new StaticFileOptions
             {
@@ -154,7 +160,7 @@ namespace Hadia
 
                 routes.MapRoute(
                         name: "default",
-                        template: "{controller=Home}/{action=Index}/{id?}");
+                        template: "{area=member}/{controller=memberlist}/{action=Index}/{id?}");
             });
         }
     }

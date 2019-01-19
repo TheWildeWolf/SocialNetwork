@@ -18,24 +18,24 @@ namespace Hadia.Models.ViewModels
         public string PresentAddress { get; set; }
         public string PermanentAddress { get; set; }
         //public MaritalStatus? MaritalStatus { get; set; }
-        public string SpouseName { get; set; }
-        public int? SpouseAge { get; set; }
-        [DisplayName("QualificationName")]
-        public int? SpouseEducationId { get; set; }
-        public string QualificationName { get; set; }
+        //public string SpouseName { get; set; }
+        //public int? SpouseAge { get; set; }
+        //[DisplayName("QualificationName")]
+        //public int? SpouseEducationId { get; set; }
+        //public string QualificationName { get; set; }
         public DateTime? DateOfBirth { get; set; }
         [DisplayName("DistrictName")]
         public int? DistrictId { get; set; }
-        public string DistrictName { get; set; }
+        //public string DistrictName { get; set; }
         [DisplayName("Batch Name")]
         public int? GroupId { get; set; }
-        public string BatchName { get; set; }
+        //public string BatchName { get; set; }
         public string Email { get; set; }
-        public bool IsVarified { get; set; }
+        //public bool IsVarified { get; set; }
         [DisplayName("ChapterName")]
         public int ChapterId { get; set; }
-        public string ChapterName { get; set; }
-        public string PassoutYear { get; set; }
+        //public string ChapterName { get; set; }
+        //public string PassoutYear { get; set; }
 
         public SelectList ChapterList { get; set; }
         public SelectList BatchList { get; set; }

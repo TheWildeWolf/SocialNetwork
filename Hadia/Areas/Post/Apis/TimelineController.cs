@@ -4,7 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Hadia.Areas.Login.Models;
 using Hadia.Controllers;
+using Hadia.Core;
 using Hadia.Data;
 using Hadia.Models;
 using Hadia.Models.DomainModels;
@@ -20,12 +22,18 @@ namespace Hadia.Areas.Post.Apis
         private readonly HadiaContext _db;
         private readonly IMapper _mapper;
         private readonly IHostingEnvironment _hostingEnvironment;
+        private INotification _notification;
 
-        public TimelineController(HadiaContext db, IMapper mapper, IHostingEnvironment hostingEnvironment)
+        public TimelineController(
+            HadiaContext db,
+            IMapper mapper, 
+            IHostingEnvironment hostingEnvironment,
+            INotification notification)
         {
             _db = db;
             _mapper = mapper;
             _hostingEnvironment = hostingEnvironment;
+            _notification = notification;
         }
         [HttpGet]
         public async Task<ActionResult<PostCategoryDto>> Category()
@@ -78,27 +86,46 @@ namespace Hadia.Areas.Post.Apis
                     await postDto.Voice.CopyToAsync(fileStream);
                 }
             }
-            await _db.Post_Masters.AddAsync(new Post_Master
+
+            var newPost = new Post_Master
             {
-                CDate = DateTime.UtcNow, 
+                CDate = DateTime.UtcNow,
                 CategoryId = postDto.CategoryId,
                 OpnedId = userid,
                 Voice = voicePath.FileName,
-                PostImages = postedImages,
+                PostImages = postedImages.Any() ? postedImages : null,
                 Topic = postDto.Topic,
                 Status = PostStatus.Active,
-                DonationType = postDto.DonationType ??  DonationType.None
-            });
+                GroupId = postDto.GroupId,
+                DonationType = postDto.DonationType ?? DonationType.None
+            };
+            await _db.Post_Masters.AddAsync(newPost);
             try
             {
                 await _db.SaveChangesAsync();
-                return Ok();
+                try
+                {
+                    var returnData = await _db.Post_Masters
+                        .Include(x => x.PostImages)
+                        .Where(x => x.Id == newPost.Id)
+                        .Select(x => _mapper.Map<DataPostDto>(x))
+                        .Take(1)
+                        .SingleOrDefaultAsync();
+                    return Ok(returnData);
+                }
+                finally
+                {
+                    await _notification.Notify(UserId, "New Post From " + UserName, newPost.Topic);
+                }
+
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+
         }
+
         [HttpGet]
         public async Task<IActionResult> MyTimeLine()
         {

@@ -22,21 +22,38 @@ namespace Hadia.Concrete
 
         public int UserId { get; set; }
         public DateTime SyncTime { get; set; }
-
-
+        private DateTime NextSync { get; set; }
+        private bool IsNull { get; set; }
         public async Task<DateTime?> GetSyncTime()
         {
             var member = await _db.Mem_Masters.FindAsync(UserId);
-            return SyncTime = member.SyncTime ?? DateTime.UtcNow.AddHours(-1);
+            NextSync = DateTime.UtcNow;
+            IsNull = member.SyncTime == null;
+            return SyncTime = member.SyncTime ?? DateTime.UtcNow;
         }
 
         public async Task<List<DataMemberDto>> GetMembers()
         {
-            return await _db.Mem_Masters.AsNoTracking()
-                 .AsNoTracking()
-                 .Include(x=> x.Photos)
-                   .Select(x => _mapper.Map<DataMemberDto>(x))
-                   .ToListAsync();
+            if (IsNull)
+            {
+                return await _db.Mem_Masters
+                    .AsNoTracking()
+                    .Where(x => x.IsVarified)
+                    .Include(x => x.Photos)
+                    .Include(s => s.MembershipInGroups).ThenInclude(x => x.GroupMaster)
+                    .Select(x => _mapper.Map<DataMemberDto>(x))
+                    .ToListAsync();
+            }
+
+            return await _db.Mem_Masters
+                        .AsNoTracking()
+                        .Where(x=>x.IsVarified && (x.VarifiedDate > SyncTime 
+                                                   || x.MDate > SyncTime
+                                                   || x.Photos.FirstOrDefault(p=>p.IsActive).CDate > SyncTime))
+                        .Include(x=> x.Photos)
+                        .Include(s=>s.MembershipInGroups).ThenInclude(x => x.GroupMaster)
+                        .Select(x => _mapper.Map<DataMemberDto>(x))
+                        .ToListAsync();
             
         }
 
@@ -74,13 +91,16 @@ namespace Hadia.Concrete
                     .AsNoTracking()
                     .Include(x=>x.Views) 
                     .Where(x => x.Date > SyncTime)
-                    .Select(x => _mapper.Map<DataCommentDto>(x))
+                    .Select(x => _mapper.Map<DataCommentDto>(x, opt => opt.Items.Add("UserId", UserId)))
                     .ToListAsync();
         }
 
-        public Task SaveSyncTimeAsync()
+        public async Task SaveSyncTimeAsync()
         {
-            throw new NotImplementedException();
+            var member = await _db.Mem_Masters.FindAsync(UserId);
+            member.SyncTime = NextSync;
+            _db.Update(member);
+            await _db.SaveChangesAsync();
         }
     }
 }

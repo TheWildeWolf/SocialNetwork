@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Hadia.Areas.Login.Models;
+using Hadia.Models;
 using Hadia.Models.DomainModels;
 using Hadia.Models.Dtos;
 
@@ -114,13 +115,20 @@ namespace Hadia.Helper
                 .ForMember(dest => dest.Voice, from =>
                     from.MapFrom(src => src.Voice != null ? GetVoice(src.Voice) : null));
 
+            CreateMap<ProfileSaveDto, Mem_Master>()
+                .ForMember(dest => dest.MaritalStatus, o => o.MapFrom(s => s.MaritalStatusId));
+
+        
+
             CreateMap<Mem_Master, ProfileDetailViewDto>()
                 .ForMember(dest => dest.UgCollegeName, o => o.MapFrom(s => s.UgCollege.UgCollegeName))
                 .ForMember(dest => dest.ProfilePic, o => o.MapFrom(s => GetProfilePic(s.Photos.FirstOrDefault(x=>x.IsActive).Image)))
                 .ForMember(dest => dest.BatchName, o => o.MapFrom(s => s.MainGroup.GroupName))
                 .ForMember(dest => dest.DateOfBirth, o => o.MapFrom(s => s.DateOfBirth.ToString("dd-MMM-yyyy")))
                 .ForMember(dest => dest.MaritalStatus, o => o.MapFrom(s => s.MaritalStatus))
+                .ForMember(dest => dest.Projects, o => o.MapFrom(s => s.Projects))
                 .ForMember(dest => dest.DistrictName, o => o.MapFrom(s => s.District.DistrictName))
+                .ForMember(dest => dest.StateName, o => o.MapFrom(s => s.District.State.StateName))
                 .ForMember(dest => dest.QualificationName, o => o.MapFrom(s => s.SpouseEducation.QualificationName))
                 .ForMember(dest => dest.ChapterName, o => o.MapFrom(s => s.MembershipInGroups
                     .Where(x => x.GroupMaster.Type == GroupType.Chapter).OrderByDescending(x => x.GroupMaster.FormedOn)
@@ -131,8 +139,15 @@ namespace Hadia.Helper
                 .ForMember(dest => dest.Qualification, o => o.MapFrom(s => s.Qualification.DegreeName))
                 .ForMember(dest => dest.PassoutYear, o => o.MapFrom(s => s.PassoutYear.Year))
                 .ForMember(dest => dest.University, o => o.MapFrom(s => s.University.UniversityName));
+            CreateMap<EducationDetailEditDto,Mem_EducationDetail>()
+                .ForMember(dest => dest.EducationQualificationId, o => o.MapFrom(s => s.QualificationId))
+                .ForMember(dest => dest.PassoutYear, o => o.MapFrom(s => new DateTime(s.PassoutYear, 1, 1)))
+                .ForMember(dest => dest.UniversityId, o => o.MapFrom(s => s.UniversityId));
 
-            CreateMap<Mem_ProjectWork, ProjectViewDto>();
+            CreateMap<Mem_ProjectWork, ProjectViewDto>()
+                .ForMember(dest => dest.Description, o => o.MapFrom(s => s.Description))
+                .ForMember(dest => dest.ProjectTitle, o => o.MapFrom(s => s.ProjectTitle));
+
             CreateMap<ProjectViewDto, Mem_ProjectWork>();
 
             CreateMap<Mem_WorkDetail, WorkDetailDto>()
@@ -146,8 +161,12 @@ namespace Hadia.Helper
             CreateMap<Post_Comment, DataCommentDto>()
                 .ForMember(dest => dest.ImageOnline, o => o.MapFrom(x => GetUrl(x.Type, x.Comment,CommentType.Image)))
                 .ForMember(dest => dest.VoiceOnline, o => o.MapFrom(x => GetUrl(x.Type, x.Comment, CommentType.Voice)))
-                .ForMember(dest => dest.Read, o => o.MapFrom(x => x.Views.Any()))
-                .ForMember(des => des.Text, o => o.MapFrom(x => GetUrl(x.Type, x.Comment, CommentType.Text)));
+                .ForMember(dest => dest.Read, o => o.MapFrom((src, dest, destMember, context) =>
+                    src.Views != null &&
+                    src.Views.Any(x => x.MemberId == Convert.ToInt32(context.Items["UserId"]))
+                    && src.Views.Single(x => x.MemberId == Convert.ToInt32(context.Items["UserId"])).IsRead))
+                .ForMember(des => des.Text, o => o.MapFrom(x => GetUrl(x.Type, x.Comment, CommentType.Text)))
+                .ForMember(des => des.Date, o => o.MapFrom(x => x.Date.ToString("yyyy-MM-dd HH:mm:ss")));
                  
             CreateMap<Post_Like, DataLikeDto>();
             CreateMap<Post_Image, DataPostImageDto>()
@@ -156,7 +175,18 @@ namespace Hadia.Helper
             CreateMap<Mem_Master, DataMemberDto>()
                 .ForMember(dest => dest.Photo,
                     o => o.MapFrom(x => (x.Photos.Any() && x.Photos != null) ? x.Photos.Single(p => p.IsActive).Image : ""))
-                .ForMember(dest => dest.BatchId, o=> o.MapFrom(x=> x.GroupId));
+                .ForMember(dest => dest.BatchId, o => o.MapFrom(x => x.GroupId))
+                .ForMember(dest => dest.ChapterId, o => o.MapFrom(x => x.MembershipInGroups.FirstOrDefault(s => s.IsActive && s.GroupMaster.Type == GroupType.Chapter).GroupId));
+
+            CreateMap<Mem_Master, MemberSearchDto>()
+                .ForMember(dest => dest.Photo,
+                    o => o.MapFrom(x => x.Photos.Any() && x.Photos != null ? x.Photos.FirstOrDefault(p => p.IsActive).Image : ""))
+                .ForMember(dest => dest.BatchId, o => o.MapFrom(x => x.GroupId))
+                .ForMember(dest => dest.ChapterId, o => o.MapFrom(x => x.MembershipInGroups.FirstOrDefault(s => s.IsActive && s.GroupMaster.Type == GroupType.Chapter).GroupId))
+                .ForMember(dest => dest.BatchName, o => o.MapFrom(x => x.MainGroup.GroupName))
+                .ForMember(dest => dest.ChapterName, o => o.MapFrom(x => x.MembershipInGroups.FirstOrDefault(s => s.IsActive && s.GroupMaster.Type == GroupType.Chapter).GroupMaster.GroupName))
+                .ForMember(dest => dest.UgCollege, o => o.MapFrom(x => x.UgCollege.UgCollegeName))
+                .ForMember(dest => dest.Phone, o => o.MapFrom(x => x.Phone));
 
             CreateMap<Post_Master, DataPostDto>()
                 .ForMember(dest => dest.Following, from =>
@@ -166,8 +196,12 @@ namespace Hadia.Helper
                         && src.Followers.Single(x => x.MemberId == Convert.ToInt32(context.Items["UserId"])).Follow))
                 .ForMember(dest => dest.VoiceOnline, o => o.MapFrom(x => x.Voice == null ? null : GetVoice(x.Voice)))
                 .ForMember(dest => dest.Type, o => o.MapFrom(x => x.CategoryId))
+                .ForMember(dest => dest.Images, o => o.MapFrom(x => x.PostImages))
                 .ForMember(dest => dest.MemberId, o => o.MapFrom(x => x.OpnedId))
-                .ForMember(dest => dest.Date, o => o.MapFrom(x => x.CDate.ToString("yyyy-MM-dd hh:mm:ss tt")));
+                .ForMember(dest => dest.Date, o => o.MapFrom(x => x.CDate.ToString("yyyy-MM-dd HH:mm:ss")));
+
+            CreateMap<Mem_ProjectWork, ProjectworkDto>();
+            CreateMap<ProjectworkDto,Mem_ProjectWork> ();
         }
 
 

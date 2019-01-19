@@ -4,8 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Hadia.Areas.Login.Models;
 using Hadia.Controllers;
+using Hadia.Core;
 using Hadia.Data;
+using Hadia.Helper;
 using Hadia.Models;
 using Hadia.Models.DomainModels;
 using Hadia.Models.Dtos;
@@ -23,7 +26,11 @@ namespace Hadia.Areas.Post.Apis
         private readonly IMapper _mapper;
 
 
-        public CommentController(HadiaContext db, IHostingEnvironment hostingEnvironment, IMapper mapper)
+        public CommentController(
+            HadiaContext db,
+            IHostingEnvironment hostingEnvironment,
+            IMapper mapper,
+            INotification notification)
         {
             _db = db;
             _hostingEnvironment = hostingEnvironment;
@@ -32,8 +39,7 @@ namespace Hadia.Areas.Post.Apis
 
         [HttpPost]
         public async Task<IActionResult> Create([FromForm]CreatePostCommentDto commentDto)
-        {
-
+        {  
             var folderName = DateTime.Now.ToString("yyyy-MM-dd");
             var imageUploadPath = Path.Combine(_hostingEnvironment.WebRootPath, "Media/Images/");
             var voiceUploadPath = Path.Combine(_hostingEnvironment.WebRootPath, "Media/Voice/");
@@ -105,7 +111,7 @@ namespace Hadia.Areas.Post.Apis
                     .Include(x => x.Createdby)
                         .ThenInclude(x => x.Photos)
                     .SingleOrDefaultAsync(x => x.Id == newComment.Id);
-                var toDto = _mapper.Map<CommentViewDto>(main);
+                var toDto = _mapper.Map<DataCommentDto>(main, n => n.Items.Add("UserId", UserId));
                 return Ok(toDto);
             }
             catch (Exception e)
