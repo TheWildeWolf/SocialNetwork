@@ -106,6 +106,7 @@ namespace Hadia.Areas.Post.Apis
                 try
                 {
                     var returnData = await _db.Post_Masters
+                        .AsNoTracking()
                         .Include(x => x.PostImages)
                         .Where(x => x.Id == newPost.Id)
                         .Select(x => _mapper.Map<DataPostDto>(x))
@@ -130,6 +131,7 @@ namespace Hadia.Areas.Post.Apis
         public async Task<IActionResult> MyTimeLine()
         {
             var listOfTimeLine = await _db.Post_Masters
+                .AsNoTracking()
                 .Where(x => x.OpnedId == UserId)
                 .Include(x => x.PostImages)
                 .ToListAsync();

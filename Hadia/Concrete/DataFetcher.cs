@@ -101,7 +101,6 @@ namespace Hadia.Concrete
         {
             var member = await _db.Mem_Masters.FindAsync(UserId);
             member.SyncTime = NextSync;
-            _db.Update(member);
             await _db.SaveChangesAsync();
         }
     }

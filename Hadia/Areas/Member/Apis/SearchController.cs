@@ -30,8 +30,9 @@ namespace Hadia.Areas.Member.Apis
         {
             try
             {
-                var members = await _db.Mem_Masters.Where(x => x.IsVarified)
+                var members = await _db.Mem_Masters
                     .AsNoTracking()
+                    .Where(x => x.IsVarified)
                     .Include(x => x.Photos)
                     .Include(x => x.MainGroup)
                     .Include(x => x.UgCollege)

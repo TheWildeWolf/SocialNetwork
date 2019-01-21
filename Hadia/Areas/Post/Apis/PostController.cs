@@ -47,6 +47,7 @@ namespace Hadia.Areas.Post.Apis
             else
             {
                 var edit = await _db.Post_Likes
+                    .AsNoTracking()
                     .SingleOrDefaultAsync(x => x.PostId == id && x.MemberId == UserId);
                 isLike =edit.Like = !edit.Like;
                 _db.Update(edit);
@@ -85,6 +86,7 @@ namespace Hadia.Areas.Post.Apis
             else
             {
                 var edit = await _db.Post_Followers
+                    .AsNoTracking()
                     .SingleOrDefaultAsync(x => x.PostId == id && x.MemberId == UserId);
                 isFollowed = edit.Follow = !edit.Follow;
                 _db.Update(edit);
@@ -105,6 +107,7 @@ namespace Hadia.Areas.Post.Apis
         public async Task<IActionResult> ViewComments(int id)
         {
             var data = await _db.Post_Comments
+                .AsNoTracking()
                 .Include(x => x.Views)
                 .Where(x => x.PostId == id).SelectMany(x=> x.Views ).ToListAsync();
             data = data.Select(x =>

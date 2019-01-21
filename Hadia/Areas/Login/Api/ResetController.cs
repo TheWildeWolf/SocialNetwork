@@ -34,7 +34,9 @@ namespace Hadia.Areas.Login.Api
         {
             if(await _db.Mem_Masters.AnyAsync(x=> x.Email == email))
             {
-                var user = await _db.Mem_Masters.SingleOrDefaultAsync(x => x.Email == email);
+                var user = await _db.Mem_Masters
+                                .AsNoTracking()
+                                .SingleOrDefaultAsync(x => x.Email == email);
                 var key  = Generate(15, 2);
                 var dlt =await _db.Sett_Resets.Where(x => x.MemberId == user.Id).ToListAsync();
                 _db.Sett_Resets.RemoveRange(dlt);
