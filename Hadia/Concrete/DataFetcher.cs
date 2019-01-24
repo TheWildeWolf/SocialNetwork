@@ -32,13 +32,23 @@ namespace Hadia.Concrete
             return SyncTime = member.SyncTime ?? DateTime.UtcNow;
         }
 
-        public async Task<List<DataMemberDto>> GetMembers()
+        public async Task<List<DataMemberDto>> GetMembers(bool getAll = false,int id = 0)
         {
-            if (IsNull)
+            if (IsNull || getAll)
             {
                 return await _db.Mem_Masters
                     .AsNoTracking()
                     .Where(x => x.IsVarified)
+                    .Include(x => x.Photos)
+                    .Include(s => s.MembershipInGroups).ThenInclude(x => x.GroupMaster)
+                    .Select(x => _mapper.Map<DataMemberDto>(x))
+                    .ToListAsync();
+            }
+            if (id != 0)
+            {
+                return await _db.Mem_Masters
+                    .AsNoTracking()
+                    .Where(x => x.IsVarified && x.Id == id)
                     .Include(x => x.Photos)
                     .Include(s => s.MembershipInGroups).ThenInclude(x => x.GroupMaster)
                     .Select(x => _mapper.Map<DataMemberDto>(x))

@@ -63,6 +63,7 @@
     <Compile Include="Areas\Login\Models\DataPostImageDto.cs" />
     <Compile Include="Areas\Login\Models\PasswordViewModel.cs" />
     <Compile Include="Areas\Member\Apis\ChildrenApiController.cs" />
+    <Compile Include="Areas\Member\Apis\MemberController.cs" />
     <Compile Include="Areas\Member\Apis\ProfileController.cs" />
     <Compile Include="Areas\Member\Apis\SearchController.cs" />
     <Compile Include="Areas\Member\Controllers\BaseMemberController.cs" />

@@ -21,7 +21,7 @@ namespace Hadia.Areas.Login.Api
 
     public class LoginController : BaseApiController
     {
-        private HadiaContext _db;
+        private readonly HadiaContext _db;
         private IConfiguration _config;
         private IAuthService _authServive;
         public LoginController(
@@ -58,12 +58,12 @@ namespace Hadia.Areas.Login.Api
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<ActionResult<LoginSuccessDto>> Login(LoginDto logindata)
+        public async Task<ActionResult<LoginSuccessDto>> Login(LoginDto loginData)
         {
-            if(!await _authServive.UserExists(logindata.Username))
+            if(!await _authServive.UserExists(loginData.Username))
                 return Unauthorized(new { error = "User not exist!" });
 
-            var user = await _authServive.Login(username: logindata.Username, password: logindata.Password);
+            var user = await _authServive.Login(username: loginData.Username, password: loginData.Password);
 
             if (user == null)
                 return Unauthorized(new {error = "Username or Password is incorrect" });
@@ -93,7 +93,7 @@ namespace Hadia.Areas.Login.Api
             {
                 MemberId = user.Id,
                 CDate = DateTime.UtcNow,
-                DeviceKey = logindata.DeviceKey
+                DeviceKey = loginData.DeviceKey
 
             });
             try
