@@ -24,7 +24,9 @@ namespace Hadia.Areas.Post.Apis
         [HttpGet("/api/Batch")]
         public async Task<IActionResult> Batch()
         {
-            var listOfBatch = await _db.Post_GroupMasters.Where(x => x.Type == GroupType.Batch)
+            var listOfBatch = await _db.Post_GroupMasters
+                .AsNoTracking()
+                .Where(x => x.Type == GroupType.Batch)
                 .Select(x => new BatchDto
                 {
                     Id = x.Id,

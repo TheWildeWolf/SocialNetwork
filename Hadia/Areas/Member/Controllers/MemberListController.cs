@@ -126,6 +126,7 @@ namespace Hadia.Areas.Member.Controllers
                     //View model to DomainModel
                     var dataInDb = _db.Mem_Masters.Find(id);
                     var editMaster = _mapper.Map(profileViewModel, dataInDb);
+                    editMaster.MDate = DateTime.UtcNow;
                     var chapter = _db.Post_GroupMembers
                     .Where(x => x.GroupMaster.Type == GroupType.Chapter && x.MemberId == id).OrderByDescending(x => x.GroupMaster.FormedOn)
                     .FirstOrDefault();

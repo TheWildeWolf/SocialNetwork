@@ -32,9 +32,9 @@ namespace Hadia.Concrete
             return SyncTime = member.SyncTime ?? DateTime.UtcNow;
         }
 
-        public async Task<List<DataMemberDto>> GetMembers()
+        public async Task<List<DataMemberDto>> GetMembers(bool getAll = false,int id = 0)
         {
-            if (IsNull)
+            if (IsNull || getAll)
             {
                 return await _db.Mem_Masters
                     .AsNoTracking()
@@ -44,12 +44,24 @@ namespace Hadia.Concrete
                     .Select(x => _mapper.Map<DataMemberDto>(x))
                     .ToListAsync();
             }
+            if (id != 0)
+            {
+                return await _db.Mem_Masters
+                    .AsNoTracking()
+                    .Where(x => x.IsVarified && x.Id == id)
+                    .Include(x => x.Photos)
+                    .Include(s => s.MembershipInGroups).ThenInclude(x => x.GroupMaster)
+                    .Select(x => _mapper.Map<DataMemberDto>(x))
+                    .ToListAsync();
+            }
 
             return await _db.Mem_Masters
                         .AsNoTracking()
-                        .Where(x=>x.IsVarified && (x.VarifiedDate > SyncTime 
-                                                   || x.MDate > SyncTime
-                                                   || x.Photos.FirstOrDefault(p=>p.IsActive).CDate > SyncTime))
+                        .Where(x=>x.IsVarified && 
+                                  (x.VarifiedDate > SyncTime 
+                                  || x.MDate > SyncTime
+                                  || x.Photos.FirstOrDefault(p=>p.IsActive).CDate > SyncTime)
+                               )
                         .Include(x=> x.Photos)
                         .Include(s=>s.MembershipInGroups).ThenInclude(x => x.GroupMaster)
                         .Select(x => _mapper.Map<DataMemberDto>(x))
@@ -99,7 +111,6 @@ namespace Hadia.Concrete
         {
             var member = await _db.Mem_Masters.FindAsync(UserId);
             member.SyncTime = NextSync;
-            _db.Update(member);
             await _db.SaveChangesAsync();
         }
     }

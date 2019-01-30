@@ -83,6 +83,7 @@ namespace Hadia.Areas.Post.Apis
             }
 
             var postMaster = await _db.Post_Masters
+                .AsNoTracking()
                 .Include(x=>x.PostImages)
                 .SingleOrDefaultAsync(x=>x.Id ==commentDto.MasterId);
 
@@ -191,6 +192,7 @@ namespace Hadia.Areas.Post.Apis
             try
             {
                 var listOfComments = await _db.Post_Comments
+                    .AsNoTracking()
                     .Include(x => x.Createdby)
                     .ThenInclude(x => x.Photos)
                     .Include(x => x.PostComments)

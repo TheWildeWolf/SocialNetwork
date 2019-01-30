@@ -13,7 +13,7 @@ namespace Hadia.Core
         int UserId { get; set; }
         DateTime SyncTime { get; set; }
         Task<DateTime?> GetSyncTime();
-        Task<List<DataMemberDto>> GetMembers();
+        Task<List<DataMemberDto>> GetMembers(bool getAll=false,int id = 0);
         Task<List<DataPostDto>> GetPosts();
         Task<List<DataPostImageDto>> GetPostImages();
         Task<List<DataLikeDto>> GetLikes();

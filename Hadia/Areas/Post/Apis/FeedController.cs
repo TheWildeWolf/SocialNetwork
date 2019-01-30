@@ -27,13 +27,14 @@ namespace Hadia.Areas.Post.Apis
         {
             try
             {
-                var involvedGroups = await _db.Post_GroupMembers.AsNoTracking()
-                    .Where(s => s.IsActive && s.MemberId == UserId)
-                    .Select(s => s.GroupId).ToListAsync();
-                involvedGroups.Add(_db.Mem_Masters.Find(UserId).GroupId ?? 0);
+               // var involvedGroups = await _db.Post_GroupMembers.AsNoTracking()
+                //    .Where(s => s.IsActive && s.MemberId == UserId)
+                 //   .Select(s => s.GroupId).ToListAsync();
+               // involvedGroups.Add(_db.Mem_Masters.Find(UserId).GroupId ?? 0);
+                //    || involvedGroups.Any(s => s == x.GroupId)
                 var listOfTimeLine = await _db.Post_Masters
                     .AsNoTracking()
-                    .Where(x => x.GroupId == null || involvedGroups.Any(s => s == x.GroupId))
+                    .Where(x => x.GroupId == null)
                     .OrderByDescending(x => x.CDate)
                     .Include(x=>x.OpendBy)
                     .Include(x=>x.Followers)

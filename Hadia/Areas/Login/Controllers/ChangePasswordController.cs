@@ -43,7 +43,7 @@ namespace Hadia.Areas.Login.Controllers
                 return View("Error");
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
                return View("Error");
             }

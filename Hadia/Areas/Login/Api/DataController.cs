@@ -34,5 +34,19 @@ namespace Hadia.Areas.Login.Api
             await _dataFetcher.SaveSyncTimeAsync();
             return Ok(dataMaster);
         }
+        [HttpGet]
+        public async Task<IActionResult> Members()
+        {
+            var listOfMembers = await _dataFetcher.GetMembers(true);
+            return Ok(listOfMembers);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Member(int id)
+        {
+            var listOfMembers = await _dataFetcher.GetMembers(false,id);
+            return Ok(listOfMembers.FirstOrDefault());
+        }
+
     }
 }

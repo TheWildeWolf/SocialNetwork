@@ -63,6 +63,7 @@
     <Compile Include="Areas\Login\Models\DataPostImageDto.cs" />
     <Compile Include="Areas\Login\Models\PasswordViewModel.cs" />
     <Compile Include="Areas\Member\Apis\ChildrenApiController.cs" />
+    <Compile Include="Areas\Member\Apis\MemberController.cs" />
     <Compile Include="Areas\Member\Apis\ProfileController.cs" />
     <Compile Include="Areas\Member\Apis\SearchController.cs" />
     <Compile Include="Areas\Member\Controllers\BaseMemberController.cs" />
@@ -92,6 +93,39 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Areas\Member\Views\MemberList\_KidsEdit.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+
+    <Content Include="Areas\Member\Views\MemberList\_KidsView.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+
+    <Content Include="Areas\Member\Views\MemberList\_ProjectView.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Include="Areas\Member\Views\MemberList\_SpouseEdit.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Include="Areas\Member\Views\MemberList\_SpouseView.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+
+    <Content Include="Areas\Member\Views\MemberList\_WorkEdit.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+
+    <Content Include="Areas\Member\Views\MemberList\_WorkView.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+
     <Content Include="Areas\Login\Views\_ViewImports.cshtml">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <Pack>$(IncludeRazorContentInPack)</Pack>

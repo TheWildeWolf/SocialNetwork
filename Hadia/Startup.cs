@@ -23,6 +23,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -98,6 +99,7 @@ namespace Hadia
             }
             else
             {
+                app.UseDeveloperExceptionPage();
                 app.UseExceptionHandler(builder =>
                 {
                     builder.Run(async context =>
