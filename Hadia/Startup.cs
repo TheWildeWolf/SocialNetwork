@@ -160,7 +160,7 @@ namespace Hadia
 
                 routes.MapRoute(
                         name: "default",
-                        template: "{area=member}/{controller=memberlist}/{action=Index}/{id?}");
+                      template: "{area=member}/{controller=memberlist}/{action=Index}/{id?}");
             });
         }
     }

@@ -88,6 +88,7 @@
     <Compile Include="Areas\Post\Controllers\BatchController.cs" />
     <Compile Include="Areas\Post\Controllers\ChapterController.cs" />
     <Compile Include="Areas\Member\Controllers\MemberListController.cs" />
+    <Compile Include="Areas\Post\Controllers\ReportsController.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -369,6 +370,8 @@
     <None Include="Areas\Post\Views\Chapter\Edit.cshtml" />
     <None Include="Areas\Post\Views\Chapter\Index.cshtml" />
     <None Include="Areas\Member\Views\MemberList\Index.cshtml" />
+    <None Include="Areas\Post\Views\Reports\Details.cshtml" />
+    <None Include="Areas\Post\Views\Reports\Index.cshtml" />
     
   </ItemGroup>
 

@@ -1,0 +1,39 @@
+﻿@model Hadia.Models.ViewModels.PostReportViewModel
+@{
+    ViewData["Title"] = "Reports";
+    ViewData["Description"] = "Details";
+}
+ 
+
+<div class="card">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3"> @Html.LabelFor(model => model.Topic)   :</dt>
+            <dd class="col-sm-9"> @Html.DisplayFor(model => model.Topic)</dd>
+            <dt class="col-sm-3"> @Html.LabelFor(model => model.Voice)   :</dt>
+            <dd class="col-sm-9"> @Html.DisplayFor(model => model.Voice)</dd>
+            <dt class="col-sm-3"> @Html.LabelFor(model => model.Images)   :</dt>
+            <dd class="col-sm-9"> @Html.DisplayFor(model => model.Images)</dd>
+            <dt class="col-sm-3"> @Html.LabelFor(model => model.PostedBy)   :</dt>
+            <dd class="col-sm-9"> @Html.DisplayFor(model => model.PostedBy)</dd>
+            <dt class="col-sm-3"> @Html.LabelFor(model => model.GroupName)   :</dt>
+            <dd class="col-sm-9"> @Html.DisplayFor(model => model.GroupName)</dd>
+            <dt class="col-sm-3"> @Html.LabelFor(model => model.Reason)   :</dt>
+            <dd class="col-sm-9"> @Html.DisplayFor(model => model.Reason)</dd>
+            <dt class="col-sm-3"> @Html.LabelFor(model => model.Date)   :</dt>
+            <dd class="col-sm-9"> @Html.DisplayFor(model => model.Date)</dd>
+            <dt class="col-sm-3"> @Html.LabelFor(model => model.ReportedDate)   :</dt>
+            <dd class="col-sm-9"> @Html.DisplayFor(model => model.ReportedDate)</dd>
+            <dt class="col-sm-3"> @Html.LabelFor(model => model.Narration)   :</dt>
+            <dd class="col-sm-9"> @Html.DisplayFor(model => model.Narration)</dd>
+            <dt class="col-sm-3"> @Html.LabelFor(model => model.ReportedBy)   :</dt>
+            <dd class="col-sm-9"> @Html.DisplayFor(model => model.ReportedBy)</dd>
+        </dl>
+        <td>
+            <a asp-action="Remove" asp-route-id="@Model.PostId" class="btn btn-outline bg-success border-primary text-primary-800 btn-icon"><i class="icon-file-eye"></i>Remove</a>
+
+        </td>
+    </div>
+</div>
+
+<a asp-action="Index">Back to List</a>
