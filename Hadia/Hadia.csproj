@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-   <MvcRazorCompileOnPublish>true</MvcRazorCompileOnPublish>
+   <MvcRazorCompileOnPublish>false</MvcRazorCompileOnPublish>
    <MvcRazorExcludeRefAssembliesFromPublish>false</MvcRazorExcludeRefAssembliesFromPublish>
    <UserSecretsId>23df3df4-2689-4d2e-ae1a-97dc2f845f0f</UserSecretsId>
   </PropertyGroup>

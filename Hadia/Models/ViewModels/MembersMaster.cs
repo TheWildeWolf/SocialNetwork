@@ -12,11 +12,13 @@ namespace Hadia.Models.ViewModels
     {
         public int? ChapterId { get; set; }
         public int? BatchId { get; set; }
+        public int? UgCollageId { get; set; }
         public string Approval { get; set; }
         public string Name { get; set; }
 
         public SelectList ChapterList { get; set; }
         public SelectList BatchList { get; set; }
+        public SelectList UgCollegeList { get; set; }
         public string SortOrder { get; set; }
 
         public PaginatedList<MemberViewModel> Members { get; set; }

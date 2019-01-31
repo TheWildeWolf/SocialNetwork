@@ -41,6 +41,11 @@ namespace Hadia.Areas.Member.Controllers
             {
                 listOfMember = listOfMember.Where(s => s.ChapterId== memberMaster.ChapterId).ToList();
             }
+            memberMaster.UgCollegeList = new SelectList(_db.Mem_UgColleges, "Id", "UgCollegeName");
+            if(memberMaster.UgCollageId!=null)
+            {
+                listOfMember = listOfMember.Where(s => s.UgCollageId == memberMaster.UgCollageId).ToList();
+            }
             if (!string.IsNullOrEmpty(memberMaster.Name))
                 listOfMember = listOfMember.Where(n => (n.Name).Replace(" ", "").ToUpper().Contains(memberMaster.Name.Replace(" ", "").ToUpper())).ToList();
             switch (memberMaster.Approval)

@@ -14,49 +14,60 @@
     <div class="card-body">
         <form asp-action="Index" asp-controller="MemberList">
             <div class="row">
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
                     <label>Name</label>
                     <input asp-for="Name" class=" form-control" />
-                    <label>Batch</label>
-                    <select asp-for="BatchId" class="form-control select" asp-items="@{Model.BatchList}">
-                        <option>--Select Batch--</option>
-                    </select>
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
                     <label>Chapter</label>
                     <select asp-for="ChapterId" class="form-control select" asp-items="@{Model.ChapterList}">
                         <option>--Select Chapter--</option>
                     </select>
                 </div>
-                <div class="form-group col-md-3">
-                    <label>Status</label>
-                    <div>
-                        <div class="form-check form-check-inline">
-                            <label class="form-check-label">
-                                <input type="radio" asp-for="Approval" value="Approved" class="form-check-input-styled" data-fouc>
-                                Approved
-                            </label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <label class="form-check-label">
-                                <input type="radio" asp-for="Approval" value="Not Approved" class="form-check-input-styled" data-fouc>
-                                Not Approved
-                            </label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <label class="form-check-label">
-                                <input type="radio" asp-for="Approval" value="All" class="form-check-input-styled" data-fouc>
-                                All
-                            </label>
+                <div class="form-group col-md-4">
+                    <label>UG College</label>
+                    <select asp-for="UgCollageId" class="form-control select" asp-items="@{Model.UgCollegeList}">
+                        <option>--Select Ug College--</option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label>Batch</label>
+                    <select asp-for="BatchId" class="form-control select" asp-items="@{Model.BatchList}">
+                        <option>--Select Batch--</option>
+                    </select>
+                </div>
+                    <div class="form-group col-md-4">
+                        <label>Status</label>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" asp-for="Approval" value="Approved" class="form-check-input-styled" data-fouc>
+                                    Approved
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" asp-for="Approval" value="Not Approved" class="form-check-input-styled" data-fouc>
+                                    Not Approved
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" asp-for="Approval" value="All" class="form-check-input-styled" data-fouc>
+                                    All
+                                </label>
+                            </div>
                         </div>
                     </div>
+                    <div class="form-group col-md-4">
+                        <div>&nbsp;</div>
+                        <button type="submit" class="btn btn-warning btn-lg rounded-round">&nbsp;&nbsp;<i class="icon-search4"></i>&nbsp;&nbsp;&nbsp;&nbsp;Search</button>
+                    </div>
                 </div>
-                <div class="form-group col-md-3">
-                    <div>&nbsp;</div>
-                    <button type="submit" class="btn btn-warning btn-lg rounded-round">&nbsp;&nbsp;<i class="icon-search4"></i>&nbsp;&nbsp;&nbsp;&nbsp;Search</button>
-                </div>
-            </div>
-        </form>
+</form>
     </div>
 
 </div>
