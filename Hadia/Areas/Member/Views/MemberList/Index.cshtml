@@ -150,12 +150,12 @@
                 asp-route-page="1">
     </pagination>*@
     <ul class="pagination pagination-separated align-self-center">
-        <li class="page-item @prevDisabled"><a asp-action="Index" asp-route-page="@(Model.Members.PageIndex - 1)" asp-route-ChapterId="@Model.ChapterId" asp-route-Approval="@Model.Approval" class="page-link">&larr; &nbsp; Prev</a></li>
+        <li class="page-item @prevDisabled"><a asp-action="Index" asp-route-page="@(Model.Members.PageIndex - 1)" asp-route-UgCollageId="@Model.UgCollageId" asp-route-ChapterId="@Model.ChapterId" asp-route-Approval="@Model.Approval" class="page-link">&larr; &nbsp; Prev</a></li>
         @for (int i = 1; i <= Model.Members.TotalPages; i++)
         {
             var active = i == Model.Members.PageIndex ? "active" : "";
-            <li class="page-item @active"><a asp-action="Index" asp-route-page="@i" asp-route-BatchId="@Model.BatchId" asp-route-ChapterId="@Model.ChapterId" asp-route-Approval="@Model.Approval"  class="page-link">@i</a></li>
+            <li class="page-item @active"><a asp-action="Index" asp-route-page="@i" asp-route-BatchId="@Model.BatchId" asp-route-UgCollageId="@Model.UgCollageId" asp-route-ChapterId="@Model.ChapterId" asp-route-Approval="@Model.Approval" class="page-link">@i</a></li>
         }
-        <li class="page-item @nextDisabled"><a asp-action="Index" asp-route-page="@(Model.Members.PageIndex + 1)" asp-route-ChapterId="@Model.ChapterId" asp-route-Approval="@Model.Approval" class="page-link">Next &nbsp; &rarr;</a></li>
+        <li class="page-item @nextDisabled"><a asp-action="Index" asp-route-page="@(Model.Members.PageIndex + 1)" asp-route-ChapterId="@Model.ChapterId" asp-route-UgCollageId="@Model.UgCollageId" asp-route-Approval="@Model.Approval" class="page-link">Next &nbsp; &rarr;</a></li>
     </ul>
 </div>
