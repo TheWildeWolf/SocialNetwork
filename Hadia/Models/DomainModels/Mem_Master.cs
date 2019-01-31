@@ -150,7 +150,11 @@ namespace Hadia.Models.DomainModels
         public ICollection<Sett_GroupAdminHistory> AdminHistory { get; set; }
         public ICollection<Sett_DeviceInfoLog> DeviceInfoLogs { get; set; }
         public ICollection<Sett_LoginLog> LoginLogs { get; set; }
-        
+
+        public static implicit operator Mem_Master(int v)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public enum MaritalStatus : byte

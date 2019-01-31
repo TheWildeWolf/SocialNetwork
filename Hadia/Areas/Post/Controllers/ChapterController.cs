@@ -31,7 +31,7 @@ namespace Hadia.Areas.Post.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var listOfChapter = await _db.Post_GroupMasters.Where(x=>x.Type==GroupType.Chapter)
+            var listOfChapter= await _db.Post_GroupMasters.Where(x=>x.Type==GroupType.Chapter)
                  .Select(x => _mapper.Map<ChapterViewModel>(x)).OrderBy(x=>x.GroupName).ToListAsync();
             return View(listOfChapter);
         }

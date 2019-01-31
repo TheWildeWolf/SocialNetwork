@@ -309,8 +309,6 @@ namespace Hadia.Areas.Member.Controllers
 
                     throw ex;
                 }
-
-               
             }
             return PartialView("_WorkView",workView);
         }
@@ -353,7 +351,7 @@ namespace Hadia.Areas.Member.Controllers
         public async Task<MemberDetailsViewModel> GetDetail(int id)
         {
             var memberDetails = await _db.Mem_Masters.AsNoTracking()
-                .Include(x=>x.Photos)
+              .Include(x=>x.Photos)
               .Include(x => x.UgCollege)
               .Include(x => x.MainGroup)
               .Include(x => x.MembershipInGroups)//
