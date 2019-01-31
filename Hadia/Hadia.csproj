@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-   <MvcRazorCompileOnPublish>false</MvcRazorCompileOnPublish>
+   <MvcRazorCompileOnPublish>true</MvcRazorCompileOnPublish>
    <MvcRazorExcludeRefAssembliesFromPublish>false</MvcRazorExcludeRefAssembliesFromPublish>
    <UserSecretsId>23df3df4-2689-4d2e-ae1a-97dc2f845f0f</UserSecretsId>
   </PropertyGroup>
@@ -83,6 +83,7 @@
     <Compile Include="Areas\Post\Apis\CommentController.cs" />
     <Compile Include="Areas\Post\Apis\DummyController.cs" />
     <Compile Include="Areas\Post\Apis\FeedController.cs" />
+    <Compile Include="Areas\Post\Apis\GroupController.cs" />
     <Compile Include="Areas\Post\Apis\PostController.cs" />
     <Compile Include="Areas\Post\Apis\TimelineController.cs" />
     <Compile Include="Areas\Post\Controllers\BasePostController.cs" />
@@ -92,6 +93,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Areas\Login\Views\ChangePassword\Change.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Include="Areas\Login\Views\ChangePassword\Error.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Include="Areas\Login\Views\ChangePassword\Success.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+
     <Content Include="Areas\Member\Views\MemberList\_KidsEdit.cshtml">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <Pack>$(IncludeRazorContentInPack)</Pack>
@@ -342,6 +356,7 @@
     <File Include="wwwroot\ChapterImages\**" />
     <Folder Include="wwwroot\Media\Images\" />
     <Folder Include="wwwroot\Media\Images\" />
+    <Folder Include="wwwroot\Media\GroupImage\" />
     <Folder Include="wwwroot\Media\Voice\" />
     <Folder Include="wwwroot\Media\ProfileImage\" />
     <Folder Include="wwwroot\Media\Voice\" />

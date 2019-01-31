@@ -116,7 +116,21 @@ namespace Hadia.Areas.Post.Apis
                 }
                 finally
                 {
-                    await _notification.Notify(UserId, "New Post From " + UserName, newPost.Topic);
+                    string body = string.Empty;
+                    if (string.IsNullOrEmpty(newPost.Topic) && (newPost.PostImages != null || newPost.PostImages.Any()) && string.IsNullOrEmpty(newPost.Voice))
+                    {
+                        body = "Image";
+                    }
+                    else if (string.IsNullOrEmpty(newPost.Topic) && (newPost.PostImages == null || !newPost.PostImages.Any()) && !string.IsNullOrEmpty(newPost.Voice))
+                    {
+                        body = "Voice";
+                    }
+                    else
+                    {
+                        body = newPost.Topic;
+                    }
+
+                    await _notification.Notify(UserId, UserName, body, postDto.GroupId ?? 0);
                 }
 
             }

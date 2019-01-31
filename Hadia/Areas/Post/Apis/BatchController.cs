@@ -12,11 +12,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Hadia.Areas.Post.Apis
 {
-    public class GroupController : BaseApiController
+    public class BatchController : BaseApiController
     {
         private readonly HadiaContext _db;
 
-        public GroupController(HadiaContext db)
+        public BatchController(HadiaContext db)
         {
             _db = db;
         }

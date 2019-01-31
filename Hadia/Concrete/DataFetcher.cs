@@ -68,7 +68,7 @@ namespace Hadia.Concrete
                         .ToListAsync();
             
         }
-
+        
         public async Task<List<DataPostDto>> GetPosts()
         { 
                 return await _db.Post_Masters

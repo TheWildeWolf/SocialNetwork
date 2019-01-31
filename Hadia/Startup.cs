@@ -146,6 +146,12 @@ namespace Hadia
                     Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot", "Media", "ProfileImage")),
                 RequestPath = "/Profile"
             });
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot", "Media", "GroupImage")),
+                RequestPath = "/GroupImage"
+            });
             app.UseDirectoryBrowser(new DirectoryBrowserOptions
             {
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot", "ChapterImages")),

@@ -135,9 +135,10 @@ namespace Hadia.Areas.Login.Api
 
         private string GetBody(string key)
         {
-
+            // hadiaalumni.azurewebsites.net
+            //http://alumni.hadia.in/Auth/Verify?key=
             var htmlbody = System.IO.File.ReadAllText(Path.Combine(_hostingEnvironment.WebRootPath, "File.html"));
-           return htmlbody.Replace("[@url]", "http://alumni.hadia.in/Auth/Verify?key=" + key);
+           return htmlbody.Replace("[@url]", "http://hadiaalumni.azurewebsites.net/Auth/Verify?key=" + key);
         }
 
         private void SendMail(string mailId,string key)

@@ -202,6 +202,19 @@ namespace Hadia.Helper
 
             CreateMap<Mem_ProjectWork, ProjectworkDto>();
             CreateMap<ProjectworkDto,Mem_ProjectWork> ();
+
+            CreateMap<Post_GroupMember, GroupMemberDto>()
+                .ForMember(dest => dest.Id, o => o.MapFrom(x => x.MemberId))
+                .ForMember(dest => dest.Name, o => o.MapFrom(x => x.Member.Name))
+                .ForMember(dest => dest.isAdmin, o => o.MapFrom(x => x.IsGroupAdmin));
+
+            CreateMap<Post_GroupMember, GroupResultDto>()
+                .ForMember(dest => dest.Id, o => o.MapFrom(x => x.GroupId))
+                .ForMember(dest => dest.Name, o => o.MapFrom(x => x.GroupMaster.GroupName))
+                .ForMember(dest => dest.Discription, o => o.MapFrom(x => x.GroupMaster.Description))
+                .ForMember(dest => dest.Image, o => o.MapFrom(x => x.GroupMaster.GroupImage));
+
+
         }
 
 
@@ -211,6 +224,8 @@ namespace Hadia.Helper
         }
 
         private string GetVoice(string url) => $"/Voice/{url}";
+
+        private string GetGroupImage(string url) => $"/GroupImage/{url}";
 
         private string GetProfilePic(string url) => $"/Profile/{url}";
 

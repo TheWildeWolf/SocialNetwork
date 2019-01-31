@@ -7,6 +7,6 @@ namespace Hadia.Core
 {
     public interface INotification
     {
-        Task Notify(int userid,string title,string body);
+        Task Notify(int userid,string title,string body,int groupId =0);
     }
 }
