@@ -44,7 +44,6 @@ namespace Hadia.Helper
                 .ForMember(f=>f.Name,o=> o.MapFrom(s=>s.QualificationName));
             CreateMap<SpouseEducationDto,Mem_SpouseEducationMaster>();
 
-            
             CreateMap<Mem_Kid,KidsDto>()
                 .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender))
                 .ForMember(dest => dest.Age, opt => opt.MapFrom(src => DateTime.Now.Year - src.Age.Year));
@@ -204,17 +203,20 @@ namespace Hadia.Helper
             CreateMap<ProjectworkDto,Mem_ProjectWork> ();
 
             CreateMap<Post_GroupMember, GroupMemberDto>()
+                .ForMember(dest => dest.ProfilePic,
+                    o => o.MapFrom(x => (x.Member.Photos.Any() && x.Member.Photos != null) ? x.Member.Photos.Single(p => p.IsActive).Image : ""))
                 .ForMember(dest => dest.Id, o => o.MapFrom(x => x.MemberId))
                 .ForMember(dest => dest.Name, o => o.MapFrom(x => x.Member.Name))
                 .ForMember(dest => dest.isAdmin, o => o.MapFrom(x => x.IsGroupAdmin));
 
-            CreateMap<Post_GroupMember, GroupResultDto>()
-                .ForMember(dest => dest.Id, o => o.MapFrom(x => x.GroupId))
-                .ForMember(dest => dest.Name, o => o.MapFrom(x => x.GroupMaster.GroupName))
-                .ForMember(dest => dest.Discription, o => o.MapFrom(x => x.GroupMaster.Description))
-                .ForMember(dest => dest.Image, o => o.MapFrom(x => x.GroupMaster.GroupImage));
-
-
+            CreateMap<Post_GroupMaster, GroupResultDto>()
+                .ForMember(dest => dest.Name, o => o.MapFrom(x => x.GroupName))
+                .ForMember(dest => dest.Discription, o => o.MapFrom(x => x.Description))
+                .ForMember(dest => dest.IsAdmin, o => o.MapFrom((src, dest, destMember, context) =>
+                    src.GroupMembers != null &&
+                    src.GroupMembers.Any(x => x.MemberId == Convert.ToInt32(context.Items["UserId"]))
+                    && src.GroupMembers.Single(x => x.MemberId == Convert.ToInt32(context.Items["UserId"])).IsGroupAdmin))
+                .ForMember(dest => dest.Image, o => o.MapFrom(x => x.GroupImage));
         }
 
 

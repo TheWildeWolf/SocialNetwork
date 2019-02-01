@@ -99,6 +99,11 @@ namespace Hadia.Areas.Post.Apis
                 GroupId = postDto.GroupId,
                 DonationType = postDto.DonationType ?? DonationType.None
             };
+            // validate if any of the data is available before saving. -- by jafer
+            if(string.IsNullOrEmpty(newPost.Topic) && (newPost.PostImages == null || !newPost.PostImages.Any()) && string.IsNullOrEmpty(newPost.Voice))
+            {
+                throw new Exception("Somthing went wrong"); 
+            }
             await _db.Post_Masters.AddAsync(newPost);
             try
             {
@@ -117,7 +122,7 @@ namespace Hadia.Areas.Post.Apis
                 finally
                 {
                     string body = string.Empty;
-                    if (string.IsNullOrEmpty(newPost.Topic) && (newPost.PostImages != null || newPost.PostImages.Any()) && string.IsNullOrEmpty(newPost.Voice))
+                    if (string.IsNullOrEmpty(newPost.Topic) && (newPost.PostImages != null && newPost.PostImages.Any()) && string.IsNullOrEmpty(newPost.Voice))
                     {
                         body = "Image";
                     }

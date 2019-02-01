@@ -34,11 +34,11 @@ namespace Hadia.Areas.Post.Apis
         [HttpGet("/api/groups")]
         public async Task<IActionResult> All()
         {
-          var listOfGroups = await _db.Post_GroupMembers
-                                  .Include(x => x.GroupMaster)
-                                  .Where(x => x.MemberId == UserId && x.IsActive && x.GroupMaster.Type == GroupType.Group)
-                                  .OrderByDescending(x=>x.GroupMaster.CDate)
-                                  .Select(x => _mapper.Map<GroupResultDto>(x))
+          var listOfGroups = await _db.Post_GroupMasters
+                                  .Include(x => x.GroupMembers)
+                                  .Where(x => x.GroupMembers.Any(n=>n.MemberId == UserId && n.IsActive && n.GroupMaster.Type == GroupType.Group))
+                                  .OrderByDescending(x=>x.CDate)
+                                  .Select(x => _mapper.Map<GroupResultDto>(x,n=> n.Items.Add("UserId", UserId)))
                                   .ToListAsync();
             return Ok(listOfGroups);
         }
@@ -117,21 +117,31 @@ namespace Hadia.Areas.Post.Apis
         {
             var members = await _db.Post_GroupMembers.AsNoTracking()
                             .Include(x => x.Member)
-                            .Where(x => x.Id == id && x.IsActive)
+                                .ThenInclude(x => x.Photos)
+                            .Where(x => x.GroupId == id && x.IsActive)
                             .Select(x => _mapper.Map<GroupMemberDto>(x)).ToListAsync();
             return Ok(members);
         }
         [HttpPost]
         public async Task<IActionResult> AddMember(AddMemberDto member)
         {
-            await _db.Post_GroupMembers.AddAsync(new Post_GroupMember
+            if(_db.Post_GroupMembers.Any(x=>x.MemberId == member.MemberId))
             {
-                MemberId = member.MemberId,
-                GroupId = member.GroupId,
-                AddedBy = UserId,
-                CDate = DateTime.UtcNow,
-                IsActive = true
-            });
+                var oldMember =await _db.Post_GroupMembers.SingleOrDefaultAsync(x => x.MemberId == member.MemberId);
+                oldMember.IsActive = true;
+                _db.Update(oldMember);
+            }
+            else
+            {
+                await _db.Post_GroupMembers.AddAsync(new Post_GroupMember
+                {
+                    MemberId = member.MemberId,
+                    GroupId = member.GroupId,
+                    AddedBy = UserId,
+                    CDate = DateTime.UtcNow,
+                    IsActive = true
+                });
+            }
             try
             {
                 await _db.SaveChangesAsync();

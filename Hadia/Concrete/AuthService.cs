@@ -69,19 +69,16 @@ namespace Hadia.Concrete
             }
         }
 
-
         public async Task<Mem_Master> Login(string username, string password)
         {
             var user = await _db.Mem_Masters.FirstOrDefaultAsync(x => x.Email == username);
-
             if (user == null)
                 return null;
-
             if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
                 return null;
-
             return user;
         }
+
         internal bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
         {
             using (var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt))
